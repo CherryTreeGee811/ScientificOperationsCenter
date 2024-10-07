@@ -1,0 +1,8 @@
+on: push
+jobs:
+   simple-job:
+      runs-on: ubuntu-latest
+      steps:
+          - name: say-hello
+            shell: bash
+            run: echo "Hello World!"
