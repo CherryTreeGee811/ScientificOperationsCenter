@@ -15,4 +15,4 @@ jobs:
 
           - name: Build App Container
             shell: bash
-            run: docker build --rm -t cherrytreegee811/scientific-ops:latest ./ScientificOperationsCenter
+            run: docker build --rm -t cherrytreegee811/scientificoperationscenter:dev ./ScientificOperationsCenter
