@@ -1,0 +1,20 @@
+# Database Migrations
+ScientificOperationsCenter/Migrations
+
+# Visual Studio cache/options directory
+.vs/
+
+# User-specific files
+ScientificOperationsCenter/*.user
+ScientificOperationsCenter.Tests/*.user
+
+# Generated with debug and execute
+ScientificOperationsCenter/bin
+ScientificOperationsCenter/obj
+
+ScientificOperationsCenter.Tests/bin
+ScientificOperationsCenter.Tests/obj
+
+# Appsettings.json
+ScientificOperationsCenter/appsettings.json
+/ScientificOperationsCenter/obj/Debug/net8.0/ScientificOperationsCenter.AssemblyInfoInputs.cache
