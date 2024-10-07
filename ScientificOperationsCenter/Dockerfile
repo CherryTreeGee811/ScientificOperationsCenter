@@ -13,7 +13,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["ScientificOperationsCenter.csproj", "../"]
-RUN dotnet restore "./ScientificOperationsCenter/ScientificOperationsCenter.csproj"
+RUN dotnet restore "./ScientificOperationsCenter.csproj"
 COPY . .
 WORKDIR "/src/ScientificOperationsCenter"
 RUN dotnet build "./ScientificOperationsCenter.csproj" -c $BUILD_CONFIGURATION -o /app/build
