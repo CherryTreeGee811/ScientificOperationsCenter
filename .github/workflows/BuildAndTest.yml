@@ -13,9 +13,15 @@ jobs:
       steps:
           - uses: actions/checkout@v3
          
-          - name: Build App Container
-            shell: bash
-            run: docker build --rm -t cherrytreegee811/scientificoperationscenter:dev ScientificOperationsCenter
+          #- name: Build App Container
+            #shell: bash
+            #run: docker build --rm -t cherrytreegee811/scientificoperationscenter:dev ScientificOperationsCenter
+
+          - name: List back
+            run: ls ../
+            
+          - name: List
+            run: ls ../
 
           - name: Build Normal
             shell: bash
