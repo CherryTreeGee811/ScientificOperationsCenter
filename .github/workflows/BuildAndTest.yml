@@ -28,9 +28,4 @@ jobs:
           - name: Run Tests
             shell: bash
             run: |
-                dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj -c Release --verbosity normal
-
-          - name: Stop Containers
-            shell: bash
-            run: |
-                docker stop ScientificOperationsCenter
+                dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj --os linux --verbosity normal
