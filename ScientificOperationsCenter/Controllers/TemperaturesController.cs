@@ -22,27 +22,39 @@ namespace ScientificOperationsCenter.Controllers
         }
 
 
-        [HttpGet("/[controller]/Day/{date}")]
-        public IActionResult Day(DateOnly date)
+        [HttpGet("/[controller]/Day")]
+        public IActionResult Day([FromQuery] DateOnly? date)
         {
-            var temperatures = _temperaturesMapper.GetTemperaturesForTheDay(date);
-            return View(temperatures);
+            if (date.HasValue)
+            {
+                var temperatures = _temperaturesMapper.GetTemperaturesForTheDay((DateOnly)date);
+                return Json(temperatures);
+            }
+            return View();
         }
 
 
-        [HttpGet("/[controller]/Month/{date}")]
-        public IActionResult Month(DateOnly date)
+        [HttpGet("/[controller]/Month")]
+        public IActionResult Month([FromQuery] DateOnly? date)
         {
-            var temperatures = _temperaturesMapper.GetTemperaturesForTheMonth(date);
-            return View(temperatures);
+            if (date.HasValue)
+            {
+                var temperatures = _temperaturesMapper.GetTemperaturesForTheMonth((DateOnly)date);
+                return Json(temperatures);
+            }
+            return View();
         }
 
 
-        [HttpGet("/[controller]/Year/{date}")]
-        public IActionResult Year(DateOnly date)
+        [HttpGet("/[controller]/Year")]
+        public IActionResult Year([FromQuery] DateOnly? date)
         {
-            var temperatures = _temperaturesMapper.GetTemperaturesForTheYear(date);
-            return View(temperatures);
+            if (date.HasValue)
+            {
+                var temperatures = _temperaturesMapper.GetTemperaturesForTheYear((DateOnly)date);
+                return Json(temperatures);
+            }
+            return View();
         }
     }
 }

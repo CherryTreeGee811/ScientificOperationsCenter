@@ -20,27 +20,39 @@ namespace ScientificOperationsCenter.Controllers
         }
 
 
-        [HttpGet("/[controller]/Day/{date}")]
-        public IActionResult Day(DateOnly date)
+        [HttpGet("/[controller]/Day")]
+        public IActionResult Day([FromQuery] DateOnly? date)
         {
-            var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDay(date);
-            return View(radiationMeasurements);
+            if (date.HasValue)
+            {
+                var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDay((DateOnly)date);
+                return Json(radiationMeasurements);
+            }
+            return View();
         }
 
 
-        [HttpGet("/[controller]/Month/{date}")]
-        public IActionResult Month(DateOnly date)
+        [HttpGet("/[controller]/Month")]
+        public IActionResult Month([FromQuery] DateOnly? date)
         {
-            var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonth(date);
-            return View(radiationMeasurements);
+            if (date.HasValue)
+            {
+                var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonth((DateOnly)date);
+                return Json(radiationMeasurements);
+            }
+            return View();
         }
 
 
-        [HttpGet("/[controller]/Year/{date}")]
-        public IActionResult Year(DateOnly date)
+        [HttpGet("/[controller]/Year")]
+        public IActionResult Year([FromQuery] DateOnly? date)
         {
-            var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYear(date);
-            return View(radiationMeasurements);
+            if (date.HasValue)
+            {
+                var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYear((DateOnly)date);
+                return Json(radiationMeasurements);
+            }
+            return View();
         }
     }
 }

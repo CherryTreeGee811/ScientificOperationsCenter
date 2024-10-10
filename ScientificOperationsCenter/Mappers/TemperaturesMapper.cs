@@ -27,7 +27,7 @@ namespace ScientificOperationsCenter.Mappers
         public IEnumerable<TemperatureDateViewModel> GetTemperaturesForTheMonth(DateOnly date)
         {
             var temperatures = _service.GetAverageTemperaturesForTheMonth(date);
-            IEnumerable<TemperatureDateViewModel> values = temperatures.Select(t => new TemperatureDateViewModel { Date = t.Date.DayNumber.ToString(), AverageTemperature = t.AverageTemperature });
+            IEnumerable<TemperatureDateViewModel> values = temperatures.Select(t => new TemperatureDateViewModel { Date = t.Date.Day.ToString(), AverageTemperature = t.AverageTemperature });
             return values;
         }
 
