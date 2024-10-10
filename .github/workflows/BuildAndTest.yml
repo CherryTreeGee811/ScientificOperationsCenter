@@ -26,5 +26,5 @@ jobs:
             run: |
               docker run --rm -d cherrytreegee811/scientificoperationscenter:dev  
               sleep 10
-              docker exec scientificoperationscenter dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj -c Release --verbosity normal
-              docker stop scientificoperationscenter
+              docker exec cherrytreegee811/scientificoperationscenter:dev dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj -c Release --verbosity normal
+              docker stop cherrytreegee811/scientificoperationscenter:dev
