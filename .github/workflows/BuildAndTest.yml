@@ -28,4 +28,4 @@ jobs:
           - name: Run Tests
             shell: bash
             run: |
-                dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj --os linux --verbosity normal
+                dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj --os linux --verbosity minimal
