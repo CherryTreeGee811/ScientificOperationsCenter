@@ -29,3 +29,8 @@ jobs:
             shell: bash
             run: |
                 dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj -c Release --verbosity normal
+
+          - name: Stop Containers
+            shell: bash
+            run: |
+                docker stop ScientificOperationsCenter
