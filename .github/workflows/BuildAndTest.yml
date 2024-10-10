@@ -16,3 +16,11 @@ jobs:
           - name: Build App Container
             shell: bash
             run: docker build --rm -t cherrytreegee811/scientificoperationscenter:dev ScientificOperationsCenter
+
+          - name: Build Normal
+            shell: bash
+            run: dotnet build "../ScientificOperationsCenter.csproj" -c Release
+
+          - name: Test Normal
+            shell: bash
+            run: dotnet test "../ScientificOperationsCenter.Tests.csproj" -c Release
