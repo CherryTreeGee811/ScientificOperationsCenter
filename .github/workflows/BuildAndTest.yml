@@ -20,3 +20,8 @@ jobs:
           - name: Build App Container
             shell: bash
             run: docker build --rm -t cherrytreegee811/scientificoperationscenter:dev ScientificOperationsCenter
+
+          - name: Run Tests
+            shell: bash
+            run: |
+              docker run --rm cherrytreegee811/scientificoperationscenter:dev dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj -c Release --verbosity normal
