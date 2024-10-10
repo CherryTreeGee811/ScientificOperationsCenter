@@ -24,4 +24,5 @@ jobs:
           - name: Run Tests
             shell: bash
             run: |
-              docker run --rm cherrytreegee811/scientificoperationscenter:dev dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj -c Release --verbosity normal
+              docker run --rm -d cherrytreegee811/scientificoperationscenter:dev
+              dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj -c Release --verbosity normal
