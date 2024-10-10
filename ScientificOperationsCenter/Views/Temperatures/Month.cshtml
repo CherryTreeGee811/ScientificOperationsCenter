@@ -1,0 +1,25 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "temperatures";
+}
+
+<div class="row">
+    <h1>Temperatures by Month</h1>
+</div>
+<table class="table">
+    <thead>
+        <tr class="bg-primary">
+            <th>Day</th>
+            <th>Average Temperature (Celcius)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Date</td>
+                <td>@item.AverageTemperature</td>
+            </tr>
+        }
+    </tbody>
+</table>
