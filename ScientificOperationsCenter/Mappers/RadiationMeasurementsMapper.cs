@@ -27,7 +27,7 @@ namespace ScientificOperationsCenter.Mappers
         public IEnumerable<RadiationMeasurementsDateViewModel> GetRadiationMeasurementsForTheMonth(DateOnly date)
         {
             var radiationMeasurements = _service.GetRadiationMeasurementsSumForTheMonth(date);
-            IEnumerable<RadiationMeasurementsDateViewModel> values = radiationMeasurements.Select(r => new RadiationMeasurementsDateViewModel { Date = r.Date.DayNumber.ToString(), TotalRadiation = r.TotalMilligrays });
+            IEnumerable<RadiationMeasurementsDateViewModel> values = radiationMeasurements.Select(r => new RadiationMeasurementsDateViewModel { Date = r.Date.Day.ToString(), TotalRadiation = r.TotalMilligrays });
             return values;
         }
 
