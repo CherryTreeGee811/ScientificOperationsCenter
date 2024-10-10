@@ -21,11 +21,11 @@ jobs:
             run: ls ../
             
           - name: List
-            run: ls ../
+            run: ls
 
           - name: Build Normal
             shell: bash
-            run: dotnet build "../ScientificOperationsCenter.csproj" -c Release
+            run: dotnet build "../ScientificOperationsCenter/ScientificOperationsCenter.csproj" -c Release
 
           - name: Test Normal
             shell: bash
