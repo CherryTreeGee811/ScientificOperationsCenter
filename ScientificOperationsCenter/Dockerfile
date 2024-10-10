@@ -18,6 +18,11 @@ COPY . .
 WORKDIR "/src/ScientificOperationsCenter"
 RUN dotnet build "../ScientificOperationsCenter.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
+# Test stage to run the tests
+FROM build AS test
+WORKDIR "/src/ScientificOperationsCenter.Tests"
+RUN dotnet test "./ScientificOperationsCenter.Tests.csproj" -c $BUILD_CONFIGURATION --no-build --verbosity normal
+
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
