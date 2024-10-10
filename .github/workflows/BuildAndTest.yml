@@ -9,8 +9,8 @@ on:
    workflow_dispatch:
        inputs:
            branch:
-           description: 'The branch to build'
-           required: true
+               description: 'The branch to build'
+               required: true
 jobs:
    BuildAndTest:
       runs-on: ubuntu-latest
