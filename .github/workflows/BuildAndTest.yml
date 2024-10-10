@@ -17,16 +17,10 @@ jobs:
             #shell: bash
             #run: docker build --rm -t cherrytreegee811/scientificoperationscenter:dev ScientificOperationsCenter
 
-          - name: List back
-            run: ls ../
-            
-          - name: List
-            run: ls
-
           - name: Build Normal
             shell: bash
-            run: dotnet build "../ScientificOperationsCenter/ScientificOperationsCenter.csproj" -c Release
+            run: dotnet build "./ScientificOperationsCenter/ScientificOperationsCenter.csproj" -c Release
 
           - name: Test Normal
             shell: bash
-            run: dotnet test "../ScientificOperationsCenter.Tests.csproj" -c Release
+            run: dotnet test "./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj" -c Release
