@@ -1,0 +1,25 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "radiation measurements";
+}
+
+<div class="row">
+    <h1>Radiation Measurements by Month</h1>
+</div>
+<table class="table">
+    <thead>
+        <tr class="bg-primary">
+            <th>Day</th>
+            <th>Total Milligrays</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Date</td>
+                <td>@item.TotalRadiation</td>
+            </tr>
+        }
+    </tbody>
+</table>
