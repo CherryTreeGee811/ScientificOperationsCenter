@@ -1,8 +1,8 @@
 ﻿using ScientificOperationsCenter.BusinessLogic;
-using ScientificOperationsCenterTests.Mocks;
+using ScientificOperationsCenter.Tests.Mocks;
 
 
-namespace ScientificOperationsCenterTests
+namespace ScientificOperationsCenter.Tests
 {
     public class RadiationMeasurementsServiceUnitTest
     {
@@ -24,8 +24,8 @@ namespace ScientificOperationsCenterTests
 
             // Assert
             Assert.NotNull(result);
-            Assert.That(result.First().Time, Is.EqualTo(new TimeOnly(21, 00)));
-            Assert.That(result.First().TotalMilligrays, Is.EqualTo(230));
+            Assert.That(result.First().Time, Is.EqualTo(new TimeOnly(6, 00)));
+            Assert.That(result.First().TotalMilligrays, Is.EqualTo(280));
             Assert.That(result.Count(), Is.EqualTo(2));
         }
 
