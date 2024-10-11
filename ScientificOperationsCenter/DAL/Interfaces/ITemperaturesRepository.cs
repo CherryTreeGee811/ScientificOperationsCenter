@@ -5,9 +5,6 @@ namespace ScientificOperationsCenter.DAL.Interfaces
 {
     public interface ITemperaturesRepository
     {
-        IEnumerable<Temperatures> GetAll();
-
-
         public IEnumerable<Temperatures> GetByDay(DateOnly date);
 
 

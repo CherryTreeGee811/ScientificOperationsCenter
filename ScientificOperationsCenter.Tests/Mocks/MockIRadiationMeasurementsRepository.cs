@@ -5,7 +5,7 @@ using ScientificOperationsCenter.Models;
 
 namespace ScientificOperationsCenter.Tests.Mocks
 {
-    internal class MockIRadiationMeasurementsRepository
+    internal sealed class MockIRadiationMeasurementsRepository
     {
         public static Mock<IRadiationMeasurementsRepository> GetMock()
         {
@@ -28,9 +28,14 @@ namespace ScientificOperationsCenter.Tests.Mocks
             };
 
 
-            mock.Setup(m => m.GetByDay(It.IsAny<DateOnly>())).Returns((DateOnly date) => radiationMeasurements.Where(x => x.Date.Year == date.Year && x.Date.Month == date.Month && x.Date.Day == date.Day));
-            mock.Setup(m => m.GetByMonth(It.IsAny<DateOnly>())).Returns((DateOnly date) => radiationMeasurements.Where(x => x.Date.Year == date.Year && x.Date.Month == date.Month));
-            mock.Setup(m => m.GetByYear(It.IsAny<DateOnly>())).Returns((DateOnly date) => radiationMeasurements.Where(x => x.Date.Year == date.Year));
+            mock.Setup(m => m.GetByDay(It.IsAny<DateOnly>())).Returns((DateOnly date) => 
+                radiationMeasurements.Where(x => x.Date.Year == date.Year && x.Date.Month == date.Month && x.Date.Day == date.Day));
+
+            mock.Setup(m => m.GetByMonth(It.IsAny<DateOnly>())).Returns((DateOnly date) => 
+                radiationMeasurements.Where(x => x.Date.Year == date.Year && x.Date.Month == date.Month));
+
+            mock.Setup(m => m.GetByYear(It.IsAny<DateOnly>())).Returns((DateOnly date) => 
+                radiationMeasurements.Where(x => x.Date.Year == date.Year));
 
 
             return mock;

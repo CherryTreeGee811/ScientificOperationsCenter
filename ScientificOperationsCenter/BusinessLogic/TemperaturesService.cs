@@ -5,10 +5,10 @@ using ScientificOperationsCenter.DAL.Interfaces;
 
 namespace ScientificOperationsCenter.BusinessLogic
 {
-    public class TemperaturesService : ITemperaturesService
+    public sealed class TemperaturesService : ITemperaturesService
     {
 
-        private ITemperaturesRepository _temperaturesRepository;
+        private readonly ITemperaturesRepository _temperaturesRepository;
 
 
         public TemperaturesService(ITemperaturesRepository temperaturesRepository)
@@ -21,7 +21,7 @@ namespace ScientificOperationsCenter.BusinessLogic
         {
             var temperatures = _temperaturesRepository.GetByDay(date);
             IEnumerable<TemperatureTimeAverages> values = temperatures.GroupBy(t => t.Time.Hour)
-                .Select(t => new TemperatureTimeAverages { Time = new TimeOnly(t.Key, 00), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) }).OrderBy(t => t.Time.Hour);
+                .Select(t => new TemperatureTimeAverages { Time = new TimeOnly(t.Key, 00), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) });
 
             return values;
         }
@@ -31,7 +31,7 @@ namespace ScientificOperationsCenter.BusinessLogic
         {
             var temperatures = _temperaturesRepository.GetByMonth(date);
             IEnumerable<TemperatureDateAverages> values = temperatures.GroupBy(t => t.Date.Day)
-                .Select(t => new TemperatureDateAverages { Date = new DateOnly(date.Year, date.Month, t.Key), AverageTemperature = (int) Math.Round(t.Average(a => a.TemperatureCelcius)) }).OrderBy(t => t.Date.Day);
+                .Select(t => new TemperatureDateAverages { Date = new DateOnly(date.Year, date.Month, t.Key), AverageTemperature = (int) Math.Round(t.Average(a => a.TemperatureCelcius)) });
             return values;
         }
 
@@ -40,7 +40,7 @@ namespace ScientificOperationsCenter.BusinessLogic
         {
             var temperatures = _temperaturesRepository.GetByYear(date);
             IEnumerable<TemperatureDateAverages> values = temperatures.GroupBy(t => t.Date.Month)
-                .Select(t => new TemperatureDateAverages { Date = new DateOnly(date.Year, t.Key, 01), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) }).OrderBy(t => t.Date.Month);
+                .Select(t => new TemperatureDateAverages { Date = new DateOnly(date.Year, t.Key, 01), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) });
             return values;
         }
     }

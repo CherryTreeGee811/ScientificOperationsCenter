@@ -5,10 +5,10 @@ using ScientificOperationsCenter.DAL.Interfaces;
 
 namespace ScientificOperationsCenter.BusinessLogic
 {
-    public class RadiationMeasurementsService : IRadiationMeasurementsService
+    public sealed class RadiationMeasurementsService : IRadiationMeasurementsService
     {
 
-        private IRadiationMeasurementsRepository _radiationMeasurementsRepository;
+        private readonly IRadiationMeasurementsRepository _radiationMeasurementsRepository;
 
 
         public RadiationMeasurementsService(IRadiationMeasurementsRepository radiationMeasurementsRepository)
@@ -21,7 +21,7 @@ namespace ScientificOperationsCenter.BusinessLogic
         {
             var radiationMeasurements = _radiationMeasurementsRepository.GetByDay(date);
             IEnumerable<RadiationMeasurementTimeSums> values = radiationMeasurements.GroupBy(t => t.Time.Hour)
-                .Select(r => new RadiationMeasurementTimeSums { Time = new TimeOnly(r.Key, 00), TotalMilligrays = r.Sum(a => a.Milligrays) }).OrderBy(t => t.Time.Hour);
+                .Select(r => new RadiationMeasurementTimeSums { Time = new TimeOnly(r.Key, 00), TotalMilligrays = r.Sum(a => a.Milligrays) });
 
             return values;
         }

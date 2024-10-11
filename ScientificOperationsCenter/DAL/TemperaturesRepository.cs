@@ -2,23 +2,17 @@
 using ScientificOperationsCenter.DAL.Interfaces;
 using ScientificOperationsCenter.Models;
 
+
 namespace ScientificOperationsCenter.DAL
 {
-    public class TemperaturesRepository : ITemperaturesRepository
+    public sealed class TemperaturesRepository : ITemperaturesRepository
     {
-        internal DbSet<Temperatures> _dbSet;
+        private readonly DbSet<Temperatures> _dbSet;
 
 
         public TemperaturesRepository(ScientificOperationsCenterContext context)
         {
             _dbSet = context.Set<Temperatures>();
-        }
-
-
-        public IEnumerable<Temperatures> GetAll()
-        {
-            IQueryable<Temperatures> query = _dbSet;
-            return query.ToList();
         }
 
 
