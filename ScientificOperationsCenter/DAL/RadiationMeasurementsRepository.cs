@@ -5,21 +5,14 @@ using ScientificOperationsCenter.Models;
 
 namespace ScientificOperationsCenter.DAL
 {
-    public class RadiationMeasurementsRepository : IRadiationMeasurementsRepository
+    public sealed class RadiationMeasurementsRepository : IRadiationMeasurementsRepository
     {
-        internal DbSet<RadiationMeasurements> _dbSet;
+        private readonly DbSet<RadiationMeasurements> _dbSet;
 
 
         public RadiationMeasurementsRepository(ScientificOperationsCenterContext context)
         {
             _dbSet = context.Set<RadiationMeasurements>();
-        }
-
-
-        public IEnumerable<RadiationMeasurements> GetAll()
-        {
-            IQueryable<RadiationMeasurements> query = _dbSet;
-            return query.ToList();
         }
 
 

@@ -5,10 +5,10 @@ using ScientificOperationsCenter.DAL.Interfaces;
 
 namespace ScientificOperationsCenter.BusinessLogic
 {
-    public class RadiationMeasurementsService : IRadiationMeasurementsService
+    public sealed class RadiationMeasurementsService : IRadiationMeasurementsService
     {
 
-        private IRadiationMeasurementsRepository _radiationMeasurementsRepository;
+        private readonly IRadiationMeasurementsRepository _radiationMeasurementsRepository;
 
 
         public RadiationMeasurementsService(IRadiationMeasurementsRepository radiationMeasurementsRepository)
@@ -31,7 +31,7 @@ namespace ScientificOperationsCenter.BusinessLogic
         {
             var radiationMeasurements = _radiationMeasurementsRepository.GetByMonth(date);
             IEnumerable<RadiationMeasurementDateSums> values = radiationMeasurements.GroupBy(t => t.Date.Day)
-                .Select(r => new RadiationMeasurementDateSums { Date = new DateOnly(date.Year, date.Month, r.Key), TotalMilligrays = r.Sum(a => a.Milligrays) });
+                .Select(r => new RadiationMeasurementDateSums { Date = new DateOnly(date.Year, date.Month, r.Key), TotalMilligrays = r.Sum(a => a.Milligrays) }).OrderBy(t => t.Date.Day);
             return values;
         }
 
@@ -40,7 +40,7 @@ namespace ScientificOperationsCenter.BusinessLogic
         {
             var radiationMeasurements = _radiationMeasurementsRepository.GetByYear(date);
             IEnumerable<RadiationMeasurementDateSums> values = radiationMeasurements.GroupBy(t => t.Date.Month)
-                .Select(r => new RadiationMeasurementDateSums { Date = new DateOnly(date.Year, r.Key, 01), TotalMilligrays = r.Sum(a => a.Milligrays) });
+                .Select(r => new RadiationMeasurementDateSums { Date = new DateOnly(date.Year, r.Key, 01), TotalMilligrays = r.Sum(a => a.Milligrays) }).OrderBy(t => t.Date.Month);
             return values;
         }
     }

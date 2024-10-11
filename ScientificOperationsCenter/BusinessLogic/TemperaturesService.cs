@@ -5,10 +5,10 @@ using ScientificOperationsCenter.DAL.Interfaces;
 
 namespace ScientificOperationsCenter.BusinessLogic
 {
-    public class TemperaturesService : ITemperaturesService
+    public sealed class TemperaturesService : ITemperaturesService
     {
 
-        private ITemperaturesRepository _temperaturesRepository;
+        private readonly ITemperaturesRepository _temperaturesRepository;
 
 
         public TemperaturesService(ITemperaturesRepository temperaturesRepository)

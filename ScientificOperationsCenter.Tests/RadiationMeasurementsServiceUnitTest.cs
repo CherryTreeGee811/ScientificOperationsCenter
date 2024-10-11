@@ -1,8 +1,8 @@
 ﻿using ScientificOperationsCenter.BusinessLogic;
-using ScientificOperationsCenterTests.Mocks;
+using ScientificOperationsCenter.Tests.Mocks;
 
 
-namespace ScientificOperationsCenterTests
+namespace ScientificOperationsCenter.Tests
 {
     public class RadiationMeasurementsServiceUnitTest
     {
