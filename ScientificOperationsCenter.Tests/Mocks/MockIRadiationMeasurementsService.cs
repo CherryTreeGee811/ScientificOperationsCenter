@@ -56,15 +56,15 @@ namespace ScientificOperationsCenter.Tests.Mocks
 
             mock.Setup(m => m.GetRadiationMeasurementsSumForTheDay(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
                 radiationMeasurementsSameDay.GroupBy(t => t.Time.Hour).Select(r =>
-                    new RadiationMeasurementTimeSums { Time = new TimeOnly(r.Key, 00), TotalMilligrays = r.Sum(a => a.Milligrays) }));
+                    new RadiationMeasurementsTimeSum { Time = new TimeOnly(r.Key, 00), TotalMilligrays = r.Sum(a => a.Milligrays) }));
             
             mock.Setup(m => m.GetRadiationMeasurementsSumForTheMonth(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
                 radiationMeasurementsSameMonth.GroupBy(t => t.Date.Day).Select(r =>
-                    new RadiationMeasurementDateSums { Date = new DateOnly(date.Year, date.Month, r.Key), TotalMilligrays = r.Sum(a => a.Milligrays) }));
+                    new RadiationMeasurementsDateSum { Date = new DateOnly(date.Year, date.Month, r.Key), TotalMilligrays = r.Sum(a => a.Milligrays) }));
             
             mock.Setup(m => m.GetRadiationMeasurementsSumForTheYear(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
                 radiationMeasurementsSameYear.GroupBy(t => t.Date.Month).Select(r =>
-                    new RadiationMeasurementDateSums { Date = new DateOnly(date.Year, r.Key, 01), TotalMilligrays = r.Sum(a => a.Milligrays) }));
+                    new RadiationMeasurementsDateSum { Date = new DateOnly(date.Year, r.Key, 01), TotalMilligrays = r.Sum(a => a.Milligrays) }));
 
 
             return mock;

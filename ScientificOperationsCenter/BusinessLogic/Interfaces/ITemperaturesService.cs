@@ -5,12 +5,12 @@ namespace ScientificOperationsCenter.BusinessLogic.Interfaces
 {
     public interface ITemperaturesService
     {
-        IEnumerable<TemperatureTimeAverages> GetAverageTemperaturesForTheDay(DateOnly date);
+        IEnumerable<TemperaturesTimeAverage> GetAverageTemperaturesForTheDay(DateOnly date);
 
 
-        IEnumerable<TemperatureDateAverages> GetAverageTemperaturesForTheMonth(DateOnly date);
+        IEnumerable<TemperaturesDateAverage> GetAverageTemperaturesForTheMonth(DateOnly date);
 
 
-        IEnumerable<TemperatureDateAverages> GetAverageTemperaturesForTheYear(DateOnly date);
+        IEnumerable<TemperaturesDateAverage> GetAverageTemperaturesForTheYear(DateOnly date);
     }
 }

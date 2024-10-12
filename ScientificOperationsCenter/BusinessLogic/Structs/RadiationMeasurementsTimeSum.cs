@@ -1,6 +1,6 @@
 ﻿namespace ScientificOperationsCenter.BusinessLogic.Structs
 {
-    public struct RadiationMeasurementTimeSums
+    public struct RadiationMeasurementsTimeSum
     {
         public TimeOnly Time;
 

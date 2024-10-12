@@ -61,15 +61,15 @@ namespace ScientificOperationsCenter.Tests.Mocks
 
             mock.Setup(m => m.GetAverageTemperaturesForTheDay(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
                 temperaturesSameDay.GroupBy(t => t.Time.Hour)
-                    .Select(t => new TemperatureTimeAverages { Time = new TimeOnly(t.Key, 00), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) }));
+                    .Select(t => new TemperaturesTimeAverage { Time = new TimeOnly(t.Key, 00), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) }));
 
             mock.Setup(m => m.GetAverageTemperaturesForTheMonth(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
                 temperaturesSameMonth.GroupBy(t => t.Date.Day)
-                    .Select(t => new TemperatureDateAverages { Date = new DateOnly(date.Year, date.Month, t.Key), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) }));
+                    .Select(t => new TemperaturesDateAverage { Date = new DateOnly(date.Year, date.Month, t.Key), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) }));
 
             mock.Setup(m => m.GetAverageTemperaturesForTheYear(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
                 temperaturesSameYear.GroupBy(t => t.Date.Month)
-                    .Select(t => new TemperatureDateAverages { Date = new DateOnly(date.Year, t.Key, 01), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) }));
+                    .Select(t => new TemperaturesDateAverage { Date = new DateOnly(date.Year, t.Key, 01), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) }));
 
 
             return mock;

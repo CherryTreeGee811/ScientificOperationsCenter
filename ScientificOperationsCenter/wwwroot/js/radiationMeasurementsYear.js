@@ -5,13 +5,27 @@ function getChartData() {
     const date = '2024-10-08';
     const xhr = new XMLHttpRequest();
     xhr.open('GET', `/RadiationMeasurements/Year?date=${date}`, true);
+    const errorTextElement = document.getElementById("ErrorText");
+    const loadingTextElement = document.getElementById("LoadingText");
+    loadingTextElement.textContent = "Loading Chart ...";
     xhr.onload = function () {
         if (xhr.status === 200) {
-            ;
-            const response = JSON.parse(xhr.responseText);
-            generateChart(response);
+            loadingTextElement.textContent = "";
+            try {
+                const response = JSON.parse(xhr.responseText);
+                generateChart(response);
+            } catch {
+                errorTextElement.textContent = "Invalid date passed";
+            }
+        } else if (xhr.status == 404) {
+            errorTextElement.textContent = "No radiation measurements found for select year";
+            loadingTextElement.textContent = "";
+        } else if (xhr.status == 500) {
+            errorTextElement.textContent = "Internal server error";
+            loadingTextElement.textContent = "";
         } else {
-            console.error('Network response was not ok');
+            errorTextElement.textContent = "Unknown error";
+            loadingTextElement.textContent = "";
         }
     };
 

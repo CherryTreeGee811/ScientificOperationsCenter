@@ -1,4 +1,5 @@
 using ScientificOperationsCenter.BusinessLogic;
+using ScientificOperationsCenter.BusinessLogic.Structs;
 using ScientificOperationsCenter.Tests.Mocks;
 
 
@@ -69,6 +70,57 @@ namespace ScientificOperationsCenter.Tests
             Assert.That(result.First().Date.Month, Is.EqualTo(01));
             Assert.That(result.First().AverageTemperature, Is.EqualTo(10));
             Assert.That(result.Count(), Is.EqualTo(1));
+        }
+
+
+        [Test]
+        public void GivenARepositoryOfTemperatures_WhenGettingTemperaturesByDay_ThenIfEmptyEmptyIEnumerableReturn()
+        {
+            // Setup
+            var temperaturesRepositoryMock = MockITemperaturesRepository.GetMock();
+            var temperaturesService = new TemperaturesService(temperaturesRepositoryMock.Object);
+            var random = new Random();
+
+            // Action
+            var result = temperaturesService.GetAverageTemperaturesForTheDay(new DateOnly(2025, 10, 30));
+
+            // Assert
+            Assert.That(result.Any(), Is.EqualTo(false));
+            Assert.IsInstanceOf<IEnumerable<TemperaturesTimeAverage>>(result, "The returned element is not of IEnumerable<TemperaturesTimeAverage> type.");
+        }
+
+
+        [Test]
+        public void GivenARepositoryOfTemperatures_WhenGettingTemperaturesByMonth_ThenIfEmptyEmptyIEnumerableReturn()
+        {
+            // Setup
+            var temperaturesRepositoryMock = MockITemperaturesRepository.GetMock();
+            var temperaturesService = new TemperaturesService(temperaturesRepositoryMock.Object);
+            var random = new Random();
+
+            // Action
+            var result = temperaturesService.GetAverageTemperaturesForTheMonth(new DateOnly(2025, 09, random.Next(1, 30)));
+
+            // Assert
+            Assert.That(result.Any(), Is.EqualTo(false));
+            Assert.IsInstanceOf<IEnumerable<TemperaturesDateAverage>>(result, "The returned element is not of IEnumerable<TemperaturesDateAverage> type.");
+        }
+
+
+        [Test]
+        public void GivenARepositoryOfTemperatures_WhenGettingTemperaturesByYear_ThenIfEmptyEmptyIEnumerableReturn()
+        {
+            // Setup
+            var temperaturesRepositoryMock = MockITemperaturesRepository.GetMock();
+            var temperaturesService = new TemperaturesService(temperaturesRepositoryMock.Object);
+            var random = new Random();
+
+            // Action
+            var result = temperaturesService.GetAverageTemperaturesForTheYear(new DateOnly(2026, random.Next(1, 12), random.Next(1, 30)));
+
+            // Assert
+            Assert.That(result.Any(), Is.EqualTo(false));
+            Assert.IsInstanceOf<IEnumerable<TemperaturesDateAverage>>(result, "The returned element is not of IEnumerable<TemperaturesDateAverage> type.");
         }
     }
 }

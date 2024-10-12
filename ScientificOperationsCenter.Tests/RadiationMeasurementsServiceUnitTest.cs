@@ -1,4 +1,5 @@
 ﻿using ScientificOperationsCenter.BusinessLogic;
+using ScientificOperationsCenter.BusinessLogic.Structs;
 using ScientificOperationsCenter.Tests.Mocks;
 
 
@@ -68,6 +69,57 @@ namespace ScientificOperationsCenter.Tests
             Assert.That(result.First().Date.Month, Is.EqualTo(01));
             Assert.That(result.First().TotalMilligrays, Is.EqualTo(400));
             Assert.That(result.Count(), Is.EqualTo(1));
+        }
+
+
+        [Test]
+        public void GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByDay_ThenIfEmptyEmptyIEnumerableReturn()
+        {
+            // Setup
+            var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
+            var radiationMeasurementsService = new RadiationMeasurementsService(radiationMeasurementsRepositoryMock.Object);
+            var random = new Random();
+
+            // Action
+            var result = radiationMeasurementsService.GetRadiationMeasurementsSumForTheDay(new DateOnly(2025, 10, 30));
+
+            // Assert
+            Assert.That(result.Any(), Is.EqualTo(false));
+            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsTimeSum>>(result, "The returned element is not of IEnumerable<RadiationMeasurementsTimeSum> type.");
+        }
+
+
+        [Test]
+        public void GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByMonth_ThenIfEmptyEmptyIEnumerableReturn()
+        {
+            // Setup
+            var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
+            var radiationMeasurementsService = new RadiationMeasurementsService(radiationMeasurementsRepositoryMock.Object);
+            var random = new Random();
+
+            // Action
+            var result = radiationMeasurementsService.GetRadiationMeasurementsSumForTheMonth(new DateOnly(2025, 09, random.Next(1, 30)));
+
+            // Assert
+            Assert.That(result.Any(), Is.EqualTo(false));
+            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsDateSum>>(result, "The returned element is not of IEnumerable<RadiationMeasurementsDateSum> type.");
+        }
+
+
+        [Test]
+        public void GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByYear_ThenIfEmptyEmptyIEnumerableReturn()
+        {
+            // Setup
+            var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
+            var radiationMeasurementsService = new RadiationMeasurementsService(radiationMeasurementsRepositoryMock.Object);
+            var random = new Random();
+
+            // Action
+            var result = radiationMeasurementsService.GetRadiationMeasurementsSumForTheYear(new DateOnly(2026, random.Next(1, 12), random.Next(1, 30)));
+
+            // Assert
+            Assert.That(result.Any(), Is.EqualTo(false));
+            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsDateSum>>(result, "The returned element is not of IEnumerable<RadiationMeasurementsDateSum> type.");
         }
     }
 }
