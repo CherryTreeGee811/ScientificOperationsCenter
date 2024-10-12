@@ -17,31 +17,67 @@ namespace ScientificOperationsCenter.BusinessLogic
         }
 
 
-        public IEnumerable<TemperatureTimeAverages> GetAverageTemperaturesForTheDay(DateOnly date)
+        public IEnumerable<TemperaturesTimeAverage> GetAverageTemperaturesForTheDay(DateOnly date)
         {
+            
             var temperatures = _temperaturesRepository.GetByDay(date);
-            IEnumerable<TemperatureTimeAverages> values = temperatures.GroupBy(t => t.Time.Hour)
-                .Select(t => new TemperatureTimeAverages { Time = new TimeOnly(t.Key, 00), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) });
-
-            return values;
+            if (temperatures.Any())
+            {
+                try
+                {
+                    var values = temperatures.GroupBy(t => t.Time.Hour)
+                        .Select(t => new TemperaturesTimeAverage { Time = new TimeOnly(t.Key, 00), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) });
+                    return values;
+                }
+                catch (Exception gEx)
+                {
+                    // Todo: Log Exception
+                    throw new BusinessLogicException("An unexpected error occurred.", gEx);
+                }
+            }
+            return Enumerable.Empty<TemperaturesTimeAverage>();
         }
 
 
-        public IEnumerable<TemperatureDateAverages> GetAverageTemperaturesForTheMonth(DateOnly date)
+        public IEnumerable<TemperaturesDateAverage> GetAverageTemperaturesForTheMonth(DateOnly date)
         {
             var temperatures = _temperaturesRepository.GetByMonth(date);
-            IEnumerable<TemperatureDateAverages> values = temperatures.GroupBy(t => t.Date.Day)
-                .Select(t => new TemperatureDateAverages { Date = new DateOnly(date.Year, date.Month, t.Key), AverageTemperature = (int) Math.Round(t.Average(a => a.TemperatureCelcius)) });
-            return values;
+            if (temperatures.Any())
+            {
+                try
+                {
+                    var values = temperatures.GroupBy(t => t.Date.Day)
+                        .Select(t => new TemperaturesDateAverage { Date = new DateOnly(date.Year, date.Month, t.Key), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) });
+                    return values;
+                }
+                catch (Exception gEx)
+                {
+                    // Todo: Log Exception
+                    throw new BusinessLogicException("An unexpected error occurred.", gEx);
+                }
+            }
+            return Enumerable.Empty<TemperaturesDateAverage>();
         }
 
 
-        public IEnumerable<TemperatureDateAverages> GetAverageTemperaturesForTheYear(DateOnly date)
+        public IEnumerable<TemperaturesDateAverage> GetAverageTemperaturesForTheYear(DateOnly date)
         {
             var temperatures = _temperaturesRepository.GetByYear(date);
-            IEnumerable<TemperatureDateAverages> values = temperatures.GroupBy(t => t.Date.Month)
-                .Select(t => new TemperatureDateAverages { Date = new DateOnly(date.Year, t.Key, 01), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) });
-            return values;
+            if (temperatures.Any())
+            {
+                try
+                {
+                    var values = temperatures.GroupBy(t => t.Date.Month)
+                        .Select(t => new TemperaturesDateAverage { Date = new DateOnly(date.Year, t.Key, 01), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) });
+                    return values;
+                }
+                catch (Exception gEx)
+                {
+                    // Todo: Log Exception
+                    throw new BusinessLogicException("An unexpected error occurred.", gEx);
+                }
+            }
+            return Enumerable.Empty<TemperaturesDateAverage>();
         }
     }
 }

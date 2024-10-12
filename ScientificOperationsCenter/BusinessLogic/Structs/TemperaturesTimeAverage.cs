@@ -1,6 +1,6 @@
 ﻿namespace ScientificOperationsCenter.BusinessLogic.Structs
 {
-    public struct TemperatureTimeAverages
+    public struct TemperaturesTimeAverage
     {
         public TimeOnly Time;
 

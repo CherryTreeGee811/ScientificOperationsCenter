@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScientificOperationsCenter.Mappers.Interfaces;
 
+
 namespace ScientificOperationsCenter.Controllers
 {
     public class RadiationMeasurementsController : Controller
@@ -14,6 +15,7 @@ namespace ScientificOperationsCenter.Controllers
         }
 
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
@@ -25,8 +27,19 @@ namespace ScientificOperationsCenter.Controllers
         {
             if (date.HasValue)
             {
-                var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDay((DateOnly)date);
-                return Json(radiationMeasurements);
+                try
+                {
+                    var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDay((DateOnly)date);
+                    if (radiationMeasurements.Count() > 0)
+                    {
+                        return Ok(radiationMeasurements);
+                    }
+                    return NotFound();
+                } 
+                catch (Exception)
+                {
+                    return StatusCode(500); 
+                }
             }
             return View();
         }
@@ -38,7 +51,11 @@ namespace ScientificOperationsCenter.Controllers
             if (date.HasValue)
             {
                 var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonth((DateOnly)date);
-                return Json(radiationMeasurements);
+                if (radiationMeasurements.Count() > 0)
+                {
+                    return Ok(radiationMeasurements);
+                }
+                return NotFound();
             }
             return View();
         }
@@ -50,7 +67,11 @@ namespace ScientificOperationsCenter.Controllers
             if (date.HasValue)
             {
                 var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYear((DateOnly)date);
-                return Json(radiationMeasurements);
+                if (radiationMeasurements.Count() > 0)
+                {
+                    return Json(radiationMeasurements);
+                }
+                return NotFound();
             }
             return View();
         }

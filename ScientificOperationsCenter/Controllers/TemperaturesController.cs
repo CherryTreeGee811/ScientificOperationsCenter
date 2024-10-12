@@ -28,7 +28,11 @@ namespace ScientificOperationsCenter.Controllers
             if (date.HasValue)
             {
                 var temperatures = _temperaturesMapper.GetTemperaturesForTheDay((DateOnly)date);
-                return Json(temperatures);
+                if (temperatures.Count() > 0)
+                {
+                    return Ok(temperatures);
+                }
+                return NotFound();
             }
             return View();
         }
@@ -40,7 +44,11 @@ namespace ScientificOperationsCenter.Controllers
             if (date.HasValue)
             {
                 var temperatures = _temperaturesMapper.GetTemperaturesForTheMonth((DateOnly)date);
-                return Json(temperatures);
+                if (temperatures.Count() > 0)
+                {
+                    return Ok(temperatures);
+                }
+                return NotFound();
             }
             return View();
         }
@@ -52,7 +60,11 @@ namespace ScientificOperationsCenter.Controllers
             if (date.HasValue)
             {
                 var temperatures = _temperaturesMapper.GetTemperaturesForTheYear((DateOnly)date);
-                return Json(temperatures);
+                if (temperatures.Count() > 0)
+                {
+                    return Ok(temperatures);
+                }
+                return NotFound();
             }
             return View();
         }

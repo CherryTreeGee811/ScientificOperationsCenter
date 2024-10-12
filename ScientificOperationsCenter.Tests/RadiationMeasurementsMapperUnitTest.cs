@@ -1,7 +1,5 @@
-﻿using ScientificOperationsCenter.BusinessLogic;
-using ScientificOperationsCenter.Mappers;
+﻿using ScientificOperationsCenter.Mappers;
 using ScientificOperationsCenter.Tests.Mocks;
-using System;
 
 
 namespace ScientificOperationsCenter.Tests

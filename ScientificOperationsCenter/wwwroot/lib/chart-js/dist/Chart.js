@@ -7709,11 +7709,11 @@ function injectCSS(rootNode, css) {
 	var expando = rootNode[EXPANDO_KEY] || (rootNode[EXPANDO_KEY] = {});
 	if (!expando.containsStyles) {
 		expando.containsStyles = true;
-		css = '/* Chart.js */\n' + css;
-		var style = document.createElement('style');
-		style.setAttribute('type', 'text/css');
-		style.appendChild(document.createTextNode(css));
-		rootNode.appendChild(style);
+		//css = '/* Chart.js */\n' + css;
+		//var style = document.createElement('style');
+		//style.setAttribute('type', 'text/css');
+		//style.appendChild(document.createTextNode(css));
+		//rootNode.appendChild(style);
 	}
 }
 
@@ -7725,7 +7725,7 @@ var platform_dom$2 = {
 	 * to be manually imported to make this library compatible with any CSP.
 	 * See https://github.com/chartjs/Chart.js/issues/5208
 	 */
-	disableCSSInjection: false,
+	disableCSSInjection: true,
 
 	/**
 	 * This property holds whether this platform is enabled for the current environment.

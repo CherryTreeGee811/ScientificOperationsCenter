@@ -27,7 +27,6 @@ namespace ScientificOperationsCenter.Tests.Mocks
                 new RadiationMeasurements { Id = 11, Date = new DateOnly(2024, 10, 09), Time = new TimeOnly(06, 40), Milligrays = 120 }
             };
 
-
             mock.Setup(m => m.GetByDay(It.IsAny<DateOnly>())).Returns((DateOnly date) => 
                 radiationMeasurements.Where(x => x.Date.Year == date.Year && x.Date.Month == date.Month && x.Date.Day == date.Day));
 
@@ -36,7 +35,6 @@ namespace ScientificOperationsCenter.Tests.Mocks
 
             mock.Setup(m => m.GetByYear(It.IsAny<DateOnly>())).Returns((DateOnly date) => 
                 radiationMeasurements.Where(x => x.Date.Year == date.Year));
-
 
             return mock;
         }

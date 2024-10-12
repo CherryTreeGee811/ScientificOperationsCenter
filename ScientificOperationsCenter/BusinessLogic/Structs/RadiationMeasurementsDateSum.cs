@@ -1,10 +1,10 @@
 ﻿namespace ScientificOperationsCenter.BusinessLogic.Structs
 {
-    public struct TemperatureDateAverages
+    public struct RadiationMeasurementsDateSum
     {
         public DateOnly Date;
 
 
-        public int AverageTemperature;
+        public int TotalMilligrays;
     }
 }
