@@ -39,6 +39,7 @@ namespace ScientificOperationsCenter.Tests
             var random = new Random();
 
             // Action
+            // 08
             var result = temperaturesService.GetAverageTemperaturesForTheMonth(new DateOnly(2024, 10, random.Next(1, 30)));
 
             // Assert
@@ -46,7 +47,7 @@ namespace ScientificOperationsCenter.Tests
             Assert.That(result.First().Date.Year, Is.EqualTo(2024));
             Assert.That(result.First().Date.Month, Is.EqualTo(10));
             Assert.That(result.First().Date.Day, Is.EqualTo(08));
-            Assert.That(result.First().AverageTemperature, Is.EqualTo(5));
+            Assert.That(result.First().AverageTemperature, Is.EqualTo(10));
             Assert.That(result.Count(), Is.EqualTo(2));
         }
 
