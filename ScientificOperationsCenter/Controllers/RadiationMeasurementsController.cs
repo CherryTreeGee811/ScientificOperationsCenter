@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using ScientificOperationsCenter.Mappers.Interfaces;
 
 
 namespace ScientificOperationsCenter.Controllers
 {
-    public class RadiationMeasurementsController : Controller
+    public sealed class RadiationMeasurementsController : Controller
     {
-        private IRadiationMeasurementsMapper _radiationMeasurementsMapper;
+        private readonly IRadiationMeasurementsMapper _radiationMeasurementsMapper;
 
 
         public RadiationMeasurementsController(IRadiationMeasurementsMapper radiationMeasurementsMapper)
@@ -23,18 +24,23 @@ namespace ScientificOperationsCenter.Controllers
 
 
         [HttpGet("/[controller]/Day")]
-        public IActionResult Day([FromQuery] DateOnly? date)
+        public IActionResult Day([FromQuery] string? date)
         {
-            if (date.HasValue)
+            if (!date.IsNullOrEmpty())
             {
                 try
                 {
-                    var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDay((DateOnly)date);
-                    if (radiationMeasurements.Count() > 0)
+                    var success = DateOnly.TryParse(date, out DateOnly dateOnly);
+                    if (success)
                     {
-                        return Ok(radiationMeasurements);
+                        var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDay(dateOnly);
+                        if (radiationMeasurements.Count() > 0)
+                        {
+                            return Ok(radiationMeasurements);
+                        }
+                        return NotFound();
                     }
-                    return NotFound();
+                    return BadRequest();
                 } 
                 catch (Exception)
                 {
@@ -46,32 +52,56 @@ namespace ScientificOperationsCenter.Controllers
 
 
         [HttpGet("/[controller]/Month")]
-        public IActionResult Month([FromQuery] DateOnly? date)
+        public IActionResult Month([FromQuery] string? date)
         {
-            if (date.HasValue)
+            if (!date.IsNullOrEmpty())
             {
-                var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonth((DateOnly)date);
-                if (radiationMeasurements.Count() > 0)
+                try
                 {
-                    return Ok(radiationMeasurements);
+                    var success = DateOnly.TryParse(date, out DateOnly dateOnly);
+                    if (success)
+                    {
+                        var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonth(dateOnly);
+                        if (radiationMeasurements.Count() > 0)
+                        {
+                            return Ok(radiationMeasurements);
+                        }
+                        return NotFound();
+                    }
+                    return BadRequest();
                 }
-                return NotFound();
+                catch (Exception)
+                {
+                    return StatusCode(500);
+                }
             }
             return View();
         }
 
 
         [HttpGet("/[controller]/Year")]
-        public IActionResult Year([FromQuery] DateOnly? date)
+        public IActionResult Year([FromQuery] string? date)
         {
-            if (date.HasValue)
+            if (!date.IsNullOrEmpty())
             {
-                var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYear((DateOnly)date);
-                if (radiationMeasurements.Count() > 0)
+                try
                 {
-                    return Json(radiationMeasurements);
+                    var success = DateOnly.TryParse(date, out DateOnly dateOnly);
+                    if (success)
+                    {
+                        var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYear(dateOnly);
+                        if (radiationMeasurements.Count() > 0)
+                        {
+                            return Ok(radiationMeasurements);
+                        }
+                        return NotFound();
+                    }
+                    return BadRequest();
                 }
-                return NotFound();
+                catch (Exception)
+                {
+                    return StatusCode(500);
+                }
             }
             return View();
         }

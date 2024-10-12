@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using ScientificOperationsCenter.Mappers.Interfaces;
 
 
 namespace ScientificOperationsCenter.Controllers
 {
-    public class TemperaturesController : Controller
+    public sealed class TemperaturesController : Controller
     {
-        private ITemperaturesMapper _temperaturesMapper;
+        private readonly ITemperaturesMapper _temperaturesMapper;
 
 
         public TemperaturesController(ITemperaturesMapper temperaturesMapper)
@@ -23,48 +24,84 @@ namespace ScientificOperationsCenter.Controllers
 
 
         [HttpGet("/[controller]/Day")]
-        public IActionResult Day([FromQuery] DateOnly? date)
+        public IActionResult Day([FromQuery] string? date)
         {
-            if (date.HasValue)
+            if (!date.IsNullOrEmpty())
             {
-                var temperatures = _temperaturesMapper.GetTemperaturesForTheDay((DateOnly)date);
-                if (temperatures.Count() > 0)
+                try
                 {
-                    return Ok(temperatures);
+                    var success = DateOnly.TryParse(date, out DateOnly dateOnly);
+                    if (success)
+                    {
+                        var temperatures = _temperaturesMapper.GetTemperaturesForTheDay(dateOnly);
+                        if (temperatures.Count() > 0)
+                        {
+                            return Ok(temperatures);
+                        }
+                        return NotFound();
+                    }
+                    return BadRequest();
                 }
-                return NotFound();
+                catch (Exception)
+                {
+                    return StatusCode(500);
+                }
             }
             return View();
         }
 
 
         [HttpGet("/[controller]/Month")]
-        public IActionResult Month([FromQuery] DateOnly? date)
+        public IActionResult Month([FromQuery] string? date)
         {
-            if (date.HasValue)
+            if (!date.IsNullOrEmpty())
             {
-                var temperatures = _temperaturesMapper.GetTemperaturesForTheMonth((DateOnly)date);
-                if (temperatures.Count() > 0)
+                try
                 {
-                    return Ok(temperatures);
+                    var success = DateOnly.TryParse(date, out DateOnly dateOnly);
+                    if (success)
+                    {
+                        var temperatures = _temperaturesMapper.GetTemperaturesForTheMonth(dateOnly);
+                        if (temperatures.Count() > 0)
+                        {
+                            return Ok(temperatures);
+                        }
+                        return NotFound();
+                    }
+                    return BadRequest();
                 }
-                return NotFound();
+                catch (Exception)
+                {
+                    return StatusCode(500);
+                }
             }
             return View();
         }
 
 
         [HttpGet("/[controller]/Year")]
-        public IActionResult Year([FromQuery] DateOnly? date)
+        public IActionResult Year([FromQuery] string? date)
         {
-            if (date.HasValue)
+            if (!date.IsNullOrEmpty())
             {
-                var temperatures = _temperaturesMapper.GetTemperaturesForTheYear((DateOnly)date);
-                if (temperatures.Count() > 0)
+                try
                 {
-                    return Ok(temperatures);
+                    var success = DateOnly.TryParse(date, out DateOnly dateOnly);
+                    if (success)
+                    {
+                        var temperatures = _temperaturesMapper.GetTemperaturesForTheYear(dateOnly);
+                        if (temperatures.Count() > 0)
+                        {
+                            return Ok(temperatures);
+                        }
+                        return NotFound();
+                    }
+                    return BadRequest();
                 }
-                return NotFound();
+                catch (Exception)
+                {
+                    return StatusCode(500);
+                }
             }
             return View();
         }

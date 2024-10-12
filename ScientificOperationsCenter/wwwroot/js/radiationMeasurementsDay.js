@@ -11,14 +11,13 @@ function getChartData() {
     xhr.onload = function () {
         if (xhr.status === 200) {
             loadingTextElement.textContent = "";
-            try {
-                const response = JSON.parse(xhr.responseText);
-                generateChart(response);
-            } catch {
-                errorTextElement.textContent = "Invalid date passed";
-            }
+            const response = JSON.parse(xhr.responseText);
+            generateChart(response);
         } else if (xhr.status == 404) {
             errorTextElement.textContent = "No radiation measurements found for select day";
+            loadingTextElement.textContent = "";
+        } else if (xhr.status == 400) {
+            errorTextElement.textContent = "Invalid date was passed";
             loadingTextElement.textContent = "";
         } else if (xhr.status == 500) {
             errorTextElement.textContent = "Internal server error";
