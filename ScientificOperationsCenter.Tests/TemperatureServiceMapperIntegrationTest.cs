@@ -19,7 +19,6 @@ namespace ScientificOperationsCenter.Tests
             var date = new DateOnly(2024, 10, 08);
 
             // Action
-            var serviceResult = temperaturesService.GetAverageTemperaturesForTheDay(date);
             var mapperResult = temperaturesMapper.GetTemperaturesForTheDay(date);
 
             // Assert
@@ -43,7 +42,6 @@ namespace ScientificOperationsCenter.Tests
             var date = new DateOnly(2024, 10, random.Next(1, 30));
 
             // Action
-            var serviceResult = temperaturesService.GetAverageTemperaturesForTheMonth(date);
             var mapperResult = temperaturesMapper.GetTemperaturesForTheMonth(date);
 
             // Assert
@@ -67,7 +65,6 @@ namespace ScientificOperationsCenter.Tests
             var date = new DateOnly(2024, random.Next(1, 12), random.Next(1, 30));
 
             // Action
-            var serviceResult = temperaturesService.GetAverageTemperaturesForTheYear(date);
             var mapperResult = temperaturesMapper.GetTemperaturesForTheYear(date);
 
             // Assert
@@ -91,7 +88,6 @@ namespace ScientificOperationsCenter.Tests
             var date = new DateOnly(2025, 10, 30);
 
             // Action
-            var serviceResult = temperaturesService.GetAverageTemperaturesForTheDay(date);
             var mapperResult = temperaturesMapper.GetTemperaturesForTheDay(date);
 
             // Assert
@@ -111,7 +107,6 @@ namespace ScientificOperationsCenter.Tests
             var date = new DateOnly(2025, 09, random.Next(1, 30));
 
             // Action
-            var serviceResult = temperaturesService.GetAverageTemperaturesForTheMonth(date);
             var mapperResult = temperaturesMapper.GetTemperaturesForTheMonth(date);
 
             // Assert
@@ -131,7 +126,6 @@ namespace ScientificOperationsCenter.Tests
             var date = new DateOnly(2026, random.Next(1, 12), random.Next(1, 30));
 
             // Action
-            var serviceResult = temperaturesService.GetAverageTemperaturesForTheYear(date);
             var mapperResult = temperaturesMapper.GetTemperaturesForTheYear(date);
 
             // Assert

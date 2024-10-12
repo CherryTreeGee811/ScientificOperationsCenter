@@ -19,7 +19,6 @@ namespace ScientificOperationsCenter.Tests
             var date = new DateOnly(2024, 10, 09);
 
             // Action
-            var serviceResult = radiationMeasurementsService.GetRadiationMeasurementsSumForTheDay(date);
             var mapperResult = radiationMeasurementsMapper.GetRadiationMeasurementsForTheDay(date);
 
             // Assert
@@ -43,7 +42,6 @@ namespace ScientificOperationsCenter.Tests
             var date = new DateOnly(2024, 10, random.Next(1, 30));
 
             // Action
-            var serviceResult = radiationMeasurementsService.GetRadiationMeasurementsSumForTheMonth(date);
             var mapperResult = radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonth(date);
 
             // Assert
@@ -67,7 +65,6 @@ namespace ScientificOperationsCenter.Tests
             var date = new DateOnly(2024, random.Next(1, 12), random.Next(1, 30));
 
             // Action
-            var serviceResult = radiationMeasurementsService.GetRadiationMeasurementsSumForTheYear(date);
             var mapperResult = radiationMeasurementsMapper.GetRadiationMeasurementsForTheYear(date);
 
             // Assert
@@ -91,7 +88,6 @@ namespace ScientificOperationsCenter.Tests
             var date = new DateOnly(2025, 10, 01);
 
             // Action
-            var serviceResult = radiationMeasurementsService.GetRadiationMeasurementsSumForTheDay(date);
             var mapperResult = radiationMeasurementsMapper.GetRadiationMeasurementsForTheDay(date);
 
             // Assert
@@ -111,7 +107,6 @@ namespace ScientificOperationsCenter.Tests
             var date = new DateOnly(2024, 09, random.Next(1, 30));
 
             // Action
-            var serviceResult = radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonth(date);
             var mapperResult = radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonth(date);
 
             // Assert
@@ -131,7 +126,6 @@ namespace ScientificOperationsCenter.Tests
             var date = new DateOnly(2026, random.Next(1, 12), random.Next(1, 30));
 
             // Action
-            var serviceResult = radiationMeasurementsMapper.GetRadiationMeasurementsForTheYear(date);
             var mapperResult = radiationMeasurementsMapper.GetRadiationMeasurementsForTheYear(date);
 
             // Assert
