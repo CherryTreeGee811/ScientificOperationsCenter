@@ -16,29 +16,29 @@ namespace ScientificOperationsCenter.Mappers
         }
 
 
-        public IEnumerable<TemperatureTimeViewModel> GetTemperaturesForTheDay(DateOnly date)
+        public IEnumerable<TemperaturesTimeViewModel> GetTemperaturesForTheDay(DateOnly date)
         {
             var temperatures = _service.GetAverageTemperaturesForTheDay(date);
-            IEnumerable<TemperatureTimeViewModel> values = temperatures.OrderBy(t => t.Time.Hour).Select(t =>
-                new TemperatureTimeViewModel { Hour = t.Time, AverageTemperature = t.AverageTemperature });
+            IEnumerable<TemperaturesTimeViewModel> values = temperatures.OrderBy(t => t.Time.Hour).Select(t =>
+                new TemperaturesTimeViewModel { Hour = t.Time, AverageTemperature = t.AverageTemperature });
             return values;
         }
 
 
-        public IEnumerable<TemperatureDateViewModel> GetTemperaturesForTheMonth(DateOnly date)
+        public IEnumerable<TemperaturesDateViewModel> GetTemperaturesForTheMonth(DateOnly date)
         {
             var temperatures = _service.GetAverageTemperaturesForTheMonth(date);
-            IEnumerable<TemperatureDateViewModel> values = temperatures.OrderBy(t => t.Date.Day).Select(t =>
-                new TemperatureDateViewModel { Date = t.Date.Day.ToString(), AverageTemperature = t.AverageTemperature });
+            IEnumerable<TemperaturesDateViewModel> values = temperatures.OrderBy(t => t.Date.Day).Select(t =>
+                new TemperaturesDateViewModel { Date = t.Date.Day.ToString(), AverageTemperature = t.AverageTemperature });
             return values;
         }
 
 
-        public IEnumerable<TemperatureDateViewModel> GetTemperaturesForTheYear(DateOnly date)
+        public IEnumerable<TemperaturesDateViewModel> GetTemperaturesForTheYear(DateOnly date)
         {
             var temperatures = _service.GetAverageTemperaturesForTheYear(date);
-            IEnumerable<TemperatureDateViewModel> values = temperatures.OrderBy(t => t.Date.Month).Select(t =>
-                new TemperatureDateViewModel { Date = t.Date.ToString("MMMM"), AverageTemperature = t.AverageTemperature });
+            IEnumerable<TemperaturesDateViewModel> values = temperatures.OrderBy(t => t.Date.Month).Select(t =>
+                new TemperaturesDateViewModel { Date = t.Date.ToString("MMMM"), AverageTemperature = t.AverageTemperature });
             return values;
         }
     }

@@ -1,8 +1,8 @@
 ﻿namespace ScientificOperationsCenter.ViewModels
 {
-    public class TemperatureDateViewModel
+    public class TemperaturesTimeViewModel
     {
-        public string Date { get; set; }
+        public TimeOnly Hour { get; set; }
 
 
         public int AverageTemperature { get; set; }
