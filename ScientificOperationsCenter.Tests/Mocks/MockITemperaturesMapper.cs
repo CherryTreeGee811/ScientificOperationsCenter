@@ -16,7 +16,6 @@ namespace ScientificOperationsCenter.Tests.Mocks
             var temperaturesSameDay = new List<TemperaturesTimeAverage>()
             {
                 new TemperaturesTimeAverage { Time = new TimeOnly(01, 00), AverageTemperature = -4 },
-                new TemperaturesTimeAverage { Time = new TimeOnly(6, 00), AverageTemperature = 20 },
                 new TemperaturesTimeAverage { Time = new TimeOnly(21, 00), AverageTemperature = 30 },
                 new TemperaturesTimeAverage { Time = new TimeOnly(06, 00), AverageTemperature = 12 },
                 new TemperaturesTimeAverage { Time = new TimeOnly(03, 00), AverageTemperature = -2 },
@@ -47,7 +46,6 @@ namespace ScientificOperationsCenter.Tests.Mocks
                 new TemperaturesDateAverage { Date = new DateOnly(2025, 09, 01), AverageTemperature = 19 },
                 new TemperaturesDateAverage { Date = new DateOnly(2025, 11, 01), AverageTemperature = 12 },
                 new TemperaturesDateAverage { Date = new DateOnly(2025, 05, 01), AverageTemperature = -2 },
-                new TemperaturesDateAverage { Date = new DateOnly(2025, 12, 01), AverageTemperature = 34 }
             };
 
 

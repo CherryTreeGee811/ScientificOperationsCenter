@@ -38,13 +38,13 @@ namespace ScientificOperationsCenter.Tests.Mocks
 
             var radiationMeasurementsSameYear = new List<RadiationMeasurementsDateSum>()
             {
-                new RadiationMeasurementsDateSum { Date = new DateOnly(2025, 05, 01), TotalMilligrays = 120 },
-                new RadiationMeasurementsDateSum { Date = new DateOnly(2025, 06, 01), TotalMilligrays = 110 },
-                new RadiationMeasurementsDateSum { Date = new DateOnly(2025, 07, 01), TotalMilligrays = 160 },
                 new RadiationMeasurementsDateSum { Date = new DateOnly(2025, 08, 01), TotalMilligrays = 140 },
+                new RadiationMeasurementsDateSum { Date = new DateOnly(2025, 05, 01), TotalMilligrays = 120 },
+                new RadiationMeasurementsDateSum { Date = new DateOnly(2025, 07, 01), TotalMilligrays = 160 },
+                new RadiationMeasurementsDateSum { Date = new DateOnly(2025, 11, 01), TotalMilligrays = 110 },
                 new RadiationMeasurementsDateSum { Date = new DateOnly(2025, 09, 01), TotalMilligrays = 130 },
                 new RadiationMeasurementsDateSum { Date = new DateOnly(2025, 10, 01), TotalMilligrays = 120 },
-                new RadiationMeasurementsDateSum { Date = new DateOnly(2025, 11, 01), TotalMilligrays = 110 },
+                new RadiationMeasurementsDateSum { Date = new DateOnly(2025, 06, 01), TotalMilligrays = 110 },
                 new RadiationMeasurementsDateSum { Date = new DateOnly(2025, 12, 01), TotalMilligrays = 150 },
             };
 
