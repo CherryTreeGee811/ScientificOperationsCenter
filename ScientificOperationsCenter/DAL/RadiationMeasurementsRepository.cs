@@ -29,6 +29,11 @@ namespace ScientificOperationsCenter.DAL
                 // Todo: Log Exception
                 throw new DataAccessException("An error occurred while accessing the database.", dbEx);
             }
+            catch (InvalidOperationException iEx)
+            {
+                // Todo: Log Exception
+                throw new DataAccessException("An error occurred while accessing the database.", iEx);
+            }
             catch (Exception gEx)
             {
                 // Todo: Log Exception
@@ -49,6 +54,11 @@ namespace ScientificOperationsCenter.DAL
                 // Todo: Log Exception
                 throw new DataAccessException("An error occurred while accessing the database.", dbEx);
             }
+            catch (InvalidOperationException iEx)
+            {
+                // Todo: Log Exception
+                throw new DataAccessException("An error occurred while accessing the database.", iEx);
+            }
             catch (Exception gEx)
             {
                 // Todo: Log Exception
@@ -68,6 +78,11 @@ namespace ScientificOperationsCenter.DAL
             {
                 // Todo: Log Exception
                 throw new DataAccessException("An error occurred while accessing the database.", dbEx);
+            }
+              catch (InvalidOperationException iEx)
+            {
+                // Todo: Log Exception
+                throw new DataAccessException("An error occurred while accessing the database.", iEx);
             }
             catch (Exception gEx)
             {
