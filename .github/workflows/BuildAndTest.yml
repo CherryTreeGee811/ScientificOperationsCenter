@@ -7,6 +7,10 @@ on:
        branches:
            - '*'
    workflow_dispatch:
+       inputs:
+           branch:
+               description: 'The branch to build'
+               required: true
 jobs:
    BuildAndTest:
       runs-on: ubuntu-latest
@@ -16,3 +20,12 @@ jobs:
           - name: Build App Container
             shell: bash
             run: docker build --rm -t cherrytreegee811/scientificoperationscenter:dev ScientificOperationsCenter
+
+          - name: Run App Container
+            shell: bash
+            run: docker run --rm -dit cherrytreegee811/scientificoperationscenter:dev
+          
+          - name: Run Tests
+            shell: bash
+            run: |
+                dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj --os linux --verbosity minimal

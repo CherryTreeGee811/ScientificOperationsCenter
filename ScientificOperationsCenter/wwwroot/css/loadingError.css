@@ -1,0 +1,11 @@
+﻿#ErrorText {
+    font-weight: bold;
+    font-size: 140%;
+    color: darkred;
+}
+
+
+#LoadingText {
+    font-weight: bold;
+    font-size: 140%;
+}
