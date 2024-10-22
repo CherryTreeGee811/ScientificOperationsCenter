@@ -17,12 +17,12 @@ namespace ScientificOperationsCenter.DAL
         }
 
 
-        public IEnumerable<Temperatures> GetByDay(DateOnly date)
+        public async Task<IEnumerable<Temperatures>> GetByDayAsync(DateOnly date)
         {
             try
             {
                 IQueryable<Temperatures> query = _dbSet.Where(x => x.Date.Year == date.Year && x.Date.Month == date.Month && x.Date.Day == date.Day);
-                return query.ToList();
+                return await query.ToListAsync();
             }
             catch (SqlException dbEx)
             {
@@ -42,12 +42,12 @@ namespace ScientificOperationsCenter.DAL
         }
 
 
-        public IEnumerable<Temperatures> GetByMonth(DateOnly date)
+        public async Task<IEnumerable<Temperatures>> GetByMonthAsync(DateOnly date)
         {
             try
             {
                 IQueryable<Temperatures> query = _dbSet.Where(x => x.Date.Year == date.Year && x.Date.Month == date.Month);
-                return query.ToList();
+                return await query.ToListAsync();
             }
             catch (SqlException dbEx)
             {
@@ -67,12 +67,12 @@ namespace ScientificOperationsCenter.DAL
         }
 
 
-        public IEnumerable<Temperatures> GetByYear(DateOnly date)
+        public async Task<IEnumerable<Temperatures>> GetByYearAsync(DateOnly date)
         {
             try
             {
                 IQueryable<Temperatures> query = _dbSet.Where(x => x.Date.Year == date.Year);
-                return query.ToList();
+                return await query.ToListAsync();
             }
             catch (SqlException dbEx)
             {

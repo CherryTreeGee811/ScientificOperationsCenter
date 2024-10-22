@@ -16,9 +16,9 @@ namespace ScientificOperationsCenter.Mappers
         }
 
 
-        public IEnumerable<RadiationMeasurementsTimeViewModel> GetRadiationMeasurementsForTheDay(DateOnly date)
+        public async Task<IEnumerable<RadiationMeasurementsTimeViewModel>> GetRadiationMeasurementsForTheDayAsync(DateOnly date)
         {
-            var radiationMeasurements = _service.GetRadiationMeasurementsSumForTheDay(date);
+            var radiationMeasurements = await _service.GetRadiationMeasurementsSumForTheDayAsync(date);
             if (radiationMeasurements.Any())
             {
                 var values = radiationMeasurements.OrderBy(t => t.Time.Hour).Select(r =>
@@ -29,9 +29,9 @@ namespace ScientificOperationsCenter.Mappers
         }
 
 
-        public IEnumerable<RadiationMeasurementsDateViewModel> GetRadiationMeasurementsForTheMonth(DateOnly date)
+        public async Task<IEnumerable<RadiationMeasurementsDateViewModel>> GetRadiationMeasurementsForTheMonthAsync(DateOnly date)
         {
-            var radiationMeasurements = _service.GetRadiationMeasurementsSumForTheMonth(date);
+            var radiationMeasurements = await _service.GetRadiationMeasurementsSumForTheMonthAsync(date);
             if (radiationMeasurements.Any())
             {
                 var values = radiationMeasurements.OrderBy(t => t.Date.Day).Select(r =>
@@ -42,9 +42,9 @@ namespace ScientificOperationsCenter.Mappers
         }
 
 
-        public IEnumerable<RadiationMeasurementsDateViewModel> GetRadiationMeasurementsForTheYear(DateOnly date)
+        public async Task<IEnumerable<RadiationMeasurementsDateViewModel>> GetRadiationMeasurementsForTheYearAsync(DateOnly date)
         {
-            var radiationMeasurements = _service.GetRadiationMeasurementsSumForTheYear(date);
+            var radiationMeasurements = await _service.GetRadiationMeasurementsSumForTheYearAsync(date);
             if (radiationMeasurements.Any())
             {
                 var values = radiationMeasurements.OrderBy(t => t.Date.Month).Select(r =>

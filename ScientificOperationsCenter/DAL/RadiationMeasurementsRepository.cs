@@ -17,12 +17,12 @@ namespace ScientificOperationsCenter.DAL
         }
 
 
-        public IEnumerable<RadiationMeasurements> GetByDay(DateOnly date)
+        public async Task<IEnumerable<RadiationMeasurements>> GetByDayAsync(DateOnly date)
         {
             try
             {
                 IQueryable<RadiationMeasurements> query = _dbSet.Where(x => x.Date.Year == date.Year && x.Date.Month == date.Month && x.Date.Day == date.Day);
-                return query.ToList();
+                return await query.ToListAsync();
             }
             catch (SqlException dbEx)
             {
@@ -42,12 +42,12 @@ namespace ScientificOperationsCenter.DAL
         }
 
 
-        public IEnumerable<RadiationMeasurements> GetByMonth(DateOnly date)
+        public async Task<IEnumerable<RadiationMeasurements>> GetByMonthAsync(DateOnly date)
         {
             try
             {
                 IQueryable<RadiationMeasurements> query = _dbSet.Where(x => x.Date.Year == date.Year && x.Date.Month == date.Month);
-                return query.ToList();
+                return await query.ToListAsync();
             }
             catch (SqlException dbEx)
             {
@@ -67,12 +67,12 @@ namespace ScientificOperationsCenter.DAL
         }
 
 
-        public IEnumerable<RadiationMeasurements> GetByYear(DateOnly date)
+        public async Task<IEnumerable<RadiationMeasurements>> GetByYearAsync(DateOnly date)
         {
             try
             {
                 IQueryable<RadiationMeasurements> query = _dbSet.Where(x => x.Date.Year == date.Year);
-                return query.ToList();
+                return await query.ToListAsync();
             }
             catch (SqlException dbEx)
             {

@@ -4,12 +4,12 @@ namespace ScientificOperationsCenter.Mappers.Interfaces
 {
     public interface ITemperaturesMapper
     {
-        public IEnumerable<TemperaturesTimeViewModel> GetTemperaturesForTheDay(DateOnly date);
+        Task<IEnumerable<TemperaturesTimeViewModel>> GetTemperaturesForTheDayAsync(DateOnly date);
 
 
-        public IEnumerable<TemperaturesDateViewModel> GetTemperaturesForTheMonth(DateOnly date);
+       Task<IEnumerable<TemperaturesDateViewModel>> GetTemperaturesForTheMonthAsync(DateOnly date);
 
 
-        public IEnumerable<TemperaturesDateViewModel> GetTemperaturesForTheYear(DateOnly date);
+       Task<IEnumerable<TemperaturesDateViewModel>> GetTemperaturesForTheYearAsync(DateOnly date);
     }
 }

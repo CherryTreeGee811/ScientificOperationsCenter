@@ -11,7 +11,7 @@ namespace ScientificOperationsCenter.Tests
     internal class RadiationMeasurementsMapperControllerIntegrationTest
     {
         [Test]
-        public void GivenARadiationMeasurementsService_WhenRadiationMeasurementsSumByHourOfDay_ThenIf200CollectionOfRadiationMeasurementsJSONSortedByHourReturn()
+        public async Task GivenARadiationMeasurementsService_WhenRadiationMeasurementsSumByHourOfDay_ThenIf200CollectionOfRadiationMeasurementsJSONSortedByHourReturn()
         {
             // Setup
             var radiationMeasurementsServiceMock = MockIRadiationMeasurementsService.GetMock();
@@ -20,7 +20,7 @@ namespace ScientificOperationsCenter.Tests
             var date = "2024-10-09";
 
             // Action
-            var controllerResult = radiationMeasurementsController.Day(date);
+            var controllerResult = await radiationMeasurementsController.Day(date);
             var okResult = controllerResult as ObjectResult;
 
             // Assert
@@ -41,7 +41,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARadiationMeasurementsService_WhenRadiationMeasurementsSumByDayOfMonth_ThenIf200CollectionOfRadiationMeasurementsJSONSortedByDayReturn()
+        public async Task GivenARadiationMeasurementsService_WhenRadiationMeasurementsSumByDayOfMonth_ThenIf200CollectionOfRadiationMeasurementsJSONSortedByDayReturn()
         {
             // Setup
             var radiationMeasurementsServiceMock = MockIRadiationMeasurementsService.GetMock();
@@ -50,7 +50,7 @@ namespace ScientificOperationsCenter.Tests
             var date = "2024-10-20";
 
             // Action
-            var result = radiationMeasurementsController.Month(date);
+            var result = await radiationMeasurementsController.Month(date);
             var okResult = result as ObjectResult;
 
             // Assert
@@ -72,7 +72,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARadiationMeasurementsService_WhenRadiationMeasurementsSumByMonthOfYear_ThenIf200CollectionOfRadiationMeasurementsJSONSortedByMonthReturn()
+        public async Task GivenARadiationMeasurementsService_WhenRadiationMeasurementsSumByMonthOfYear_ThenIf200CollectionOfRadiationMeasurementsJSONSortedByMonthReturn()
         {
             // Setup
             var radiationMeasurementsServiceMock = MockIRadiationMeasurementsService.GetMock();
@@ -81,7 +81,7 @@ namespace ScientificOperationsCenter.Tests
             var date = "2025-10-01";
 
             // Action
-            var result = radiationMeasurementsController.Year(date);
+            var result = await radiationMeasurementsController.Year(date);
             var okResult = result as ObjectResult;
 
             // Assert

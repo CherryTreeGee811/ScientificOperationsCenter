@@ -17,9 +17,9 @@ namespace ScientificOperationsCenter.BusinessLogic
         }
 
 
-        public IEnumerable<RadiationMeasurementsTimeSum> GetRadiationMeasurementsSumForTheDay(DateOnly date)
+        public async Task<IEnumerable<RadiationMeasurementsTimeSum>> GetRadiationMeasurementsSumForTheDayAsync(DateOnly date)
         {
-            var radiationMeasurements = _radiationMeasurementsRepository.GetByDay(date);
+            var radiationMeasurements = await _radiationMeasurementsRepository.GetByDayAsync(date);
             if(radiationMeasurements.Any())
             {
                 try
@@ -38,9 +38,9 @@ namespace ScientificOperationsCenter.BusinessLogic
         }
 
 
-        public IEnumerable<RadiationMeasurementsDateSum> GetRadiationMeasurementsSumForTheMonth(DateOnly date)
+        public async Task<IEnumerable<RadiationMeasurementsDateSum>> GetRadiationMeasurementsSumForTheMonthAsync(DateOnly date)
         {
-            var radiationMeasurements = _radiationMeasurementsRepository.GetByMonth(date);
+            var radiationMeasurements = await _radiationMeasurementsRepository.GetByMonthAsync(date);
             if (radiationMeasurements.Any())
             {
                 try
@@ -60,9 +60,9 @@ namespace ScientificOperationsCenter.BusinessLogic
         }
 
 
-        public IEnumerable<RadiationMeasurementsDateSum> GetRadiationMeasurementsSumForTheYear(DateOnly date)
+        public async Task<IEnumerable<RadiationMeasurementsDateSum>> GetRadiationMeasurementsSumForTheYearAsync(DateOnly date)
         {
-            var radiationMeasurements = _radiationMeasurementsRepository.GetByYear(date);
+            var radiationMeasurements = await _radiationMeasurementsRepository.GetByYearAsync(date);
             if (radiationMeasurements.Any())
             {
                 try

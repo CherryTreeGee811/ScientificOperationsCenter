@@ -14,14 +14,14 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByDay_ThenIfSameDaySumHourRadiationMeasurementsReturn()
+        public async Task GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByDay_ThenIfSameDaySumHourRadiationMeasurementsReturn()
         {
             // Setup
             var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
             var radiationMeasurementsService = new RadiationMeasurementsService(radiationMeasurementsRepositoryMock.Object);
 
             // Action
-            var result = radiationMeasurementsService.GetRadiationMeasurementsSumForTheDay(new DateOnly(2024, 10, 09));
+            var result = await radiationMeasurementsService.GetRadiationMeasurementsSumForTheDayAsync(new DateOnly(2024, 10, 09));
 
             // Assert
             Assert.NotNull(result);
@@ -32,7 +32,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByMonth_ThenIfSameMonthSumEachDayOfTheMonthRadiationMeasurementsReturn()
+        public async Task GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByMonth_ThenIfSameMonthSumEachDayOfTheMonthRadiationMeasurementsReturn()
         {
             // Setup
             var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
@@ -40,7 +40,7 @@ namespace ScientificOperationsCenter.Tests
             var random = new Random();
 
             // Action
-            var result = radiationMeasurementsService.GetRadiationMeasurementsSumForTheMonth(new DateOnly(2024, 10, random.Next(1, 30)));
+            var result = await radiationMeasurementsService.GetRadiationMeasurementsSumForTheMonthAsync(new DateOnly(2024, 10, random.Next(1, 30)));
 
             // Assert
             Assert.NotNull(result);
@@ -53,7 +53,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByYear_ThenIfSameYearSumEachMonthOfTheYearRadiationMeasurementsReturn()
+        public async Task GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByYear_ThenIfSameYearSumEachMonthOfTheYearRadiationMeasurementsReturn()
         {
             // Setup
             var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
@@ -61,7 +61,7 @@ namespace ScientificOperationsCenter.Tests
             var random = new Random();
 
             // Action
-            var result = radiationMeasurementsService.GetRadiationMeasurementsSumForTheYear(new DateOnly(2025, random.Next(1, 12), random.Next(1, 30)));
+            var result = await radiationMeasurementsService.GetRadiationMeasurementsSumForTheYearAsync(new DateOnly(2025, random.Next(1, 12), random.Next(1, 30)));
 
             // Assert
             Assert.NotNull(result);
@@ -73,7 +73,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByDay_ThenIfEmptyEmptyIEnumerableReturn()
+        public async Task GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByDay_ThenIfEmptyEmptyIEnumerableReturn()
         {
             // Setup
             var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
@@ -81,7 +81,7 @@ namespace ScientificOperationsCenter.Tests
             var random = new Random();
 
             // Action
-            var result = radiationMeasurementsService.GetRadiationMeasurementsSumForTheDay(new DateOnly(2025, 10, 30));
+            var result = await radiationMeasurementsService.GetRadiationMeasurementsSumForTheDayAsync(new DateOnly(2025, 10, 30));
 
             // Assert
             Assert.That(result.Any(), Is.EqualTo(false));
@@ -90,7 +90,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByMonth_ThenIfEmptyEmptyIEnumerableReturn()
+        public async Task GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByMonth_ThenIfEmptyEmptyIEnumerableReturn()
         {
             // Setup
             var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
@@ -98,7 +98,7 @@ namespace ScientificOperationsCenter.Tests
             var random = new Random();
 
             // Action
-            var result = radiationMeasurementsService.GetRadiationMeasurementsSumForTheMonth(new DateOnly(2025, 09, random.Next(1, 30)));
+            var result = await radiationMeasurementsService.GetRadiationMeasurementsSumForTheMonthAsync(new DateOnly(2025, 09, random.Next(1, 30)));
 
             // Assert
             Assert.That(result.Any(), Is.EqualTo(false));
@@ -107,7 +107,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByYear_ThenIfEmptyEmptyIEnumerableReturn()
+        public async Task GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByYear_ThenIfEmptyEmptyIEnumerableReturn()
         {
             // Setup
             var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
@@ -115,7 +115,7 @@ namespace ScientificOperationsCenter.Tests
             var random = new Random();
 
             // Action
-            var result = radiationMeasurementsService.GetRadiationMeasurementsSumForTheYear(new DateOnly(2026, random.Next(1, 12), random.Next(1, 30)));
+            var result = await radiationMeasurementsService.GetRadiationMeasurementsSumForTheYearAsync(new DateOnly(2026, random.Next(1, 12), random.Next(1, 30)));
 
             // Assert
             Assert.That(result.Any(), Is.EqualTo(false));

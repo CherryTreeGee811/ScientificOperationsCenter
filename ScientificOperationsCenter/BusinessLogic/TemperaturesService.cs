@@ -17,10 +17,10 @@ namespace ScientificOperationsCenter.BusinessLogic
         }
 
 
-        public IEnumerable<TemperaturesTimeAverage> GetAverageTemperaturesForTheDay(DateOnly date)
+        public async Task<IEnumerable<TemperaturesTimeAverage>> GetAverageTemperaturesForTheDayAsync(DateOnly date)
         {
             
-            var temperatures = _temperaturesRepository.GetByDay(date);
+            var temperatures = await _temperaturesRepository.GetByDayAsync(date);
             if (temperatures.Any())
             {
                 try
@@ -39,9 +39,9 @@ namespace ScientificOperationsCenter.BusinessLogic
         }
 
 
-        public IEnumerable<TemperaturesDateAverage> GetAverageTemperaturesForTheMonth(DateOnly date)
+        public async Task<IEnumerable<TemperaturesDateAverage>> GetAverageTemperaturesForTheMonthAsync(DateOnly date)
         {
-            var temperatures = _temperaturesRepository.GetByMonth(date);
+            var temperatures = await _temperaturesRepository.GetByMonthAsync(date);
             if (temperatures.Any())
             {
                 try
@@ -60,9 +60,9 @@ namespace ScientificOperationsCenter.BusinessLogic
         }
 
 
-        public IEnumerable<TemperaturesDateAverage> GetAverageTemperaturesForTheYear(DateOnly date)
+        public async Task<IEnumerable<TemperaturesDateAverage>> GetAverageTemperaturesForTheYearAsync(DateOnly date)
         {
-            var temperatures = _temperaturesRepository.GetByYear(date);
+            var temperatures = await _temperaturesRepository.GetByYearAsync(date);
             if (temperatures.Any())
             {
                 try

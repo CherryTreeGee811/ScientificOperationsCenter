@@ -23,7 +23,7 @@ namespace ScientificOperationsCenter.Controllers
 
 
         [HttpGet("/[controller]/Day")]
-        public IActionResult Day([FromQuery] string? date)
+        public async Task<IActionResult> Day([FromQuery] string? date)
         {
             if (!string.IsNullOrEmpty(date))
             {
@@ -32,7 +32,7 @@ namespace ScientificOperationsCenter.Controllers
                     var success = DateOnly.TryParse(date, out DateOnly dateOnly);
                     if (success)
                     {
-                        var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDay(dateOnly);
+                        var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDayAsync(dateOnly);
                         if (radiationMeasurements.Count() > 0)
                         {
                             return Ok(radiationMeasurements);
@@ -51,7 +51,7 @@ namespace ScientificOperationsCenter.Controllers
 
 
         [HttpGet("/[controller]/Month")]
-        public IActionResult Month([FromQuery] string? date)
+        public async Task<IActionResult> Month([FromQuery] string? date)
         {
             if (!string.IsNullOrEmpty(date))
             {
@@ -60,7 +60,7 @@ namespace ScientificOperationsCenter.Controllers
                     var success = DateOnly.TryParse(date, out DateOnly dateOnly);
                     if (success)
                     {
-                        var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonth(dateOnly);
+                        var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonthAsync(dateOnly);
                         if (radiationMeasurements.Count() > 0)
                         {
                             return Ok(radiationMeasurements);
@@ -79,7 +79,7 @@ namespace ScientificOperationsCenter.Controllers
 
 
         [HttpGet("/[controller]/Year")]
-        public IActionResult Year([FromQuery] string? date)
+        public async Task<IActionResult> Year([FromQuery] string? date)
         {
             if (!string.IsNullOrEmpty(date))
             {
@@ -88,7 +88,7 @@ namespace ScientificOperationsCenter.Controllers
                     var success = DateOnly.TryParse(date, out DateOnly dateOnly);
                     if (success)
                     {
-                        var radiationMeasurements = _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYear(dateOnly);
+                        var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYearAsync(dateOnly);
                         if (radiationMeasurements.Count() > 0)
                         {
                             return Ok(radiationMeasurements);

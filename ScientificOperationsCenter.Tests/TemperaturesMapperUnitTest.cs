@@ -13,14 +13,14 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenATemperaturesService_WhenGettingAverageTemperaturesByHourOfDay_ThenCollectionOfTemperaturesTimeViewModelSortedByHourReturn()
+        public async Task GivenATemperaturesService_WhenGettingAverageTemperaturesByHourOfDay_ThenCollectionOfTemperaturesTimeViewModelSortedByHourReturn()
         {
             // Setup
             var temperaturesServiceMock = MockITemperaturesService.GetMock();
             var temperaturesMapper = new TemperaturesMapper(temperaturesServiceMock.Object);
 
             // Action
-            var result = temperaturesMapper.GetTemperaturesForTheDay(new DateOnly(2024, 10, 09));
+            var result = await temperaturesMapper.GetTemperaturesForTheDayAsync(new DateOnly(2024, 10, 09));
 
             // Assert
             Assert.NotNull(result);
@@ -33,7 +33,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenATemperaturesService_WhenGettingAverageTemperaturesByDayOfMonth_ThenCollectionOfTemperaturesDateViewModelSortedByDayReturn()
+        public async Task GivenATemperaturesService_WhenGettingAverageTemperaturesByDayOfMonth_ThenCollectionOfTemperaturesDateViewModelSortedByDayReturn()
         {
             // Setup
             var temperaturesServiceMock = MockITemperaturesService.GetMock();
@@ -41,7 +41,7 @@ namespace ScientificOperationsCenter.Tests
             var random = new Random();
 
             // Action
-            var result = temperaturesMapper.GetTemperaturesForTheMonth(new DateOnly(2024, 10, random.Next(1, 30)));
+            var result = await temperaturesMapper.GetTemperaturesForTheMonthAsync(new DateOnly(2024, 10, random.Next(1, 30)));
 
             // Assert
             Assert.NotNull(result);
@@ -54,7 +54,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenATemperaturesService_WhenGettingAverageTemperaturesByMonthOfYear_ThenCollectionOfTemperaturesDateViewModelSortedByMonthReturn()
+        public async Task GivenATemperaturesService_WhenGettingAverageTemperaturesByMonthOfYear_ThenCollectionOfTemperaturesDateViewModelSortedByMonthReturn()
         {
             // Setup
             var temperaturesServiceMock = MockITemperaturesService.GetMock();
@@ -62,7 +62,7 @@ namespace ScientificOperationsCenter.Tests
             var random = new Random();
 
             // Action
-            var result = temperaturesMapper.GetTemperaturesForTheYear(new DateOnly(2024, random.Next(1, 12), random.Next(1, 30)));
+            var result = await temperaturesMapper.GetTemperaturesForTheYearAsync(new DateOnly(2024, random.Next(1, 12), random.Next(1, 30)));
 
             // Assert
             Assert.NotNull(result);
