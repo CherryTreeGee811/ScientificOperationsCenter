@@ -21,7 +21,7 @@ namespace ScientificOperationsCenter.Tests
             var radiationMeasurementsService = new RadiationMeasurementsService(radiationMeasurementsRepositoryMock.Object);
 
             // Action
-            var result = await radiationMeasurementsService.GetRadiationMeasurementsSumForTheDay(new DateOnly(2024, 10, 09));
+            var result = await radiationMeasurementsService.GetRadiationMeasurementsSumForTheDayAsync(new DateOnly(2024, 10, 09));
 
             // Assert
             Assert.NotNull(result);
@@ -40,7 +40,7 @@ namespace ScientificOperationsCenter.Tests
             var random = new Random();
 
             // Action
-            var result = await radiationMeasurementsService.GetRadiationMeasurementsSumForTheMonth(new DateOnly(2024, 10, random.Next(1, 30)));
+            var result = await radiationMeasurementsService.GetRadiationMeasurementsSumForTheMonthAsync(new DateOnly(2024, 10, random.Next(1, 30)));
 
             // Assert
             Assert.NotNull(result);
@@ -61,7 +61,7 @@ namespace ScientificOperationsCenter.Tests
             var random = new Random();
 
             // Action
-            var result = await radiationMeasurementsService.GetRadiationMeasurementsSumForTheYear(new DateOnly(2025, random.Next(1, 12), random.Next(1, 30)));
+            var result = await radiationMeasurementsService.GetRadiationMeasurementsSumForTheYearAsync(new DateOnly(2025, random.Next(1, 12), random.Next(1, 30)));
 
             // Assert
             Assert.NotNull(result);

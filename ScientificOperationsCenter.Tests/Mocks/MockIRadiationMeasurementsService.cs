@@ -54,7 +54,7 @@ namespace ScientificOperationsCenter.Tests.Mocks
             };
 
 
-            mock.Setup(m => m.GetRadiationMeasurementsSumForTheDay(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
+            mock.Setup(m => m.GetRadiationMeasurementsSumForTheDayAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 radiationMeasurementsSameDay.GroupBy(t => t.Time.Hour).Select(r =>
                     new RadiationMeasurementsTimeSum { Time = new TimeOnly(r.Key, 00), TotalMilligrays = r.Sum(a => a.Milligrays) }));
             
