@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using ScientificOperationsCenter.Mappers.Interfaces;
 
 
@@ -26,7 +25,7 @@ namespace ScientificOperationsCenter.Controllers
         [HttpGet("/[controller]/Day")]
         public IActionResult Day([FromQuery] string? date)
         {
-            if (!date.IsNullOrEmpty())
+            if (!string.IsNullOrEmpty(date))
             {
                 try
                 {
@@ -54,7 +53,7 @@ namespace ScientificOperationsCenter.Controllers
         [HttpGet("/[controller]/Month")]
         public IActionResult Month([FromQuery] string? date)
         {
-            if (!date.IsNullOrEmpty())
+            if (!string.IsNullOrEmpty(date))
             {
                 try
                 {
@@ -82,7 +81,7 @@ namespace ScientificOperationsCenter.Controllers
         [HttpGet("/[controller]/Year")]
         public IActionResult Year([FromQuery] string? date)
         {
-            if (!date.IsNullOrEmpty())
+            if (!string.IsNullOrEmpty(date))
             {
                 try
                 {
