@@ -24,7 +24,7 @@ namespace ScientificOperationsCenter.Controllers
 
 
         [HttpGet("/[controller]/Day")]
-        public IActionResult Day([FromQuery] string? date)
+        public async Task<IActionResult> Day([FromQuery] string? date)
         {
             if (!date.IsNullOrEmpty())
             {
@@ -33,7 +33,7 @@ namespace ScientificOperationsCenter.Controllers
                     var success = DateOnly.TryParse(date, out DateOnly dateOnly);
                     if (success)
                     {
-                        var temperatures = _temperaturesMapper.GetTemperaturesForTheDay(dateOnly);
+                        var temperatures = await _temperaturesMapper.GetTemperaturesForTheDayAsync(dateOnly);
                         if (temperatures.Count() > 0)
                         {
                             return Ok(temperatures);
@@ -52,7 +52,7 @@ namespace ScientificOperationsCenter.Controllers
 
 
         [HttpGet("/[controller]/Month")]
-        public IActionResult Month([FromQuery] string? date)
+        public async Task<IActionResult> Month([FromQuery] string? date)
         {
             if (!date.IsNullOrEmpty())
             {
@@ -61,7 +61,7 @@ namespace ScientificOperationsCenter.Controllers
                     var success = DateOnly.TryParse(date, out DateOnly dateOnly);
                     if (success)
                     {
-                        var temperatures = _temperaturesMapper.GetTemperaturesForTheMonth(dateOnly);
+                        var temperatures = await _temperaturesMapper.GetTemperaturesForTheMonthAsync(dateOnly);
                         if (temperatures.Count() > 0)
                         {
                             return Ok(temperatures);
@@ -80,7 +80,7 @@ namespace ScientificOperationsCenter.Controllers
 
 
         [HttpGet("/[controller]/Year")]
-        public IActionResult Year([FromQuery] string? date)
+        public async Task<IActionResult> Year([FromQuery] string? date)
         {
             if (!date.IsNullOrEmpty())
             {
@@ -89,7 +89,7 @@ namespace ScientificOperationsCenter.Controllers
                     var success = DateOnly.TryParse(date, out DateOnly dateOnly);
                     if (success)
                     {
-                        var temperatures = _temperaturesMapper.GetTemperaturesForTheYear(dateOnly);
+                        var temperatures = await _temperaturesMapper.GetTemperaturesForTheYearAsync(dateOnly);
                         if (temperatures.Count() > 0)
                         {
                             return Ok(temperatures);

@@ -5,12 +5,12 @@ namespace ScientificOperationsCenter.BusinessLogic.Interfaces
 {
     public interface IRadiationMeasurementsService
     {
-        IEnumerable<RadiationMeasurementsTimeSum> GetRadiationMeasurementsSumForTheDay(DateOnly date);
+        Task<IEnumerable<RadiationMeasurementsTimeSum>> GetRadiationMeasurementsSumForTheDayAsync(DateOnly date);
 
 
-        IEnumerable<RadiationMeasurementsDateSum> GetRadiationMeasurementsSumForTheMonth(DateOnly date);
+        Task<IEnumerable<RadiationMeasurementsDateSum>> GetRadiationMeasurementsSumForTheMonthAsync(DateOnly date);
 
 
-        IEnumerable<RadiationMeasurementsDateSum> GetRadiationMeasurementsSumForTheYear(DateOnly date);
+        Task<IEnumerable<RadiationMeasurementsDateSum>> GetRadiationMeasurementsSumForTheYearAsync(DateOnly date);
     }
 }

@@ -10,7 +10,7 @@ namespace ScientificOperationsCenter.Tests
     internal class RadiationMeasurementsControllerUnitTest
     {
         [Test]
-        public void GivenARadiationMeasurementsMapper_WhenRadiationMeasurementsSumByHourOfDay_ThenIf200CollectionOfRadiationMeasurementsJSONSortedByHourReturn()
+        public async Task GivenARadiationMeasurementsMapper_WhenRadiationMeasurementsSumByHourOfDay_ThenIf200CollectionOfRadiationMeasurementsJSONSortedByHourReturn()
         {
             // Setup
             var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
@@ -18,7 +18,7 @@ namespace ScientificOperationsCenter.Tests
             var date = "2024-10-08";
 
             // Action
-            var result = radiationMeasurementsController.Day(date);
+            var result = await radiationMeasurementsController.Day(date);
             var okResult = result as ObjectResult;
 
             // Assert
@@ -39,7 +39,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARadiationMeasurementsMapper_WhenRadiationMeasurementsSumByDayOfMonth_ThenIf200CollectionOfRadiationMeasurementsJSONSortedByDayReturn()
+        public async Task GivenARadiationMeasurementsMapper_WhenRadiationMeasurementsSumByDayOfMonth_ThenIf200CollectionOfRadiationMeasurementsJSONSortedByDayReturn()
         {
             // Setup
             var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
@@ -47,7 +47,7 @@ namespace ScientificOperationsCenter.Tests
             var date = "2024-10-20";
 
             // Action
-            var result = radiationMeasurementsController.Month(date);
+            var result = await radiationMeasurementsController.Month(date);
             var okResult = result as ObjectResult;
 
             // Assert
@@ -69,7 +69,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARadiationMeasurementsMapper_WhenRadiationMeasurementsSumByMonthOfYear_ThenIf200CollectionOfRadiationMeasurementsJSONSortedByMonthReturn()
+        public async Task GivenARadiationMeasurementsMapper_WhenRadiationMeasurementsSumByMonthOfYear_ThenIf200CollectionOfRadiationMeasurementsJSONSortedByMonthReturn()
         {
             // Setup
             var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
@@ -77,7 +77,7 @@ namespace ScientificOperationsCenter.Tests
             var date = "2025-10-01";
 
             // Action
-            var result = radiationMeasurementsController.Year(date);
+            var result = await radiationMeasurementsController.Year(date);
             var okResult = result as ObjectResult;
 
             // Assert
@@ -98,7 +98,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARadiationMeasurementsMapper_WhenGettingRadiationMeasurementsSumByHourOfDay_ThenIfBadRequest400ResponseCodeReturn()
+        public async Task GivenARadiationMeasurementsMapper_WhenGettingRadiationMeasurementsSumByHourOfDay_ThenIfBadRequest400ResponseCodeReturn()
         {
             // Setup
             var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
@@ -106,7 +106,7 @@ namespace ScientificOperationsCenter.Tests
             var date = "2024-10-00";
 
             // Action
-            var result = radiationMeasurementsController.Day(date);
+            var result = await radiationMeasurementsController.Day(date);
             var badRequestResult = result as StatusCodeResult;
 
             // Assert
@@ -116,7 +116,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARadiationMeasurementsMapper_WhenGettingRadiationMeasurementsSumByDayOfMonth_ThenIfBadRequest400ResponseCodeReturn()
+        public async Task GivenARadiationMeasurementsMapper_WhenGettingRadiationMeasurementsSumByDayOfMonth_ThenIfBadRequest400ResponseCodeReturn()
         {
             // Setup
             var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
@@ -124,7 +124,7 @@ namespace ScientificOperationsCenter.Tests
             var date = "2024-10-00";
 
             // Action
-            var result = radiationMeasurementsController.Month(date);
+            var result = await radiationMeasurementsController.Month(date);
             var badRequestResult = result as StatusCodeResult;
 
             // Assert
@@ -134,7 +134,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARadiationMeasurementsMapper_WhenGettingRadiationMeasurementsSumByMonthOfYear_ThenIfBadRequest400ResponseCodeReturn()
+        public async Task GivenARadiationMeasurementsMapper_WhenGettingRadiationMeasurementsSumByMonthOfYear_ThenIfBadRequest400ResponseCodeReturn()
         {
             // Setup
             var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
@@ -142,7 +142,7 @@ namespace ScientificOperationsCenter.Tests
             var date = "2025-10-00";
 
             // Action
-            var result = radiationMeasurementsController.Year(date);
+            var result = await radiationMeasurementsController.Year(date);
             var badRequestResult = result as StatusCodeResult;
 
             // Assert

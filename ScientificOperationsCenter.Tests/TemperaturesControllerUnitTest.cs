@@ -10,7 +10,7 @@ namespace ScientificOperationsCenter.Tests
     internal class TemperaturesControllerUnitTest
     {
         [Test]
-        public void GivenATemperaturesMapper_WhenGettingAverageTemperaturesByHourOfDay_ThenIf200CollectionOfTemperaturesJSONSortedByHourReturn()
+        public async Task GivenATemperaturesMapper_WhenGettingAverageTemperaturesByHourOfDay_ThenIf200CollectionOfTemperaturesJSONSortedByHourReturn()
         {
             // Setup
             var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
@@ -18,7 +18,7 @@ namespace ScientificOperationsCenter.Tests
             var date = "2024-10-08";
 
             // Action
-            var result = temperaturesController.Day(date);
+            var result = await temperaturesController.Day(date);
             var okResult = result as ObjectResult;
 
             // Assert
@@ -39,7 +39,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenATemperaturesMapper_WhenGettingAverageTemperaturesByDayOfMonth_ThenIf200CollectionOfTemperaturesJSONSortedByDayReturn()
+        public async Task GivenATemperaturesMapper_WhenGettingAverageTemperaturesByDayOfMonth_ThenIf200CollectionOfTemperaturesJSONSortedByDayReturn()
         {
             // Setup
             var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
@@ -47,7 +47,7 @@ namespace ScientificOperationsCenter.Tests
             var date = "2024-10-20";
 
             // Action
-            var result = temperaturesController.Month(date);
+            var result = await temperaturesController.Month(date);
             var okResult = result as ObjectResult;
 
             // Assert
@@ -69,7 +69,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenATemperaturesMapper_WhenGettingAverageTemperaturesByMonthOfYear_ThenIf200CollectionOfTemperaturesJSONSortedByMonthReturn()
+        public async Task GivenATemperaturesMapper_WhenGettingAverageTemperaturesByMonthOfYear_ThenIf200CollectionOfTemperaturesJSONSortedByMonthReturn()
         {
             // Setup
             var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
@@ -77,7 +77,7 @@ namespace ScientificOperationsCenter.Tests
             var date = "2025-10-01";
 
             // Action
-            var result = temperaturesController.Year(date);
+            var result = await temperaturesController.Year(date);
             var okResult = result as ObjectResult;
 
             // Assert
@@ -98,7 +98,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenATemperaturesMapper_WhenGettingAverageTemperaturesByHourOfDay_ThenIfBadRequest400ResponseCodeReturn()
+        public async Task GivenATemperaturesMapper_WhenGettingAverageTemperaturesByHourOfDay_ThenIfBadRequest400ResponseCodeReturn()
         {
             // Setup
             var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
@@ -106,7 +106,7 @@ namespace ScientificOperationsCenter.Tests
             var date = "2024-10-00";
 
             // Action
-            var result = temperaturesController.Day(date);
+            var result = await temperaturesController.Day(date);
             var badRequestResult = result as StatusCodeResult;
 
             // Assert
@@ -116,7 +116,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenATemperaturesMapper_WhenGettingAverageTemperaturesByDayOfMonth_ThenIfBadRequest400ResponseCodeReturn()
+        public async Task GivenATemperaturesMapper_WhenGettingAverageTemperaturesByDayOfMonth_ThenIfBadRequest400ResponseCodeReturn()
         {
             // Setup
             var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
@@ -124,7 +124,7 @@ namespace ScientificOperationsCenter.Tests
             var date = "2024-10-00";
 
             // Action
-            var result = temperaturesController.Month(date);
+            var result = await temperaturesController.Month(date);
             var badRequestResult = result as StatusCodeResult;
 
             // Assert
@@ -134,7 +134,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenATemperaturesMapper_WhenGettingAverageTemperaturesByMonthOfYear_ThenIfBadRequest400ResponseCodeReturn()
+        public async Task GivenATemperaturesMapper_WhenGettingAverageTemperaturesByMonthOfYear_ThenIfBadRequest400ResponseCodeReturn()
         {
             // Setup
             var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
@@ -142,7 +142,7 @@ namespace ScientificOperationsCenter.Tests
             var date = "2025-10-00";
 
             // Action
-            var result = temperaturesController.Year(date);
+            var result = await temperaturesController.Year(date);
             var badRequestResult = result as StatusCodeResult;
 
             // Assert

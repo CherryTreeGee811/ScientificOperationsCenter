@@ -13,14 +13,14 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARadiationMeasurementsService_WhenGettingSummedRadiationMeasurementsByHourOfDay_ThenCollectionOfRadiationMeasurementsTimeViewModelSortedByHourReturn()
+        public async Task GivenARadiationMeasurementsService_WhenGettingSummedRadiationMeasurementsByHourOfDay_ThenCollectionOfRadiationMeasurementsTimeViewModelSortedByHourReturn()
         {
             // Setup
             var radiationMeasurementsServiceMock = MockIRadiationMeasurementsService.GetMock();
             var radiationMeasurementsMapper = new RadiationMeasurementsMapper(radiationMeasurementsServiceMock.Object);
 
             // Action
-            var result = radiationMeasurementsMapper.GetRadiationMeasurementsForTheDay(new DateOnly(2024, 10, 09));
+            var result = await radiationMeasurementsMapper.GetRadiationMeasurementsForTheDayAsync(new DateOnly(2024, 10, 09));
 
             // Assert
             Assert.NotNull(result);
@@ -33,7 +33,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARadiationMeasurementsService_WhenGettingSummedRadiationMeasurementsByDayOfMonth_ThenCollectionOfRadiationMeasurementsDateViewModelSortedByDayReturn()
+        public async Task GivenARadiationMeasurementsService_WhenGettingSummedRadiationMeasurementsByDayOfMonth_ThenCollectionOfRadiationMeasurementsDateViewModelSortedByDayReturn()
         {
             // Setup
             var radiationMeasurementsServiceMock = MockIRadiationMeasurementsService.GetMock();
@@ -41,7 +41,7 @@ namespace ScientificOperationsCenter.Tests
             var random = new Random();
 
             // Action
-            var result = radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonth(new DateOnly(2024, 10, random.Next(1, 30)));
+            var result = await radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonthAsync(new DateOnly(2024, 10, random.Next(1, 30)));
 
             // Assert
             Assert.NotNull(result);
@@ -54,7 +54,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARadiationMeasurementsService_WhenGettingSummedRadiationMeasurementsByMonthOfYear_ThenCollectionOfRadiationMeasurementsDateViewModelSortedByMonthReturn()
+        public async Task GivenARadiationMeasurementsService_WhenGettingSummedRadiationMeasurementsByMonthOfYear_ThenCollectionOfRadiationMeasurementsDateViewModelSortedByMonthReturn()
         {
             // Setup
             var radiationMeasurementsServiceMock = MockIRadiationMeasurementsService.GetMock();
@@ -62,7 +62,7 @@ namespace ScientificOperationsCenter.Tests
             var random = new Random();
 
             // Action
-            var result = radiationMeasurementsMapper.GetRadiationMeasurementsForTheYear(new DateOnly(2024, random.Next(1, 12), random.Next(1, 30)));
+            var result = await radiationMeasurementsMapper.GetRadiationMeasurementsForTheYearAsync(new DateOnly(2024, random.Next(1, 12), random.Next(1, 30)));
 
             // Assert
             Assert.NotNull(result);

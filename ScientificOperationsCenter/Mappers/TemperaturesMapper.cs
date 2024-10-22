@@ -16,9 +16,9 @@ namespace ScientificOperationsCenter.Mappers
         }
 
 
-        public IEnumerable<TemperaturesTimeViewModel> GetTemperaturesForTheDay(DateOnly date)
+        public async Task<IEnumerable<TemperaturesTimeViewModel>> GetTemperaturesForTheDayAsync(DateOnly date)
         {
-            var temperatures = _service.GetAverageTemperaturesForTheDay(date);
+            var temperatures = await _service.GetAverageTemperaturesForTheDayAsync(date);
             if (temperatures.Any())
             {
                 var values = temperatures.OrderBy(t => t.Time.Hour).Select(t =>
@@ -29,9 +29,9 @@ namespace ScientificOperationsCenter.Mappers
         }
 
 
-        public IEnumerable<TemperaturesDateViewModel> GetTemperaturesForTheMonth(DateOnly date)
+        public async Task<IEnumerable<TemperaturesDateViewModel>> GetTemperaturesForTheMonthAsync(DateOnly date)
         {
-            var temperatures = _service.GetAverageTemperaturesForTheMonth(date);
+            var temperatures = await _service.GetAverageTemperaturesForTheMonthAsync(date);
             if (temperatures.Any()) 
             { 
                 var values = temperatures.OrderBy(t => t.Date.Day).Select(t =>
@@ -42,9 +42,9 @@ namespace ScientificOperationsCenter.Mappers
         }
 
 
-        public IEnumerable<TemperaturesDateViewModel> GetTemperaturesForTheYear(DateOnly date)
+        public async Task<IEnumerable<TemperaturesDateViewModel>> GetTemperaturesForTheYearAsync(DateOnly date)
         {
-            var temperatures = _service.GetAverageTemperaturesForTheYear(date);
+            var temperatures = await _service.GetAverageTemperaturesForTheYearAsync(date);
             if (temperatures.Any())
             {
                 var values = temperatures.OrderBy(t => t.Date.Month).Select(t =>

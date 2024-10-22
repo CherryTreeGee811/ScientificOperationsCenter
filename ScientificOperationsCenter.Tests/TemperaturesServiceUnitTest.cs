@@ -14,14 +14,14 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARepositoryOfTemperatures_WhenGettingTemperaturesByDay_ThenIfSameDayAverageHourTemperaturesReturn()
+        public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByDay_ThenIfSameDayAverageHourTemperaturesReturn()
         {
             // Setup
             var temperatureRepositoryMock = MockITemperaturesRepository.GetMock();
             var temperaturesService = new TemperaturesService(temperatureRepositoryMock.Object);
 
             // Action
-            var result = temperaturesService.GetAverageTemperaturesForTheDay(new DateOnly(2024, 10, 09));
+            var result = await temperaturesService.GetAverageTemperaturesForTheDayAsync(new DateOnly(2024, 10, 09));
 
             // Assert
             Assert.NotNull(result);
@@ -32,7 +32,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARepositoryOfTemperatures_WhenGettingTemperaturesByMonth_ThenIfSameMonthAverageDayOfMonthTemperaturesReturn()
+        public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByMonth_ThenIfSameMonthAverageDayOfMonthTemperaturesReturn()
         {
             // Setup
             var temperatureRepositoryMock = MockITemperaturesRepository.GetMock();
@@ -41,7 +41,7 @@ namespace ScientificOperationsCenter.Tests
 
             // Action
             // 08
-            var result = temperaturesService.GetAverageTemperaturesForTheMonth(new DateOnly(2024, 10, random.Next(1, 30)));
+            var result = await temperaturesService.GetAverageTemperaturesForTheMonthAsync(new DateOnly(2024, 10, random.Next(1, 30)));
 
             // Assert
             Assert.NotNull(result);
@@ -54,7 +54,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARepositoryOfTemperatures_WhenGettingTemperaturesByYear_ThenIfSameYearAverageMonthOfYearTemperaturesReturn()
+        public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByYear_ThenIfSameYearAverageMonthOfYearTemperaturesReturn()
         {
             // Setup
             var temperatureRepositoryMock = MockITemperaturesRepository.GetMock();
@@ -62,7 +62,7 @@ namespace ScientificOperationsCenter.Tests
             var random = new Random();
 
             // Action
-            var result = temperaturesService.GetAverageTemperaturesForTheYear(new DateOnly(2025, random.Next(1,12), random.Next(1,30)));
+            var result = await temperaturesService.GetAverageTemperaturesForTheYearAsync(new DateOnly(2025, random.Next(1,12), random.Next(1,30)));
 
             // Assert
             Assert.NotNull(result);
@@ -74,7 +74,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARepositoryOfTemperatures_WhenGettingTemperaturesByDay_ThenIfEmptyEmptyIEnumerableReturn()
+        public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByDay_ThenIfEmptyEmptyIEnumerableReturn()
         {
             // Setup
             var temperaturesRepositoryMock = MockITemperaturesRepository.GetMock();
@@ -82,7 +82,7 @@ namespace ScientificOperationsCenter.Tests
             var random = new Random();
 
             // Action
-            var result = temperaturesService.GetAverageTemperaturesForTheDay(new DateOnly(2025, 10, 30));
+            var result = await temperaturesService.GetAverageTemperaturesForTheDayAsync(new DateOnly(2025, 10, 30));
 
             // Assert
             Assert.That(result.Any(), Is.EqualTo(false));
@@ -91,7 +91,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARepositoryOfTemperatures_WhenGettingTemperaturesByMonth_ThenIfEmptyEmptyIEnumerableReturn()
+        public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByMonth_ThenIfEmptyEmptyIEnumerableReturn()
         {
             // Setup
             var temperaturesRepositoryMock = MockITemperaturesRepository.GetMock();
@@ -99,7 +99,7 @@ namespace ScientificOperationsCenter.Tests
             var random = new Random();
 
             // Action
-            var result = temperaturesService.GetAverageTemperaturesForTheMonth(new DateOnly(2025, 09, random.Next(1, 30)));
+            var result = await temperaturesService.GetAverageTemperaturesForTheMonthAsync(new DateOnly(2025, 09, random.Next(1, 30)));
 
             // Assert
             Assert.That(result.Any(), Is.EqualTo(false));
@@ -108,7 +108,7 @@ namespace ScientificOperationsCenter.Tests
 
 
         [Test]
-        public void GivenARepositoryOfTemperatures_WhenGettingTemperaturesByYear_ThenIfEmptyEmptyIEnumerableReturn()
+        public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByYear_ThenIfEmptyEmptyIEnumerableReturn()
         {
             // Setup
             var temperaturesRepositoryMock = MockITemperaturesRepository.GetMock();
@@ -116,7 +116,7 @@ namespace ScientificOperationsCenter.Tests
             var random = new Random();
 
             // Action
-            var result = temperaturesService.GetAverageTemperaturesForTheYear(new DateOnly(2026, random.Next(1, 12), random.Next(1, 30)));
+            var result = await temperaturesService.GetAverageTemperaturesForTheYearAsync(new DateOnly(2026, random.Next(1, 12), random.Next(1, 30)));
 
             // Assert
             Assert.That(result.Any(), Is.EqualTo(false));

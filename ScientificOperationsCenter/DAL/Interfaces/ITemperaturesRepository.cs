@@ -5,12 +5,12 @@ namespace ScientificOperationsCenter.DAL.Interfaces
 {
     public interface ITemperaturesRepository
     {
-        public IEnumerable<Temperatures> GetByDay(DateOnly date);
+        Task<IEnumerable<Temperatures>> GetByDayAsync(DateOnly date);
 
 
-        public IEnumerable<Temperatures> GetByMonth(DateOnly date);
+        Task<IEnumerable<Temperatures>> GetByMonthAsync(DateOnly date);
 
 
-        public IEnumerable<Temperatures> GetByYear(DateOnly date);
+        Task<IEnumerable<Temperatures>> GetByYearAsync(DateOnly date);
     }
 }
