@@ -11,17 +11,33 @@ jobs:
    BuildAndTest:
       runs-on: ubuntu-latest
       steps:
-          - uses: actions/checkout@v3
+          - uses: actions/checkout@v4
+          
+          - name: Install Tools
+            shell: bash
+            run: |
+              dotnet tool install --global dotnet-outdated-tool
+
+          - name: Update NuGet Packages
+            shell: bash
+            run: |
+              dotnet outdated -u ./ScientificOperationsCenter/ScientificOperationsCenter.csproj
          
           - name: Build App Container
             shell: bash
-            run: docker build --rm -t cherrytreegee811/scientificoperationscenter:dev ScientificOperationsCenter
+            run: docker build --rm -t cherrytreegee811/scientificoperationscenter ScientificOperationsCenter
 
           - name: Run App Container
             shell: bash
-            run: docker run --rm -dit cherrytreegee811/scientificoperationscenter:dev
+            run: docker run --rm -dit cherrytreegee811/scientificoperationscenter
           
           - name: Run Tests
             shell: bash
             run: |
                 dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj --os linux --verbosity minimal
+                
+          - name: Container Vulnerability Scan
+            uses: crazy-max/ghaction-container-scan@v3
+            with:
+                image: cherrytreegee811/scientificoperationscenter
+                severity_threshold: HIGH
