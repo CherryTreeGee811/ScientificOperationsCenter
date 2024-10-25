@@ -3,7 +3,7 @@
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER root
-RUN apt-get update && apt-get upgrade -y && apt-get install -y perl zlib1g && apt-get clean
+RUN apt-get update && apt-get upgrade -y && apt-get remove -y perl zlib1g && apt-get clean
 USER app
 WORKDIR /app
 EXPOSE 8080
