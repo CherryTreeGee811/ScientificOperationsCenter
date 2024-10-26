@@ -29,14 +29,19 @@ jobs:
 
           - name: Run App Container
             shell: bash
-            run: docker run --rm -dit cherrytreegee811/scientificoperationscenter
+            run: docker run --rm -dit -p 8080:8080 cherrytreegee811/scientificoperationscenter
           
           - name: Run Tests
             shell: bash
             run: |
-                dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj --os linux --verbosity minimal
+              dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj --os linux --verbosity minimal
                 
           - name: Container Vulnerability Scan
             uses: crazy-max/ghaction-container-scan@v3
             with:
                 image: cherrytreegee811/scientificoperationscenter
+            
+          - name: Nikto Scan
+            shell: bash
+            run: |
+              nikto -h http://localhost:8080 -C all
