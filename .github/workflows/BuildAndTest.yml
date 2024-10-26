@@ -17,6 +17,7 @@ jobs:
             shell: bash
             run: |
               dotnet tool install --global dotnet-outdated-tool
+              sudo apt install nikto
 
           - name: Update NuGet Packages
             shell: bash
@@ -29,7 +30,7 @@ jobs:
 
           - name: Run App Container
             shell: bash
-            run: docker run --rm -dit -p 8080:8080 cherrytreegee811/scientificoperationscenter
+            run: docker run --rm -dit --name scientificoperationscenter --hostname localhost -p 8080:8080 cherrytreegee811/scientificoperationscenter
           
           - name: Run Tests
             shell: bash
@@ -45,3 +46,8 @@ jobs:
             shell: bash
             run: |
               nikto -h http://localhost:8080 -C all
+
+          - name: Stop Containers
+            shell: bash
+            run: |
+              docker stop scientificoperationscenter
