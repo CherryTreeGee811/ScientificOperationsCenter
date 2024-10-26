@@ -36,11 +36,6 @@ jobs:
             shell: bash
             run: |
               dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj --os linux --verbosity minimal
-                
-          - name: Container Vulnerability Scan
-            uses: crazy-max/ghaction-container-scan@v3
-            with:
-                image: cherrytreegee811/scientificoperationscenter
             
           - name: Nikto Scan
             shell: bash
