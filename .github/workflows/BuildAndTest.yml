@@ -11,17 +11,45 @@ jobs:
    BuildAndTest:
       runs-on: ubuntu-latest
       steps:
-          - uses: actions/checkout@v3
+          - uses: actions/checkout@v4
+          
+          - name: Install Tools
+            shell: bash
+            run: |
+              dotnet tool install --global dotnet-outdated-tool
+              sudo apt install nikto
+
+          - name: Update NuGet Packages
+            shell: bash
+            run: |
+              dotnet outdated -u ./ScientificOperationsCenter/ScientificOperationsCenter.csproj
          
           - name: Build App Container
             shell: bash
-            run: docker build --rm -t cherrytreegee811/scientificoperationscenter:dev ScientificOperationsCenter
+            run: docker build --rm -t cherrytreegee811/scientificoperationscenter ScientificOperationsCenter
 
           - name: Run App Container
             shell: bash
-            run: docker run --rm -dit cherrytreegee811/scientificoperationscenter:dev
+            run: docker run --rm -dit --name scientificoperationscenter --hostname localhost -p 8080:8080 cherrytreegee811/scientificoperationscenter
           
           - name: Run Tests
             shell: bash
             run: |
-                dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj --os linux --verbosity minimal
+              dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj --os linux --verbosity minimal
+            
+          - name: Nikto Scan
+            shell: bash
+            run: |
+              nikto -h http://localhost:8080 -C all
+
+          - name: Stop Containers
+            shell: bash
+            run: |
+              docker stop scientificoperationscenter
+
+          - name: Push to Docker
+            if: ${{ github.ref == 'refs/heads/stable' || github.ref == 'refs/heads/development' }}
+            shell: bash
+            run: |
+              docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
+              docker push cherrytreegee811/scientificoperationscenter:latest
