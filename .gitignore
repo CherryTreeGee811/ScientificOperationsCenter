@@ -17,3 +17,6 @@ ScientificOperationsCenter.Tests/obj
 
 # Appsettings.json
 /ScientificOperationsCenter/obj/Debug/net8.0/ScientificOperationsCenter.AssemblyInfoInputs.cache
+
+# logging
+ScientificOperationsCenter/logs

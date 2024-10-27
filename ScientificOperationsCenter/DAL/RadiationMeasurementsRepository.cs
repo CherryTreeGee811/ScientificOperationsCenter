@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ScientificOperationsCenter.DAL.Interfaces;
 using ScientificOperationsCenter.Models;
+using Serilog;
 
 
 namespace ScientificOperationsCenter.DAL
@@ -26,17 +27,17 @@ namespace ScientificOperationsCenter.DAL
             }
             catch (SqlException dbEx)
             {
-                // Todo: Log Exception
+                Log.Error(dbEx, "An SQLException was thrown in RadiationMeasurementsRepo -> GetByDayAsync().");
                 throw new DataAccessException("An error occurred while accessing the database.", dbEx);
             }
             catch (InvalidOperationException iEx)
             {
-                // Todo: Log Exception
+                Log.Error(iEx, "An DataAccessException was thrown in RadiationMeasurementsRepo -> GetByDayAsync().");
                 throw new DataAccessException("An error occurred while accessing the database.", iEx);
             }
             catch (Exception gEx)
             {
-                // Todo: Log Exception
+                Log.Error(gEx, "An unexpected error occurred in RadiationMeasurementsRepo -> GetByDayAsync().");
                 throw new DataAccessException("An unexpected error occurred.", gEx);
             }
         }
@@ -51,17 +52,17 @@ namespace ScientificOperationsCenter.DAL
             }
             catch (SqlException dbEx)
             {
-                // Todo: Log Exception
+                Log.Error(dbEx, "An SqlException was thrown in RadiationMeasurementsRepo -> GetByMonthAsync().");
                 throw new DataAccessException("An error occurred while accessing the database.", dbEx);
             }
             catch (InvalidOperationException iEx)
             {
-                // Todo: Log Exception
+                Log.Error(iEx, "An InvalidOperationException was thrown in RadiationMeasurementsRepo -> GetByMonthAsync().");
                 throw new DataAccessException("An error occurred while accessing the database.", iEx);
             }
             catch (Exception gEx)
             {
-                // Todo: Log Exception
+                Log.Error(gEx, "An unexpected error occurred in RadiationMeasurementsRepo -> GetByMonthAsync().");
                 throw new DataAccessException("An unexpected error occurred.", gEx);
             }
         }
@@ -76,17 +77,17 @@ namespace ScientificOperationsCenter.DAL
             }
             catch (SqlException dbEx)
             {
-                // Todo: Log Exception
+                Log.Error(dbEx, "An SqlException was thrown in RadiationMeasurementsRepo -> GetByYearAsync().");
                 throw new DataAccessException("An error occurred while accessing the database.", dbEx);
             }
               catch (InvalidOperationException iEx)
             {
-                // Todo: Log Exception
+                Log.Error(iEx, "An InvalidOperationException was thrown in RadiationMeasurementsRepo -> GetByYearAsync().");
                 throw new DataAccessException("An error occurred while accessing the database.", iEx);
             }
             catch (Exception gEx)
             {
-                // Todo: Log Exception
+                Log.Error(gEx, "An unexpected error occurred in RadiationMeasurementsRepo -> GetByYearAsync().");
                 throw new DataAccessException("An unexpected error occurred.", gEx);
             }
         }

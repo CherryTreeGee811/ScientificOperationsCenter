@@ -7,11 +7,20 @@ using ScientificOperationsCenter.BusinessLogic.Interfaces;
 using ScientificOperationsCenter.BusinessLogic;
 using ScientificOperationsCenter.Mappers;
 using ScientificOperationsCenter.Mappers.Interfaces;
+using Serilog;
 
 
 var builder = WebApplication.CreateBuilder(args);
 //var settings = MongoClientSettings.FromConnectionString(builder.Configuration.GetConnectionString("MongoDB"));
 
+Log.Logger = new LoggerConfiguration()
+    // .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day, outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss}] <{Level:u3}> {Message:lj}{NewLine}{Exception}")
+    .WriteTo.File("logs/log.txt", outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss}] <{Level:u3}> {Message:lj}{NewLine}{Exception}")
+    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 
 // Using MSSQL for now, can be replaced with MongoDB later
 builder.Services.AddDbContext<ScientificOperationsCenterContext>(options => 
@@ -25,8 +34,6 @@ builder.Services.AddScoped<ITemperaturesMapper, TemperaturesMapper>();
 builder.Services.AddScoped<IRadiationMeasurementsRepository, RadiationMeasurementsRepository>();
 builder.Services.AddScoped<IRadiationMeasurementsService, RadiationMeasurementsService>();
 builder.Services.AddScoped<IRadiationMeasurementsMapper, RadiationMeasurementsMapper>();
-
-
 
 // Set the ServerApi field of the settings object to set the version of the Stable API on the client
 //settings.ServerApi = new ServerApi(ServerApiVersion.V1);
@@ -68,5 +75,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}"
 );
+
+Log.Information("Web server starting up.");
 
 app.Run();

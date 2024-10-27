@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScientificOperationsCenter.Mappers.Interfaces;
+using Serilog;
 
 
 namespace ScientificOperationsCenter.Controllers
@@ -18,6 +19,7 @@ namespace ScientificOperationsCenter.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            Log.Information("Serving: TemperaturesController -> Index()");
             return View();
         }
 
@@ -35,6 +37,7 @@ namespace ScientificOperationsCenter.Controllers
                         var temperatures = await _temperaturesMapper.GetTemperaturesForTheDayAsync(dateOnly);
                         if (temperatures.Count() > 0)
                         {
+                            Log.Information("Serving: TemperaturesController -> Day()");
                             return Ok(temperatures);
                         }
                         return NotFound();
@@ -43,6 +46,7 @@ namespace ScientificOperationsCenter.Controllers
                 }
                 catch (Exception)
                 {
+                    Log.Error("TemperaturesController -> Day() -> Returned status code 500.");
                     return StatusCode(500);
                 }
             }
@@ -63,6 +67,7 @@ namespace ScientificOperationsCenter.Controllers
                         var temperatures = await _temperaturesMapper.GetTemperaturesForTheMonthAsync(dateOnly);
                         if (temperatures.Count() > 0)
                         {
+                            Log.Information("Serving: TemperaturesController -> Month()");
                             return Ok(temperatures);
                         }
                         return NotFound();
@@ -71,6 +76,7 @@ namespace ScientificOperationsCenter.Controllers
                 }
                 catch (Exception)
                 {
+                    Log.Error("TemperaturesController -> Month() -> Returned status code 500.");
                     return StatusCode(500);
                 }
             }
@@ -91,6 +97,7 @@ namespace ScientificOperationsCenter.Controllers
                         var temperatures = await _temperaturesMapper.GetTemperaturesForTheYearAsync(dateOnly);
                         if (temperatures.Count() > 0)
                         {
+                            Log.Information("Serving: TemperaturesController -> Year()");
                             return Ok(temperatures);
                         }
                         return NotFound();
@@ -99,6 +106,7 @@ namespace ScientificOperationsCenter.Controllers
                 }
                 catch (Exception)
                 {
+                    Log.Error("TemperaturesController -> Year() -> Returned status code 500.");
                     return StatusCode(500);
                 }
             }
