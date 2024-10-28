@@ -51,7 +51,7 @@ jobs:
               docker stop scientificoperationscenterclient
 
           - name: Push to Docker
-            if: ${{ github.ref == 'refs/heads/stable' || github.ref == 'refs/heads/publish' }}
+            if: ${{ github.ref == 'refs/heads/stable' }}
             shell: bash
             run: |
               docker tag scientificoperationscenterapi cherrytreegee811/scientificoperationscenterapi:latest
