@@ -11,6 +11,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=7000
       - ASPNETCORE_HTTPS_PORTS=7001
+      - ASPNETCORE_URLS=http://+:7000
     build:
       context: .
       dockerfile: ScientificOperationsCenter.Client/Dockerfile
@@ -37,6 +38,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=5000
       - ASPNETCORE_HTTPS_PORTS=5001
+      - ASPNETCORE_URLS=http://+:5000
     networks:
         - sciencedb-net
     build:
