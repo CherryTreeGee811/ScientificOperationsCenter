@@ -54,6 +54,8 @@ jobs:
             if: ${{ github.ref == 'refs/heads/stable' || github.ref == 'refs/heads/publish' }}
             shell: bash
             run: |
+              docker tag scientificoperationsapi cherrytreegee811/scientificoperationscenterapi
+              docker tag scientificoperationsclient cherrytreegee811/scientificoperationscenterclient
               docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
               docker push cherrytreegee811/scientificoperationscenterapi
               docker push cherrytreegee811/scientificoperationscenterclient
