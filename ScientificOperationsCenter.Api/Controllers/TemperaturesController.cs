@@ -18,14 +18,6 @@ namespace ScientificOperationsCenter.Api.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            Log.Information("Serving: TemperaturesController -> Index()");
-            return View();
-        }
-
-
         [HttpGet("day")]
         public async Task<IActionResult> Day([FromQuery] string? date)
         {
