@@ -24,14 +24,8 @@ jobs:
             run: |
               dotnet outdated -u ./ScientificOperationsCenter.Api/ScientificOperationsCenter.Api.csproj
               dotnet outdated -u ./ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj
-         
-          - name: Build App Containers
-            shell: bash
-            run: |
-               docker build --rm -t cherrytreegee811/scientificoperationscenterapi ScientificOperationsCenter.Api
-               docker build --rm -t cherrytreegee811/scientificoperationscenterclient ScientificOperationsCenter.Client
-
-          - name: Run App Containers
+      
+          - name: Build and Run App Containers
             shell: bash
             run: docker compose up -d
           
