@@ -17,9 +17,6 @@ services:
       dockerfile: ScientificOperationsCenter.Client/Dockerfile
     depends_on:
         - scientificoperationscenter.api
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:7000/health || exit 1"]
       interval: 30s
@@ -46,9 +43,6 @@ services:
       dockerfile: ScientificOperationsCenter.Api/Dockerfile
     depends_on:
         - database
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:5000/health || exit 1"]
       interval: 30s
