@@ -22,7 +22,8 @@ jobs:
           - name: Update NuGet Packages
             shell: bash
             run: |
-              dotnet outdated -u ./ScientificOperationsCenter/ScientificOperationsCenter.csproj
+              dotnet outdated -u ./ScientificOperationsCenter.Api/ScientificOperationsCenter.Api.csproj
+              dotnet outdated -u ./ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj
          
           - name: Build App Containers
             shell: bash
