@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
+using Serilog;
 
 namespace ScientificOperationsCenter.Controllers
 {
@@ -9,6 +9,7 @@ namespace ScientificOperationsCenter.Controllers
         public IActionResult Index()
         {
             ViewBag.Message = "Welcome to the Scientific Operations Center";
+            Log.Information("Serving: HomeController -> Index()");
             return View();
         }
     }

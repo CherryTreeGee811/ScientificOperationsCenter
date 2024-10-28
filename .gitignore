@@ -16,7 +16,10 @@ ScientificOperationsCenter.Client/obj
 ScientificOperationsCenter.Tests/bin
 ScientificOperationsCenter.Tests/obj
 
+# logging
+ScientificOperationsCenter.Api/logs
 
 /ScientificOperationsCenter
 /bin
 /obj
+

@@ -1,6 +1,7 @@
 ﻿using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
 using ScientificOperationsCenter.Api.BusinessLogic.Structs;
 using ScientificOperationsCenter.Api.DAL.Interfaces;
+using Serilog;
 
 
 namespace ScientificOperationsCenter.Api.BusinessLogic
@@ -30,7 +31,7 @@ namespace ScientificOperationsCenter.Api.BusinessLogic
                 }
                 catch (Exception gEx)
                 {
-                    // Todo: Log Exception
+                    Log.Error(gEx, "An unexpected error occurred in RadiationMeasurementsService -> GetRadiationMeasurementsSumForTheDayAsync().");
                     throw new BusinessLogicException("An unexpected error occurred.", gEx);
                 }
             }
@@ -51,7 +52,7 @@ namespace ScientificOperationsCenter.Api.BusinessLogic
                 }
                 catch (Exception gEx)
                 {
-                    // Todo: Log Exception
+                    Log.Error(gEx, "An unexpected error occurred in RadiationMeasurementsService -> GetRadiationMeasurementsSumForTheMonthAsync().");
                     throw new BusinessLogicException("An unexpected error occurred.", gEx);
                 }
 
@@ -73,7 +74,7 @@ namespace ScientificOperationsCenter.Api.BusinessLogic
                 }
                 catch (Exception gEx)
                 {
-                    // Todo: Log Exception
+                    Log.Error(gEx, "An unexpected error occurred in RadiationMeasurementsService -> GetRadiationMeasurementsSumForTheYearAsync().");
                     throw new BusinessLogicException("An unexpected error occurred.", gEx);
                 }
             }
