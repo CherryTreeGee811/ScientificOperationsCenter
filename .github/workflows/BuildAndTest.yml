@@ -27,7 +27,7 @@ jobs:
       
           - name: Build and Run App Containers
             shell: bash
-            run: docker compose up
+            run: docker compose up -d
           
           - name: Run Tests
             shell: bash
