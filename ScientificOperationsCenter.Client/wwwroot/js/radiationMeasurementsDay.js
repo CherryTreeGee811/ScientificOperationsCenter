@@ -3,7 +3,7 @@
 
 function getChartData() {
     const date = '2024-10-08';
-    const url = `http://localhost:5000/api/RadiationMeasurements/day?date=${date}`;
+    const url = `http://localhost:9000/api/RadiationMeasurements/day?date=${date}`;
     const errorTextElement = document.getElementById("ErrorText");
     const loadingTextElement = document.getElementById("LoadingText");
     loadingTextElement.textContent = "Loading Chart ...";
