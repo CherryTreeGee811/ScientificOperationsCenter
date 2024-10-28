@@ -55,5 +55,5 @@ jobs:
             shell: bash
             run: |
               docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
-              docker push cherrytreegee811/scientificoperationscenterapi:latest
-              docker push cherrytreegee811/scientificoperationscenterclient:latest
+              docker push cherrytreegee811/scientificoperationscenterapi
+              docker push cherrytreegee811/scientificoperationscenterclient
