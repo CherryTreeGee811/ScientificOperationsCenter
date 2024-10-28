@@ -1,0 +1,77 @@
+version: '3.4'
+services:
+  scientificoperationscenter.client:
+    image: ${DOCKER_REGISTRY-}scientificoperationscenterclient
+    container_name: scientificoperationscenterclient
+    hostname: localhost
+    ports:
+        - 7000:7000
+        - 7001:7001
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=7000
+      - ASPNETCORE_HTTPS_PORTS=7001
+      - ASPNETCORE_URLS=http://+:7000
+    build:
+      context: .
+      dockerfile: ScientificOperationsCenter.Client/Dockerfile
+    depends_on:
+        - scientificoperationscenter.api
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:7000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  
+
+  scientificoperationscenter.api:
+    image: ${DOCKER_REGISTRY-}scientificoperationscenterapi
+    container_name: scientificoperationscenterapi
+    hostname: localhost
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5000
+      - ASPNETCORE_HTTPS_PORTS=5001
+      - ASPNETCORE_URLS=http://+:5000
+    networks:
+        - sciencedb-net
+    build:
+      context: .
+      dockerfile: ScientificOperationsCenter.Api/Dockerfile
+    depends_on:
+        - database
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+   
+      
+  database:
+    image: mcr.microsoft.com/mssql/server:2022-preview-ubuntu-22.04
+    container_name: sqlpreview
+    hostname: localhost
+    networks:
+        - sciencedb-net
+    ports:
+        - 1433:1433
+    environment:
+        ACCEPT_EULA: Y
+        MSSQL_SA_PASSWORD: SATestPassword10*
+    healthcheck:
+        test: ["CMD-SHELL", "echo 'SELECT 1' | /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P SATestPassword10*"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+networks:
+    sciencedb-net:
+        driver: bridge

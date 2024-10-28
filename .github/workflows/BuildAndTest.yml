@@ -22,34 +22,38 @@ jobs:
           - name: Update NuGet Packages
             shell: bash
             run: |
-              dotnet outdated -u ./ScientificOperationsCenter/ScientificOperationsCenter.csproj
-         
-          - name: Build App Container
+              dotnet outdated -u ./ScientificOperationsCenter.Api/ScientificOperationsCenter.Api.csproj
+              dotnet outdated -u ./ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj
+      
+          - name: Build and Run App Containers
             shell: bash
-            run: docker build --rm -t cherrytreegee811/scientificoperationscenter ScientificOperationsCenter
-
-          - name: Run App Container
-            shell: bash
-            run: docker run --rm -dit --name scientificoperationscenter --hostname localhost -p 8080:8080 cherrytreegee811/scientificoperationscenter
+            run: docker compose up -d
           
           - name: Run Tests
             shell: bash
             run: |
               dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj --os linux --verbosity minimal
             
-          - name: Nikto Scan
+          - name: Nikto Scan Frontend
             shell: bash
             run: |
-              nikto -h http://localhost:8080 -C all
+              nikto -h http://localhost:7000 -C all
+
+          - name: Nikto Scan Backend
+            shell: bash
+            run: |
+              nikto -h http://localhost:5000 -C all
 
           - name: Stop Containers
             shell: bash
             run: |
-              docker stop scientificoperationscenter
+              docker stop scientificoperationscenterapi
+              docker stop scientificoperationscenterclient
 
           - name: Push to Docker
             if: ${{ github.ref == 'refs/heads/stable' }}
             shell: bash
             run: |
               docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
-              docker push cherrytreegee811/scientificoperationscenter:latest
+              docker push cherrytreegee811/scientificoperationscenterapi:latest
+              docker push cherrytreegee811/scientificoperationscenterclient:latest
