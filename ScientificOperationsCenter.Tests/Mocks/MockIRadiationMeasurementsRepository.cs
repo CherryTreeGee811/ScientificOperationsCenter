@@ -1,6 +1,6 @@
 ﻿using Moq;
-using ScientificOperationsCenter.DAL.Interfaces;
-using ScientificOperationsCenter.Models;
+using ScientificOperationsCenter.Api.DAL.Interfaces;
+using ScientificOperationsCenter.Api.Models;
 
 
 namespace ScientificOperationsCenter.Tests.Mocks

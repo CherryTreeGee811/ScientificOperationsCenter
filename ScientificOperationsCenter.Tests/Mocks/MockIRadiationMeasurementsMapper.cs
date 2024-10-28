@@ -1,7 +1,7 @@
 ﻿using Moq;
-using ScientificOperationsCenter.BusinessLogic.Structs;
-using ScientificOperationsCenter.Mappers.Interfaces;
-using ScientificOperationsCenter.ViewModels;
+using ScientificOperationsCenter.Api.BusinessLogic.Structs;
+using ScientificOperationsCenter.Api.Mappers.Interfaces;
+using ScientificOperationsCenter.Api.ViewModels;
 
 
 namespace ScientificOperationsCenter.Tests.Mocks

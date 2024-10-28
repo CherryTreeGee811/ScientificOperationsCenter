@@ -1,7 +1,7 @@
 ﻿using Moq;
-using ScientificOperationsCenter.BusinessLogic.Interfaces;
-using ScientificOperationsCenter.BusinessLogic.Structs;
-using ScientificOperationsCenter.Models;
+using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
+using ScientificOperationsCenter.Api.BusinessLogic.Structs;
+using ScientificOperationsCenter.Api.Models;
 
 
 namespace ScientificOperationsCenter.Tests.Mocks

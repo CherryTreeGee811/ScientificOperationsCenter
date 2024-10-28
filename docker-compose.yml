@@ -1,0 +1,63 @@
+version: '3.4'
+services:
+  scientificoperationscenter.client:
+    image: ${DOCKER_REGISTRY-}scientificoperationscenterclient
+    container_name: scientificoperationscenterclient
+    hostname: localhost
+    ports:
+        - 7000:7000
+        - 7001:7001
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=7000
+      - ASPNETCORE_HTTPS_PORTS=7001
+      - ASPNETCORE_URLS=https://+:7001
+    build:
+      context: .
+      dockerfile: ScientificOperationsCenter.Client/Dockerfile
+    depends_on:
+        - scientificoperationscenter.api
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+  
+
+  scientificoperationscenter.api:
+    image: ${DOCKER_REGISTRY-}scientificoperationscenterapi
+    container_name: scientificoperationscenterapi
+    hostname: localhost
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5000
+      - ASPNETCORE_HTTPS_PORTS=5001
+      - ASPNETCORE_URLS=https://+:5001
+    networks:
+        - sciencedb-net
+    build:
+      context: .
+      dockerfile: ScientificOperationsCenter.Api/Dockerfile
+    depends_on:
+        - database
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+   
+      
+  database:
+    image: mcr.microsoft.com/mssql/server:2022-preview-ubuntu-22.04
+    container_name: sqlpreview
+    hostname: localhost
+    networks:
+        - sciencedb-net
+    ports:
+        - 1433:1433
+    environment:
+        ACCEPT_EULA: Y
+        MSSQL_SA_PASSWORD: SATestPassword10*
+
+networks:
+    sciencedb-net:
+        driver: bridge
