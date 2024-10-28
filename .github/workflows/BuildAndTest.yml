@@ -37,12 +37,12 @@ jobs:
           - name: Nikto Scan Frontend
             shell: bash
             run: |
-              nikto -h http://localhost:7000 -C all
+              nikto -h http://localhost:9000 -C all
 
           - name: Nikto Scan Backend
             shell: bash
             run: |
-              nikto -h http://localhost:5000 -C all
+              nikto -h http://localhost:8000 -C all
 
           - name: Stop Containers
             shell: bash
