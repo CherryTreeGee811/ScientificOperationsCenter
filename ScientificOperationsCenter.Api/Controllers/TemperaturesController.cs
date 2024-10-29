@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScientificOperationsCenter.Api.Mappers.Interfaces;
 using Serilog;
+using System;
 
 
 namespace ScientificOperationsCenter.Api.Controllers
@@ -25,18 +26,21 @@ namespace ScientificOperationsCenter.Api.Controllers
             {
                 try
                 {
+                  
                     var success = DateOnly.TryParse(date, out DateOnly dateOnly);
                     if (success)
                     {
-                        var temperatures = await _temperaturesMapper.GetTemperaturesForTheDayAsync(dateOnly);
-                        if (temperatures.Count() > 0)
+                        if (dateOnly != DateOnly.MinValue)
                         {
-                            Log.Information("Serving: TemperaturesController -> Day()");
-                            return Ok(temperatures);
+                            var temperatures = await _temperaturesMapper.GetTemperaturesForTheDayAsync(dateOnly);
+                            if (temperatures.Count() > 0)
+                            {
+                                Log.Information("Serving: TemperaturesController -> Day()");
+                                return Ok(temperatures);
+                            }
+                            return NotFound();
                         }
-                        return NotFound();
                     }
-                    return BadRequest();
                 }
                 catch (Exception)
                 {
@@ -44,7 +48,7 @@ namespace ScientificOperationsCenter.Api.Controllers
                     return StatusCode(500);
                 }
             }
-            return BadRequest("Date parameter is required.");
+            return BadRequest();
         }
 
 
@@ -58,15 +62,17 @@ namespace ScientificOperationsCenter.Api.Controllers
                     var success = DateOnly.TryParse(date, out DateOnly dateOnly);
                     if (success)
                     {
-                        var temperatures = await _temperaturesMapper.GetTemperaturesForTheMonthAsync(dateOnly);
-                        if (temperatures.Count() > 0)
+                        if (dateOnly != DateOnly.MinValue)
                         {
-                            Log.Information("Serving: TemperaturesController -> Month()");
-                            return Ok(temperatures);
+                            var temperatures = await _temperaturesMapper.GetTemperaturesForTheMonthAsync(dateOnly);
+                            if (temperatures.Count() > 0)
+                            {
+                                Log.Information("Serving: TemperaturesController -> Month()");
+                                return Ok(temperatures);
+                            }
+                            return NotFound();
                         }
-                        return NotFound();
                     }
-                    return BadRequest();
                 }
                 catch (Exception)
                 {
@@ -74,7 +80,7 @@ namespace ScientificOperationsCenter.Api.Controllers
                     return StatusCode(500);
                 }
             }
-            return BadRequest("Date parameter is required.");
+            return BadRequest();
         }
 
 
@@ -88,15 +94,17 @@ namespace ScientificOperationsCenter.Api.Controllers
                     var success = DateOnly.TryParse(date, out DateOnly dateOnly);
                     if (success)
                     {
-                        var temperatures = await _temperaturesMapper.GetTemperaturesForTheYearAsync(dateOnly);
-                        if (temperatures.Count() > 0)
+                        if (dateOnly != DateOnly.MinValue)
                         {
-                            Log.Information("Serving: TemperaturesController -> Year()");
-                            return Ok(temperatures);
+                            var temperatures = await _temperaturesMapper.GetTemperaturesForTheYearAsync(dateOnly);
+                            if (temperatures.Count() > 0)
+                            {
+                                Log.Information("Serving: TemperaturesController -> Year()");
+                                return Ok(temperatures);
+                            }
+                            return NotFound();
                         }
-                        return NotFound();
                     }
-                    return BadRequest();
                 }
                 catch (Exception)
                 {
@@ -104,7 +112,7 @@ namespace ScientificOperationsCenter.Api.Controllers
                     return StatusCode(500);
                 }
             }
-            return BadRequest("Date parameter is required.");
+            return BadRequest();
         }
     }
 }

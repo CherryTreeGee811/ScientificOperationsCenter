@@ -28,15 +28,17 @@ namespace ScientificOperationsCenter.Api.Controllers
                     var success = DateOnly.TryParse(date, out DateOnly dateOnly);
                     if (success)
                     {
-                        var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDayAsync(dateOnly);
-                        if (radiationMeasurements.Count() > 0)
+                        if (dateOnly != DateOnly.MinValue)
                         {
-                            Log.Information("Serving: RadiationMeasurementsController -> Day()");
-                            return Ok(radiationMeasurements);
+                            var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDayAsync(dateOnly);
+                            if (radiationMeasurements.Count() > 0)
+                            {
+                                Log.Information("Serving: RadiationMeasurementsController -> Day()");
+                                return Ok(radiationMeasurements);
+                            }
+                            return NotFound();
                         }
-                        return NotFound();
                     }
-                    return BadRequest();
                 } 
                 catch (Exception)
                 {
@@ -44,7 +46,7 @@ namespace ScientificOperationsCenter.Api.Controllers
                     return StatusCode(500); 
                 }
             }
-            return BadRequest("Date parameter is required.");
+            return BadRequest();
         }
 
 
@@ -58,15 +60,17 @@ namespace ScientificOperationsCenter.Api.Controllers
                     var success = DateOnly.TryParse(date, out DateOnly dateOnly);
                     if (success)
                     {
-                        var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonthAsync(dateOnly);
-                        if (radiationMeasurements.Count() > 0)
+                        if (dateOnly != DateOnly.MinValue)
                         {
-                            Log.Information("Serving: RadiationMeasurementsController -> Month()");
-                            return Ok(radiationMeasurements);
+                            var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonthAsync(dateOnly);
+                            if (radiationMeasurements.Count() > 0)
+                            {
+                                Log.Information("Serving: RadiationMeasurementsController -> Month()");
+                                return Ok(radiationMeasurements);
+                            }
+                            return NotFound();
                         }
-                        return NotFound();
                     }
-                    return BadRequest();
                 }
                 catch (Exception)
                 {
@@ -74,7 +78,7 @@ namespace ScientificOperationsCenter.Api.Controllers
                     return StatusCode(500);
                 }
             }
-            return BadRequest("Date parameter is required.");
+            return BadRequest();
         }
 
 
@@ -88,15 +92,17 @@ namespace ScientificOperationsCenter.Api.Controllers
                     var success = DateOnly.TryParse(date, out DateOnly dateOnly);
                     if (success)
                     {
-                        var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYearAsync(dateOnly);
-                        if (radiationMeasurements.Count() > 0)
+                        if (dateOnly != DateOnly.MinValue)
                         {
-                            Log.Information("Serving: RadiationMeasurementsController -> Year()");
-                            return Ok(radiationMeasurements);
+                            var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYearAsync(dateOnly);
+                            if (radiationMeasurements.Count() > 0)
+                            {
+                                Log.Information("Serving: RadiationMeasurementsController -> Year()");
+                                return Ok(radiationMeasurements);
+                            }
+                            return NotFound();
                         }
-                        return NotFound();
                     }
-                    return BadRequest();
                 }
                 catch (Exception)
                 {
@@ -104,7 +110,7 @@ namespace ScientificOperationsCenter.Api.Controllers
                     return StatusCode(500);
                 }
             }
-            return BadRequest("Date parameter is required.");
+            return BadRequest();
         }
     }
 }

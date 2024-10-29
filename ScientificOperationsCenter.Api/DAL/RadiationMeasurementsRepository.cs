@@ -7,17 +7,41 @@ using Serilog;
 
 namespace ScientificOperationsCenter.Api.DAL
 {
+    /// <summary>
+    /// Manages initial data access for radiation measurements.
+    /// Filters data to meet the requirements of the ScientificOperationsCenter application.
+    /// Represents data retrieved from the database using the RadiationMeasurements data model.
+    /// </summary>
     public sealed class RadiationMeasurementsRepository : IRadiationMeasurementsRepository
     {
+        /// <summary>
+        /// Represents the Radiation Measurement database table.
+        /// </summary>
         private readonly DbSet<RadiationMeasurements> _dbSet;
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RadiationMeasurementsRepository"/> class.
+        /// </summary>
+        /// <param name="context">The database context used to access the Radiation Measurements database table.</param>
         public RadiationMeasurementsRepository(ScientificOperationsCenterContext context)
         {
             _dbSet = context.Set<RadiationMeasurements>();
         }
 
 
+        /// <summary>
+        /// Retrieves all radiation measurements from the database for a specific day,
+        /// where the year, month, and day match the provided date.
+        /// </summary>
+        /// <param name="date">A valid date in the format YYYY-MM-DD provided by the user.</param>
+        /// <returns>
+        /// A collection of <see cref="RadiationMeasurements"/> for the specified day. 
+        /// If no measurements are found, an empty collection is returned.
+        /// </returns>
+        /// <exception cref="DataAccessException">
+        /// Thrown when there is a problem with data access.
+        /// </exception>
         public async Task<IEnumerable<RadiationMeasurements>> GetByDayAsync(DateOnly date)
         {
             try
@@ -43,6 +67,18 @@ namespace ScientificOperationsCenter.Api.DAL
         }
 
 
+        /// <summary>
+        /// Retrieves all radiation measurements from the database for a specific month,
+        /// where the year and month match the provided date.
+        /// </summary>
+        /// <param name="date">A valid date in the format YYYY-MM-DD provided by the user.</param>
+        /// <returns>
+        /// A collection of <see cref="RadiationMeasurements"/> for the specified month. 
+        /// If no measurements are found, an empty collection is returned.
+        /// </returns>
+        /// <exception cref="DataAccessException">
+        /// Thrown when there is a problem with data access.
+        /// </exception>
         public async Task<IEnumerable<RadiationMeasurements>> GetByMonthAsync(DateOnly date)
         {
             try
@@ -68,6 +104,18 @@ namespace ScientificOperationsCenter.Api.DAL
         }
 
 
+        /// <summary>
+        /// Retrieves all radiation measurements from the database for the year 
+        /// corresponding to the provided date.
+        /// </summary>
+        /// <param name="date">A valid date in the format YYYY-MM-DD provided by the user.</param>
+        /// <returns>
+        /// A collection of <see cref="RadiationMeasurements"/> for the specified year. 
+        /// If no measurements are found, an empty collection is returned.
+        /// </returns>
+        /// <exception cref="DataAccessException">
+        /// Thrown when there is a problem with data access.
+        /// </exception>
         public async Task<IEnumerable<RadiationMeasurements>> GetByYearAsync(DateOnly date)
         {
             try
