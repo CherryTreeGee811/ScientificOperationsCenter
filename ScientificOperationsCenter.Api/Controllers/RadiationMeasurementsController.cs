@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ScientificOperationsCenter.Api.Mappers.Interfaces;
 using Serilog;
 
 
 namespace ScientificOperationsCenter.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public sealed class RadiationMeasurementsController : ControllerBase
