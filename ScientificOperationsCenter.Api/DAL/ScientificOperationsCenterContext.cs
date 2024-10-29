@@ -5,8 +5,35 @@ using ScientificOperationsCenter.Api.Models;
 
 namespace ScientificOperationsCenter.Api.DAL
 {
+    /// <summary>
+    /// Represents the database context for the Scientific Operations Center,
+    /// including the configuration of tables and initial records.
+    /// </summary>
     public class ScientificOperationsCenterContext : DbContext, IScientificOperationsCenterContext
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ScientificOperationsCenterContext"/> class.
+        /// </summary>
+        /// <param name="options">The options to be used by the DbContext.</param>
+        public ScientificOperationsCenterContext(DbContextOptions options) : base(options) { }
+
+
+        /// <summary>
+        /// Gets or sets the DbSet for temperature records.
+        /// </summary>
+        public DbSet<Temperatures> Temperatures { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets the DbSet for radiation measurement records.
+        /// </summary>
+        public DbSet<RadiationMeasurements> RadiationMeasurements { get; set; }
+
+
+        /// <summary>
+        /// Configures the model and seeds initial data for the database.
+        /// </summary>
+        /// <param name="builder">The model builder used to configure the model.</param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -49,15 +76,5 @@ namespace ScientificOperationsCenter.Api.DAL
                new RadiationMeasurements { Id = 16, Date = new DateOnly(2025, 01, 05), Time = new TimeOnly(04, 30), Milligrays = 200 }
            );
         }
-
-
-        public DbSet<Temperatures> Temperatures { get; set; }
-
-
-        public DbSet<RadiationMeasurements> RadiationMeasurements { get; set; }
-
-
-        public ScientificOperationsCenterContext(DbContextOptions options) : base(options)
-        { }
     }
 }

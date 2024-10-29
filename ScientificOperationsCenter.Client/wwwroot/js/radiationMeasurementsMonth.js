@@ -15,7 +15,11 @@ function getChartData() {
     })
     .then(response => {
         if (response.ok) {
-            return response.json();
+            if (response.status === 204) {
+                errorTextElement.textContent = "No radiation measurement records found for the selected date.";
+            } else {
+                return response.json();
+            }
         } else {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -26,7 +30,7 @@ function getChartData() {
     })
     .catch(error => {
         if (error.message.includes("404")) {
-            errorTextElement.textContent = "No radiation measurements found for select month";
+            errorTextElement.textContent = "Endpoint not found";
         } else if (error.message.includes("400")) {
             errorTextElement.textContent = "Invalid date was passed";
         } else if (error.message.includes("500")) {

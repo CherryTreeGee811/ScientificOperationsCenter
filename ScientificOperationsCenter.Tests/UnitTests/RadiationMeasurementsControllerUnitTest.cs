@@ -107,9 +107,11 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 
             // Action
             var result = await radiationMeasurementsController.Day(date);
-            var badRequestResult = result as StatusCodeResult;
 
             // Assert
+            Assert.NotNull(result);
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+            var badRequestResult = result as BadRequestObjectResult;
             Assert.NotNull(badRequestResult);
             Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
         }
@@ -125,9 +127,11 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 
             // Action
             var result = await radiationMeasurementsController.Month(date);
-            var badRequestResult = result as StatusCodeResult;
 
             // Assert
+            Assert.NotNull(result);
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+            var badRequestResult = result as BadRequestObjectResult;
             Assert.NotNull(badRequestResult);
             Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
         }
@@ -143,9 +147,12 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 
             // Action
             var result = await radiationMeasurementsController.Year(date);
-            var badRequestResult = result as StatusCodeResult;
+            var badRequestResponse = result as BadRequestResult;
 
             // Assert
+            Assert.NotNull(result);
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+            var badRequestResult = result as BadRequestObjectResult;
             Assert.NotNull(badRequestResult);
             Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
         }
