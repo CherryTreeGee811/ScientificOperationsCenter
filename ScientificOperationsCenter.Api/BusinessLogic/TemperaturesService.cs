@@ -23,10 +23,11 @@ namespace ScientificOperationsCenter.Api.BusinessLogic
         /// <summary>
         /// Initializes a new instance of the <see cref="TemperaturesService"/> class.
         /// </summary>
-        /// <param name="temperaturesRepository">The repository used to access temperature data.</param>
+        /// <param name="temperaturesRepository">The repository used to access temperature data. This parameter cannot be null.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="temperaturesRepository"/> is null.</exception>
         public TemperaturesService(ITemperaturesRepository temperaturesRepository)
         {
-            _temperaturesRepository = temperaturesRepository;
+            _temperaturesRepository = temperaturesRepository ?? throw new ArgumentNullException(nameof(temperaturesRepository));
         }
 
 

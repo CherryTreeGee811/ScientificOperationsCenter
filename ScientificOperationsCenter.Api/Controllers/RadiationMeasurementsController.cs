@@ -5,6 +5,9 @@ using Serilog;
 
 namespace ScientificOperationsCenter.Api.Controllers
 {
+    /// <summary>
+    /// Controller for handling radiation measurements API requests.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public sealed class RadiationMeasurementsController : ControllerBase
@@ -12,105 +15,116 @@ namespace ScientificOperationsCenter.Api.Controllers
         private readonly IRadiationMeasurementsMapper _radiationMeasurementsMapper;
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RadiationMeasurementsController"/> class.
+        /// </summary>
+        /// <param name="radiationMeasurementsMapper">Mapper for radiation measurements data.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="radiationMeasurementsMapper"/> is null.</exception>
         public RadiationMeasurementsController(IRadiationMeasurementsMapper radiationMeasurementsMapper)
         {
-            _radiationMeasurementsMapper = radiationMeasurementsMapper;
+            _radiationMeasurementsMapper = radiationMeasurementsMapper ?? throw new ArgumentNullException(nameof(radiationMeasurementsMapper));
         }
 
 
+        /// <summary>
+        /// Retrieves hourly total radiation measurements for a specific day.
+        /// </summary>
+        /// <param name="date">User provided date for which to retrieve radiation measurement totals, expecting valid date in YYYY-MM-DD format.</param>
+        /// <returns>Radiation measurements for the specified day, ordered by hour.</returns>
         [HttpGet("day")]
-        public async Task<IActionResult> Day([FromQuery] string date)
+        public async Task<IActionResult> Day([FromQuery] string? date)
         {
-            if (!string.IsNullOrEmpty(date))
+            if (string.IsNullOrEmpty(date))
             {
-                try
-                {
-                    var success = DateOnly.TryParse(date, out DateOnly dateOnly);
-                    if (success)
-                    {
-                        if (dateOnly != DateOnly.MinValue)
-                        {
-                            var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDayAsync(dateOnly);
-                            if (radiationMeasurements.Count() > 0)
-                            {
-                                Log.Information("Serving: RadiationMeasurementsController -> Day()");
-                                return Ok(radiationMeasurements);
-                            }
-                            return NotFound();
-                        }
-                    }
-                } 
-                catch (Exception)
-                {
-                    Log.Error("RadiationMeasurementsController -> Day() -> Returned status code 500.");
-                    return StatusCode(500); 
-                }
+                return BadRequest("Date is required.");
             }
-            return BadRequest();
+            try
+            {
+                if (DateOnly.TryParse(date, out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
+                {
+                    var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDayAsync(dateOnly);
+                    if (radiationMeasurements.Count() > 0)
+                    {
+                        Log.Information("Serving: RadiationMeasurementsController -> Day()");
+                        return Ok(radiationMeasurements);
+                    }
+                    return NoContent();
+                }
+                return BadRequest("Invalid date format.");
+            } 
+            catch (Exception)
+            {
+                Log.Error("RadiationMeasurementsController -> Day() -> Returned status code 500.");
+                return StatusCode(500); 
+            }
         }
 
 
+        /// <summary>
+        /// Retrieves daily total radiation measurements for a specific month.
+        /// </summary>
+        /// <param name="date">User provided date for which to retrieve radiation measurement totals, expecting valid date in YYYY-MM-DD format.</param>
+        /// <returns>Radiation measurements for the specified month, ordered by day.</returns>
         [HttpGet("month")]
-        public async Task<IActionResult> Month([FromQuery] string date)
+        public async Task<IActionResult> Month([FromQuery] string? date)
         {
-            if (!string.IsNullOrEmpty(date))
+            if (string.IsNullOrEmpty(date))
             {
-                try
-                {
-                    var success = DateOnly.TryParse(date, out DateOnly dateOnly);
-                    if (success)
-                    {
-                        if (dateOnly != DateOnly.MinValue)
-                        {
-                            var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonthAsync(dateOnly);
-                            if (radiationMeasurements.Count() > 0)
-                            {
-                                Log.Information("Serving: RadiationMeasurementsController -> Month()");
-                                return Ok(radiationMeasurements);
-                            }
-                            return NotFound();
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    Log.Error("RadiationMeasurementsController -> Month() -> Returned status code 500.");
-                    return StatusCode(500);
-                }
+                return BadRequest("Date is required.");
             }
-            return BadRequest();
+            try
+            {
+                if (DateOnly.TryParse(date, out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
+                {
+                    var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonthAsync(dateOnly);
+                    if (radiationMeasurements.Count() > 0)
+                    {
+                        Log.Information("Serving: RadiationMeasurementsController -> Month()");
+                        return Ok(radiationMeasurements);
+                    }
+                    return NoContent();
+                }
+                return BadRequest("Invalid date format.");
+            }
+            catch (Exception)
+            {
+                Log.Error("RadiationMeasurementsController -> Month() -> Returned status code 500.");
+                return StatusCode(500);
+            }
         }
 
 
+        /// <summary>
+        /// Retrieves monthly total radiation measurements for a specific year.
+        /// </summary>
+        /// <param name="date">User provided date for which to retrieve radiation measurement totals, expecting valid date in YYYY-MM-DD format.</param>
+        /// <returns>Radiation measurements for the specified year, ordered by month.</returns>
         [HttpGet("year")]
-        public async Task<IActionResult> Year([FromQuery] string date)
+        public async Task<IActionResult> Year([FromQuery] string? date)
         {
-            if (!string.IsNullOrEmpty(date))
+            if (string.IsNullOrEmpty(date))
             {
-                try
-                {
-                    var success = DateOnly.TryParse(date, out DateOnly dateOnly);
-                    if (success)
-                    {
-                        if (dateOnly != DateOnly.MinValue)
-                        {
-                            var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYearAsync(dateOnly);
-                            if (radiationMeasurements.Count() > 0)
-                            {
-                                Log.Information("Serving: RadiationMeasurementsController -> Year()");
-                                return Ok(radiationMeasurements);
-                            }
-                            return NotFound();
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-                    Log.Error("RadiationMeasurementsController -> Year() -> Returned status code 500.");
-                    return StatusCode(500);
-                }
+                return BadRequest("Date is required.");
             }
-            return BadRequest();
+            try
+            {
+                if (DateOnly.TryParse(date, out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
+                {
+                    var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYearAsync(dateOnly);
+                    if (radiationMeasurements.Count() > 0)
+                    {
+                        Log.Information("Serving: RadiationMeasurementsController -> Year()");
+                        return Ok(radiationMeasurements);
+                    }
+                    return NoContent();
+                }
+                return BadRequest("Invalid date format.");
+            }
+            catch (Exception)
+            {
+                Log.Error("RadiationMeasurementsController -> Year() -> Returned status code 500.");
+                return StatusCode(500);
+            }
         }
     }
 }

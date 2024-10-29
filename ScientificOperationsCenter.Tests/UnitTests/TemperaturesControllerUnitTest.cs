@@ -107,9 +107,12 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 
             // Action
             var result = await temperaturesController.Day(date);
-            var badRequestResult = result as StatusCodeResult;
+            var badRequestResponse = result as StatusCodeResult;
 
             // Assert
+            Assert.NotNull(result);
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+            var badRequestResult = result as BadRequestObjectResult;
             Assert.NotNull(badRequestResult);
             Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
         }
@@ -125,9 +128,11 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 
             // Action
             var result = await temperaturesController.Month(date);
-            var badRequestResult = result as StatusCodeResult;
 
             // Assert
+            Assert.NotNull(result);
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+            var badRequestResult = result as BadRequestObjectResult;
             Assert.NotNull(badRequestResult);
             Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
         }
@@ -143,9 +148,11 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 
             // Action
             var result = await temperaturesController.Year(date);
-            var badRequestResult = result as StatusCodeResult;
 
             // Assert
+            Assert.NotNull(result);
+            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+            var badRequestResult = result as BadRequestObjectResult;
             Assert.NotNull(badRequestResult);
             Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
         }

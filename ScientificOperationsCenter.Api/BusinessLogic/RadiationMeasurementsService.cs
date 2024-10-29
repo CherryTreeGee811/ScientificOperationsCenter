@@ -23,10 +23,11 @@ namespace ScientificOperationsCenter.Api.BusinessLogic
         /// <summary>
         /// Initializes a new instance of the <see cref="RadiationMeasurementsService"/> class.
         /// </summary>
-        /// <param name="radiationMeasurementsRepository">The repository used to access radiation measurement data.</param>
+        /// <param name="radiationMeasurementsRepository">The repository used to access radiation measurement data. This parameter cannot be null.</param>
+        /// <exception cref="ArgumentNullException">Thrown if <paramref name="radiationMeasurementsRepository"/> is null.</exception>
         public RadiationMeasurementsService(IRadiationMeasurementsRepository radiationMeasurementsRepository)
         {
-            _radiationMeasurementsRepository = radiationMeasurementsRepository;
+            _radiationMeasurementsRepository = radiationMeasurementsRepository ?? throw new ArgumentNullException(nameof(radiationMeasurementsRepository));
         }
 
 

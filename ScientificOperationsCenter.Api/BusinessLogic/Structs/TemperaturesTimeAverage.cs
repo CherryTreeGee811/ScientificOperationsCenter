@@ -1,5 +1,8 @@
 ﻿namespace ScientificOperationsCenter.Api.BusinessLogic.Structs
 {
+    /// <summary>
+    /// Represents the average temperature recorded for a specific time.
+    /// </summary>
     public struct TemperaturesTimeAverage
     {
         /// <summary>
