@@ -3,9 +3,9 @@ name: SonarQube Analysis
 on:
   push:
     branches:
-      - main
+      - stable
   pull_request:
-
+    types: [opened, synchronize, reopened]
 jobs:
   sonar:
     runs-on: ubuntu-latest
@@ -16,5 +16,5 @@ jobs:
       - name: SonarQube Scan
         uses: sonarsource/sonarcloud-github-action@v1
         with:
-          sonar-project-key: 'your-project-key'
+          sonar-project-key: try-free_scientificoperationscenter
           sonar-token: ${{ secrets.SONAR_TOKEN }}
