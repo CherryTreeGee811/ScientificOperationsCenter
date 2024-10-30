@@ -55,11 +55,11 @@ namespace ScientificOperationsCenter.Tests.Mocks
 
             mock.Setup(m => m.GetTemperaturesForTheMonthAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 temperaturesSameMonth.OrderBy(t => t.Date.Day).Select(t =>
-                    new TemperaturesDateViewModel { Date = t.Date.Day.ToString(), AverageTemperature = t.AverageTemperature }));
+                    new TemperaturesViewModel { Date = t.Date.Day.ToString(), AverageTemperature = t.AverageTemperature }));
 
             mock.Setup(m => m.GetTemperaturesForTheYearAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 temperaturesSameYear.OrderBy(t => t.Date.Month).Select(t =>
-                    new TemperaturesDateViewModel { Date = t.Date.ToString("MMMM"), AverageTemperature = t.AverageTemperature }));
+                    new TemperaturesViewModel { Date = t.Date.ToString("MMMM"), AverageTemperature = t.AverageTemperature }));
 
 
             return mock;

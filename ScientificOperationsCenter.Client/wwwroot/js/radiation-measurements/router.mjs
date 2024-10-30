@@ -1,6 +1,6 @@
-﻿import { getChartDataForDay } from '../radiationMeasurementsDay.mjs';
-import { getChartDataForMonth } from '../radiationMeasurementsMonth.mjs';
-import { getChartDataForYear } from '../radiationMeasurementsYear.mjs';
+﻿import { loadRadiationMeasurementsForDay } from './day.mjs';
+import { loadRadiationMeasurementsForMonth } from './month.mjs';
+import { loadRadiationMeasurementsForYear } from './year.mjs';
 
 
 export function handleRadiationMeasurementsRoutes(path, contentDiv) {
@@ -12,15 +12,15 @@ export function handleRadiationMeasurementsRoutes(path, contentDiv) {
             break;
         case '/radiation-measurements/day':
             loadTemplate("radiation-measurements/day.html", contentDiv);
-            getChartDataForDay();
+            loadRadiationMeasurementsForDay();
             break;
         case '/radiation-measurements/month':
             loadTemplate("radiation-measurements/month.html", contentDiv);
-            getChartDataForMonth();
+            loadRadiationMeasurementsForMonth();
             break;
         case '/radiation-measurements/year':
             loadTemplate("radiation-measurements/year.html", contentDiv);
-            getChartDataForYear();
+            loadRadiationMeasurementsForYear();
             break;
         default:
             contentDiv.innerHTML = `<h1>404 Not Found</h1>`;

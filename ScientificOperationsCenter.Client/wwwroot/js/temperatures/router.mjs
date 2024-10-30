@@ -1,6 +1,6 @@
-﻿import { getChartDataForDay } from '../temperatureDay.mjs';
-import { getChartDataForMonth } from '../temperatureMonth.mjs';
-import { getChartDataForYear } from '../temperatureYear.mjs';
+﻿import { loadTemperaturesForDay } from './day.mjs';
+import { loadTemperaturesForMonth } from './month.mjs';
+import { loadTemperaturesForYear } from './year.mjs';
 
 
 export function handleTemperaturesRoutes(path, contentDiv) {
@@ -10,15 +10,15 @@ export function handleTemperaturesRoutes(path, contentDiv) {
             break;
         case '/temperatures/day':
             loadTemplate("temperatures/day.html", contentDiv);
-            getChartDataForDay();
+            loadTemperaturesForDay();
             break;
         case '/temperatures/month':
             loadTemplate("temperatures/month.html", contentDiv);
-            getChartDataForMonth();
+            loadTemperaturesForMonth();
             break;
         case '/temperatures/year':
             loadTemplate("temperatures/year.html", contentDiv);
-            getChartDataForYear();
+            loadTemperaturesForYear();
             break;
         default:
             contentDiv.innerHTML = `<h1>404 Not Found</h1>`;

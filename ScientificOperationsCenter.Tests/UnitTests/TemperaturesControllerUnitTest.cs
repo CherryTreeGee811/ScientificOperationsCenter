@@ -55,8 +55,8 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             Assert.IsInstanceOf<OkObjectResult>(okResult);
             Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
             Assert.NotNull(okResult.Value);
-            Assert.IsInstanceOf<IEnumerable<TemperaturesDateViewModel>>(okResult.Value);
-            var contents = okResult.Value as IEnumerable<TemperaturesDateViewModel>;
+            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(okResult.Value);
+            var contents = okResult.Value as IEnumerable<TemperaturesViewModel>;
             Assert.NotNull(contents);
             Assert.That(contents.Count, Is.AtLeast(1));
             Assert.That(contents.First().Date, Is.EqualTo("1"));
@@ -85,8 +85,8 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             Assert.IsInstanceOf<OkObjectResult>(okResult);
             Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
             Assert.NotNull(okResult.Value);
-            Assert.IsInstanceOf<IEnumerable<TemperaturesDateViewModel>>(okResult.Value);
-            var contents = okResult.Value as IEnumerable<TemperaturesDateViewModel>;
+            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(okResult.Value);
+            var contents = okResult.Value as IEnumerable<TemperaturesViewModel>;
             Assert.NotNull(contents);
             Assert.That(contents.Count, Is.AtLeast(1));
             Assert.That(contents.First().Date, Is.EqualTo("May"));

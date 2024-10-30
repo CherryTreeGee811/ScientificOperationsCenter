@@ -110,7 +110,7 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.That(mapperResult.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<TemperaturesDateViewModel>>(mapperResult, "The returned element is not of IEnumerable<TemperaturesDateViewModel> type.");
+            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(mapperResult, "The returned element is not of IEnumerable<TemperaturesDateViewModel> type.");
         }
 
 
@@ -129,7 +129,7 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.That(mapperResult.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<TemperaturesDateViewModel>>(mapperResult, "The returned element is not of IEnumerable<TemperaturesDateViewModel> type.");
+            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(mapperResult, "The returned element is not of IEnumerable<TemperaturesDateViewModel> type.");
         }
     }
 }

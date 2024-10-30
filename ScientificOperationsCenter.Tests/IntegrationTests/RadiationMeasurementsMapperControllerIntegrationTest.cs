@@ -58,8 +58,8 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             Assert.IsInstanceOf<OkObjectResult>(okResult);
             Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
             Assert.NotNull(okResult.Value);
-            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsDateViewModel>>(okResult.Value);
-            var contents = okResult.Value as IEnumerable<RadiationMeasurementsDateViewModel>;
+            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsViewModel>>(okResult.Value);
+            var contents = okResult.Value as IEnumerable<RadiationMeasurementsViewModel>;
             Assert.NotNull(contents);
             Assert.That(contents.Count, Is.AtLeast(1));
             Assert.That(contents.First().Date, Is.EqualTo("1"));
@@ -89,8 +89,8 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             Assert.IsInstanceOf<OkObjectResult>(okResult);
             Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
             Assert.NotNull(okResult.Value);
-            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsDateViewModel>>(okResult.Value);
-            var contents = okResult.Value as IEnumerable<RadiationMeasurementsDateViewModel>;
+            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsViewModel>>(okResult.Value);
+            var contents = okResult.Value as IEnumerable<RadiationMeasurementsViewModel>;
             Assert.NotNull(contents);
             Assert.That(contents.Count, Is.AtLeast(1));
             Assert.That(contents.First().Date, Is.EqualTo("May"));

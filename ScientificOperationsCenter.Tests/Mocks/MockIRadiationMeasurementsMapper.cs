@@ -55,11 +55,11 @@ namespace ScientificOperationsCenter.Tests.Mocks
 
             mock.Setup(m => m.GetRadiationMeasurementsForTheMonthAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 radiationMeasurementsSameMonth.OrderBy(t => t.Date.Day).Select(r =>
-                    new RadiationMeasurementsDateViewModel { Date = r.Date.Day.ToString(), TotalRadiation = r.TotalMilligrays }));
+                    new RadiationMeasurementsViewModel { Date = r.Date.Day.ToString(), TotalRadiation = r.TotalMilligrays }));
 
             mock.Setup(m => m.GetRadiationMeasurementsForTheYearAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 radiationMeasurementsSameYear.OrderBy(t => t.Date.Month).Select(r =>
-                    new RadiationMeasurementsDateViewModel { Date = r.Date.ToString("MMMM"), TotalRadiation = r.TotalMilligrays }));
+                    new RadiationMeasurementsViewModel { Date = r.Date.ToString("MMMM"), TotalRadiation = r.TotalMilligrays }));
 
 
             return mock;
