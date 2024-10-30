@@ -1,12 +1,12 @@
 ﻿namespace ScientificOperationsCenter.Api.ViewModels
 {
     /// <summary>
-    /// Represents the total radiation exposure in milligrays for a specific day or month.
+    /// Represents the total radiation exposure in milligrays for a specific hour, day, or month.
     /// </summary>
     public class RadiationMeasurementsViewModel
     {
         /// <summary>
-        /// Gets or sets the date, which can be the name of a month (e.g. January) or a day number (e.g. 15).
+        /// Gets or sets the date or time, which can be the name of a month (e.g. January), a day number (e.g. 15), or hour (e.g. 7:00 AM).
         /// </summary>
         public string Timeframe { get; set; }
 
