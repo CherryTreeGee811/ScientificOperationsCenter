@@ -24,9 +24,9 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 
             // Assert
             Assert.NotNull(result);
-            Assert.That(result.First().Timeframe, Is.EqualTo("1:00 AM"));
+            Assert.That(result.First().Timeframe, Is.EqualTo((new TimeOnly(1, 00)).ToString()));
             Assert.That(result.First().TotalRadiation, Is.EqualTo(430));
-            Assert.That(result.Last().Timeframe, Is.EqualTo("9:00 PM"));
+            Assert.That(result.Last().Timeframe, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
             Assert.That(result.Last().TotalRadiation, Is.EqualTo(110));
             Assert.That(result.Count(), Is.EqualTo(6));
         }

@@ -32,9 +32,9 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             var contents = okResult.Value as IEnumerable<TemperaturesViewModel>;
             Assert.NotNull(contents);
             Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().Timeframe, Is.EqualTo("1:00 AM"));
+            Assert.That(contents.First().Timeframe, Is.EqualTo((new TimeOnly(1, 00)).ToString()));
             Assert.That(contents.First().AverageTemperature, Is.EqualTo(-1));
-            Assert.That(contents.Last().Timeframe, Is.EqualTo("9:00 PM"));
+            Assert.That(contents.Last().Timeframe, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
             Assert.That(contents.Last().AverageTemperature, Is.EqualTo(30));
             Assert.That(contents.Count, Is.EqualTo(6));
         }

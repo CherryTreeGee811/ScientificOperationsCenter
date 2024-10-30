@@ -22,9 +22,9 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.NotNull(mapperResult);
-            Assert.That(mapperResult.First().Timeframe, Is.EqualTo("12:00 PM"));
+            Assert.That(mapperResult.First().Timeframe, Is.EqualTo((new TimeOnly(12, 00)).ToString()));
             Assert.That(mapperResult.First().AverageTemperature, Is.EqualTo(9));
-            Assert.That(mapperResult.Last().Timeframe, Is.EqualTo("7:00 PM"));
+            Assert.That(mapperResult.Last().Timeframe, Is.EqualTo((new TimeOnly(19, 00)).ToString()));
             Assert.That(mapperResult.Last().AverageTemperature, Is.EqualTo(17));
             Assert.That(mapperResult.Count(), Is.EqualTo(3));
         }
