@@ -28,13 +28,13 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             Assert.IsInstanceOf<OkObjectResult>(okResult);
             Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
             Assert.NotNull(okResult.Value);
-            Assert.IsInstanceOf<IEnumerable<TemperaturesTimeViewModel>>(okResult.Value);
-            var contents = okResult.Value as IEnumerable<TemperaturesTimeViewModel>;
+            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(okResult.Value);
+            var contents = okResult.Value as IEnumerable<TemperaturesViewModel>;
             Assert.NotNull(contents);
             Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().Hour, Is.EqualTo(new TimeOnly(1, 00)));
+            Assert.That(contents.First().Timeframe, Is.EqualTo((new TimeOnly(1, 00)).ToString()));
             Assert.That(contents.First().AverageTemperature, Is.EqualTo(-1));
-            Assert.That(contents.Last().Hour, Is.EqualTo(new TimeOnly(21, 00)));
+            Assert.That(contents.Last().Timeframe, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
             Assert.That(contents.Last().AverageTemperature, Is.EqualTo(30));
             Assert.That(contents.Count, Is.EqualTo(6));
         }
@@ -57,13 +57,13 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             Assert.IsInstanceOf<OkObjectResult>(okResult);
             Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
             Assert.NotNull(okResult.Value);
-            Assert.IsInstanceOf<IEnumerable<TemperaturesDateViewModel>>(okResult.Value);
-            var contents = okResult.Value as IEnumerable<TemperaturesDateViewModel>;
+            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(okResult.Value);
+            var contents = okResult.Value as IEnumerable<TemperaturesViewModel>;
             Assert.NotNull(contents);
             Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().Date, Is.EqualTo("1"));
+            Assert.That(contents.First().Timeframe, Is.EqualTo("1"));
             Assert.That(contents.First().AverageTemperature, Is.EqualTo(32));
-            Assert.That(contents.Last().Date, Is.EqualTo("21"));
+            Assert.That(contents.Last().Timeframe, Is.EqualTo("21"));
             Assert.That(contents.Last().AverageTemperature, Is.EqualTo(20));
             Assert.That(contents.Count, Is.EqualTo(7));
         }
@@ -87,13 +87,13 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             Assert.IsInstanceOf<OkObjectResult>(okResult);
             Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
             Assert.NotNull(okResult.Value);
-            Assert.IsInstanceOf<IEnumerable<TemperaturesDateViewModel>>(okResult.Value);
-            var contents = okResult.Value as IEnumerable<TemperaturesDateViewModel>;
+            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(okResult.Value);
+            var contents = okResult.Value as IEnumerable<TemperaturesViewModel>;
             Assert.NotNull(contents);
             Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().Date, Is.EqualTo("May"));
+            Assert.That(contents.First().Timeframe, Is.EqualTo("May"));
             Assert.That(contents.First().AverageTemperature, Is.EqualTo(-2));
-            Assert.That(contents.Last().Date, Is.EqualTo("December"));
+            Assert.That(contents.Last().Timeframe, Is.EqualTo("December"));
             Assert.That(contents.Last().AverageTemperature, Is.EqualTo(20));
             Assert.That(contents.Count, Is.EqualTo(8));
         }

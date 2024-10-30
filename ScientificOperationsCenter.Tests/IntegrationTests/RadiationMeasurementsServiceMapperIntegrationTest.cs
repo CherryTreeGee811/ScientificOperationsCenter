@@ -23,9 +23,9 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.NotNull(mapperResult);
-            Assert.That(mapperResult.First().Hour, Is.EqualTo(new TimeOnly(6, 00)));
+            Assert.That(mapperResult.First().Timeframe, Is.EqualTo((new TimeOnly(06, 00)).ToString()));
             Assert.That(mapperResult.First().TotalRadiation, Is.EqualTo(280));
-            Assert.That(mapperResult.Last().Hour, Is.EqualTo(new TimeOnly(21, 00)));
+            Assert.That(mapperResult.Last().Timeframe, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
             Assert.That(mapperResult.Last().TotalRadiation, Is.EqualTo(230));
             Assert.That(mapperResult.Count(), Is.EqualTo(2));
         }
@@ -46,9 +46,9 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.NotNull(mapperResult);
-            Assert.That(mapperResult.First().Date, Is.EqualTo("8"));
+            Assert.That(mapperResult.First().Timeframe, Is.EqualTo("8"));
             Assert.That(mapperResult.First().TotalRadiation, Is.EqualTo(410));
-            Assert.That(mapperResult.Last().Date, Is.EqualTo("9"));
+            Assert.That(mapperResult.Last().Timeframe, Is.EqualTo("9"));
             Assert.That(mapperResult.Last().TotalRadiation, Is.EqualTo(510));
             Assert.That(mapperResult.Count(), Is.EqualTo(2));
         }
@@ -69,9 +69,9 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.NotNull(mapperResult);
-            Assert.That(mapperResult.First().Date, Is.EqualTo("October"));
+            Assert.That(mapperResult.First().Timeframe, Is.EqualTo("October"));
             Assert.That(mapperResult.First().TotalRadiation, Is.EqualTo(920));
-            Assert.That(mapperResult.Last().Date, Is.EqualTo("November"));
+            Assert.That(mapperResult.Last().Timeframe, Is.EqualTo("November"));
             Assert.That(mapperResult.Last().TotalRadiation, Is.EqualTo(300));
             Assert.That(mapperResult.Count(), Is.EqualTo(2));
         }
@@ -92,7 +92,7 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.That(mapperResult.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsTimeViewModel>>(mapperResult, "The returned element is not of IEnumerable<RadiationMeasurementsTimeViewModel> type.");
+            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsViewModel>>(mapperResult, "The returned element is not of IEnumerable<RadiationMeasurementsViewModel> type.");
         }
 
 
@@ -111,7 +111,7 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.That(mapperResult.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsDateViewModel>>(mapperResult, "The returned element is not of IEnumerable<RadiationMeasurementsDateViewModel> type.");
+            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsViewModel>>(mapperResult, "The returned element is not of IEnumerable<RadiationMeasurementsViewModel> type.");
         }
 
 
@@ -130,7 +130,7 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.That(mapperResult.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsDateViewModel>>(mapperResult, "The returned element is not of IEnumerable<RadiationMeasurementsDateViewModel> type.");
+            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsViewModel>>(mapperResult, "The returned element is not of IEnumerable<RadiationMeasurementsViewModel> type.");
         }
     }
 }

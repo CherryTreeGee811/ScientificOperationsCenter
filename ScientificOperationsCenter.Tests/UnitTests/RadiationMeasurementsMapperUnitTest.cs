@@ -24,9 +24,9 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 
             // Assert
             Assert.NotNull(result);
-            Assert.That(result.First().Hour, Is.EqualTo(new TimeOnly(1, 00)));
+            Assert.That(result.First().Timeframe, Is.EqualTo((new TimeOnly(1, 00)).ToString()));
             Assert.That(result.First().TotalRadiation, Is.EqualTo(430));
-            Assert.That(result.Last().Hour, Is.EqualTo(new TimeOnly(21, 00)));
+            Assert.That(result.Last().Timeframe, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
             Assert.That(result.Last().TotalRadiation, Is.EqualTo(110));
             Assert.That(result.Count(), Is.EqualTo(6));
         }
@@ -45,9 +45,9 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 
             // Assert
             Assert.NotNull(result);
-            Assert.That(result.First().Date, Is.EqualTo("1"));
+            Assert.That(result.First().Timeframe, Is.EqualTo("1"));
             Assert.That(result.First().TotalRadiation, Is.EqualTo(120));
-            Assert.That(result.Last().Date, Is.EqualTo("21"));
+            Assert.That(result.Last().Timeframe, Is.EqualTo("21"));
             Assert.That(result.Last().TotalRadiation, Is.EqualTo(110));
             Assert.That(result.Count(), Is.EqualTo(7));
         }
@@ -66,9 +66,9 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 
             // Assert
             Assert.NotNull(result);
-            Assert.That(result.First().Date, Is.EqualTo("May"));
+            Assert.That(result.First().Timeframe, Is.EqualTo("May"));
             Assert.That(result.First().TotalRadiation, Is.EqualTo(120));
-            Assert.That(result.Last().Date, Is.EqualTo("December"));
+            Assert.That(result.Last().Timeframe, Is.EqualTo("December"));
             Assert.That(result.Last().TotalRadiation, Is.EqualTo(150));
             Assert.That(result.Count(), Is.EqualTo(8));
         }

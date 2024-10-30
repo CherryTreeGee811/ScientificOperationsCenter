@@ -22,9 +22,9 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.NotNull(mapperResult);
-            Assert.That(mapperResult.First().Hour, Is.EqualTo(new TimeOnly(12, 00)));
+            Assert.That(mapperResult.First().Timeframe, Is.EqualTo((new TimeOnly(12, 00)).ToString()));
             Assert.That(mapperResult.First().AverageTemperature, Is.EqualTo(9));
-            Assert.That(mapperResult.Last().Hour, Is.EqualTo(new TimeOnly(19, 00)));
+            Assert.That(mapperResult.Last().Timeframe, Is.EqualTo((new TimeOnly(19, 00)).ToString()));
             Assert.That(mapperResult.Last().AverageTemperature, Is.EqualTo(17));
             Assert.That(mapperResult.Count(), Is.EqualTo(3));
         }
@@ -45,9 +45,9 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.NotNull(mapperResult);
-            Assert.That(mapperResult.First().Date, Is.EqualTo("8"));
+            Assert.That(mapperResult.First().Timeframe, Is.EqualTo("8"));
             Assert.That(mapperResult.First().AverageTemperature, Is.EqualTo(10));
-            Assert.That(mapperResult.Last().Date, Is.EqualTo("9"));
+            Assert.That(mapperResult.Last().Timeframe, Is.EqualTo("9"));
             Assert.That(mapperResult.Last().AverageTemperature, Is.EqualTo(10));
             Assert.That(mapperResult.Count(), Is.EqualTo(2));
         }
@@ -68,9 +68,9 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.NotNull(mapperResult);
-            Assert.That(mapperResult.First().Date, Is.EqualTo("October"));
+            Assert.That(mapperResult.First().Timeframe, Is.EqualTo("October"));
             Assert.That(mapperResult.First().AverageTemperature, Is.EqualTo(10));
-            Assert.That(mapperResult.Last().Date, Is.EqualTo("November"));
+            Assert.That(mapperResult.Last().Timeframe, Is.EqualTo("November"));
             Assert.That(mapperResult.Last().AverageTemperature, Is.EqualTo(2));
             Assert.That(mapperResult.Count(), Is.EqualTo(2));
         }
@@ -91,7 +91,7 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.That(mapperResult.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<TemperaturesTimeViewModel>>(mapperResult, "The returned element is not of IEnumerable<TemperaturesTimeViewModel> type.");
+            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(mapperResult, "The returned element is not of IEnumerable<TemperaturesViewModel> type.");
         }
 
 
@@ -110,7 +110,7 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.That(mapperResult.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<TemperaturesDateViewModel>>(mapperResult, "The returned element is not of IEnumerable<TemperaturesDateViewModel> type.");
+            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(mapperResult, "The returned element is not of IEnumerable<TemperaturesViewModel> type.");
         }
 
 
@@ -129,7 +129,7 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.That(mapperResult.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<TemperaturesDateViewModel>>(mapperResult, "The returned element is not of IEnumerable<TemperaturesDateViewModel> type.");
+            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(mapperResult, "The returned element is not of IEnumerable<TemperaturesViewModel> type.");
         }
     }
 }
