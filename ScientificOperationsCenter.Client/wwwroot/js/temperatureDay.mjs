@@ -1,12 +1,10 @@
-﻿document.addEventListener("load", getChartData());
-
-
-function getChartData() {
+﻿export function getChartDataForDay() {
     const date = '2024-10-08';
-    const url = `http://localhost:8000/api/RadiationMeasurements/day?date=${date}`;
+    const url = `http://localhost:8000/api/Temperatures/day?date=${date}`;
     const errorTextElement = document.getElementById("ErrorText");
     const loadingTextElement = document.getElementById("LoadingText");
     loadingTextElement.textContent = "Loading Chart ...";
+
     fetch(url, {
         mode: 'cors',
         headers: {
@@ -16,7 +14,7 @@ function getChartData() {
     .then(response => {
         if (response.ok) {
             if (response.status === 204) {
-                errorTextElement.textContent = "No radiation measurement records found for the selected date.";
+                errorTextElement.textContent = "No temperature records found for the selected date.";
             } else {
                 return response.json();
             }
@@ -44,9 +42,9 @@ function getChartData() {
 
 
 function generateChart(list) {
-    const context = document.getElementById('RadiationMeasurementsSumPerHourOfTheDayLineChart').getContext('2d');
+    const context = document.getElementById('chart').getContext('2d');
     const hours = list.map(entry => entry.hour);
-    const totalRadiation = list.map(entry => entry.totalRadiation);
+    const averageTemperatures = list.map(entry => entry.averageTemperature);
     new Chart(context, {
         type: "line",
         data: {
@@ -54,8 +52,8 @@ function generateChart(list) {
             datasets: [{
                 fill: false,
                 lineTension: 0,
-                label: 'Total Radiation',
-                data: totalRadiation,
+                label: 'Average Temperature',
+                data: averageTemperatures,
                 borderColor: "rgba(100,0,255,1.0)"
             }]
         },
@@ -64,7 +62,7 @@ function generateChart(list) {
                 responsive: true,
                 y: {
                     ticks: {
-                        min: 0,
+                        min: -20,
                         max: 20,
                     }
                 }

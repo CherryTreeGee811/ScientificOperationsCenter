@@ -1,13 +1,9 @@
-﻿document.addEventListener("load", getChartData());
-
-
-function getChartData() {
+﻿export function getChartDataForDay() {
     const date = '2024-10-08';
-    const url = `http://localhost:8000/api/Temperatures/year?date=${date}`;
+    const url = `http://localhost:8000/api/RadiationMeasurements/day?date=${date}`;
     const errorTextElement = document.getElementById("ErrorText");
     const loadingTextElement = document.getElementById("LoadingText");
     loadingTextElement.textContent = "Loading Chart ...";
-
     fetch(url, {
         mode: 'cors',
         headers: {
@@ -17,7 +13,7 @@ function getChartData() {
     .then(response => {
         if (response.ok) {
             if (response.status === 204) {
-                errorTextElement.textContent = "No temperature records found for the selected date.";
+                errorTextElement.textContent = "No radiation measurement records found for the selected date.";
             } else {
                 return response.json();
             }
@@ -45,18 +41,18 @@ function getChartData() {
 
 
 function generateChart(list) {
-    const context = document.getElementById('averageTemperaturesPerMonthOfTheYearLineChart').getContext('2d');
-    const months = list.map(entry => entry.date);
-    const averageTemperatures = list.map(entry => entry.averageTemperature);
+    const context = document.getElementById('chart').getContext('2d');
+    const hours = list.map(entry => entry.hour);
+    const totalRadiation = list.map(entry => entry.totalRadiation);
     new Chart(context, {
         type: "line",
         data: {
-            labels: months,
+            labels: hours,
             datasets: [{
                 fill: false,
                 lineTension: 0,
-                label: 'Average Temperature',
-                data: averageTemperatures,
+                label: 'Total Radiation',
+                data: totalRadiation,
                 borderColor: "rgba(100,0,255,1.0)"
             }]
         },
@@ -65,7 +61,7 @@ function generateChart(list) {
                 responsive: true,
                 y: {
                     ticks: {
-                        min: 20,
+                        min: 0,
                         max: 20,
                     }
                 }

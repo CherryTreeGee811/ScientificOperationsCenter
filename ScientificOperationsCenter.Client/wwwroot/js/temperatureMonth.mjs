@@ -1,7 +1,4 @@
-﻿document.addEventListener("load", getChartData());
-
-
-function getChartData() {
+﻿export function getChartDataForMonth() {
     const date = '2024-10-08';
     const url = `http://localhost:8000/api/Temperatures/month?date=${date}`;
     const errorTextElement = document.getElementById("ErrorText");
@@ -47,7 +44,7 @@ function getChartData() {
 function generateChart(list) {
     // ToDo: Remove Hardcoded Date
     const date = '2024-10-08';
-    const context = document.getElementById('averageTemperaturesPerDayOfTheMonthLineChart').getContext('2d');
+    const context = document.getElementById('chart').getContext('2d');
     const days = list.map(entry => entry.date);
     const averageTemperatures = list.map(entry => entry.averageTemperature);
     new Chart(context, {

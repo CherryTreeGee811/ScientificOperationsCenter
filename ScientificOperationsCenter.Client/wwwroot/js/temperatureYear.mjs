@@ -1,9 +1,6 @@
-﻿document.addEventListener("load", getChartData());
-
-
-function getChartData() {
+﻿export function getChartDataForYear() {
     const date = '2024-10-08';
-    const url = `http://localhost:8000/api/Temperatures/day?date=${date}`;
+    const url = `http://localhost:8000/api/Temperatures/year?date=${date}`;
     const errorTextElement = document.getElementById("ErrorText");
     const loadingTextElement = document.getElementById("LoadingText");
     loadingTextElement.textContent = "Loading Chart ...";
@@ -45,13 +42,13 @@ function getChartData() {
 
 
 function generateChart(list) {
-    const context = document.getElementById('averageTemperaturesPerHourOfTheDayLineChart').getContext('2d');
-    const hours = list.map(entry => entry.hour);
+    const context = document.getElementById('chart').getContext('2d');
+    const months = list.map(entry => entry.date);
     const averageTemperatures = list.map(entry => entry.averageTemperature);
     new Chart(context, {
         type: "line",
         data: {
-            labels: hours,
+            labels: months,
             datasets: [{
                 fill: false,
                 lineTension: 0,
@@ -65,7 +62,7 @@ function generateChart(list) {
                 responsive: true,
                 y: {
                     ticks: {
-                        min: -20,
+                        min: 20,
                         max: 20,
                     }
                 }
