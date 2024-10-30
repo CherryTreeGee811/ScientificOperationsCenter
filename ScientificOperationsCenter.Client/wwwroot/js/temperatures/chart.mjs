@@ -1,7 +1,7 @@
 export function generateChart(list) {
     const context = document.getElementById('chart').getContext('2d');
     const datetimes = list.map(entry => entry.timeframe);
-    const averageTemperatures = list.map(entry => entry.averageTemperatures);
+    const averageTemperatures = list.map(entry => entry.averageTemperature);
     new Chart(context, {
         type: "line",
         data: {

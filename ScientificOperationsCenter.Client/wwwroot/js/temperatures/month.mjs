@@ -15,7 +15,7 @@ export function loadTemperaturesForMonth() {
                 generateChart(data);
                 loadingTextElement.textContent = "";
             } else {
-                errorTextElement.textContent = "No radiation measurement records found for the selected date.";
+                errorTextElement.textContent = "No temperature records found for the selected date.";
             }
         })
         .catch(error => {
