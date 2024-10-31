@@ -19,7 +19,10 @@ ScientificOperationsCenter.Tests/obj
 # logging
 ScientificOperationsCenter.Api/logs
 
+# documentation
+docs/*
+!docs/mainpage.md
+
 /ScientificOperationsCenter
 /bin
 /obj
-
