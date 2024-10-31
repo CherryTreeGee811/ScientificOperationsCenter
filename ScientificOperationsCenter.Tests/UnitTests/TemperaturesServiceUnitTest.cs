@@ -1,5 +1,6 @@
 using ScientificOperationsCenter.Api.BusinessLogic;
 using ScientificOperationsCenter.Api.BusinessLogic.Structs;
+using ScientificOperationsCenter.Api.DAL.Interfaces;
 using ScientificOperationsCenter.Tests.Mocks;
 
 
@@ -121,6 +122,21 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             // Assert
             Assert.That(result.Any(), Is.EqualTo(false));
             Assert.IsInstanceOf<IEnumerable<TemperaturesDateAverage>>(result, "The returned element is not of IEnumerable<TemperaturesDateAverage> type.");
+        }
+
+
+        [Test]
+        public void Constructor_WhenTemperaturesRepositoryIsNull_ThrowsArgumentNullException()
+        {
+            // Arrange
+            ITemperaturesRepository temperaturesRepository = null;
+
+            // Action
+            TestDelegate action = () => new TemperaturesService(temperaturesRepository);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(action);
+            Assert.That(exception.ParamName, Is.EqualTo("temperaturesRepository"));
         }
     }
 }

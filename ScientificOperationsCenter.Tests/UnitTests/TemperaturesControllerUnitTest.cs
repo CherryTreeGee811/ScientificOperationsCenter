@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ScientificOperationsCenter.Api.Controllers;
 using ScientificOperationsCenter.Tests.Mocks;
 using ScientificOperationsCenter.Api.ViewModels;
+using ScientificOperationsCenter.Api.Mappers.Interfaces;
 
 
 namespace ScientificOperationsCenter.Tests.UnitTests
@@ -155,6 +156,21 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var badRequestResult = result as BadRequestObjectResult;
             Assert.NotNull(badRequestResult);
             Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
+        }
+
+
+        [Test]
+        public void Constructor_WhenTemperaturesMapperIsNull_ThrowsArgumentNullException()
+        {
+            // Arrange
+            ITemperaturesMapper temperaturesMapper = null;
+
+            // Action
+            TestDelegate action = () => new TemperaturesController(temperaturesMapper);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(action);
+            Assert.That(exception.ParamName, Is.EqualTo("temperaturesMapper"));
         }
     }
 }

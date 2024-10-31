@@ -1,5 +1,6 @@
 ﻿using ScientificOperationsCenter.Api.BusinessLogic;
 using ScientificOperationsCenter.Api.BusinessLogic.Structs;
+using ScientificOperationsCenter.Api.DAL.Interfaces;
 using ScientificOperationsCenter.Tests.Mocks;
 
 
@@ -120,6 +121,21 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             // Assert
             Assert.That(result.Any(), Is.EqualTo(false));
             Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsDateSum>>(result, "The returned element is not of IEnumerable<RadiationMeasurementsDateSum> type.");
+        }
+
+
+        [Test]
+        public void Constructor_WhenRadiationMeasurementsRepositoryIsNull_ThrowsArgumentNullException()
+        {
+            // Arrange
+            IRadiationMeasurementsRepository radiationMeasurementsRepository = null;
+
+            // Action
+            TestDelegate action = () => new RadiationMeasurementsService(radiationMeasurementsRepository);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(action);
+            Assert.That(exception.ParamName, Is.EqualTo("radiationMeasurementsRepository"));
         }
     }
 }

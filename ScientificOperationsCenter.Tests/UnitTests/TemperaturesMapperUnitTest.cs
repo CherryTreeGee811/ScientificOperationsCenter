@@ -1,4 +1,5 @@
-﻿using ScientificOperationsCenter.Api.Mappers;
+﻿using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
+using ScientificOperationsCenter.Api.Mappers;
 using ScientificOperationsCenter.Tests.Mocks;
 
 
@@ -71,6 +72,21 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             Assert.That(result.Last().Timeframe, Is.EqualTo("December"));
             Assert.That(result.Last().AverageTemperature, Is.EqualTo(27));
             Assert.That(result.Count(), Is.EqualTo(8));
+        }
+
+
+        [Test]
+        public void Constructor_WhenTemperaturesServiceIsNull_ThrowsArgumentNullException()
+        {
+            // Arrange
+            ITemperaturesService temperaturesService = null;
+
+            // Action
+            TestDelegate action = () => new TemperaturesMapper(temperaturesService);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(action);
+            Assert.That(exception.ParamName, Is.EqualTo("temperaturesService"));
         }
     }
 }
