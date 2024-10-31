@@ -7,55 +7,25 @@ on:
        branches:
            - '*'
    workflow_dispatch:
+       inputs:
+           branch:
+               description: 'The branch to build'
+               required: true
 jobs:
    BuildAndTest:
       runs-on: ubuntu-latest
       steps:
-          - uses: actions/checkout@v4
-          
-          - name: Install Tools
+          - uses: actions/checkout@v3
+         
+          - name: Build App Container
             shell: bash
-            run: |
-              dotnet tool install --global dotnet-outdated-tool
-              sudo apt install nikto
+            run: docker build --rm -t cherrytreegee811/scientificoperationscenter:dev ScientificOperationsCenter
 
-          - name: Update NuGet Packages
+          - name: Run App Container
             shell: bash
-            run: |
-              dotnet outdated -u ./ScientificOperationsCenter.Api/ScientificOperationsCenter.Api.csproj
-              dotnet outdated -u ./ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj
-      
-          - name: Build and Run App Containers
-            shell: bash
-            run: docker compose up -d
+            run: docker run --rm -dit cherrytreegee811/scientificoperationscenter:dev
           
           - name: Run Tests
             shell: bash
             run: |
-              dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj --os linux --verbosity minimal
-            
-          - name: Nikto Scan Frontend
-            shell: bash
-            run: |
-              nikto -h http://localhost:9000 -C all
-
-          - name: Nikto Scan Backend
-            shell: bash
-            run: |
-              nikto -h http://localhost:8000 -C all
-
-          - name: Stop Containers
-            shell: bash
-            run: |
-              docker stop scientificoperationscenterapi
-              docker stop scientificoperationscenterclient
-
-          - name: Push to Docker
-            if: ${{ github.ref == 'refs/heads/stable' }}
-            shell: bash
-            run: |
-              docker tag scientificoperationscenterapi cherrytreegee811/scientificoperationscenterapi:latest
-              docker tag scientificoperationscenterclient cherrytreegee811/scientificoperationscenterclient:latest
-              docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
-              docker push cherrytreegee811/scientificoperationscenterapi:latest
-              docker push cherrytreegee811/scientificoperationscenterclient:latest
+                dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj --os linux --verbosity minimal
