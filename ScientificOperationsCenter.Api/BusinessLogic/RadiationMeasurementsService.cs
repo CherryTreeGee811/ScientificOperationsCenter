@@ -1,5 +1,6 @@
 ﻿using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
 using ScientificOperationsCenter.Api.BusinessLogic.Structs;
+using ScientificOperationsCenter.Api.CustomExceptions;
 using ScientificOperationsCenter.Api.DAL.Interfaces;
 using Serilog;
 

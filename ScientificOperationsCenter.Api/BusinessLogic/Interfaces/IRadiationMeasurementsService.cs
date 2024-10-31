@@ -1,4 +1,5 @@
 ﻿using ScientificOperationsCenter.Api.BusinessLogic.Structs;
+using ScientificOperationsCenter.Api.CustomExceptions;
 
 
 namespace ScientificOperationsCenter.Api.BusinessLogic.Interfaces

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScientificOperationsCenter.Api.Mappers.Interfaces;
 using Serilog;
+using System.Globalization;
 
 
 namespace ScientificOperationsCenter.Api.Controllers
@@ -40,10 +41,10 @@ namespace ScientificOperationsCenter.Api.Controllers
             }
             try
             {
-                if (DateOnly.TryParse(date, out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
+                if (DateOnly.TryParse(date, new CultureInfo("en-US"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
                 {
                     var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDayAsync(dateOnly);
-                    if (radiationMeasurements.Count() > 0)
+                    if (radiationMeasurements.Any())
                     {
                         Log.Information("Serving: RadiationMeasurementsController -> Day()");
                         return Ok(radiationMeasurements);
@@ -52,9 +53,9 @@ namespace ScientificOperationsCenter.Api.Controllers
                 }
                 return BadRequest("Invalid date format.");
             } 
-            catch (Exception)
+            catch (Exception gEx)
             {
-                Log.Error("RadiationMeasurementsController -> Day() -> Returned status code 500.");
+                Log.Error(gEx, "RadiationMeasurementsController -> Day() -> Returned status code 500.");
                 return StatusCode(500); 
             }
         }
@@ -74,10 +75,10 @@ namespace ScientificOperationsCenter.Api.Controllers
             }
             try
             {
-                if (DateOnly.TryParse(date, out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
+                if (DateOnly.TryParse(date, new CultureInfo("en-US"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
                 {
                     var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonthAsync(dateOnly);
-                    if (radiationMeasurements.Count() > 0)
+                    if (radiationMeasurements.Any())
                     {
                         Log.Information("Serving: RadiationMeasurementsController -> Month()");
                         return Ok(radiationMeasurements);
@@ -86,9 +87,9 @@ namespace ScientificOperationsCenter.Api.Controllers
                 }
                 return BadRequest("Invalid date format.");
             }
-            catch (Exception)
+            catch (Exception gEx)
             {
-                Log.Error("RadiationMeasurementsController -> Month() -> Returned status code 500.");
+                Log.Error(gEx, "RadiationMeasurementsController -> Month() -> Returned status code 500.");
                 return StatusCode(500);
             }
         }
@@ -108,10 +109,10 @@ namespace ScientificOperationsCenter.Api.Controllers
             }
             try
             {
-                if (DateOnly.TryParse(date, out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
+                if (DateOnly.TryParse(date, new CultureInfo("en-US"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
                 {
                     var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYearAsync(dateOnly);
-                    if (radiationMeasurements.Count() > 0)
+                    if (radiationMeasurements.Any())
                     {
                         Log.Information("Serving: RadiationMeasurementsController -> Year()");
                         return Ok(radiationMeasurements);
@@ -120,9 +121,9 @@ namespace ScientificOperationsCenter.Api.Controllers
                 }
                 return BadRequest("Invalid date format.");
             }
-            catch (Exception)
+            catch (Exception gEx)
             {
-                Log.Error("RadiationMeasurementsController -> Year() -> Returned status code 500.");
+                Log.Error(gEx, "RadiationMeasurementsController -> Year() -> Returned status code 500.");
                 return StatusCode(500);
             }
         }

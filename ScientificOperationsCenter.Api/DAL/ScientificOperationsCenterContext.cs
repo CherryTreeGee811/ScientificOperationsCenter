@@ -34,11 +34,11 @@ namespace ScientificOperationsCenter.Api.DAL
         /// Configures the model and seeds initial data for the database.
         /// </summary>
         /// <param name="builder">The model builder used to configure the model.</param>
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(builder);
+            base.OnModelCreating(modelBuilder);
 
-            builder.Entity<Temperatures>().HasData(
+            modelBuilder.Entity<Temperatures>().HasData(
                new Temperatures { Id = 1, Date = new DateOnly(2024, 09, 02), Time = new TimeOnly(16, 00), TemperatureCelcius = 20 },
                new Temperatures { Id = 2, Date = new DateOnly(2024, 09, 05), Time = new TimeOnly(15, 00), TemperatureCelcius = 15 },
                new Temperatures { Id = 3, Date = new DateOnly(2024, 09, 07), Time = new TimeOnly(12, 00), TemperatureCelcius = -10 },
@@ -57,7 +57,7 @@ namespace ScientificOperationsCenter.Api.DAL
                new Temperatures { Id = 16, Date = new DateOnly(2025, 01, 05), Time = new TimeOnly(03, 30), TemperatureCelcius = 5 }
             );
 
-            builder.Entity<RadiationMeasurements>().HasData(
+            modelBuilder.Entity<RadiationMeasurements>().HasData(
                new RadiationMeasurements { Id = 1, Date = new DateOnly(2024, 09, 08), Time = new TimeOnly(16, 00), Milligrays = 100 },
                new RadiationMeasurements { Id = 2, Date = new DateOnly(2024, 09, 08), Time = new TimeOnly(15, 00), Milligrays = 140 },
                new RadiationMeasurements { Id = 3, Date = new DateOnly(2024, 09, 08), Time = new TimeOnly(12, 00), Milligrays = 162 },

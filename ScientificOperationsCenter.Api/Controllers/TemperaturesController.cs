@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScientificOperationsCenter.Api.Mappers.Interfaces;
 using Serilog;
+using System.Globalization;
 
 
 namespace ScientificOperationsCenter.Api.Controllers
@@ -40,10 +41,10 @@ namespace ScientificOperationsCenter.Api.Controllers
             }
             try
             {
-                if (DateOnly.TryParse(date, out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
+                if (DateOnly.TryParse(date, new CultureInfo("en-US"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
                 {
                     var temperatures = await _temperaturesMapper.GetTemperaturesForTheDayAsync(dateOnly);
-                    if (temperatures.Count() > 0)
+                    if (temperatures.Any())
                     {
                         Log.Information("Serving: TemperaturesController -> Day()");
                         return Ok(temperatures);
@@ -52,9 +53,9 @@ namespace ScientificOperationsCenter.Api.Controllers
                 }
                 return BadRequest("Invalid date format.");
             }
-            catch (Exception)
+            catch (Exception gEx)
             {
-                Log.Error("TemperaturesController -> Day() -> Returned status code 500.");
+                Log.Error("TemperaturesController -> Day() -> Returned status code 500.", gEx);
                 return StatusCode(500);
             }
         }
@@ -74,10 +75,10 @@ namespace ScientificOperationsCenter.Api.Controllers
             }
             try
             {
-                if (DateOnly.TryParse(date, out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
+                if (DateOnly.TryParse(date, new CultureInfo("en-US"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
                 {
                     var temperatures = await _temperaturesMapper.GetTemperaturesForTheMonthAsync(dateOnly);
-                    if (temperatures.Count() > 0)
+                    if (temperatures.Any())
                     {
                         Log.Information("Serving: TemperaturesController -> Month()");
                         return Ok(temperatures);
@@ -86,9 +87,9 @@ namespace ScientificOperationsCenter.Api.Controllers
                 }
                 return BadRequest("Invalid date format.");
             }
-            catch (Exception)
+            catch (Exception gEx)
             {
-                Log.Error("TemperaturesController -> Month() -> Returned status code 500.");
+                Log.Error("TemperaturesController -> Month() -> Returned status code 500.", gEx);
                 return StatusCode(500);
             }
         }
@@ -108,10 +109,10 @@ namespace ScientificOperationsCenter.Api.Controllers
             }
             try
             {
-                if (DateOnly.TryParse(date, out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
+                if (DateOnly.TryParse(date, new CultureInfo("en-US"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
                 {
                     var temperatures = await _temperaturesMapper.GetTemperaturesForTheYearAsync(dateOnly);
-                    if (temperatures.Count() > 0)
+                    if (temperatures.Any())
                     {
                         Log.Information("Serving: TemperaturesController -> Year()");
                         return Ok(temperatures);
@@ -120,9 +121,9 @@ namespace ScientificOperationsCenter.Api.Controllers
                 }
                 return BadRequest("Invalid date format.");
             }
-            catch (Exception)
+            catch (Exception gEx)
             {
-                Log.Error("TemperaturesController -> Year() -> Returned status code 500.");
+                Log.Error("TemperaturesController -> Year() -> Returned status code 500.", gEx);
                 return StatusCode(500);
             }
         }

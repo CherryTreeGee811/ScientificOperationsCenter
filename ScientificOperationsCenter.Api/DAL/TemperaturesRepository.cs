@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using ScientificOperationsCenter.Api.CustomExceptions;
 using ScientificOperationsCenter.Api.DAL.Interfaces;
 using ScientificOperationsCenter.Api.Models;
 using Serilog;
