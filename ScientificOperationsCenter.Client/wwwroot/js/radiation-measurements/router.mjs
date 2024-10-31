@@ -4,8 +4,6 @@ import { loadRadiationMeasurementsForYear } from './year.mjs';
 
 
 export function handleRadiationMeasurementsRoutes(path, contentDiv) {
-    const controller = "RadiationMeasurements";
-    const measure = "Total Radiation";
     switch (path) {
         case '/radiation-measurements':
             loadTemplate("radiation-measurements/index.html", contentDiv);

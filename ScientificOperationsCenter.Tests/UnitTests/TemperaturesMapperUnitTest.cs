@@ -1,4 +1,7 @@
-﻿using ScientificOperationsCenter.Api.Mappers;
+﻿using Moq;
+using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
+using ScientificOperationsCenter.Api.CustomExceptions;
+using ScientificOperationsCenter.Api.Mappers;
 using ScientificOperationsCenter.Tests.Mocks;
 
 
@@ -71,6 +74,106 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             Assert.That(result.Last().Timeframe, Is.EqualTo("December"));
             Assert.That(result.Last().AverageTemperature, Is.EqualTo(27));
             Assert.That(result.Count(), Is.EqualTo(8));
+        }
+
+
+        [Test]
+        public void Constructor_WhenTemperaturesServiceIsNull_ThrowsArgumentNullException()
+        {
+            // Arrange
+            ITemperaturesService temperaturesService = null;
+
+            // Action
+            TestDelegate action = () => new TemperaturesMapper(temperaturesService);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(action);
+            Assert.That(exception.ParamName, Is.EqualTo("temperaturesService"));
+        }
+
+
+        [Test]
+        public async Task GivenATemperaturesService_GetAverageTemperaturesForTheDayAsync_ThenIfBusinessLogicExceptionReturn()
+        {
+            // Setup
+            var temperaturesServiceMock = MockITemperaturesService.GetMock();
+            temperaturesServiceMock.Setup(m => m.GetAverageTemperaturesForTheDayAsync(It.IsAny<DateOnly>()))
+                .Throws(new BusinessLogicException("Verfiy BusinessLogicException is passed from mapper"));
+            var temperaturesMapper = new TemperaturesMapper(temperaturesServiceMock.Object);
+            var date = new DateOnly(2024, 10, 08);
+
+            try
+            {
+                // Action
+                var result = await temperaturesMapper.GetTemperaturesForTheDayAsync(date);
+                Assert.Fail();
+            } 
+            catch(Exception gEx)
+            {
+                // Assert
+                Assert.NotNull(gEx);
+                Assert.IsInstanceOf<BusinessLogicException>(gEx);
+                var businessLogicExceptionResult = gEx as BusinessLogicException;
+                Assert.That(businessLogicExceptionResult.Message,
+                    Is.EqualTo("Verfiy BusinessLogicException is passed from mapper"));
+            }
+        }
+
+
+        [Test]
+        public async Task GivenATemperaturesService_GetAverageTemperaturesForTheMonthAsync_ThenIfBusinessLogicExceptionReturn()
+        {
+            // Setup
+            var temperaturesServiceMock = MockITemperaturesService.GetMock();
+            temperaturesServiceMock.Setup(m => m.GetAverageTemperaturesForTheMonthAsync(It.IsAny<DateOnly>()))
+                .Throws(new BusinessLogicException("Verfiy BusinessLogicException is passed from mapper"));
+            var temperaturesMapper = new TemperaturesMapper(temperaturesServiceMock.Object);
+            var random = new Random();
+            var date = new DateOnly(2024, 10, random.Next(1, 30));
+
+            try
+            {
+                // Action
+                var result = await temperaturesMapper.GetTemperaturesForTheMonthAsync(date);
+                Assert.Fail();
+            }
+            catch (Exception gEx)
+            {
+                // Assert
+                Assert.NotNull(gEx);
+                Assert.IsInstanceOf<BusinessLogicException>(gEx);
+                var businessLogicExceptionResult = gEx as BusinessLogicException;
+                Assert.That(businessLogicExceptionResult.Message,
+                    Is.EqualTo("Verfiy BusinessLogicException is passed from mapper"));
+            }
+        }
+
+
+        public async Task GivenATemperaturesService_GetAverageTemperaturesForTheYearAsync_ThenIfBusinessLogicExceptionReturn()
+        {
+            // Setup
+            var temperaturesServiceMock = MockITemperaturesService.GetMock();
+            temperaturesServiceMock.Setup(m => m.GetAverageTemperaturesForTheYearAsync(It.IsAny<DateOnly>()))
+                .Throws(new BusinessLogicException("Verfiy BusinessLogicException is passed from mapper"));
+            var temperaturesMapper = new TemperaturesMapper(temperaturesServiceMock.Object);
+            var random = new Random();
+            var date = new DateOnly(2024, random.Next(1, 12), random.Next(1, 30));
+
+            try
+            {
+                // Action
+                var result = await temperaturesMapper.GetTemperaturesForTheMonthAsync(date);
+                Assert.Fail();
+            }
+            catch (Exception gEx)
+            {
+                // Assert
+                Assert.NotNull(gEx);
+                Assert.IsInstanceOf<BusinessLogicException>(gEx);
+                var businessLogicExceptionResult = gEx as BusinessLogicException;
+                Assert.That(businessLogicExceptionResult.Message,
+                    Is.EqualTo("Verfiy BusinessLogicException is passed from mapper"));
+            }
         }
     }
 }

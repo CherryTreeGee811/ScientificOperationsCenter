@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using ScientificOperationsCenter.Api.Controllers;
 using ScientificOperationsCenter.Tests.Mocks;
 using ScientificOperationsCenter.Api.ViewModels;
+using ScientificOperationsCenter.Api.Mappers.Interfaces;
+using Moq;
 
 
 namespace ScientificOperationsCenter.Tests.UnitTests
@@ -155,6 +157,86 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var badRequestResult = result as BadRequestObjectResult;
             Assert.NotNull(badRequestResult);
             Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
+        }
+
+
+        [Test]
+        public void Constructor_WhenTemperaturesMapperIsNull_ThrowsArgumentNullException()
+        {
+            // Arrange
+            ITemperaturesMapper temperaturesMapper = null;
+
+            // Action
+            TestDelegate action = () => new TemperaturesController(temperaturesMapper);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(action);
+            Assert.That(exception.ParamName, Is.EqualTo("temperaturesMapper"));
+        }
+
+
+        [Test]
+        public async Task GivenATemperaturesMapper_WhenGetTemperaturesForTheDayAsync_ThenIfServerError500ResponseCodeReturn()
+        {
+            // Setup
+            var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
+            temperaturesMapperMock.Setup(m => m.GetTemperaturesForTheDayAsync(It.IsAny<DateOnly>()))
+                .Throws(new Exception("Test exception handling for Api endpoint Day"));
+            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
+            var date = "2025-10-08";
+
+            // Action
+            IActionResult result = await temperaturesController.Day(date);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsInstanceOf<StatusCodeResult>(result);
+            var internalErrorResult = result as StatusCodeResult;
+            Assert.That(internalErrorResult.StatusCode, Is.EqualTo(StatusCodes.Status500InternalServerError));
+        }
+
+
+        [Test]
+        public async Task GivenATemperaturesMapper_WhenGetTemperaturesForTheMonthAsync_ThenIfServerError500ResponseCodeReturn()
+        {
+            // Setup
+            var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
+            temperaturesMapperMock.Setup(m => m.GetTemperaturesForTheMonthAsync(It.IsAny<DateOnly>()))
+                .Throws(new Exception("Test exception handling for Api endpoint Month"));
+            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
+            var random = new Random();
+            var date = new DateOnly(2024, 10, random.Next(1, 30)).ToString();
+
+            // Action
+            IActionResult result = await temperaturesController.Month(date);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsInstanceOf<StatusCodeResult>(result);
+            var internalErrorResult = result as StatusCodeResult;
+            Assert.That(internalErrorResult.StatusCode, Is.EqualTo(StatusCodes.Status500InternalServerError));
+        }
+
+
+        [Test]
+        public async Task GivenATemperaturesMapper_WhenGetTemperaturesForTheYearAsync_ThenIfServerError500ResponseCodeReturn()
+        {
+            // Setup
+            var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
+            temperaturesMapperMock.Setup(m => m.GetTemperaturesForTheYearAsync(It.IsAny<DateOnly>()))
+                .Throws(new Exception("Test exception handling for Api endpoint Year"));
+            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
+            var random = new Random();
+            var date = new DateOnly(2024, random.Next(1, 12), random.Next(1, 30)).ToString();
+
+            // Action
+            IActionResult result = await temperaturesController.Year(date);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsInstanceOf<StatusCodeResult>(result);
+            var internalErrorResult = result as StatusCodeResult;
+            Assert.That(internalErrorResult.StatusCode, Is.EqualTo(StatusCodes.Status500InternalServerError));
         }
     }
 }

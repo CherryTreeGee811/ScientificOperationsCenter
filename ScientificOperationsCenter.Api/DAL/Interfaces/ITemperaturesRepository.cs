@@ -1,4 +1,5 @@
 ﻿using ScientificOperationsCenter.Api.Models;
+using ScientificOperationsCenter.Api.CustomExceptions;
 
 
 namespace ScientificOperationsCenter.Api.DAL.Interfaces

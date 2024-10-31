@@ -1,5 +1,9 @@
+using Moq;
 using ScientificOperationsCenter.Api.BusinessLogic;
 using ScientificOperationsCenter.Api.BusinessLogic.Structs;
+using ScientificOperationsCenter.Api.CustomExceptions;
+using ScientificOperationsCenter.Api.DAL.Interfaces;
+using ScientificOperationsCenter.Api.Mappers;
 using ScientificOperationsCenter.Tests.Mocks;
 
 
@@ -121,6 +125,106 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             // Assert
             Assert.That(result.Any(), Is.EqualTo(false));
             Assert.IsInstanceOf<IEnumerable<TemperaturesDateAverage>>(result, "The returned element is not of IEnumerable<TemperaturesDateAverage> type.");
+        }
+
+
+        [Test]
+        public void Constructor_WhenTemperaturesRepositoryIsNull_ThrowsArgumentNullException()
+        {
+            // Arrange
+            ITemperaturesRepository temperaturesRepository = null;
+
+            // Action
+            TestDelegate action = () => new TemperaturesService(temperaturesRepository);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(action);
+            Assert.That(exception.ParamName, Is.EqualTo("temperaturesRepository"));
+        }
+
+
+        [Test]
+        public async Task GivenATemperaturesRepository_GetAverageTemperaturesForTheDayAsync_ThenIfBusinessLogicExceptionReturn()
+        {
+            // Setup
+            var temperaturesRepositoryMock = MockITemperaturesRepository.GetMock();
+            temperaturesRepositoryMock.Setup(m => m.GetByDayAsync(It.IsAny<DateOnly>()))
+                .Throws(new DataAccessException("Verfiy DataAccessException is passed from mapper"));
+            var temperaturesService = new TemperaturesService(temperaturesRepositoryMock.Object);
+            var date = new DateOnly(2024, 10, 08);
+
+            try
+            {
+                // Action
+                var result = await temperaturesService.GetAverageTemperaturesForTheDayAsync(date);
+                Assert.Fail();
+            }
+            catch (Exception gEx)
+            {
+                // Assert
+                Assert.NotNull(gEx);
+                Assert.IsInstanceOf<DataAccessException>(gEx);
+                var dataAccessExceptionResult = gEx as DataAccessException;
+                Assert.That(dataAccessExceptionResult.Message,
+                    Is.EqualTo("Verfiy DataAccessException is passed from mapper"));
+            }
+        }
+
+
+        [Test]
+        public async Task GivenATemperaturesRepository_GetAverageTemperaturesForTheMonthAsync_ThenIfBusinessLogicExceptionReturn()
+        {
+            // Setup
+            var temperaturesRepositoryMock = MockITemperaturesRepository.GetMock();
+            temperaturesRepositoryMock.Setup(m => m.GetByMonthAsync(It.IsAny<DateOnly>()))
+                .Throws(new DataAccessException("Verfiy DataAccessException is passed from mapper"));
+            var temperaturesService = new TemperaturesService(temperaturesRepositoryMock.Object);
+            var random = new Random();
+            var date = new DateOnly(2024, 10, random.Next(1, 30));
+
+            try
+            {
+                // Action
+                var result = await temperaturesService.GetAverageTemperaturesForTheMonthAsync(date);
+                Assert.Fail();
+            }
+            catch (Exception gEx)
+            {
+                // Assert
+                Assert.NotNull(gEx);
+                Assert.IsInstanceOf<DataAccessException>(gEx);
+                var dataAccessExceptionResult = gEx as DataAccessException;
+                Assert.That(dataAccessExceptionResult.Message,
+                    Is.EqualTo("Verfiy DataAccessException is passed from mapper"));
+            }
+        }
+
+
+        public async Task GivenATemperaturesRepository_GetAverageTemperaturesForTheYearAsync_ThenIfBusinessLogicExceptionReturn()
+        {
+            // Setup
+            var temperaturesRepositoryMock = MockITemperaturesRepository.GetMock();
+            temperaturesRepositoryMock.Setup(m => m.GetByYearAsync(It.IsAny<DateOnly>()))
+                .Throws(new DataAccessException("Verfiy DataAccessException is passed from mapper"));
+            var temperaturesService = new TemperaturesService(temperaturesRepositoryMock.Object);
+            var random = new Random();
+            var date = new DateOnly(2024, random.Next(1, 12), random.Next(1, 30));
+
+            try
+            {
+                // Action
+                var result = await temperaturesService.GetAverageTemperaturesForTheYearAsync(date);
+                Assert.Fail();
+            }
+            catch (Exception gEx)
+            {
+                // Assert
+                Assert.NotNull(gEx);
+                Assert.IsInstanceOf<DataAccessException>(gEx);
+                var dataAccessExceptionResult = gEx as DataAccessException;
+                Assert.That(dataAccessExceptionResult.Message,
+                    Is.EqualTo("Verfiy DataAccessException is passed from mapper"));
+            }
         }
     }
 }

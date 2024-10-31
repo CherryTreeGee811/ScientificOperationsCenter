@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using ScientificOperationsCenter.Api.Controllers;
 using ScientificOperationsCenter.Tests.Mocks;
 using ScientificOperationsCenter.Api.ViewModels;
+using ScientificOperationsCenter.Api.Mappers.Interfaces;
+using Moq;
 
 
 namespace ScientificOperationsCenter.Tests.UnitTests
@@ -155,6 +157,84 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var badRequestResult = result as BadRequestObjectResult;
             Assert.NotNull(badRequestResult);
             Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
+        }
+
+
+        [Test]
+        public void Constructor_WhenRadiationMeasurementsMapperIsNull_ThrowsArgumentNullException()
+        {
+            // Arrange
+            IRadiationMeasurementsMapper radiationMeasurementsMapper = null;
+
+            // Action
+            TestDelegate action = () => new RadiationMeasurementsController(radiationMeasurementsMapper);
+            
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(action);
+            Assert.That(exception.ParamName, Is.EqualTo("radiationMeasurementsMapper"));
+        }
+
+
+        [Test]
+        public async Task GivenARadiationMeasurementsMapper_WhenGetRadiationMeasurementsForTheDayAsync_ThenIfServerError500ResponseCodeReturn()
+        {
+            // Setup
+            var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
+            radiationMeasurementsMapperMock.Setup(m => m.GetRadiationMeasurementsForTheDayAsync(It.IsAny<DateOnly>()))
+                .Throws(new Exception("Test exception handling for Api endpoint Day"));
+            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object);
+            var date = "2025-10-01";
+
+            // Action
+            IActionResult result = await radiationMeasurementsController.Day(date);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsInstanceOf<StatusCodeResult>(result);
+            var internalErrorResult = result as StatusCodeResult;
+            Assert.That(internalErrorResult.StatusCode, Is.EqualTo(StatusCodes.Status500InternalServerError));
+        }
+
+
+        [Test]
+        public async Task GivenARadiationMeasurementsMapper_WhenGetRadiationMeasurementsForTheMonthAsync_ThenIfServerError500ResponseCodeReturn()
+        {
+            // Setup
+            var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
+            radiationMeasurementsMapperMock.Setup(m => m.GetRadiationMeasurementsForTheMonthAsync(It.IsAny<DateOnly>()))
+                .Throws(new Exception("Test exception handling for Api endpoint Month"));
+            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object);
+            var date = "2025-10-01";
+
+            // Action
+            IActionResult result = await radiationMeasurementsController.Month(date);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsInstanceOf<StatusCodeResult>(result);
+            var internalErrorResult = result as StatusCodeResult;
+            Assert.That(internalErrorResult.StatusCode, Is.EqualTo(StatusCodes.Status500InternalServerError));
+        }
+
+
+        [Test]
+        public async Task GivenARadiationMeasurementsMapper_WhenGetRadiationMeasurementsForTheYearAsync_ThenIfServerError500ResponseCodeReturn()
+        {
+            // Setup
+            var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
+            radiationMeasurementsMapperMock.Setup(m => m.GetRadiationMeasurementsForTheYearAsync(It.IsAny<DateOnly>()))
+                .Throws(new Exception("Test exception handling for Api endpoint Year"));
+            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object);
+            var date = "2025-10-01";
+
+            // Action
+            IActionResult result = await radiationMeasurementsController.Year(date);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsInstanceOf<StatusCodeResult>(result);
+            var internalErrorResult = result as StatusCodeResult;
+            Assert.That(internalErrorResult.StatusCode, Is.EqualTo(StatusCodes.Status500InternalServerError));
         }
     }
 }
