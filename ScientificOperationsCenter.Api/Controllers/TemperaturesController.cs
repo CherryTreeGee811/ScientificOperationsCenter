@@ -55,7 +55,7 @@ namespace ScientificOperationsCenter.Api.Controllers
             }
             catch (Exception gEx)
             {
-                Log.Error("TemperaturesController -> Day() -> Returned status code 500.", gEx);
+                Log.Error(gEx, "TemperaturesController -> Day() -> Returned status code 500.");
                 return StatusCode(500);
             }
         }
@@ -89,7 +89,7 @@ namespace ScientificOperationsCenter.Api.Controllers
             }
             catch (Exception gEx)
             {
-                Log.Error("TemperaturesController -> Month() -> Returned status code 500.", gEx);
+                Log.Error(gEx, "TemperaturesController -> Month() -> Returned status code 500.");
                 return StatusCode(500);
             }
         }
@@ -123,7 +123,7 @@ namespace ScientificOperationsCenter.Api.Controllers
             }
             catch (Exception gEx)
             {
-                Log.Error("TemperaturesController -> Year() -> Returned status code 500.", gEx);
+                Log.Error(gEx, "TemperaturesController -> Year() -> Returned status code 500.");
                 return StatusCode(500);
             }
         }
