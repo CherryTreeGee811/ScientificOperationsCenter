@@ -1,7 +1,7 @@
 ﻿using Moq;
-using ScientificOperationsCenter.BusinessLogic.Interfaces;
-using ScientificOperationsCenter.BusinessLogic.Structs;
-using ScientificOperationsCenter.Models;
+using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
+using ScientificOperationsCenter.Api.BusinessLogic.Structs;
+using ScientificOperationsCenter.Api.Models;
 
 
 namespace ScientificOperationsCenter.Tests.Mocks
@@ -59,15 +59,15 @@ namespace ScientificOperationsCenter.Tests.Mocks
             };
 
 
-            mock.Setup(m => m.GetAverageTemperaturesForTheDay(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
+            mock.Setup(m => m.GetAverageTemperaturesForTheDayAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 temperaturesSameDay.GroupBy(t => t.Time.Hour)
                     .Select(t => new TemperaturesTimeAverage { Time = new TimeOnly(t.Key, 00), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) }));
 
-            mock.Setup(m => m.GetAverageTemperaturesForTheMonth(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
+            mock.Setup(m => m.GetAverageTemperaturesForTheMonthAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 temperaturesSameMonth.GroupBy(t => t.Date.Day)
                     .Select(t => new TemperaturesDateAverage { Date = new DateOnly(date.Year, date.Month, t.Key), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) }));
 
-            mock.Setup(m => m.GetAverageTemperaturesForTheYear(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
+            mock.Setup(m => m.GetAverageTemperaturesForTheYearAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 temperaturesSameYear.GroupBy(t => t.Date.Month)
                     .Select(t => new TemperaturesDateAverage { Date = new DateOnly(date.Year, t.Key, 01), AverageTemperature = (int)Math.Round(t.Average(a => a.TemperatureCelcius)) }));
 

@@ -1,7 +1,7 @@
 ﻿using Moq;
-using ScientificOperationsCenter.BusinessLogic.Structs;
-using ScientificOperationsCenter.Mappers.Interfaces;
-using ScientificOperationsCenter.ViewModels;
+using ScientificOperationsCenter.Api.BusinessLogic.Structs;
+using ScientificOperationsCenter.Api.Mappers.Interfaces;
+using ScientificOperationsCenter.Api.ViewModels;
 
 
 namespace ScientificOperationsCenter.Tests.Mocks
@@ -49,17 +49,17 @@ namespace ScientificOperationsCenter.Tests.Mocks
             };
 
 
-            mock.Setup(m => m.GetTemperaturesForTheDay(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
+            mock.Setup(m => m.GetTemperaturesForTheDayAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 temperaturesSameDay.OrderBy(t => t.Time.Hour).Select(t =>
-                    new TemperaturesTimeViewModel { Hour = t.Time, AverageTemperature = t.AverageTemperature }));
+                    new TemperaturesViewModel { Timeframe = t.Time.ToString(), AverageTemperature = t.AverageTemperature }));
 
-            mock.Setup(m => m.GetTemperaturesForTheMonth(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
+            mock.Setup(m => m.GetTemperaturesForTheMonthAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 temperaturesSameMonth.OrderBy(t => t.Date.Day).Select(t =>
-                    new TemperaturesDateViewModel { Date = t.Date.Day.ToString(), AverageTemperature = t.AverageTemperature }));
+                    new TemperaturesViewModel { Timeframe = t.Date.Day.ToString(), AverageTemperature = t.AverageTemperature }));
 
-            mock.Setup(m => m.GetTemperaturesForTheYear(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
+            mock.Setup(m => m.GetTemperaturesForTheYearAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 temperaturesSameYear.OrderBy(t => t.Date.Month).Select(t =>
-                    new TemperaturesDateViewModel { Date = t.Date.ToString("MMMM"), AverageTemperature = t.AverageTemperature }));
+                    new TemperaturesViewModel { Timeframe = t.Date.ToString("MMMM"), AverageTemperature = t.AverageTemperature }));
 
 
             return mock;

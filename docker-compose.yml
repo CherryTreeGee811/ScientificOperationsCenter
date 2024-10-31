@@ -1,0 +1,67 @@
+version: '3.4'
+services:
+  scientificoperationscenter.client:
+    image: ${DOCKER_REGISTRY-}scientificoperationscenterclient
+    container_name: scientificoperationscenterclient
+    hostname: localhost
+    ports:
+        - 9000:9000
+        - 9001:9001
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=9000
+      - ASPNETCORE_HTTPS_PORTS=9001
+      - ASPNETCORE_URLS=http://+:9000
+    build:
+      context: .
+      dockerfile: ScientificOperationsCenter.Client/Dockerfile
+    depends_on:
+        - scientificoperationscenter.api
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  
+
+  scientificoperationscenter.api:
+    image: ${DOCKER_REGISTRY-}scientificoperationscenterapi
+    container_name: scientificoperationscenterapi
+    hostname: localhost
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8000
+      - ASPNETCORE_HTTPS_PORTS=8001
+      - ASPNETCORE_URLS=http://+:8000
+    networks:
+        - sciencedb-net
+    build:
+      context: .
+      dockerfile: ScientificOperationsCenter.Api/Dockerfile
+    depends_on:
+        - database
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+   
+      
+  database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlpreview
+    hostname: localhost
+    networks:
+        - sciencedb-net
+    ports:
+        - 1433:1433
+    environment:
+        ACCEPT_EULA: Y
+        MSSQL_SA_PASSWORD: SATestPassword10*
+
+networks:
+    sciencedb-net:
+        driver: bridge
