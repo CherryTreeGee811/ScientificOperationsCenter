@@ -1,6 +1,10 @@
-﻿using ScientificOperationsCenter.Api.BusinessLogic;
+﻿using Moq;
+using ScientificOperationsCenter.Api.BusinessLogic;
+using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
 using ScientificOperationsCenter.Api.BusinessLogic.Structs;
+using ScientificOperationsCenter.Api.CustomExceptions;
 using ScientificOperationsCenter.Api.DAL.Interfaces;
+using ScientificOperationsCenter.Api.Mappers;
 using ScientificOperationsCenter.Tests.Mocks;
 
 
@@ -136,6 +140,92 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(action);
             Assert.That(exception.ParamName, Is.EqualTo("radiationMeasurementsRepository"));
+        }
+
+
+        [Test]
+        public async Task GivenARadiationMeasurementsService_WhenGettingRadiationMeasurementsByDay_ThenIfBusinessLogicExceptionReturn()
+        {
+            // Setup
+            var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
+            radiationMeasurementsRepositoryMock.Setup(m => m.GetByDayAsync(It.IsAny<DateOnly>()))
+                .Throws(new DataAccessException("Verfiy DataAccessException is passed from service"));
+            var radiationMeasurementsService = new RadiationMeasurementsService(radiationMeasurementsRepositoryMock.Object);
+            var date = new DateOnly(2024, 10, 08);
+
+            try
+            {
+                // Action
+                var result = await radiationMeasurementsService.GetRadiationMeasurementsSumForTheDayAsync(date);
+                Assert.Fail();
+            }
+            catch (Exception gEx)
+            {
+                // Assert
+                Assert.NotNull(gEx);
+                Assert.IsInstanceOf<DataAccessException>(gEx);
+                var dataAccessExceptionResult = gEx as DataAccessException;
+                Assert.That(dataAccessExceptionResult.Message,
+                    Is.EqualTo("Verfiy DataAccessException is passed from service"));
+            }
+        }
+
+
+        [Test]
+        public async Task GivenARadiationMeasurementsService_WhenGettingRadiationMeasurementsByMonth_ThenIfDataAccessExceptionReturn()
+        {
+            // Setup
+            var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
+            radiationMeasurementsRepositoryMock.Setup(m => m.GetByMonthAsync(It.IsAny<DateOnly>()))
+                .Throws(new DataAccessException("Verfiy DataAccessException is passed from service"));
+            var radiationMeasurementsService = new RadiationMeasurementsService(radiationMeasurementsRepositoryMock.Object);
+            var random = new Random();
+            var date = new DateOnly(2024, 10, random.Next(1, 30));
+
+            try
+            {
+                // Action
+                var result = await radiationMeasurementsService.GetRadiationMeasurementsSumForTheMonthAsync(date);
+                Assert.Fail();
+            }
+            catch (Exception gEx)
+            {
+                // Assert
+                Assert.NotNull(gEx);
+                Assert.IsInstanceOf<DataAccessException>(gEx);
+                var dataAccessExceptionResult = gEx as DataAccessException;
+                Assert.That(dataAccessExceptionResult.Message,
+                    Is.EqualTo("Verfiy DataAccessException is passed from service"));
+            }
+        }
+
+
+        [Test]
+        public async Task GivenARadiationMeasurementsRepository_WhenGettingRadiationMeasurementsByYear_ThenIfDataAccessExceptionReturn()
+        {
+            // Setup
+            var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
+            radiationMeasurementsRepositoryMock.Setup(m => m.GetByYearAsync(It.IsAny<DateOnly>()))
+                .Throws(new DataAccessException("Verfiy DataAccessException is passed from service"));
+            var radiationMeasurementsService = new RadiationMeasurementsService(radiationMeasurementsRepositoryMock.Object);
+            var random = new Random();
+            var date = new DateOnly(2024, random.Next(1, 12), random.Next(1, 30));
+
+            try
+            {
+                // Action
+                var result = await radiationMeasurementsService.GetRadiationMeasurementsSumForTheYearAsync(date);
+                Assert.Fail();
+            }
+            catch (Exception gEx)
+            {
+                // Assert
+                Assert.NotNull(gEx);
+                Assert.IsInstanceOf<DataAccessException>(gEx);
+                var dataAccessExceptionResult = gEx as DataAccessException;
+                Assert.That(dataAccessExceptionResult.Message,
+                    Is.EqualTo("Verfiy DataAccessException is passed from service"));
+            }
         }
     }
 }
