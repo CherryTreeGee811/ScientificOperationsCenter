@@ -44,9 +44,10 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
         public async Task GivenATemperaturesService_WhenGettingAverageTemperaturesByDayOfMonth_ThenIf200CollectionOfTemperaturesJSONSortedByDayReturn()
         {
             // Setup
-            var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
-            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
-            var date = "2024-10-20";
+            var temperaturesServiceMock = MockITemperaturesService.GetMock();
+            var temperaturesMapper = new TemperaturesMapper(temperaturesServiceMock.Object);
+            var temperaturesController = new TemperaturesController(temperaturesMapper);
+            var date = "2024-10-01";
 
             // Action
             var controllerResult = await temperaturesController.Month(date);
@@ -62,9 +63,9 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             Assert.NotNull(contents);
             Assert.That(contents.Count, Is.AtLeast(1));
             Assert.That(contents.First().Timeframe, Is.EqualTo("1"));
-            Assert.That(contents.First().AverageTemperature, Is.EqualTo(32));
+            Assert.That(contents.First().AverageTemperature, Is.EqualTo(27));
             Assert.That(contents.Last().Timeframe, Is.EqualTo("21"));
-            Assert.That(contents.Last().AverageTemperature, Is.EqualTo(20));
+            Assert.That(contents.Last().AverageTemperature, Is.EqualTo(15));
             Assert.That(contents.Count, Is.EqualTo(7));
         }
 
@@ -74,9 +75,10 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
         public async Task GivenATemperaturesService_WhenGettingAverageTemperaturesByMonthOfYear_ThenIf200CollectionOfTemperaturesJSONSortedByMonthReturn()
         {
             // Setup
-            var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
-            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
-            var date = "2025-10-01";
+            var temperaturesServiceMock = MockITemperaturesService.GetMock();
+            var temperaturesMapper = new TemperaturesMapper(temperaturesServiceMock.Object);
+            var temperaturesController = new TemperaturesController(temperaturesMapper);
+            var date = "2025-01-01";
 
             // Action
             var controllerResult = await temperaturesController.Year(date);
@@ -92,9 +94,9 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             Assert.NotNull(contents);
             Assert.That(contents.Count, Is.AtLeast(1));
             Assert.That(contents.First().Timeframe, Is.EqualTo("May"));
-            Assert.That(contents.First().AverageTemperature, Is.EqualTo(-2));
+            Assert.That(contents.First().AverageTemperature, Is.EqualTo(-3));
             Assert.That(contents.Last().Timeframe, Is.EqualTo("December"));
-            Assert.That(contents.Last().AverageTemperature, Is.EqualTo(20));
+            Assert.That(contents.Last().AverageTemperature, Is.EqualTo(27));
             Assert.That(contents.Count, Is.EqualTo(8));
         }
     }

@@ -46,7 +46,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             // Setup
             var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
             var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object);
-            var date = "2024-10-20";
+            var date = "2024-10-01";
 
             // Action
             var result = await radiationMeasurementsController.Month(date);
@@ -76,7 +76,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             // Setup
             var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
             var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object);
-            var date = "2025-10-01";
+            var date = "2025-01-01";
 
             // Action
             var result = await radiationMeasurementsController.Year(date);
