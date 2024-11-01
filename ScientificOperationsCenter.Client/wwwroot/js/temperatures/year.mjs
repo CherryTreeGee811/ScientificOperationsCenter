@@ -2,8 +2,34 @@
 import { generateChart } from './chart.mjs';
 
 
+/**
+ * @module year
+ * @description This module handles the loading and visualization of temperature data
+ * for a specific year. It fetches data from the API and generates a chart based on the retrieved data.
+ *
+ * Dependencies:
+ * - `getChartData` from the `api.mjs` module for fetching data.
+ * - `generateChart` from the `chart.mjs` module for rendering the chart.
+ */
+
+
+/**
+ * Loads temperature data for a specific year and generates a chart.
+ * 
+ * This function retrieves temperature data for the specified date and 
+ * timespan, then generates a chart using the retrieved data. It also 
+ * handles loading and error messages in the UI.
+ * 
+ * @function loadTemperaturesForMonth
+ * @returns {void} This function does not return a value. It updates the UI 
+ * with loading and error messages as needed.
+ * 
+ * @example
+ * Load temperatures for the year 2024
+ * loadTemperaturesForYear();
+ */
 export function loadTemperaturesForYear() {
-    const date = '2024-10-08';
+    const date = '2024-01-01';
     const timespan = 'year';
     const errorTextElement = document.getElementById("ErrorText");
     const loadingTextElement = document.getElementById("LoadingText");

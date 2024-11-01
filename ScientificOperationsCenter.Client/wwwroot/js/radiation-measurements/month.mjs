@@ -2,8 +2,35 @@
 import { generateChart } from './chart.mjs';
 
 
+/**
+ * @module month
+ * @description This module handles the loading and visualization of radiation measurement data
+ * for a specific month. It fetches data from the API and generates a chart based on the retrieved data.
+ * 
+ * Dependencies:
+ * - `getChartData` from the `api.mjs` module for fetching data.
+ * - `generateChart` from the `chart.mjs` module for rendering the chart.
+ */
+
+
+/**
+ * Loads radiation measurements for a specific month and generates a chart.
+ * 
+ * This function fetches radiation measurement data for a predefined date
+ * and timespan, then generates a chart using the retrieved data. It also
+ * handles loading states and displays error messages based on the outcome
+ * of the data fetching process.
+ * 
+ * @function loadRadiationMeasurementsForMonth
+ * @returns {void} This function does not return a value; it directly updates
+ * the UI with loading messages and chart data.
+ * 
+ * @example
+ * // Load temperatures for the month of October, 2024
+ * loadRadiationMeasurementsForMonth();
+ */
 export function loadRadiationMeasurementsForMonth() {
-    const date = '2024-10-08';
+    const date = '2024-10-01';
     const timespan = 'month';
     const errorTextElement = document.getElementById("ErrorText");
     const loadingTextElement = document.getElementById("LoadingText");
