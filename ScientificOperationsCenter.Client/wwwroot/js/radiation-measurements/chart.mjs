@@ -1,3 +1,27 @@
+/**
+ * @module chart
+ * @description This module provides functions for generating charts using Chart.js.
+ * It includes functionality to create line charts based on provided radiation data.
+ */
+
+
+/**
+ * Generates a line chart displaying total radiation over time.
+ * 
+ * @function generateChart
+ * @param {Array<Object>} list - An array of data objects, where each object contains:
+ *   - {string} timeframe - The time period for the data point (e.g., '2024-10-08').
+ *   - {number} totalRadiation - The total radiation measurement for the corresponding timeframe.
+ * @returns {void} This function does not return a value; it directly renders the chart on the canvas.
+ * 
+ * @example
+ * const data = [
+ *   { timeframe: '2024-10-01', totalRadiation: 100 },
+ *   { timeframe: '2024-10-02', totalRadiation: 120 },
+ *   { timeframe: '2024-10-03', totalRadiation: 160 },
+ * ];
+ * generateChart(data);
+ */
 export function generateChart(list) {
     const context = document.getElementById('chart').getContext('2d');
     const datetimes = list.map(entry => entry.timeframe);
