@@ -49,6 +49,7 @@ jobs:
             run: |
               docker stop scientificoperationscenterapi
               docker stop sqlpreview
+              sleep 10
               
           - name: Run Client Tests
             shell: bash
