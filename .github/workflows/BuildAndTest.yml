@@ -23,9 +23,10 @@ jobs:
             with:
               chrome-version: 114
 
+          
           - name: Install ChromeDriver
             run: |
-              CHROME_VERSION=$(google-chrome --version | grep -oP '[\d.]+' | head -n 1)
+              CHROME_VERSION=114
               wget -N "https://chromedriver.storage.googleapis.com/${CHROME_VERSION}/chromedriver_linux64.zip"
               unzip chromedriver_linux64.zip
               chmod +x chromedriver
