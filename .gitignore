@@ -5,7 +5,7 @@
 ScientificOperationsCenter.Api/*.user
 ScientificOperationsCenter.Client/*.user
 ScientificOperationsCenter.Api.Tests/*.user
-ScientificOperationsCenter.System.Tests/*.user
+ScientificOperationsCenter.Client.Tests/*.user
 
 # Generated with debug and execute
 ScientificOperationsCenter.Api/bin
@@ -17,8 +17,8 @@ ScientificOperationsCenter.Client/obj
 ScientificOperationsCenter.Api.Tests/bin
 ScientificOperationsCenter.Api.Tests/obj
 
-ScientificOperationsCenter.System.Tests/bin
-ScientificOperationsCenter.System.Tests/obj
+ScientificOperationsCenter.Client.Tests/bin
+ScientificOperationsCenter.Client.Tests/obj
 
 # logging
 ScientificOperationsCenter.Api/logs

@@ -16,23 +16,23 @@
  * 
  * @example
  * const data = [
- *   { timeframe: '2024-10-01', totalRadiation: 100 },
- *   { timeframe: '2024-10-02', totalRadiation: 120 },
- *   { timeframe: '2024-10-03', totalRadiation: 160 },
+ *   { Timeframe: '1', TotalRadiation: 100 },
+ *   { Timeframe: '2', TotalRadiation: 120 },
+ *   { Timeframe: '3', TotalRadiation: 160 },
  * ];
  * generateChart(data);
  */
 export function generateChart(list) {
     const context = document.getElementById('chart').getContext('2d');
-    const datetimes = list.map(entry => entry.timeframe);
-    const totalRadiation = list.map(entry => entry.totalRadiation);
+    const datetimes = list.map(entry => entry.Timeframe);
+    const totalRadiation = list.map(entry => entry.TotalRadiation);
     new Chart(context, {
         type: "line",
         data: {
             labels: datetimes,
             datasets: [{
                 fill: false,
-                lineTension: 0,
+                tension: 0,
                 label: 'Total Radiation',
                 data: totalRadiation,
                 borderColor: "rgba(100,0,255,1.0)"

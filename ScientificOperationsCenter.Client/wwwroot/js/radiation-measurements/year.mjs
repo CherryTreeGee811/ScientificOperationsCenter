@@ -30,7 +30,7 @@ import { generateChart } from './chart.mjs';
  * loadRadiationMeasurementsForYear();
  */
 export function loadRadiationMeasurementsForYear() {
-    const date = '2024-10-08';
+    const date = '2024-01-01';
     const timespan = 'year';
     const errorTextElement = document.getElementById("ErrorText");
     const loadingTextElement = document.getElementById("LoadingText");

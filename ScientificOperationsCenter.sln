@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientificOperationsCenter.
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8B9359C8-324D-4553-B09A-638617140365}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientificOperationsCenter.System.Tests", "ScientificOperationsCenter.System.Tests\ScientificOperationsCenter.System.Tests.csproj", "{17DA0C6E-29CB-42AD-AD83-8BE60A8B1234}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientificOperationsCenter.Client.Tests", "ScientificOperationsCenter.Client.Tests\ScientificOperationsCenter.Client.Tests.csproj", "{17DA0C6E-29CB-42AD-AD83-8BE60A8B1234}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

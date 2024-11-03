@@ -1,4 +1,4 @@
-﻿namespace ScientificOperationsCenter.System.Tests
+﻿namespace ScientificOperationsCenter.Client.Tests.Shared
 {
     internal static class Display
     {
