@@ -4,7 +4,8 @@
 # User-specific files
 ScientificOperationsCenter.Api/*.user
 ScientificOperationsCenter.Client/*.user
-ScientificOperationsCenter.Tests/*.user
+ScientificOperationsCenter.Api.Tests/*.user
+ScientificOperationsCenter.System.Tests/*.user
 
 # Generated with debug and execute
 ScientificOperationsCenter.Api/bin
@@ -13,8 +14,11 @@ ScientificOperationsCenter.Api/obj
 ScientificOperationsCenter.Client/bin
 ScientificOperationsCenter.Client/obj
 
-ScientificOperationsCenter.Tests/bin
-ScientificOperationsCenter.Tests/obj
+ScientificOperationsCenter.Api.Tests/bin
+ScientificOperationsCenter.Api.Tests/obj
+
+ScientificOperationsCenter.System.Tests/bin
+ScientificOperationsCenter.System.Tests/obj
 
 # logging
 ScientificOperationsCenter.Api/logs

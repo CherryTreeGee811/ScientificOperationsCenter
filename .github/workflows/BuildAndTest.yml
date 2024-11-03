@@ -12,6 +12,11 @@ jobs:
       runs-on: ubuntu-latest
       steps:
           - uses: actions/checkout@v4
+              
+          - name: Setup .NET
+            uses: actions/setup-dotnet@v3
+            with:
+              dotnet-version: 8.0.x
           
           - name: Install Tools
             shell: bash
@@ -29,10 +34,15 @@ jobs:
             shell: bash
             run: docker compose up -d
           
-          - name: Run Tests
+          - name: Run API Tests
             shell: bash
             run: |
-              dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj --os linux --verbosity minimal
+              dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj --os linux --verbosity minimal
+
+          - name: Run System Tests
+            shell: bash
+            run: |
+               dotnet test ./ScientificOperationsCenter.System.Tests/ScientificOperationsCenter.System.Tests.csproj --os linux --verbosity minimal
             
           - name: Nikto Scan Frontend
             shell: bash

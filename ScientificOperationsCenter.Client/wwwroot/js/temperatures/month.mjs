@@ -13,7 +13,6 @@ import { generateChart } from './chart.mjs';
  */
 
 
-
 /**
  * Loads temperature data for a specific month and generates a chart.
  * 
