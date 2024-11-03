@@ -37,27 +37,32 @@ jobs:
           - name: Run API Tests
             shell: bash
             run: |
-              dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj --os linux --verbosity minimal
-
-          - name: Run System Tests
-            shell: bash
-            run: |
-               dotnet test ./ScientificOperationsCenter.System.Tests/ScientificOperationsCenter.System.Tests.csproj --os linux --verbosity minimal
-            
-          - name: Nikto Scan Frontend
-            shell: bash
-            run: |
-              nikto -h http://localhost:9000 -C all
+              dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj --os linux --verbosity minimal 
 
           - name: Nikto Scan Backend
             shell: bash
             run: |
               nikto -h http://localhost:8000 -C all
 
-          - name: Stop Containers
+          - name: Stop API Container and DB Container
             shell: bash
             run: |
               docker stop scientificoperationscenterapi
+              docker stop sqlpreview
+              
+          - name: Run Client Tests
+            shell: bash
+            run: |
+               dotnet test ./ScientificOperationsCenter.Client.Tests/ScientificOperationsCenter.Client.Tests.csproj --os linux --verbosity minimal
+
+          - name: Nikto Scan Frontend
+            shell: bash
+            run: |
+              nikto -h http://localhost:9000 -C all
+
+          - name: Stop Client Container
+            shell: bash
+            run: |
               docker stop scientificoperationscenterclient
 
           - name: Push to Docker
