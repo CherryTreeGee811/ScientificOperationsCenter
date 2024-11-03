@@ -22,6 +22,14 @@ jobs:
             uses: browser-actions/setup-chrome@v1
             with:
               chrome-version: 114
+
+          - name: Install ChromeDriver
+            run: |
+              CHROME_VERSION=$(google-chrome --version | grep -oP '[\d.]+' | head -n 1)
+              wget -N "https://chromedriver.storage.googleapis.com/${CHROME_VERSION}/chromedriver_linux64.zip"
+              unzip chromedriver_linux64.zip
+              chmod +x chromedriver
+              sudo mv chromedriver /usr/local/bin/
           
           - name: Install Tools
             shell: bash
