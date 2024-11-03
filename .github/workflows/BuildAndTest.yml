@@ -12,6 +12,11 @@ jobs:
       runs-on: ubuntu-latest
       steps:
           - uses: actions/checkout@v4
+
+          - name: Install Chrome for System Tests
+            uses: browser-actions/setup-chrome@v1
+            with:
+              chrome-version: 114
           
           - name: Install Tools
             shell: bash
