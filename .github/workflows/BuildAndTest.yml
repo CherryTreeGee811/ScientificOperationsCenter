@@ -12,6 +12,16 @@ jobs:
       runs-on: ubuntu-latest
       steps:
           - uses: actions/checkout@v4
+
+          - name: Install Chrome for System Tests
+            uses: browser-actions/setup-chrome@v1
+            with:
+              chrome-version: 114
+              
+          - name: Setup .NET
+            uses: actions/setup-dotnet@v3
+            with:
+              dotnet-version: 8.0.x
           
           - name: Install Tools
             shell: bash
@@ -33,11 +43,6 @@ jobs:
             shell: bash
             run: |
               dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj --os linux --verbosity minimal
-
-          - name: Run System Tests
-            shell: bash
-            run: |
-               dotnet test ./ScientificOperationsCenter.System.Tests/ScientificOperationsCenter.System.Tests.csproj --os linux --verbosity minimal
             
           - name: Nikto Scan Frontend
             shell: bash
@@ -48,6 +53,11 @@ jobs:
             shell: bash
             run: |
               nikto -h http://localhost:8000 -C all
+
+          - name: Run System Tests
+            shell: bash
+            run: |
+               dotnet test ./ScientificOperationsCenter.System.Tests/ScientificOperationsCenter.System.Tests.csproj --os linux --verbosity minimal
 
           - name: Stop Containers
             shell: bash
