@@ -76,16 +76,25 @@ export function handleRadiationMeasurementsRoutes(path, contentDiv) {
             loadTemplate("radiation-measurements/index.html", contentDiv);
             break;
         case '/radiation-measurements/day':
-            loadTemplate("radiation-measurements/day.html", contentDiv);
-            loadRadiationMeasurementsForDay();
+            loadTemplate("radiation-measurements/day.html", contentDiv).then(() => {
+                return loadRadiationMeasurementsForDay()
+            }).catch((error) => {
+                console.error('Error loading radiation measurements for day:', error);
+            });
             break;
         case '/radiation-measurements/month':
-            loadTemplate("radiation-measurements/month.html", contentDiv);
-            loadRadiationMeasurementsForMonth();
+            loadTemplate("radiation-measurements/month.html", contentDiv).then(() => {
+                return loadRadiationMeasurementsForMonth()
+            }).catch((error) => {
+                console.error('Error loading radiation measurements for month:', error);;
+            });
             break;
         case '/radiation-measurements/year':
-            loadTemplate("radiation-measurements/year.html", contentDiv);
-            loadRadiationMeasurementsForYear();
+            loadTemplate("radiation-measurements/year.html", contentDiv).then(() => {
+                return loadRadiationMeasurementsForYear()
+            }).catch((error) => {
+                console.error('Error loading radiation measurements for year:', error);
+            });
             break;
         default:
             contentDiv.innerHTML = `<h1>404 Not Found</h1>`;
@@ -110,15 +119,17 @@ export function handleRadiationMeasurementsRoutes(path, contentDiv) {
  * loadTemplate("radiation-measurements/day.html", contentDiv);
  */
 function loadTemplate(templateName, contentDiv) {
-    fetch(`/templates/${templateName}`)
+    return fetch(`/templates/${templateName}`)
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
             return response.text();
         })
         .then(html => {
             contentDiv.innerHTML = html;
+            return Promise.resolve();
         })
         .catch(error => {
             contentDiv.innerHTML = `<h1>Error loading template</h1><p>${error.message}</p>`;
+            return Promise.reject(error);
         });
 }

@@ -77,16 +77,25 @@ export function handleTemperaturesRoutes(path, contentDiv) {
             loadTemplate("temperatures/index.html", contentDiv);
             break;
         case '/temperatures/day':
-            loadTemplate("temperatures/day.html", contentDiv);
-            loadTemperaturesForDay();
+            loadTemplate("temperatures/day.html", contentDiv).then(() => {
+                return loadTemperaturesForDay()
+            }).catch((error) => {
+                console.error('Error loading temperatures for day:', error);
+            });
             break;
         case '/temperatures/month':
-            loadTemplate("temperatures/month.html", contentDiv);
-            loadTemperaturesForMonth();
+            loadTemplate("temperatures/month.html", contentDiv).then(() => {
+                return loadTemperaturesForMonth()
+            }).catch((error) => {
+                console.error('Error loading temperatures for month:', error);
+            });
             break;
         case '/temperatures/year':
-            loadTemplate("temperatures/year.html", contentDiv);
-            loadTemperaturesForYear();
+            loadTemplate("temperatures/year.html", contentDiv).then(() => {
+                return loadTemperaturesForYear()
+            }).catch((error) => {
+                console.error('Error loading temperatures for year:', error);
+            });
             break;
         default:
             contentDiv.innerHTML = `<h1>404 Not Found</h1>`;
@@ -111,15 +120,17 @@ export function handleTemperaturesRoutes(path, contentDiv) {
  * loadTemplate("temperatures/day.html", contentDiv);
  */
 function loadTemplate(templateName, contentDiv) {
-    fetch(`/templates/${templateName}`)
+    return fetch(`/templates/${templateName}`)
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
             return response.text();
         })
         .then(html => {
             contentDiv.innerHTML = html;
+            return Promise.resolve();
         })
         .catch(error => {
             contentDiv.innerHTML = `<h1>Error loading template</h1><p>${error.message}</p>`;
+            return Promise.reject(error);
         });
 }
