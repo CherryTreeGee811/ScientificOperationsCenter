@@ -43,11 +43,6 @@ jobs:
             shell: bash
             run: |
               dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj --os linux --verbosity minimal
-
-          - name: Run System Tests
-            shell: bash
-            run: |
-               dotnet test ./ScientificOperationsCenter.System.Tests/ScientificOperationsCenter.System.Tests.csproj --os linux --verbosity minimal
             
           - name: Nikto Scan Frontend
             shell: bash
@@ -58,6 +53,11 @@ jobs:
             shell: bash
             run: |
               nikto -h http://localhost:8000 -C all
+
+          - name: Run System Tests
+            shell: bash
+            run: |
+               dotnet test ./ScientificOperationsCenter.System.Tests/ScientificOperationsCenter.System.Tests.csproj --os linux --verbosity minimal
 
           - name: Stop Containers
             shell: bash
