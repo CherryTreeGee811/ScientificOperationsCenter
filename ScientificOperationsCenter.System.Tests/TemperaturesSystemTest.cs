@@ -98,6 +98,8 @@ namespace ScientificOperationsCenter.Tests.SystemTests
             var pageTitle = pageTitleElement.Text;
             Assert.That(pageTitle, Is.EqualTo(expectedTitle));
             var chartCanvas = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("chart")));
+            bool chartInitialized = _wait.Until(driver =>
+                (bool)_driver.ExecuteScript("return Chart.instances[0].data.datasets.length > 0;"));
 
             Assert.IsTrue(chartCanvas.Displayed, "The chart canvas should exist.");
             Assert.That(pageTitle, Is.EqualTo(expectedTitle));
