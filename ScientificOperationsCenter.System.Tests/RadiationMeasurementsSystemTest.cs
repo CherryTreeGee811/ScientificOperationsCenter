@@ -18,8 +18,10 @@ namespace ScientificOperationsCenter.System.Tests
         {
             ChromeOptions options = new ChromeOptions { AcceptInsecureCertificates = true };
             options.AddArgument("--headless=new");
+            options.AddArgument("--disable-gpu");
+            options.AddArgument($"--window-size={Display.DesktopWidth},{Display.DesktopHeight}");
             _driver = new ChromeDriver(options);
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(15));
             NavigateToBaseUrl();
         }
 
@@ -43,7 +45,7 @@ namespace ScientificOperationsCenter.System.Tests
                 }
                 catch (StaleElementReferenceException)
                 {
-                    Thread.Sleep(100);
+                    Thread.Sleep(500);
                 }
             }
             return element;
@@ -61,25 +63,25 @@ namespace ScientificOperationsCenter.System.Tests
         [Test]
         public void UserNavigatesToRadiationMeasurementsForDayPage()
         {
-            NavigateToTemperaturesPage("radiation-measurements-day-link", "Radiation Measurements by Hour Of Day");
+            NavigateToRadiationMeasurementsPage("radiation-measurements-day-link", "Radiation Measurements by Hour Of Day");
         }
 
 
         [Test]
         public void UserNavigatesToRadiationMeasurementsForMonthPage()
         {
-            NavigateToTemperaturesPage("radiation-measurements-month-link", "Radiation Measurements by Day Of Month");
+            NavigateToRadiationMeasurementsPage("radiation-measurements-month-link", "Radiation Measurements by Day Of Month");
         }
 
 
         [Test]
-        public void UserNavigatesToTemperaturesForYearPage()
+        public void UserNavigatesToRadiationMeasurementsForYearPage()
         {
-            NavigateToTemperaturesPage("radiation-measurements-year-link", "Radiation Measurements by Month Of Year");
+            NavigateToRadiationMeasurementsPage("radiation-measurements-year-link", "Radiation Measurements by Month Of Year");
         }
 
 
-        private void NavigateToTemperaturesPage(string linkId, string expectedTitle)
+        private void NavigateToRadiationMeasurementsPage(string linkId, string expectedTitle)
         {
             var radiationMeasurementsLink = SafeFindElement(By.Id("radiation-measurements-link"));
             new Actions(_driver).ScrollToElement(radiationMeasurementsLink).Perform();

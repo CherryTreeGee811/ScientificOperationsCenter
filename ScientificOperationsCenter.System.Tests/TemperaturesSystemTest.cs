@@ -20,6 +20,8 @@ namespace ScientificOperationsCenter.Tests.SystemTests
         {
             ChromeOptions options = new ChromeOptions { AcceptInsecureCertificates = true };
             options.AddArgument("--headless=new");
+            options.AddArgument("--disable-gpu");
+            options.AddArgument($"--window-size={Display.DesktopWidth},{Display.DesktopHeight}");
             _driver = new ChromeDriver(options);
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
             NavigateToBaseUrl();
@@ -45,7 +47,7 @@ namespace ScientificOperationsCenter.Tests.SystemTests
                 }
                 catch (StaleElementReferenceException)
                 {
-                    Thread.Sleep(100);
+                    Thread.Sleep(500);
                 }
             }
             return element;

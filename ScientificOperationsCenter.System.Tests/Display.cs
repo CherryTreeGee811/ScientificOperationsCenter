@@ -2,7 +2,7 @@
 {
     internal static class Display
     {
-        internal const int DesktopWidth = 1200;
-        internal const int DesktopHeight = 990;
+        internal const int DesktopWidth = 1920;
+        internal const int DesktopHeight = 1080;
     }
 }
