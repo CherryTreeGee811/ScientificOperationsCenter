@@ -2,6 +2,6 @@
 {
     internal static class AppServer
     {
-        internal static string ClientURL = "http://localhost:9000/";
+        internal static string ClientURL = "https://localhost:7230";
     }
 }
