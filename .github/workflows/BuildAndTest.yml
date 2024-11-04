@@ -30,48 +30,46 @@ jobs:
               dotnet outdated -u ./ScientificOperationsCenter.Api/ScientificOperationsCenter.Api.csproj
               dotnet outdated -u ./ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj
       
-          - name: Build and Run App
+          - name: Build and Run App Containers
+            shell: bash
+            run: docker compose up -d
+
+          - name: Run API Tests
             shell: bash
             run: |
-              dotnet run --project ./ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj --urls=http://localhost:9000 &
-
-          
-          #- name: Run API Tests
-            #shell: bash
-            #run: |
               #dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj --os linux --verbosity minimal 
 
-          #- name: Nikto Scan Backend
-           #shell: bash
-            #run: |
-              #nikto -h http://localhost:8000 -C all
+          - name: Nikto Scan Backend
+            shell: bash
+            run: |
+              nikto -h http://localhost:8000 -C all
 
-          #- name: Stop and remove API Container
-            #shell: bash
-            #run: |
-              #docker rm -f scientificoperationscenterapi
+          - name: Stop and Remove API Container
+            shell: bash
+            run: |
+              docker rm -f scientificoperationscenterapi
               
-          #- name: Stop and remove database Container
-            #shell: bash
-            #run: |
-             #docker rm -f sqlpreview
+          - name: Stop and Remove Database Container
+            shell: bash
+            run: |
+              docker rm -f sqlpreview
               
           - name: Run Client Tests
             shell: bash
             run: |
-               dotnet test ./ScientificOperationsCenter.Client.Tests/ScientificOperationsCenter.Client.Tests.csproj --os linux --verbosity minimal
+              dotnet test ./ScientificOperationsCenter.Client.Tests/ScientificOperationsCenter.Client.Tests.csproj --os linux --verbosity minimal
 
           - name: Nikto Scan Frontend
             shell: bash
             run: |
               nikto -h http://localhost:9000 -C all
 
-          - name: Stop Client Container
+          - name: Stop and Remove Client Container
             shell: bash
             run: |
               docker stop scientificoperationscenterclient
 
-          - name: Push to Docker
+          - name: Push Docker Images to DockerHub
             if: ${{ github.ref == 'refs/heads/stable' }}
             shell: bash
             run: |
