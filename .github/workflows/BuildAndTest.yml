@@ -33,7 +33,7 @@ jobs:
           - name: Build and Run App
             shell: bash
             run: |
-              dotnet run --project .\ScientificOperationsCenter.Client\ScientificOperationsCenter.Client.csproj --urls=http://localhost:9000 &
+              dotnet run --project ./ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj --urls=http://localhost:9000 &
 
           
           #- name: Run API Tests
