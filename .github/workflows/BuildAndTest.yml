@@ -18,17 +18,17 @@ jobs:
             with:
               dotnet-version: 8.0.x
           
-          #- name: Install Tools
-            #shell: bash
-            #run: |
-              #dotnet tool install --global dotnet-outdated-tool
-              #sudo apt install nikto
+          - name: Install Tools
+            shell: bash
+            run: |
+              dotnet tool install --global dotnet-outdated-tool
+              sudo apt install nikto
 
-          #- name: Update NuGet Packages
-            #shell: bash
-            #run: |
-              #dotnet outdated -u ./ScientificOperationsCenter.Api/ScientificOperationsCenter.Api.csproj
-              #dotnet outdated -u ./ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj
+          - name: Update NuGet Packages
+            shell: bash
+            run: |
+              dotnet outdated -u ./ScientificOperationsCenter.Api/ScientificOperationsCenter.Api.csproj
+              dotnet outdated -u ./ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj
       
           - name: Build and Run App
             shell: bash
