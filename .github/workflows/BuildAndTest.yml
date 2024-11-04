@@ -23,13 +23,13 @@ jobs:
             with:
               chrome-version: 130.0.6723.58
           
-          - name: Install ChromeDriver
-            run: |
-              CHROME_VERSION=130.0.6723.58
-              wget -N "https://chromedriver.storage.googleapis.com/${CHROME_VERSION}/chromedriver_linux64.zip"
-              unzip chromedriver_linux64.zip
-              chmod +x chromedriver
-              sudo mv chromedriver /usr/local/bin/
+          #- name: Install ChromeDriver
+            #run: |
+              #CHROME_VERSION=130.0.6723.58
+              #wget -N "https://chromedriver.storage.googleapis.com/${CHROME_VERSION}/chromedriver_linux64.zip"
+              #unzip chromedriver_linux64.zip
+              #chmod +x chromedriver
+              #sudo mv chromedriver /usr/local/bin/
           
           #- name: Install Tools
             #shell: bash
