@@ -149,9 +149,10 @@ namespace ScientificOperationsCenter.System.Tests
             var radiationMeasurementsPageLinkElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(radiationMeasurementsPageLink));
             radiationMeasurementsPageLinkElem.Click();
 
-            var pageTitleElement = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector("h1")));
-            var pageTitle = pageTitleElement.Text;
-            var chartCanvas = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("chart")));
+            _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector("h1")));
+            var pageTitle = Utilities.SafeFindElement(By.CssSelector("h1"), _driver).Text;
+            _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("chart")));
+            var chartCanvas = Utilities.SafeFindElement(By.Id("chart"), _driver);
 
             Assert.IsTrue(chartCanvas.Displayed, "The chart canvas should exist.");
             Assert.That(pageTitle, Is.EqualTo(expectedPageTitle));

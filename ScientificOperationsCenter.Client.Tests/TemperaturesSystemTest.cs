@@ -15,6 +15,7 @@ namespace ScientificOperationsCenter.System.Tests
         private ChromeDriver _driver { get; set; }
         private WebDriverWait _wait { get; set; }
         private MockScientificOperationsCenterAPI _mockAPI { get; set; }
+        private HttpClient _httpClient { get; set; }
 
 
         [SetUp]
@@ -22,6 +23,7 @@ namespace ScientificOperationsCenter.System.Tests
         {
             _mockAPI = new MockScientificOperationsCenterAPI();
             _mockAPI.Start();
+            _httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:8000") };
 
             ChromeOptions options = new ChromeOptions { AcceptInsecureCertificates = true };
             options.AddArgument("--headless=new");
@@ -46,12 +48,15 @@ namespace ScientificOperationsCenter.System.Tests
             _driver.Quit();
             _driver.Dispose();
             _mockAPI.Stop();
+            _httpClient.Dispose();
         }
 
 
         [Test]
         public void UserNavigatesToTemperaturesForDayPageNormally()
         {
+            var response = _httpClient.GetAsync("/api/Temperatures/day?date=2024-10-08").Result;
+            response.EnsureSuccessStatusCode();
             NavigateToTemperaturesPage("temperatures-day-link", "Temperatures throughout Day");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);
@@ -67,6 +72,8 @@ namespace ScientificOperationsCenter.System.Tests
         [Test]
         public void UserNavigatesToTemperaturesForMonthPageNormally()
         {
+            var response = _httpClient.GetAsync("/api/Temperatures/month?date=2024-10-01").Result;
+            response.EnsureSuccessStatusCode();
             NavigateToTemperaturesPage("temperatures-month-link", "Temperatures by Day of Month");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);
@@ -82,6 +89,8 @@ namespace ScientificOperationsCenter.System.Tests
         [Test]
         public void UserNavigatesToTemperaturesForYearPageNormally()
         {
+            var response = _httpClient.GetAsync("/api/Temperatures/year?date=2024-01-01").Result;
+            response.EnsureSuccessStatusCode();
             NavigateToTemperaturesPage("temperatures-year-link", "Temperatures by Month of Year");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);
@@ -105,10 +114,11 @@ namespace ScientificOperationsCenter.System.Tests
             var temperaturesPageLinkElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(temperaturesPageLink));
             temperaturesPageLinkElem.Click();
 
-            var pageTitleElement = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector("h1")));
-            var pageTitle = pageTitleElement.Text;
+            _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector("h1")));
+            var pageTitle = Utilities.SafeFindElement(By.CssSelector("h1"), _driver).Text;
             Assert.That(pageTitle, Is.EqualTo(expectedTitle));
-            var chartCanvas = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("chart")));
+           _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("chart")));
+            var chartCanvas = Utilities.SafeFindElement(By.Id("chart"), _driver);
 
             Assert.IsTrue(chartCanvas.Displayed, "The chart canvas should exist.");
             Assert.That(pageTitle, Is.EqualTo(expectedTitle));
