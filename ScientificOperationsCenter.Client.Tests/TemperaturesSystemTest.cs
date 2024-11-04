@@ -112,7 +112,8 @@ namespace ScientificOperationsCenter.System.Tests
 
             Assert.IsTrue(chartCanvas.Displayed, "The chart canvas should exist.");
             Assert.That(pageTitle, Is.EqualTo(expectedTitle));
-            _wait.Until(driver => Utilities.GetDisplayedChartLabels(_driver).Count > 1);
+            _wait.Until(driver => Utilities.GetDisplayedChartLabels(_driver).Count == 3);
+            _wait.Until(driver => Utilities.GetDisplayedChartData(_driver).Count == 3);
             var chartDatasetLabel = Utilities.GetDisplayedChartDataSetLabel(_driver);
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);

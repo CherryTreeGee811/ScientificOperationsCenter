@@ -1,10 +1,10 @@
+using Microsoft.IdentityModel.Tokens;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
-using System.Drawing;
 using ScientificOperationsCenter.Client.Tests.Shared;
-using Microsoft.IdentityModel.Tokens;
+using System.Drawing;
 
 
 namespace ScientificOperationsCenter.System.Tests
@@ -14,6 +14,7 @@ namespace ScientificOperationsCenter.System.Tests
         private ChromeDriver _driver { get; set; }
         private WebDriverWait _wait { get; set; }
         private MockScientificOperationsCenterAPI _mockAPI { get; set; }
+        private HttpClient _httpClient { get; set; }
 
 
         [SetUp]
@@ -21,6 +22,7 @@ namespace ScientificOperationsCenter.System.Tests
         {
             _mockAPI = new MockScientificOperationsCenterAPI();
             _mockAPI.Start();
+            _httpClient = new HttpClient { BaseAddress = new Uri("http://localhost:8000") };
 
             ChromeOptions options = new ChromeOptions { AcceptInsecureCertificates = true };
             options.AddArgument("--headless=new");
@@ -81,12 +83,15 @@ namespace ScientificOperationsCenter.System.Tests
             _driver.Quit();
             _driver.Dispose();
             _mockAPI.Stop();
+            _httpClient.Dispose();
         }
 
 
         [Test]
         public void UserNavigatesToRadiationMeasurementsForDayPage()
         {
+            var response = _httpClient.GetAsync("/api/RadiationMeasurements/day?date=2024-10-08").Result;
+            response.EnsureSuccessStatusCode();
             NavigateToRadiationMeasurementsPage("radiation-measurements-day-link", "Radiation Measurements by Hour Of Day");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);
@@ -102,6 +107,8 @@ namespace ScientificOperationsCenter.System.Tests
         [Test]
         public void UserNavigatesToRadiationMeasurementsForMonthPage()
         {
+            var response = _httpClient.GetAsync("/api/RadiationMeasurements/month?date=2024-10-01").Result;
+            response.EnsureSuccessStatusCode();
             NavigateToRadiationMeasurementsPage("radiation-measurements-month-link", "Radiation Measurements by Day Of Month");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);
@@ -117,6 +124,8 @@ namespace ScientificOperationsCenter.System.Tests
         [Test]
         public void UserNavigatesToRadiationMeasurementsForYearPage()
         {
+            var response = _httpClient.GetAsync("/api/RadiationMeasurements/year?date=2024-01-01").Result;
+            response.EnsureSuccessStatusCode();
             NavigateToRadiationMeasurementsPage("radiation-measurements-year-link", "Radiation Measurements by Month Of Year");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);
@@ -146,7 +155,8 @@ namespace ScientificOperationsCenter.System.Tests
 
             Assert.IsTrue(chartCanvas.Displayed, "The chart canvas should exist.");
             Assert.That(pageTitle, Is.EqualTo(expectedPageTitle));
-            _wait.Until(driver => Utilities.GetDisplayedChartLabels(_driver).Count > 1);
+            _wait.Until(driver => Utilities.GetDisplayedChartLabels(_driver).Count == 3);
+            _wait.Until(driver => Utilities.GetDisplayedChartData(_driver).Count == 3);
             var chartDatasetLabel = Utilities.GetDisplayedChartDataSetLabel(_driver);
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);
