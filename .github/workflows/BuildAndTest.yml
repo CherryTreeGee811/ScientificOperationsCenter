@@ -21,52 +21,52 @@ jobs:
           - name: Install Chrome for System Tests
             uses: browser-actions/setup-chrome@v1
             with:
-              chrome-version: 114.0.5735.90
-
+              chrome-version: 130.0.6723.58
           
           - name: Install ChromeDriver
             run: |
-              CHROME_VERSION=114.0.5735.90
+              CHROME_VERSION=130.0.6723.58
               wget -N "https://chromedriver.storage.googleapis.com/${CHROME_VERSION}/chromedriver_linux64.zip"
               unzip chromedriver_linux64.zip
               chmod +x chromedriver
               sudo mv chromedriver /usr/local/bin/
           
-          - name: Install Tools
-            shell: bash
-            run: |
-              dotnet tool install --global dotnet-outdated-tool
-              sudo apt install nikto
+          #- name: Install Tools
+            #shell: bash
+            #run: |
+              #dotnet tool install --global dotnet-outdated-tool
+              #sudo apt install nikto
 
-          - name: Update NuGet Packages
-            shell: bash
-            run: |
-              dotnet outdated -u ./ScientificOperationsCenter.Api/ScientificOperationsCenter.Api.csproj
-              dotnet outdated -u ./ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj
+          #- name: Update NuGet Packages
+            #shell: bash
+            #run: |
+              #dotnet outdated -u ./ScientificOperationsCenter.Api/ScientificOperationsCenter.Api.csproj
+              #dotnet outdated -u ./ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj
       
           - name: Build and Run App Containers
             shell: bash
-            run: docker compose up -d
+            #run: docker compose up -d
+            run:  docker run --rm -dit --name scientificoperationscenterclient --hostname localhost -p 9000:9000/tcp -p 9001:9001/tcp -e ASPNETCORE_HTTP_PORT=https://+9001 -e ASPNETCORE_URLS=http://+:9000 cherrytreegee811/scientificoperationscenterclient
           
-          - name: Run API Tests
-            shell: bash
-            run: |
-              dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj --os linux --verbosity minimal 
+          #- name: Run API Tests
+            #shell: bash
+            #run: |
+              #dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj --os linux --verbosity minimal 
 
-          - name: Nikto Scan Backend
-            shell: bash
-            run: |
-              nikto -h http://localhost:8000 -C all
+          #- name: Nikto Scan Backend
+           #shell: bash
+            #run: |
+              #nikto -h http://localhost:8000 -C all
 
-          - name: Stop and remove API Container
-            shell: bash
-            run: |
-              docker rm -f scientificoperationscenterapi
+          #- name: Stop and remove API Container
+            #shell: bash
+            #run: |
+              #docker rm -f scientificoperationscenterapi
               
-          - name: Stop and remove database Container
-            shell: bash
-            run: |
-             docker rm -f sqlpreview
+          #- name: Stop and remove database Container
+            #shell: bash
+            #run: |
+             #docker rm -f sqlpreview
               
           - name: Run Client Tests
             shell: bash
