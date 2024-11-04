@@ -49,7 +49,7 @@ jobs:
             run: |
               
               docker build -t scientificoperationscenterclient -f ./ScientificOperationsCenter.Client/Dockerfile .
-            #docker run --rm -dit --name scientificoperationscenterclient --hostname localhost -p 9000:9000/tcp -e ASPNETCORE_HTTP_PORT=9000 -e ASPNETCORE_URLS=http://+:9000
+              docker run --rm -dit --name scientificoperationscenterclient --hostname localhost -p 9000:9000/tcp -e ASPNETCORE_HTTP_PORT=9000 -e ASPNETCORE_URLS=http://+:9000
           
           #- name: Run API Tests
             #shell: bash
