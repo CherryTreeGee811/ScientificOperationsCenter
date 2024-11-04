@@ -1,11 +1,12 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 
 
 namespace ScientificOperationsCenter.Client.Tests.Shared
 {
     public static class Utilities
     {
-        public static string GetDisplayedChartDataSetLabel(WebDriver driver)
+        public static string GetDisplayedChartDataSetLabel(ChromeDriver driver)
         {
             try
             {
@@ -22,7 +23,7 @@ namespace ScientificOperationsCenter.Client.Tests.Shared
         }
 
 
-        public static List<string?> GetDisplayedChartLabels(WebDriver driver)
+        public static List<string?> GetDisplayedChartLabels(ChromeDriver driver)
         {
             try
             {
@@ -43,7 +44,7 @@ namespace ScientificOperationsCenter.Client.Tests.Shared
         }
 
 
-        public static List<double> GetDisplayedChartData(WebDriver driver)
+        public static List<double> GetDisplayedChartData(ChromeDriver driver)
         {
             try
             {
@@ -64,7 +65,7 @@ namespace ScientificOperationsCenter.Client.Tests.Shared
         }
 
 
-        public static IWebElement SafeFindElement(By by, WebDriver driver)
+        public static IWebElement SafeFindElement(By by, ChromeDriver driver)
         {
             IWebElement element = null;
             for (int i = 0; i < 3; i++)
