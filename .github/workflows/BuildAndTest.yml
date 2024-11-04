@@ -58,12 +58,15 @@ jobs:
             run: |
               nikto -h http://localhost:8000 -C all
 
-          - name: Stop API Container and DB Container
+          - name: Stop and remove API Container
             shell: bash
             run: |
-              docker stop scientificoperationscenterapi
-              docker stop sqlpreview
-              sleep 10
+              docker rm -f scientificoperationscenterapi
+              
+          - name: Stop and remove database Container
+            shell: bash
+            run: |
+             docker rm -f sqlpreview
               
           - name: Run Client Tests
             shell: bash
