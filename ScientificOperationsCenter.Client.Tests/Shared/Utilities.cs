@@ -11,8 +11,22 @@ namespace ScientificOperationsCenter.Client.Tests.Shared
             try
             {
                 return (string)((IJavaScriptExecutor)driver).ExecuteScript(@"
-                    const chart = Chart.instances[0];
-                    return chart ? chart.data.datasets[0].label : '';
+                    function waitForChartJs() {
+                        return new Promise(resolve => {
+                            if (typeof Chart !== 'undefined') {
+                                resolve();
+                            } else {
+                                setTimeout(() => {
+                                    waitForChartJs().then(resolve);
+                                }, 100);
+                            }
+                        });
+                    }
+
+                    return waitForChartJs().then(() => {
+                        const chart = Chart.instances[0];
+                        return chart ? chart.data.datasets[0].label : '';
+                    });
                 ");
             }
             catch (Exception ex)
@@ -29,8 +43,22 @@ namespace ScientificOperationsCenter.Client.Tests.Shared
             {
                 // Execute JavaScript to get the chart data
                 var data = (IList<object>)((IJavaScriptExecutor)driver).ExecuteScript(@"
-                    const chart = Chart.instances[0];
-                    return chart ? chart.data.labels : [];
+                     function waitForChartJs() {
+                        return new Promise(resolve => {
+                            if (typeof Chart !== 'undefined') {
+                                resolve();
+                            } else {
+                                setTimeout(() => {
+                                    waitForChartJs().then(resolve);
+                                }, 100);
+                            }
+                        });
+                    }
+
+                    return waitForChartJs().then(() => {
+                        const chart = Chart.instances[0];
+                        return chart ? chart.data.labels : [];
+                    });
                 ");
 
                 // Convert the IList<object> to a List<double>
@@ -50,8 +78,22 @@ namespace ScientificOperationsCenter.Client.Tests.Shared
             {
                 // Execute JavaScript to get the chart data
                 var data = (IList<object>)((IJavaScriptExecutor)driver).ExecuteScript(@"
-                    const chart = Chart.instances[0];
-                    return chart ? chart.data.datasets[0].data : [];
+                   function waitForChartJs() {
+                        return new Promise(resolve => {
+                            if (typeof Chart !== 'undefined') {
+                                resolve();
+                            } else {
+                                setTimeout(() => {
+                                    waitForChartJs().then(resolve);
+                                }, 100);
+                            }
+                        });
+                    }
+
+                    return waitForChartJs().then(() => {
+                        const chart = Chart.instances[0];
+                        return chart ? chart.data.datasets[0].data : [];
+                    });
                 ");
 
                 // Convert the IList<object> to a List<double>
