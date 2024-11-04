@@ -21,7 +21,7 @@ jobs:
           - name: Install Chrome for System Tests
             uses: browser-actions/setup-chrome@v1
             with:
-              chrome-version: 130.0.6723.58
+              chrome-version: 114
           
           #- name: Install ChromeDriver
             #run: |
