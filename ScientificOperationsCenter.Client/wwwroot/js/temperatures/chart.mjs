@@ -16,23 +16,23 @@
  *
  * @example
  * const data = [
- *   { timeframe: '2024-10-01', averageTemperature: 15 },
- *   { timeframe: '2024-10-02', averageTemperature: 17 },
- *   { timeframe: '2024-10-03', averageTemperature: 16 },
+ *   { Timeframe: '2024-10-01', AverageTemperature: 15 },
+ *   { Timeframe: '2024-10-02', AverageTemperature: 17 },
+ *   { Timeframe: '2024-10-03', AverageTemperature: 16 },
  * ];
  * generateChart(data);
  */
 export function generateChart(list) {
     const context = document.getElementById('chart').getContext('2d');
-    const datetimes = list.map(entry => entry.timeframe);
-    const averageTemperatures = list.map(entry => entry.averageTemperature);
+    const datetimes = list.map(entry => entry.Timeframe);
+    const averageTemperatures = list.map(entry => entry.AverageTemperature);
     new Chart(context, {
         type: "line",
         data: {
             labels: datetimes,
             datasets: [{
                 fill: false,
-                lineTension: 0,
+                tension: 0,
                 label: 'Average Temperature',
                 data: averageTemperatures,
                 borderColor: "rgba(100,0,255,1.0)"
