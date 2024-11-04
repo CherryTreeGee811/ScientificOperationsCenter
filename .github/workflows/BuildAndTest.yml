@@ -17,11 +17,6 @@ jobs:
             uses: actions/setup-dotnet@v3
             with:
               dotnet-version: 8.0.x
-
-          - name: Install Chrome for System Tests
-            uses: browser-actions/setup-chrome@v1
-            with:
-              chrome-version: 130.0.6723.58
           
           #- name: Install Tools
             #shell: bash
