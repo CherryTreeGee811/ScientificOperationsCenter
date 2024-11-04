@@ -1,7 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using ScientificOperationsCenter.Client.Tests.Shared;
 using System.Drawing;
@@ -103,30 +102,24 @@ namespace ScientificOperationsCenter.System.Tests
         }
 
 
-        private void NavigateToTemperaturesPage(string linkId, string expectedTitle)
+        private void NavigateToTemperaturesPage(string pageLinkID, string expectedPageTitle)
         {
-            var temperaturesLink = Utilities.SafeFindElement(By.Id("temperatures-link"), _driver);
-            new Actions(_driver).ScrollToElement(temperaturesLink).Perform();
-            var temperaturesLinkElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(temperaturesLink));
+            var temperaturesLinkElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id("temperatures-link")));
             temperaturesLinkElem.Click();
 
-            var temperaturesPageLink = Utilities.SafeFindElement(By.Id(linkId), _driver);
-            var temperaturesPageLinkElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(temperaturesPageLink));
+            var temperaturesPageLinkElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id(pageLinkID)));
             temperaturesPageLinkElem.Click();
 
-            _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector("h1")));
-            var pageTitle = Utilities.SafeFindElement(By.CssSelector("h1"), _driver).Text;
-            Assert.That(pageTitle, Is.EqualTo(expectedTitle));
-           _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("chart")));
-            var chartCanvas = Utilities.SafeFindElement(By.Id("chart"), _driver);
-
-            Assert.IsTrue(chartCanvas.Displayed, "The chart canvas should exist.");
-            Assert.That(pageTitle, Is.EqualTo(expectedTitle));
+            var pageTitleElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector("h1")));
+            var chartCanvasElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("chart")));
             _wait.Until(driver => Utilities.GetDisplayedChartLabels(_driver).Count == 3);
             _wait.Until(driver => Utilities.GetDisplayedChartData(_driver).Count == 3);
             var chartDatasetLabel = Utilities.GetDisplayedChartDataSetLabel(_driver);
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);
+
+            Assert.IsTrue(chartCanvasElem.Displayed, "The chart canvas should exist.");
+            Assert.That(pageTitleElem.Text, Is.EqualTo(expectedPageTitle), $"h1 should display {expectedPageTitle}");
             Assert.That(chartLabels.Count, Is.GreaterThan(1), "The chart should have more than one label.");
             Assert.That(chartLabels.Count, Is.EqualTo(3), "The chart should have three labels exactly.");
             Assert.That(chartData.Count, Is.GreaterThan(1), "The chart should have more than one data point.");
