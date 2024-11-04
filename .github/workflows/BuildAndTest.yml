@@ -30,12 +30,10 @@ jobs:
               #dotnet outdated -u ./ScientificOperationsCenter.Api/ScientificOperationsCenter.Api.csproj
               #dotnet outdated -u ./ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj
       
-          - name: Build and Run App Containers
+          - name: Build and Run App
             shell: bash
-            #run: docker compose up -d
             run: |
-              docker build -t scientificoperationscenterclient -f ./ScientificOperationsCenter.Client/Dockerfile .
-              docker run --rm -dit --name scientificoperationscenterclient --hostname localhost -p 9000:9000/tcp -e ASPNETCORE_HTTP_PORT=9000 -e ASPNETCORE_URLS=http://+:9000 scientificoperationscenterclient
+              dotnet run --project .\ScientificOperationsCenter.Client\ScientificOperationsCenter.Client.csproj --urls=http://localhost:9000 &
 
           
           #- name: Run API Tests
