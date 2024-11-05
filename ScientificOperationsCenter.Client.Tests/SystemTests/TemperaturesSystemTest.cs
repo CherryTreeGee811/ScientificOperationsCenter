@@ -6,7 +6,7 @@ using ScientificOperationsCenter.Client.Tests.Shared;
 using System.Drawing;
 
 
-namespace ScientificOperationsCenter.System.Tests
+namespace ScientificOperationsCenter.Client.Tests.SystemTests
 {
     [TestFixture]
     public class TemperaturesSystemTest
@@ -83,7 +83,7 @@ namespace ScientificOperationsCenter.System.Tests
             Assert.That(chartLabels[2], Is.EqualTo("10"), "The third label should be '10'");
             Assert.That(chartData[2], Is.EqualTo(160), "The third data point should be '160'");
         }
-        
+
 
         [Test]
         public void UserNavigatesToTemperaturesForYearPageNormally()

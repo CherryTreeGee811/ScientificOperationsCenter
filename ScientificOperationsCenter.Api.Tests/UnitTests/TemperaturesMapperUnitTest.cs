@@ -9,8 +9,22 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 {
     internal class TemperaturesMapperUnitTest
     {
+        private Mock<ITemperaturesService> _temperaturesServiceMock;
+        private TemperaturesMapper _temperaturesMapper;
+        private Random _random;
+
+
         [SetUp]
-        public void Setup()
+        public void SetUp()
+        {
+            _temperaturesServiceMock = MockITemperaturesService.GetMock();
+            _temperaturesMapper = new TemperaturesMapper(_temperaturesServiceMock.Object);
+            _random = new Random();
+        }
+
+
+        [TearDown]
+        public void TearDown()
         {
         }
 
@@ -19,11 +33,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenATemperaturesService_WhenGettingAverageTemperaturesByHourOfDay_ThenCollectionOfTemperaturesTimeViewModelSortedByHourReturn()
         {
             // Setup
-            var temperaturesServiceMock = MockITemperaturesService.GetMock();
-            var temperaturesMapper = new TemperaturesMapper(temperaturesServiceMock.Object);
+            var date = new DateOnly(2024, 10, 09);
 
             // Action
-            var result = await temperaturesMapper.GetTemperaturesForTheDayAsync(new DateOnly(2024, 10, 09));
+            var result = await _temperaturesMapper.GetTemperaturesForTheDayAsync(date);
 
             // Assert
             Assert.NotNull(result);
@@ -39,12 +52,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenATemperaturesService_WhenGettingAverageTemperaturesByDayOfMonth_ThenCollectionOfTemperaturesDateViewModelSortedByDayReturn()
         {
             // Setup
-            var temperaturesServiceMock = MockITemperaturesService.GetMock();
-            var temperaturesMapper = new TemperaturesMapper(temperaturesServiceMock.Object);
-            var random = new Random();
+            var date = new DateOnly(2024, 10, _random.Next(1, 30));
 
             // Action
-            var result = await temperaturesMapper.GetTemperaturesForTheMonthAsync(new DateOnly(2024, 10, random.Next(1, 30)));
+            var result = await _temperaturesMapper.GetTemperaturesForTheMonthAsync(date);
 
             // Assert
             Assert.NotNull(result);
@@ -60,12 +71,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenATemperaturesService_WhenGettingAverageTemperaturesByMonthOfYear_ThenCollectionOfTemperaturesDateViewModelSortedByMonthReturn()
         {
             // Setup
-            var temperaturesServiceMock = MockITemperaturesService.GetMock();
-            var temperaturesMapper = new TemperaturesMapper(temperaturesServiceMock.Object);
-            var random = new Random();
+            var date = new DateOnly(2024, _random.Next(1, 12), _random.Next(1, 30));
 
             // Action
-            var result = await temperaturesMapper.GetTemperaturesForTheYearAsync(new DateOnly(2024, random.Next(1, 12), random.Next(1, 30)));
+            var result = await _temperaturesMapper.GetTemperaturesForTheYearAsync(date);
 
             // Assert
             Assert.NotNull(result);
@@ -128,8 +137,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             temperaturesServiceMock.Setup(m => m.GetAverageTemperaturesForTheMonthAsync(It.IsAny<DateOnly>()))
                 .Throws(new BusinessLogicException("Verfiy BusinessLogicException is passed from mapper"));
             var temperaturesMapper = new TemperaturesMapper(temperaturesServiceMock.Object);
-            var random = new Random();
-            var date = new DateOnly(2024, 10, random.Next(1, 30));
+            var date = new DateOnly(2024, 10, _random.Next(1, 30));
 
             try
             {
@@ -156,8 +164,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             temperaturesServiceMock.Setup(m => m.GetAverageTemperaturesForTheYearAsync(It.IsAny<DateOnly>()))
                 .Throws(new BusinessLogicException("Verfiy BusinessLogicException is passed from mapper"));
             var temperaturesMapper = new TemperaturesMapper(temperaturesServiceMock.Object);
-            var random = new Random();
-            var date = new DateOnly(2024, random.Next(1, 12), random.Next(1, 30));
+            var date = new DateOnly(2024, _random.Next(1, 12), _random.Next(1, 30));
 
             try
             {

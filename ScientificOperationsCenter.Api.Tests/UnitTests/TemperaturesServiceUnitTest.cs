@@ -3,7 +3,6 @@ using ScientificOperationsCenter.Api.BusinessLogic;
 using ScientificOperationsCenter.Api.BusinessLogic.Structs;
 using ScientificOperationsCenter.Api.CustomExceptions;
 using ScientificOperationsCenter.Api.DAL.Interfaces;
-using ScientificOperationsCenter.Api.Mappers;
 using ScientificOperationsCenter.Tests.Mocks;
 
 
@@ -11,8 +10,22 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 {
     public class TemperaturesServiceUnitTest
     {
+        private Mock<ITemperaturesRepository> _temperaturesRepositoryMock;
+        private TemperaturesService _temperaturesService;
+        private Random _random;
+
+
         [SetUp]
-        public void Setup()
+        public void SetUp()
+        {
+            _temperaturesRepositoryMock = MockITemperaturesRepository.GetMock();
+            _temperaturesService = new TemperaturesService(_temperaturesRepositoryMock.Object);
+            _random = new Random();
+        }
+
+
+        [TearDown]
+        public void TearDown()
         {
         }
 
@@ -21,11 +34,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByDay_ThenIfSameDayAverageHourTemperaturesReturn()
         {
             // Setup
-            var temperatureRepositoryMock = MockITemperaturesRepository.GetMock();
-            var temperaturesService = new TemperaturesService(temperatureRepositoryMock.Object);
+            var date = new DateOnly(2024, 10, 09);
 
             // Action
-            var result = await temperaturesService.GetAverageTemperaturesForTheDayAsync(new DateOnly(2024, 10, 09));
+            var result = await _temperaturesService.GetAverageTemperaturesForTheDayAsync(date);
 
             // Assert
             Assert.NotNull(result);
@@ -39,13 +51,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByMonth_ThenIfSameMonthAverageDayOfMonthTemperaturesReturn()
         {
             // Setup
-            var temperatureRepositoryMock = MockITemperaturesRepository.GetMock();
-            var temperaturesService = new TemperaturesService(temperatureRepositoryMock.Object);
-            var random = new Random();
+            var date = new DateOnly(2024, 10, _random.Next(1, 30));
 
             // Action
-            // 08
-            var result = await temperaturesService.GetAverageTemperaturesForTheMonthAsync(new DateOnly(2024, 10, random.Next(1, 30)));
+            var result = await _temperaturesService.GetAverageTemperaturesForTheMonthAsync(date);
 
             // Assert
             Assert.NotNull(result);
@@ -61,12 +70,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByYear_ThenIfSameYearAverageMonthOfYearTemperaturesReturn()
         {
             // Setup
-            var temperatureRepositoryMock = MockITemperaturesRepository.GetMock();
-            var temperaturesService = new TemperaturesService(temperatureRepositoryMock.Object);
-            var random = new Random();
+            var date = new DateOnly(2025, _random.Next(1, 12), _random.Next(1, 30));
 
             // Action
-            var result = await temperaturesService.GetAverageTemperaturesForTheYearAsync(new DateOnly(2025, random.Next(1, 12), random.Next(1, 30)));
+            var result = await _temperaturesService.GetAverageTemperaturesForTheYearAsync(date);
 
             // Assert
             Assert.NotNull(result);
@@ -81,12 +88,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByDay_ThenIfEmptyEmptyIEnumerableReturn()
         {
             // Setup
-            var temperaturesRepositoryMock = MockITemperaturesRepository.GetMock();
-            var temperaturesService = new TemperaturesService(temperaturesRepositoryMock.Object);
-            var random = new Random();
+            var date = new DateOnly(1900, 01, 01);
 
             // Action
-            var result = await temperaturesService.GetAverageTemperaturesForTheDayAsync(new DateOnly(2025, 10, 30));
+            var result = await _temperaturesService.GetAverageTemperaturesForTheDayAsync(date);
 
             // Assert
             Assert.That(result.Any(), Is.EqualTo(false));
@@ -98,12 +103,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByMonth_ThenIfEmptyEmptyIEnumerableReturn()
         {
             // Setup
-            var temperaturesRepositoryMock = MockITemperaturesRepository.GetMock();
-            var temperaturesService = new TemperaturesService(temperaturesRepositoryMock.Object);
-            var random = new Random();
+            var date = new DateOnly(1900, 01, 01);
 
             // Action
-            var result = await temperaturesService.GetAverageTemperaturesForTheMonthAsync(new DateOnly(2025, 09, random.Next(1, 30)));
+            var result = await _temperaturesService.GetAverageTemperaturesForTheMonthAsync(date);
 
             // Assert
             Assert.That(result.Any(), Is.EqualTo(false));
@@ -115,12 +118,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByYear_ThenIfEmptyEmptyIEnumerableReturn()
         {
             // Setup
-            var temperaturesRepositoryMock = MockITemperaturesRepository.GetMock();
-            var temperaturesService = new TemperaturesService(temperaturesRepositoryMock.Object);
-            var random = new Random();
+            var date = new DateOnly(1900, 01, 01);
 
             // Action
-            var result = await temperaturesService.GetAverageTemperaturesForTheYearAsync(new DateOnly(2026, random.Next(1, 12), random.Next(1, 30)));
+            var result = await _temperaturesService.GetAverageTemperaturesForTheYearAsync(date);
 
             // Assert
             Assert.That(result.Any(), Is.EqualTo(false));
@@ -179,8 +180,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             temperaturesRepositoryMock.Setup(m => m.GetByMonthAsync(It.IsAny<DateOnly>()))
                 .Throws(new DataAccessException("Verfiy DataAccessException is passed from mapper"));
             var temperaturesService = new TemperaturesService(temperaturesRepositoryMock.Object);
-            var random = new Random();
-            var date = new DateOnly(2024, 10, random.Next(1, 30));
+            var date = new DateOnly(2024, 10, _random.Next(1, 30));
 
             try
             {
@@ -207,8 +207,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             temperaturesRepositoryMock.Setup(m => m.GetByYearAsync(It.IsAny<DateOnly>()))
                 .Throws(new DataAccessException("Verfiy DataAccessException is passed from mapper"));
             var temperaturesService = new TemperaturesService(temperaturesRepositoryMock.Object);
-            var random = new Random();
-            var date = new DateOnly(2024, random.Next(1, 12), random.Next(1, 30));
+            var date = new DateOnly(2024, _random.Next(1, 12), _random.Next(1, 30));
 
             try
             {

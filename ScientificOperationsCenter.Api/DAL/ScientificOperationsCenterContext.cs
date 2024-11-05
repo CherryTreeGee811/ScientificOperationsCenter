@@ -21,13 +21,13 @@ namespace ScientificOperationsCenter.Api.DAL
         /// <summary>
         /// Gets or sets the DbSet for temperature records.
         /// </summary>
-        public DbSet<Temperatures> Temperatures { get; set; }
+        public virtual DbSet<Temperatures> Temperatures { get; set; }
 
 
         /// <summary>
         /// Gets or sets the DbSet for radiation measurement records.
         /// </summary>
-        public DbSet<RadiationMeasurements> RadiationMeasurements { get; set; }
+        public virtual DbSet<RadiationMeasurements> RadiationMeasurements { get; set; }
 
 
         /// <summary>

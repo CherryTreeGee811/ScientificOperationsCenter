@@ -1,13 +1,12 @@
 using Microsoft.IdentityModel.Tokens;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using ScientificOperationsCenter.Client.Tests.Shared;
 using System.Drawing;
 
 
-namespace ScientificOperationsCenter.System.Tests
+namespace ScientificOperationsCenter.Client.Tests.SystemTests
 {
     public class RadiationMeasurementsSystemTest
     {

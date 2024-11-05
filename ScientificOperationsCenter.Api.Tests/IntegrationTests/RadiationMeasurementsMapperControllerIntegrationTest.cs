@@ -4,23 +4,43 @@ using ScientificOperationsCenter.Api.Controllers;
 using ScientificOperationsCenter.Api.Mappers;
 using ScientificOperationsCenter.Tests.Mocks;
 using ScientificOperationsCenter.Api.ViewModels;
+using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
+using Moq;
 
 
 namespace ScientificOperationsCenter.Tests.IntegrationTests
 {
     internal class RadiationMeasurementsMapperControllerIntegrationTest
     {
+
+        private Mock<IRadiationMeasurementsService> _radiationMeasurementsServiceMock;
+        private RadiationMeasurementsMapper _radiationMeasurementsMapper;
+        private RadiationMeasurementsController _radiationMeasurementsController;
+
+
+        [SetUp]
+        public void SetUp()
+        {
+            _radiationMeasurementsServiceMock = MockIRadiationMeasurementsService.GetMock();
+            _radiationMeasurementsMapper = new RadiationMeasurementsMapper(_radiationMeasurementsServiceMock.Object);
+            _radiationMeasurementsController = new RadiationMeasurementsController(_radiationMeasurementsMapper);
+        }
+
+
+        [TearDown]
+        public void TearDown()
+        {
+        }
+
+
         [Test]
         public async Task GivenARadiationMeasurementsService_WhenRadiationMeasurementsSumByHourOfDay_ThenIf200CollectionOfRadiationMeasurementsJSONSortedByHourReturn()
         {
             // Setup
-            var radiationMeasurementsServiceMock = MockIRadiationMeasurementsService.GetMock();
-            var radiationMeasurementsMapper = new RadiationMeasurementsMapper(radiationMeasurementsServiceMock.Object);
-            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapper);
             var date = "2024-10-09";
 
             // Action
-            var controllerResult = await radiationMeasurementsController.Day(date);
+            var controllerResult = await _radiationMeasurementsController.Day(date);
             var okResult = controllerResult as ObjectResult;
 
             // Assert
@@ -44,13 +64,10 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
         public async Task GivenARadiationMeasurementsService_WhenRadiationMeasurementsSumByDayOfMonth_ThenIf200CollectionOfRadiationMeasurementsJSONSortedByDayReturn()
         {
             // Setup
-            var radiationMeasurementsServiceMock = MockIRadiationMeasurementsService.GetMock();
-            var radiationMeasurementsMapper = new RadiationMeasurementsMapper(radiationMeasurementsServiceMock.Object);
-            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapper);
             var date = "2024-10-20";
 
             // Action
-            var result = await radiationMeasurementsController.Month(date);
+            var result = await _radiationMeasurementsController.Month(date);
             var okResult = result as ObjectResult;
 
             // Assert
@@ -75,13 +92,10 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
         public async Task GivenARadiationMeasurementsService_WhenRadiationMeasurementsSumByMonthOfYear_ThenIf200CollectionOfRadiationMeasurementsJSONSortedByMonthReturn()
         {
             // Setup
-            var radiationMeasurementsServiceMock = MockIRadiationMeasurementsService.GetMock();
-            var radiationMeasurementsMapper = new RadiationMeasurementsMapper(radiationMeasurementsServiceMock.Object);
-            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapper);
             var date = "2025-10-01";
 
             // Action
-            var result = await radiationMeasurementsController.Year(date);
+            var result = await _radiationMeasurementsController.Year(date);
             var okResult = result as ObjectResult;
 
             // Assert

@@ -9,8 +9,22 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 {
     internal class RadiationMeasurementsMapperUnitTest
     {
+        private Mock<IRadiationMeasurementsService> _radiationMeasurementsServiceMock;
+        private RadiationMeasurementsMapper _radiationMeasurementsMapper;
+        private Random _random;
+
+
         [SetUp]
-        public void Setup()
+        public void SetUp()
+        {
+            _radiationMeasurementsServiceMock = MockIRadiationMeasurementsService.GetMock();
+            _radiationMeasurementsMapper = new RadiationMeasurementsMapper(_radiationMeasurementsServiceMock.Object);
+            _random = new Random();
+        }
+
+
+        [TearDown]
+        public void TearDown()
         {
         }
 
@@ -19,11 +33,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenARadiationMeasurementsService_WhenGettingSummedRadiationMeasurementsByHourOfDay_ThenCollectionOfRadiationMeasurementsTimeViewModelSortedByHourReturn()
         {
             // Setup
-            var radiationMeasurementsServiceMock = MockIRadiationMeasurementsService.GetMock();
-            var radiationMeasurementsMapper = new RadiationMeasurementsMapper(radiationMeasurementsServiceMock.Object);
+            var date = new DateOnly(2024, 10, 09);
 
             // Action
-            var result = await radiationMeasurementsMapper.GetRadiationMeasurementsForTheDayAsync(new DateOnly(2024, 10, 09));
+            var result = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDayAsync(date);
 
             // Assert
             Assert.NotNull(result);
@@ -39,12 +52,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenARadiationMeasurementsService_WhenGettingSummedRadiationMeasurementsByDayOfMonth_ThenCollectionOfRadiationMeasurementsDateViewModelSortedByDayReturn()
         {
             // Setup
-            var radiationMeasurementsServiceMock = MockIRadiationMeasurementsService.GetMock();
-            var radiationMeasurementsMapper = new RadiationMeasurementsMapper(radiationMeasurementsServiceMock.Object);
-            var random = new Random();
+            var date = new DateOnly(2024, 10, _random.Next(1, 30));
 
             // Action
-            var result = await radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonthAsync(new DateOnly(2024, 10, random.Next(1, 30)));
+            var result = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonthAsync(date);
 
             // Assert
             Assert.NotNull(result);
@@ -60,12 +71,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenARadiationMeasurementsService_WhenGettingSummedRadiationMeasurementsByMonthOfYear_ThenCollectionOfRadiationMeasurementsDateViewModelSortedByMonthReturn()
         {
             // Setup
-            var radiationMeasurementsServiceMock = MockIRadiationMeasurementsService.GetMock();
-            var radiationMeasurementsMapper = new RadiationMeasurementsMapper(radiationMeasurementsServiceMock.Object);
-            var random = new Random();
+            var date = new DateOnly(2024, _random.Next(1, 12), _random.Next(1, 30));
 
             // Action
-            var result = await radiationMeasurementsMapper.GetRadiationMeasurementsForTheYearAsync(new DateOnly(2024, random.Next(1, 12), random.Next(1, 30)));
+            var result = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYearAsync(date);
 
             // Assert
             Assert.NotNull(result);
@@ -128,8 +137,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             radiationMeasurementsServiceMock.Setup(m => m.GetRadiationMeasurementsSumForTheMonthAsync(It.IsAny<DateOnly>()))
                 .Throws(new BusinessLogicException("Verfiy BusinessLogicException is passed from mapper"));
             var radiationMeasurementsMapper = new RadiationMeasurementsMapper(radiationMeasurementsServiceMock.Object);
-            var random = new Random();
-            var date = new DateOnly(2024, 10, random.Next(1, 30));
+            var date = new DateOnly(2024, 10, _random.Next(1, 30));
 
             try
             {
@@ -157,8 +165,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             radiationMeasurementsServiceMock.Setup(m => m.GetRadiationMeasurementsSumForTheYearAsync(It.IsAny<DateOnly>()))
                 .Throws(new BusinessLogicException("Verfiy BusinessLogicException is passed from mapper"));
             var radiationMeasurementsMapper = new RadiationMeasurementsMapper(radiationMeasurementsServiceMock.Object);
-            var random = new Random();
-            var date = new DateOnly(2024, random.Next(1, 12), random.Next(1, 30));
+            var date = new DateOnly(2024, _random.Next(1, 12), _random.Next(1, 30));
 
             try
             {

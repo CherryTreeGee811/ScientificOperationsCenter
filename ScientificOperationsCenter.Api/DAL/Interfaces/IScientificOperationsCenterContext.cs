@@ -10,14 +10,14 @@ namespace ScientificOperationsCenter.Api.DAL.Interfaces
     public interface IScientificOperationsCenterContext
     {
         /// <summary>
-        /// Gets the DbSet for temperature records.
+        /// Gets or sets the DbSet for temperature records.
         /// </summary>
-        public DbSet<Temperatures> Temperatures { get; }
+        DbSet<Temperatures> Temperatures { get; set; }
 
 
         /// <summary>
-        /// Gets the DbSet for radiation measurement records.
+        /// Gets or sets the DbSet for radiation measurement records.
         /// </summary>
-        public DbSet<RadiationMeasurements> RadiationMeasurements { get; }
+        DbSet<RadiationMeasurements> RadiationMeasurements { get; set; }
     }
 }

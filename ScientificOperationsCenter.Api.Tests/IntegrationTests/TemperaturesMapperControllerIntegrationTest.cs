@@ -4,23 +4,42 @@ using ScientificOperationsCenter.Api.Controllers;
 using ScientificOperationsCenter.Api.Mappers;
 using ScientificOperationsCenter.Tests.Mocks;
 using ScientificOperationsCenter.Api.ViewModels;
+using Moq;
+using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
 
 
 namespace ScientificOperationsCenter.Tests.IntegrationTests
 {
     internal class TemperaturesMapperControllerIntegrationTest
     {
+        private Mock<ITemperaturesService> _temperaturesServiceMock;
+        private TemperaturesMapper _temperaturesMapper;
+        private TemperaturesController _temperaturesController;
+
+
+        [SetUp]
+        public void SetUp()
+        {
+            _temperaturesServiceMock = MockITemperaturesService.GetMock();
+            _temperaturesMapper = new TemperaturesMapper(_temperaturesServiceMock.Object);
+            _temperaturesController = new TemperaturesController(_temperaturesMapper);
+        }
+
+
+        [TearDown]
+        public void TearDown()
+        {
+        }
+
+
         [Test]
         public async Task GivenATemperaturesService_WhenGettingAverageTemperaturesByHourOfDay_ThenIf200CollectionOfTemperaturesJSONSortedByHourReturn()
         {
             // Setup
-            var temperaturesServiceMock = MockITemperaturesService.GetMock();
-            var temperaturesMapper = new TemperaturesMapper(temperaturesServiceMock.Object);
-            var temperaturesController = new TemperaturesController(temperaturesMapper);
             var date = "2024-10-09";
 
             // Action
-            var controllerResult = await temperaturesController.Day(date);
+            var controllerResult = await _temperaturesController.Day(date);
             var okResult = controllerResult as ObjectResult;
 
             // Assert
@@ -44,13 +63,10 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
         public async Task GivenATemperaturesService_WhenGettingAverageTemperaturesByDayOfMonth_ThenIf200CollectionOfTemperaturesJSONSortedByDayReturn()
         {
             // Setup
-            var temperaturesServiceMock = MockITemperaturesService.GetMock();
-            var temperaturesMapper = new TemperaturesMapper(temperaturesServiceMock.Object);
-            var temperaturesController = new TemperaturesController(temperaturesMapper);
             var date = "2024-10-01";
 
             // Action
-            var controllerResult = await temperaturesController.Month(date);
+            var controllerResult = await _temperaturesController.Month(date);
             var okResult = controllerResult as ObjectResult;
 
             // Assert
@@ -75,13 +91,10 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
         public async Task GivenATemperaturesService_WhenGettingAverageTemperaturesByMonthOfYear_ThenIf200CollectionOfTemperaturesJSONSortedByMonthReturn()
         {
             // Setup
-            var temperaturesServiceMock = MockITemperaturesService.GetMock();
-            var temperaturesMapper = new TemperaturesMapper(temperaturesServiceMock.Object);
-            var temperaturesController = new TemperaturesController(temperaturesMapper);
             var date = "2025-01-01";
 
             // Action
-            var controllerResult = await temperaturesController.Year(date);
+            var controllerResult = await _temperaturesController.Year(date);
             var okResult = controllerResult as ObjectResult;
 
             // Assert

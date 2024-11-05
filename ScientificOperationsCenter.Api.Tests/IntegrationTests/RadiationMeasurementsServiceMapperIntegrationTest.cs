@@ -2,6 +2,8 @@
 using ScientificOperationsCenter.Api.Mappers;
 using ScientificOperationsCenter.Tests.Mocks;
 using ScientificOperationsCenter.Api.ViewModels;
+using Moq;
+using ScientificOperationsCenter.Api.DAL.Interfaces;
 
 
 namespace ScientificOperationsCenter.Tests.IntegrationTests
@@ -9,17 +11,36 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
     class RadiationMeasurementsServiceMapperIntegrationTest
     {
 
+        private Mock<IRadiationMeasurementsRepository> _radiationMeasurementsRepositoryMock;
+        private RadiationMeasurementsService _radiationMeasurementsService;
+        private RadiationMeasurementsMapper _radiationMeasurementsMapper;
+        private Random _random;
+
+
+        [SetUp]
+        public void SetUp()
+        {
+            _radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
+            _radiationMeasurementsService = new RadiationMeasurementsService(_radiationMeasurementsRepositoryMock.Object);
+            _radiationMeasurementsMapper = new RadiationMeasurementsMapper(_radiationMeasurementsService);
+            _random = new Random();
+        }
+
+
+        [TearDown]
+        public void TearDown()
+        {
+        }
+
+
         [Test]
         public async Task GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByDay_ThenIfSameDaySumHourRadiationMeasurementsTimeViewModelReturn()
         {
             // Setup
-            var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
-            var radiationMeasurementsService = new RadiationMeasurementsService(radiationMeasurementsRepositoryMock.Object);
-            var radiationMeasurementsMapper = new RadiationMeasurementsMapper(radiationMeasurementsService);
             var date = new DateOnly(2024, 10, 09);
 
             // Action
-            var mapperResult = await radiationMeasurementsMapper.GetRadiationMeasurementsForTheDayAsync(date);
+            var mapperResult = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDayAsync(date);
 
             // Assert
             Assert.NotNull(mapperResult);
@@ -35,14 +56,10 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
         public async Task GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByMonth_ThenIfSameMonthSumEachDayOfTheMonthRadiationMeasurementsDateViewModelReturn()
         {
             // Setup
-            var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
-            var radiationMeasurementsService = new RadiationMeasurementsService(radiationMeasurementsRepositoryMock.Object);
-            var radiationMeasurementsMapper = new RadiationMeasurementsMapper(radiationMeasurementsService);
-            var random = new Random();
-            var date = new DateOnly(2024, 10, random.Next(1, 30));
+            var date = new DateOnly(2024, 10, _random.Next(1, 30));
 
             // Action
-            var mapperResult = await radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonthAsync(date);
+            var mapperResult = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonthAsync(date);
 
             // Assert
             Assert.NotNull(mapperResult);
@@ -58,14 +75,10 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
         public async Task GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByYear_ThenIfSameYearSumEachMonthOfTheYearRadiationMeasurementsDateViewModelReturn()
         {
             // Setup
-            var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
-            var radiationMeasurementsService = new RadiationMeasurementsService(radiationMeasurementsRepositoryMock.Object);
-            var radiationMeasurementsMapper = new RadiationMeasurementsMapper(radiationMeasurementsService);
-            var random = new Random();
-            var date = new DateOnly(2024, random.Next(1, 12), random.Next(1, 30));
+            var date = new DateOnly(2024, _random.Next(1, 12), _random.Next(1, 30));
 
             // Action
-            var mapperResult = await radiationMeasurementsMapper.GetRadiationMeasurementsForTheYearAsync(date);
+            var mapperResult = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYearAsync(date);
 
             // Assert
             Assert.NotNull(mapperResult);
@@ -81,14 +94,10 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
         public async Task GivenARepositoryOfRadiationMeasurements_WhenGettingSummedRadiationMeasurementsByHourOfDay_ThenIfEmptyEmptyIEnumerableReturn()
         {
             // Setup
-            var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
-            var radiationMeasurementsService = new RadiationMeasurementsService(radiationMeasurementsRepositoryMock.Object);
-            var radiationMeasurementsMapper = new RadiationMeasurementsMapper(radiationMeasurementsService);
-            var random = new Random();
             var date = new DateOnly(2025, 10, 01);
 
             // Action
-            var mapperResult = await radiationMeasurementsMapper.GetRadiationMeasurementsForTheDayAsync(date);
+            var mapperResult = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDayAsync(date);
 
             // Assert
             Assert.That(mapperResult.Any(), Is.EqualTo(false));
@@ -100,14 +109,10 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
         public async Task GivenARepositoryOfRadiationMeasurements_WhenGettingSummedRadiationMeasurementsByDayOfMonth_ThenIfEmptyEmptyIEnumerableReturn()
         {
             // Setup
-            var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
-            var radiationMeasurementsService = new RadiationMeasurementsService(radiationMeasurementsRepositoryMock.Object);
-            var radiationMeasurementsMapper = new RadiationMeasurementsMapper(radiationMeasurementsService);
-            var random = new Random();
-            var date = new DateOnly(2024, 09, random.Next(1, 30));
+            var date = new DateOnly(2024, 09, _random.Next(1, 30));
 
             // Action
-            var mapperResult = await radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonthAsync(date);
+            var mapperResult = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonthAsync(date);
 
             // Assert
             Assert.That(mapperResult.Any(), Is.EqualTo(false));
@@ -119,14 +124,10 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
         public async Task GivenARepositoryOfRadiationMeasurements_WhenGettingSummedRadiationMeasurementsByMonthOfYear_ThenIfEmptyEmptyIEnumerableReturn()
         {
             // Setup
-            var radiationMeasurementsRepositoryMock = MockIRadiationMeasurementsRepository.GetMock();
-            var radiationMeasurementsService = new RadiationMeasurementsService(radiationMeasurementsRepositoryMock.Object);
-            var radiationMeasurementsMapper = new RadiationMeasurementsMapper(radiationMeasurementsService);
-            var random = new Random();
-            var date = new DateOnly(2026, random.Next(1, 12), random.Next(1, 30));
+            var date = new DateOnly(2026, _random.Next(1, 12), _random.Next(1, 30));
 
             // Action
-            var mapperResult = await radiationMeasurementsMapper.GetRadiationMeasurementsForTheYearAsync(date);
+            var mapperResult = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYearAsync(date);
 
             // Assert
             Assert.That(mapperResult.Any(), Is.EqualTo(false));

@@ -5,22 +5,43 @@ using ScientificOperationsCenter.Tests.Mocks;
 using ScientificOperationsCenter.Api.ViewModels;
 using ScientificOperationsCenter.Api.Mappers.Interfaces;
 using Moq;
+using ScientificOperationsCenter.Api.BusinessLogic;
+using ScientificOperationsCenter.Api.DAL.Interfaces;
+using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
 
 
 namespace ScientificOperationsCenter.Tests.UnitTests
 {
     internal class TemperaturesControllerUnitTest
     {
+        private Mock<ITemperaturesMapper> _temperaturesMapperMock;
+        private TemperaturesController _temperaturesController;
+        private Random _random;
+
+
+        [SetUp]
+        public void SetUp()
+        {
+            _temperaturesMapperMock = MockITemperaturesMapper.GetMock();
+            _temperaturesController = new TemperaturesController(_temperaturesMapperMock.Object);
+            _random = new Random();
+        }
+
+
+        [TearDown]
+        public void TearDown()
+        {
+        }
+
+
         [Test]
         public async Task GivenATemperaturesMapper_WhenGettingAverageTemperaturesByHourOfDay_ThenIf200CollectionOfTemperaturesJSONSortedByHourReturn()
         {
             // Setup
-            var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
-            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
             var date = "2024-10-08";
 
             // Action
-            var result = await temperaturesController.Day(date);
+            var result = await _temperaturesController.Day(date);
             var okResult = result as ObjectResult;
 
             // Assert
@@ -44,12 +65,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenATemperaturesMapper_WhenGettingAverageTemperaturesByDayOfMonth_ThenIf200CollectionOfTemperaturesJSONSortedByDayReturn()
         {
             // Setup
-            var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
-            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
             var date = "2024-10-01";
 
             // Action
-            var result = await temperaturesController.Month(date);
+            var result = await _temperaturesController.Month(date);
             var okResult = result as ObjectResult;
 
             // Assert
@@ -74,12 +93,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenATemperaturesMapper_WhenGettingAverageTemperaturesByMonthOfYear_ThenIf200CollectionOfTemperaturesJSONSortedByMonthReturn()
         {
             // Setup
-            var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
-            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
             var date = "2025-01-01";
 
             // Action
-            var result = await temperaturesController.Year(date);
+            var result = await _temperaturesController.Year(date);
             var okResult = result as ObjectResult;
 
             // Assert
@@ -103,12 +120,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenATemperaturesMapper_WhenGettingAverageTemperaturesByHourOfDay_ThenIfBadRequest400ResponseCodeReturn()
         {
             // Setup
-            var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
-            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
             var date = "2024-10-00";
 
             // Action
-            var result = await temperaturesController.Day(date);
+            var result = await _temperaturesController.Day(date);
             var badRequestResponse = result as StatusCodeResult;
 
             // Assert
@@ -124,12 +139,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenATemperaturesMapper_WhenGettingAverageTemperaturesByDayOfMonth_ThenIfBadRequest400ResponseCodeReturn()
         {
             // Setup
-            var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
-            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
             var date = "2024-10-00";
 
             // Action
-            var result = await temperaturesController.Month(date);
+            var result = await _temperaturesController.Month(date);
 
             // Assert
             Assert.NotNull(result);
@@ -144,12 +157,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public async Task GivenATemperaturesMapper_WhenGettingAverageTemperaturesByMonthOfYear_ThenIfBadRequest400ResponseCodeReturn()
         {
             // Setup
-            var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
-            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
             var date = "2025-10-00";
 
             // Action
-            var result = await temperaturesController.Year(date);
+            var result = await _temperaturesController.Year(date);
 
             // Assert
             Assert.NotNull(result);
@@ -204,8 +215,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             temperaturesMapperMock.Setup(m => m.GetTemperaturesForTheMonthAsync(It.IsAny<DateOnly>()))
                 .Throws(new Exception("Test exception handling for Api endpoint Month"));
             var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
-            var random = new Random();
-            var date = new DateOnly(2024, 10, random.Next(1, 30)).ToString();
+            var date = new DateOnly(2024, 10, _random.Next(1, 30)).ToString();
 
             // Action
             IActionResult result = await temperaturesController.Month(date);
@@ -226,8 +236,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             temperaturesMapperMock.Setup(m => m.GetTemperaturesForTheYearAsync(It.IsAny<DateOnly>()))
                 .Throws(new Exception("Test exception handling for Api endpoint Year"));
             var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
-            var random = new Random();
-            var date = new DateOnly(2024, random.Next(1, 12), random.Next(1, 30)).ToString();
+            var date = new DateOnly(2024, _random.Next(1, 12), _random.Next(1, 30)).ToString();
 
             // Action
             IActionResult result = await temperaturesController.Year(date);
