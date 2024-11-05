@@ -43,6 +43,8 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             Assert.NotNull(result);
             Assert.That(result.First().Time, Is.EqualTo(new TimeOnly(21, 00)));
             Assert.That(result.First().TotalMilligrays, Is.EqualTo(230));
+            Assert.That(result.Last().Time, Is.EqualTo(new TimeOnly(06, 00)));
+            Assert.That(result.Last().TotalMilligrays, Is.EqualTo(280));
             Assert.That(result.Count(), Is.EqualTo(2));
         }
 
@@ -58,10 +60,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 
             // Assert
             Assert.NotNull(result);
-            Assert.That(result.First().Date.Year, Is.EqualTo(2024));
-            Assert.That(result.First().Date.Month, Is.EqualTo(10));
-            Assert.That(result.First().Date.Day, Is.EqualTo(08));
+            Assert.That(result.First().Date, Is.EqualTo(new DateOnly(2024, 10, 08)));
             Assert.That(result.First().TotalMilligrays, Is.EqualTo(410));
+            Assert.That(result.Last().Date, Is.EqualTo(new DateOnly(2024, 10, 09)));
+            Assert.That(result.Last().TotalMilligrays, Is.EqualTo(510));
             Assert.That(result.Count(), Is.EqualTo(2));
         }
 
@@ -77,9 +79,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 
             // Assert
             Assert.NotNull(result);
-            Assert.That(result.First().Date.Year, Is.EqualTo(2025));
-            Assert.That(result.First().Date.Month, Is.EqualTo(01));
+            Assert.That(result.First().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
             Assert.That(result.First().TotalMilligrays, Is.EqualTo(400));
+            Assert.That(result.Last().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
+            Assert.That(result.Last().TotalMilligrays, Is.EqualTo(400));
             Assert.That(result.Count(), Is.EqualTo(1));
         }
 
