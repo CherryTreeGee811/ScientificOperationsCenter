@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace ScientificOperationsCenter.Api.ViewModels
@@ -12,13 +13,15 @@ namespace ScientificOperationsCenter.Api.ViewModels
         /// Gets or sets the date or time, which can be the name of a month (e.g. January), a day number (e.g. 15), or hour (e.g. 7:00 AM).
         /// </summary>
         [Required]
-        public string Timeframe { get; set; }
+        [JsonProperty("timeFrame")]
+        public string TimeFrame { get; set; }
 
 
         /// <summary>
         /// Gets or sets the total radiation exposure for the day or month in milligrays.
         /// </summary>
         [Required]
+        [JsonProperty("totalRadiation")]
         public int TotalRadiation { get; set; }
     }
 }

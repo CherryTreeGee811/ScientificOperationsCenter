@@ -43,9 +43,9 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.NotNull(mapperResult);
-            Assert.That(mapperResult.First().Timeframe, Is.EqualTo((new TimeOnly(12, 00)).ToString()));
+            Assert.That(mapperResult.First().TimeFrame, Is.EqualTo((new TimeOnly(12, 00)).ToString()));
             Assert.That(mapperResult.First().AverageTemperature, Is.EqualTo(9));
-            Assert.That(mapperResult.Last().Timeframe, Is.EqualTo((new TimeOnly(19, 00)).ToString()));
+            Assert.That(mapperResult.Last().TimeFrame, Is.EqualTo((new TimeOnly(19, 00)).ToString()));
             Assert.That(mapperResult.Last().AverageTemperature, Is.EqualTo(17));
             Assert.That(mapperResult.Count(), Is.EqualTo(3));
         }
@@ -62,9 +62,9 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.NotNull(mapperResult);
-            Assert.That(mapperResult.First().Timeframe, Is.EqualTo("8"));
+            Assert.That(mapperResult.First().TimeFrame, Is.EqualTo("8"));
             Assert.That(mapperResult.First().AverageTemperature, Is.EqualTo(10));
-            Assert.That(mapperResult.Last().Timeframe, Is.EqualTo("9"));
+            Assert.That(mapperResult.Last().TimeFrame, Is.EqualTo("9"));
             Assert.That(mapperResult.Last().AverageTemperature, Is.EqualTo(10));
             Assert.That(mapperResult.Count(), Is.EqualTo(2));
         }
@@ -81,9 +81,9 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.NotNull(mapperResult);
-            Assert.That(mapperResult.First().Timeframe, Is.EqualTo("October"));
+            Assert.That(mapperResult.First().TimeFrame, Is.EqualTo("October"));
             Assert.That(mapperResult.First().AverageTemperature, Is.EqualTo(10));
-            Assert.That(mapperResult.Last().Timeframe, Is.EqualTo("November"));
+            Assert.That(mapperResult.Last().TimeFrame, Is.EqualTo("November"));
             Assert.That(mapperResult.Last().AverageTemperature, Is.EqualTo(2));
             Assert.That(mapperResult.Count(), Is.EqualTo(2));
         }

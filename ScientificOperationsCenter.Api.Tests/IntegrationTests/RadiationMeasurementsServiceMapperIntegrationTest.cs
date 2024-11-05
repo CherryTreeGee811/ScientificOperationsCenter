@@ -44,9 +44,9 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.NotNull(mapperResult);
-            Assert.That(mapperResult.First().Timeframe, Is.EqualTo((new TimeOnly(06, 00)).ToString()));
+            Assert.That(mapperResult.First().TimeFrame, Is.EqualTo((new TimeOnly(06, 00)).ToString()));
             Assert.That(mapperResult.First().TotalRadiation, Is.EqualTo(280));
-            Assert.That(mapperResult.Last().Timeframe, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
+            Assert.That(mapperResult.Last().TimeFrame, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
             Assert.That(mapperResult.Last().TotalRadiation, Is.EqualTo(230));
             Assert.That(mapperResult.Count(), Is.EqualTo(2));
         }
@@ -63,9 +63,9 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.NotNull(mapperResult);
-            Assert.That(mapperResult.First().Timeframe, Is.EqualTo("8"));
+            Assert.That(mapperResult.First().TimeFrame, Is.EqualTo("8"));
             Assert.That(mapperResult.First().TotalRadiation, Is.EqualTo(410));
-            Assert.That(mapperResult.Last().Timeframe, Is.EqualTo("9"));
+            Assert.That(mapperResult.Last().TimeFrame, Is.EqualTo("9"));
             Assert.That(mapperResult.Last().TotalRadiation, Is.EqualTo(510));
             Assert.That(mapperResult.Count(), Is.EqualTo(2));
         }
@@ -82,9 +82,9 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 
             // Assert
             Assert.NotNull(mapperResult);
-            Assert.That(mapperResult.First().Timeframe, Is.EqualTo("October"));
+            Assert.That(mapperResult.First().TimeFrame, Is.EqualTo("October"));
             Assert.That(mapperResult.First().TotalRadiation, Is.EqualTo(920));
-            Assert.That(mapperResult.Last().Timeframe, Is.EqualTo("November"));
+            Assert.That(mapperResult.Last().TimeFrame, Is.EqualTo("November"));
             Assert.That(mapperResult.Last().TotalRadiation, Is.EqualTo(300));
             Assert.That(mapperResult.Count(), Is.EqualTo(2));
         }

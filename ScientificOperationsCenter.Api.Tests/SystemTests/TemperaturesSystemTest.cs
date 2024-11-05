@@ -58,9 +58,9 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             var contents = okResult.Value as IEnumerable<TemperaturesViewModel>;
             Assert.NotNull(contents);
             Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().Timeframe, Is.EqualTo((new TimeOnly(06, 00)).ToString()));
+            Assert.That(contents.First().TimeFrame, Is.EqualTo((new TimeOnly(06, 00)).ToString()));
             Assert.That(contents.First().AverageTemperature, Is.EqualTo(9));
-            Assert.That(contents.Last().Timeframe, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
+            Assert.That(contents.Last().TimeFrame, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
             Assert.That(contents.Last().AverageTemperature, Is.EqualTo(11));
             Assert.That(contents.Count, Is.EqualTo(2));
         }
@@ -85,9 +85,9 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             var contents = okResult.Value as IEnumerable<TemperaturesViewModel>;
             Assert.NotNull(contents);
             Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().Timeframe, Is.EqualTo("8"));
+            Assert.That(contents.First().TimeFrame, Is.EqualTo("8"));
             Assert.That(contents.First().AverageTemperature, Is.EqualTo(6));
-            Assert.That(contents.Last().Timeframe, Is.EqualTo("9"));
+            Assert.That(contents.Last().TimeFrame, Is.EqualTo("9"));
             Assert.That(contents.Last().AverageTemperature, Is.EqualTo(10));
             Assert.That(contents.Count, Is.EqualTo(2));
         }
@@ -112,9 +112,9 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             var contents = okResult.Value as IEnumerable<TemperaturesViewModel>;
             Assert.NotNull(contents);
             Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().Timeframe, Is.EqualTo("September"));
+            Assert.That(contents.First().TimeFrame, Is.EqualTo("September"));
             Assert.That(contents.First().AverageTemperature, Is.EqualTo(8));
-            Assert.That(contents.Last().Timeframe, Is.EqualTo("December"));
+            Assert.That(contents.Last().TimeFrame, Is.EqualTo("December"));
             Assert.That(contents.Last().AverageTemperature, Is.EqualTo(5));
             Assert.That(contents.Count, Is.EqualTo(4));
         }
