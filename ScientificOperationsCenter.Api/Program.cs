@@ -20,7 +20,7 @@ builder.Services.AddCors(options =>
                           policy
                           .AllowAnyOrigin()
                           .WithMethods("GET")
-                          .AllowAnyHeader();
+                          .WithHeaders(headers: new[] { "Accept", "Accept-Language" });
                       });
 });
 

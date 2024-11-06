@@ -32,7 +32,8 @@ export function getChartData(date, timespan) {
     return fetch(url, {
         mode: 'cors',
         headers: {
-            'Content-Type': 'application/json'
+            'Accept': 'application/json',
+            'Accept-Language': 'en-US',
         }
     })
         .then(response => {
