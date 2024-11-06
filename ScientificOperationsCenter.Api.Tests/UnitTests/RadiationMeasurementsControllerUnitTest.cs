@@ -48,9 +48,9 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var contents = okResult.Value as IEnumerable<RadiationMeasurementsViewModel>;
             Assert.NotNull(contents);
             Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().Timeframe, Is.EqualTo((new TimeOnly(1, 00)).ToString()));
+            Assert.That(contents.First().TimeFrame, Is.EqualTo((new TimeOnly(1, 00)).ToString()));
             Assert.That(contents.First().TotalRadiation, Is.EqualTo(430));
-            Assert.That(contents.Last().Timeframe, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
+            Assert.That(contents.Last().TimeFrame, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
             Assert.That(contents.Last().TotalRadiation, Is.EqualTo(110));
             Assert.That(contents.Count, Is.EqualTo(6));
         }
@@ -75,9 +75,9 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var contents = okResult.Value as IEnumerable<RadiationMeasurementsViewModel>;
             Assert.NotNull(contents);
             Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().Timeframe, Is.EqualTo("1"));
+            Assert.That(contents.First().TimeFrame, Is.EqualTo("1"));
             Assert.That(contents.First().TotalRadiation, Is.EqualTo(120));
-            Assert.That(contents.Last().Timeframe, Is.EqualTo("21"));
+            Assert.That(contents.Last().TimeFrame, Is.EqualTo("21"));
             Assert.That(contents.Last().TotalRadiation, Is.EqualTo(110));
             Assert.That(contents.Count, Is.EqualTo(7));
         }
@@ -103,9 +103,9 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var contents = okResult.Value as IEnumerable<RadiationMeasurementsViewModel>;
             Assert.NotNull(contents);
             Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().Timeframe, Is.EqualTo("May"));
+            Assert.That(contents.First().TimeFrame, Is.EqualTo("May"));
             Assert.That(contents.First().TotalRadiation, Is.EqualTo(120));
-            Assert.That(contents.Last().Timeframe, Is.EqualTo("December"));
+            Assert.That(contents.Last().TimeFrame, Is.EqualTo("December"));
             Assert.That(contents.Last().TotalRadiation, Is.EqualTo(150));
             Assert.That(contents.Count, Is.EqualTo(8));
         }

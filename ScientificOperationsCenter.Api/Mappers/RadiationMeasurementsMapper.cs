@@ -47,7 +47,7 @@ namespace ScientificOperationsCenter.Api.Mappers
             if (radiationMeasurements.Any())
             {
                 var values = radiationMeasurements.OrderBy(t => t.Time.Hour).Select(r =>
-                    new RadiationMeasurementsViewModel { Timeframe = r.Time.ToString(), TotalRadiation = r.TotalMilligrays });
+                    new RadiationMeasurementsViewModel { TimeFrame = r.Time.ToString(), TotalRadiation = r.TotalMilligrays });
                 return values;
             }
             return Enumerable.Empty<RadiationMeasurementsViewModel>();
@@ -71,7 +71,7 @@ namespace ScientificOperationsCenter.Api.Mappers
             if (radiationMeasurements.Any())
             {
                 var values = radiationMeasurements.OrderBy(t => t.Date.Day).Select(r =>
-                    new RadiationMeasurementsViewModel { Timeframe = r.Date.Day.ToString(), TotalRadiation = r.TotalMilligrays });
+                    new RadiationMeasurementsViewModel { TimeFrame = r.Date.Day.ToString(), TotalRadiation = r.TotalMilligrays });
                 return values;
             }
             return Enumerable.Empty<RadiationMeasurementsViewModel>();
@@ -95,7 +95,7 @@ namespace ScientificOperationsCenter.Api.Mappers
             if (radiationMeasurements.Any())
             {
                 var values = radiationMeasurements.OrderBy(t => t.Date.Month).Select(r =>
-                    new RadiationMeasurementsViewModel { Timeframe = r.Date.ToString("MMMM"), TotalRadiation = r.TotalMilligrays });
+                    new RadiationMeasurementsViewModel { TimeFrame = r.Date.ToString("MMMM"), TotalRadiation = r.TotalMilligrays });
                 return values;
             }
             return Enumerable.Empty<RadiationMeasurementsViewModel>();

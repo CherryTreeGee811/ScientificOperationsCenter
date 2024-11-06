@@ -51,15 +51,15 @@ namespace ScientificOperationsCenter.Tests.Mocks
 
             mock.Setup(m => m.GetTemperaturesForTheDayAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 temperaturesSameDay.OrderBy(t => t.Time.Hour).Select(t =>
-                    new TemperaturesViewModel { Timeframe = t.Time.ToString(), AverageTemperature = t.AverageTemperature }));
+                    new TemperaturesViewModel { TimeFrame = t.Time.ToString(), AverageTemperature = t.AverageTemperature }));
 
             mock.Setup(m => m.GetTemperaturesForTheMonthAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 temperaturesSameMonth.OrderBy(t => t.Date.Day).Select(t =>
-                    new TemperaturesViewModel { Timeframe = t.Date.Day.ToString(), AverageTemperature = t.AverageTemperature }));
+                    new TemperaturesViewModel { TimeFrame = t.Date.Day.ToString(), AverageTemperature = t.AverageTemperature }));
 
             mock.Setup(m => m.GetTemperaturesForTheYearAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 temperaturesSameYear.OrderBy(t => t.Date.Month).Select(t =>
-                    new TemperaturesViewModel { Timeframe = t.Date.ToString("MMMM"), AverageTemperature = t.AverageTemperature }));
+                    new TemperaturesViewModel { TimeFrame = t.Date.ToString("MMMM"), AverageTemperature = t.AverageTemperature }));
 
 
             return mock;

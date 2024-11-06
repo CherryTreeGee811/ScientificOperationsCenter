@@ -40,9 +40,9 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 
             // Assert
             Assert.NotNull(result);
-            Assert.That(result.First().Timeframe, Is.EqualTo((new TimeOnly(1, 00)).ToString()));
+            Assert.That(result.First().TimeFrame, Is.EqualTo((new TimeOnly(1, 00)).ToString()));
             Assert.That(result.First().AverageTemperature, Is.EqualTo(-1));
-            Assert.That(result.Last().Timeframe, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
+            Assert.That(result.Last().TimeFrame, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
             Assert.That(result.Last().AverageTemperature, Is.EqualTo(30));
             Assert.That(result.Count(), Is.EqualTo(6));
         }
@@ -59,9 +59,9 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 
             // Assert
             Assert.NotNull(result);
-            Assert.That(result.First().Timeframe, Is.EqualTo("1"));
+            Assert.That(result.First().TimeFrame, Is.EqualTo("1"));
             Assert.That(result.First().AverageTemperature, Is.EqualTo(27));
-            Assert.That(result.Last().Timeframe, Is.EqualTo("21"));
+            Assert.That(result.Last().TimeFrame, Is.EqualTo("21"));
             Assert.That(result.Last().AverageTemperature, Is.EqualTo(15));
             Assert.That(result.Count(), Is.EqualTo(7));
         }
@@ -78,9 +78,9 @@ namespace ScientificOperationsCenter.Tests.UnitTests
 
             // Assert
             Assert.NotNull(result);
-            Assert.That(result.First().Timeframe, Is.EqualTo("May"));
+            Assert.That(result.First().TimeFrame, Is.EqualTo("May"));
             Assert.That(result.First().AverageTemperature, Is.EqualTo(-3));
-            Assert.That(result.Last().Timeframe, Is.EqualTo("December"));
+            Assert.That(result.Last().TimeFrame, Is.EqualTo("December"));
             Assert.That(result.Last().AverageTemperature, Is.EqualTo(27));
             Assert.That(result.Count(), Is.EqualTo(8));
         }

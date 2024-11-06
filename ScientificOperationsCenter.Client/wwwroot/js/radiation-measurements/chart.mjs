@@ -24,16 +24,16 @@
  */
 export function generateChart(list) {
     const context = document.getElementById('chart').getContext('2d');
-    const datetimes = list.map(entry => entry.Timeframe);
-    const totalRadiation = list.map(entry => entry.TotalRadiation);
+    const datetimes = list.map(entry => entry.timeFrame);
+    const totalRadiation = list.map(entry => entry.totalRadiation);
     new Chart(context, {
         type: "line",
         data: {
             labels: datetimes,
             datasets: [{
                 fill: false,
-                tension: 0,
                 label: 'Total Radiation',
+                tension: 0,
                 data: totalRadiation,
                 borderColor: "rgba(100,0,255,1.0)"
             }]

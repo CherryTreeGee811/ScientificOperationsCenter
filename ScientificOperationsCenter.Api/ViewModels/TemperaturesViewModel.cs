@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace ScientificOperationsCenter.Api.ViewModels
 {
@@ -11,13 +12,15 @@ namespace ScientificOperationsCenter.Api.ViewModels
         /// Gets or sets the date, which can be the name of a month (e.g. January) or a day number (e.g. 15), or hour (e.g. 7:00 AM)..
         /// </summary>
         [Required]
-        public string Timeframe { get; set; }
+        [JsonProperty("timeFrame")]
+        public string TimeFrame { get; set; }
 
 
         /// <summary>
         /// Gets or sets the average temperature for the day or month in degrees Celsius.
         /// </summary>
         [Required]
+        [JsonProperty("averageTemperature")]
         public int AverageTemperature { get; set; }
     }
 }

@@ -31,23 +31,23 @@ namespace ScientificOperationsCenter.Client.Tests.Shared
             #region MockData
             var mockRadiationMeasurementsDayResponseData = new List<RadiationMeasurementsViewModel>
             {
-                new RadiationMeasurementsViewModel { Timeframe = "12:00", TotalRadiation = 410 },
-                new RadiationMeasurementsViewModel { Timeframe = "13:00", TotalRadiation = 390 },
-                new RadiationMeasurementsViewModel { Timeframe = "14:00", TotalRadiation = 212 }
+                new RadiationMeasurementsViewModel { TimeFrame = "12:00", TotalRadiation = 410 },
+                new RadiationMeasurementsViewModel { TimeFrame = "13:00", TotalRadiation = 390 },
+                new RadiationMeasurementsViewModel { TimeFrame = "14:00", TotalRadiation = 212 }
             };
 
             var mockRadiationMeasurementsMonthResponseData = new List<RadiationMeasurementsViewModel>
             {
-                new RadiationMeasurementsViewModel { Timeframe = "8", TotalRadiation = 650 },
-                new RadiationMeasurementsViewModel { Timeframe = "9", TotalRadiation = 880 },
-                new RadiationMeasurementsViewModel { Timeframe = "10", TotalRadiation = 520 }
+                new RadiationMeasurementsViewModel { TimeFrame = "8", TotalRadiation = 650 },
+                new RadiationMeasurementsViewModel { TimeFrame = "9", TotalRadiation = 880 },
+                new RadiationMeasurementsViewModel { TimeFrame = "10", TotalRadiation = 520 }
             };
 
             var mockRadiationMeasurementsYearResponseData = new List<RadiationMeasurementsViewModel>
             {
-                new RadiationMeasurementsViewModel { Timeframe = "January", TotalRadiation = 1410 },
-                new RadiationMeasurementsViewModel { Timeframe = "February", TotalRadiation = 1390 },
-                new RadiationMeasurementsViewModel { Timeframe = "March", TotalRadiation = 1290 },
+                new RadiationMeasurementsViewModel { TimeFrame = "January", TotalRadiation = 1410 },
+                new RadiationMeasurementsViewModel { TimeFrame = "February", TotalRadiation = 1390 },
+                new RadiationMeasurementsViewModel { TimeFrame = "March", TotalRadiation = 1290 },
             };
             #endregion
 
@@ -129,23 +129,23 @@ namespace ScientificOperationsCenter.Client.Tests.Shared
             #region MockData
             var mockTemperaturesDayResponseData = new List<TemperaturesViewModel>
             {
-                new TemperaturesViewModel { Timeframe = "12:00", AverageTemperature = 120 },
-                new TemperaturesViewModel { Timeframe = "13:00", AverageTemperature = 110 },
-                new TemperaturesViewModel { Timeframe = "14:00", AverageTemperature = 130 }
+                new TemperaturesViewModel { TimeFrame = "12:00", AverageTemperature = 120 },
+                new TemperaturesViewModel { TimeFrame = "13:00", AverageTemperature = 110 },
+                new TemperaturesViewModel { TimeFrame = "14:00", AverageTemperature = 130 }
             };
 
             var mockTemperaturesMonthResponseData = new List<TemperaturesViewModel>
             {
-                new TemperaturesViewModel { Timeframe = "8", AverageTemperature = 190 },
-                new TemperaturesViewModel { Timeframe = "9", AverageTemperature = 185 },
-                new TemperaturesViewModel { Timeframe = "10", AverageTemperature = 160 }
+                new TemperaturesViewModel { TimeFrame = "8", AverageTemperature = 190 },
+                new TemperaturesViewModel { TimeFrame = "9", AverageTemperature = 185 },
+                new TemperaturesViewModel { TimeFrame = "10", AverageTemperature = 160 }
             };
 
             var mockTemperaturesYearResponseData = new List<TemperaturesViewModel>
             {
-                new TemperaturesViewModel { Timeframe = "January", AverageTemperature = 130 },
-                new TemperaturesViewModel { Timeframe = "February", AverageTemperature = 150 },
-                new TemperaturesViewModel { Timeframe = "March", AverageTemperature = 170 },
+                new TemperaturesViewModel { TimeFrame = "January", AverageTemperature = 130 },
+                new TemperaturesViewModel { TimeFrame = "February", AverageTemperature = 150 },
+                new TemperaturesViewModel { TimeFrame = "March", AverageTemperature = 170 },
             };
             #endregion
 
