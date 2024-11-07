@@ -104,7 +104,7 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
 
         private void NavigateToTemperaturesPage(string expectedPageTitle, string timeFrameValue)
         {
-            var date = "002024-10-08";
+            var date = "08102024";
             var temperaturesLinkElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id("temperatures-link")));
             temperaturesLinkElem.Click();
 
