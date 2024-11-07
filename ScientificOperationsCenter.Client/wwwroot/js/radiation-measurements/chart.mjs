@@ -39,9 +39,19 @@ export function generateChart(list) {
             }]
         },
         options: {
+            responsive: true,
             scales: {
-                responsive: true,
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Time Frame'
+                    }
+                },
                 y: {
+                    title: {
+                        display: true,
+                        text: 'Radiation (Milligrays)'
+                    },
                     ticks: {
                         min: 0,
                         max: 20,
