@@ -104,7 +104,7 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
 
         private void NavigateToTemperaturesPage(string expectedPageTitle, string timeFrameValue)
         {
-            var date = "08102024";
+            var date = "2024-10-08";
             var temperaturesLinkElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id("temperatures-link")));
             temperaturesLinkElem.Click();
 
@@ -121,7 +121,8 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
             Assert.IsTrue(timeFrameLabelElem.Displayed, "The time-frame-label should exist.");
             Assert.IsTrue(timeFrameInputElem.Displayed, "The time-frame-input should exist.");
             Assert.IsTrue(generateBtnElem.Displayed, "The generate-btn should exist.");
-            dateInputElem.SendKeys(date);
+            IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
+                js.ExecuteScript("arguments[0].value = '" + date + "';", dateInputElem);
             var timeFrameSelector = new SelectElement(timeFrameInputElem);
             timeFrameSelector.SelectByValue(timeFrameValue);
             generateBtnElem.Click();
