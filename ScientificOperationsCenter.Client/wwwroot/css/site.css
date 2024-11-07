@@ -193,6 +193,12 @@ h1 {
     }
 }
 
+@media (min-height: 800px) {
+    #chart {
+        max-height: 650px !important;
+    }
+}
+
 #chart-form {
     padding-left: 32%;
 }
