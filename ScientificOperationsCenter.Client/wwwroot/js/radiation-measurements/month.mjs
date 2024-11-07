@@ -1,5 +1,6 @@
 ﻿import { getChartData } from './api.mjs';
 import { generateChart } from './chart.mjs';
+import { validateDate } from '../input-validator.mjs';
 
 
 /**
@@ -22,15 +23,22 @@ import { generateChart } from './chart.mjs';
  * of the data fetching process.
  * 
  * @function loadRadiationMeasurementsForMonth
+ * @param {string} date - The date for which to load radiation measurement data. 
+ *                        The expected format is 'YYYY-MM-DD'.
  * @returns {void} This function does not return a value; it directly updates
  * the UI with loading messages and chart data.
  * 
  * @example
- * // Load temperatures for the month of October, 2024
+ * // Load radiation measurements for the month and year specified in date param
  * loadRadiationMeasurementsForMonth();
  */
-export function loadRadiationMeasurementsForMonth() {
-    const date = '2024-10-01';
+export function loadRadiationMeasurementsForMonth(date) {
+
+    if (!validateDate(date)) {
+        console.error("Invalid date provided");
+        return
+    }
+
     const timespan = 'month';
     const errorTextElement = document.getElementById("ErrorText");
     const loadingTextElement = document.getElementById("LoadingText");

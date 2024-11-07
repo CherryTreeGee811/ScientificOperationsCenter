@@ -56,7 +56,7 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         {
             var response = _httpClient.GetAsync("/api/Temperatures/day?date=2024-10-08").Result;
             response.EnsureSuccessStatusCode();
-            NavigateToTemperaturesPage("temperatures-day-link", "Temperatures throughout Day");
+            NavigateToTemperaturesPage("Temperatures throughout Day", "day");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);
             Assert.That(chartLabels[0], Is.EqualTo("12:00"), "The first label should be '12:00'");
@@ -71,9 +71,9 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         [Test]
         public void UserNavigatesToTemperaturesForMonthPageNormally()
         {
-            var response = _httpClient.GetAsync("/api/Temperatures/month?date=2024-10-01").Result;
+            var response = _httpClient.GetAsync("/api/Temperatures/month?date=2024-10-08").Result;
             response.EnsureSuccessStatusCode();
-            NavigateToTemperaturesPage("temperatures-month-link", "Temperatures by Day of Month");
+            NavigateToTemperaturesPage("Temperatures by Day of Month", "month");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);
             Assert.That(chartLabels[0], Is.EqualTo("8"), "The first label should be '8'");
@@ -88,9 +88,9 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         [Test]
         public void UserNavigatesToTemperaturesForYearPageNormally()
         {
-            var response = _httpClient.GetAsync("/api/Temperatures/year?date=2024-01-01").Result;
+            var response = _httpClient.GetAsync("/api/Temperatures/year?date=2024-10-08").Result;
             response.EnsureSuccessStatusCode();
-            NavigateToTemperaturesPage("temperatures-year-link", "Temperatures by Month of Year");
+            NavigateToTemperaturesPage("Temperatures by Month of Year", "year");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);
             Assert.That(chartLabels[0], Is.EqualTo("January"), "The first label should be 'January'");
@@ -102,13 +102,29 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         }
 
 
-        private void NavigateToTemperaturesPage(string pageLinkID, string expectedPageTitle)
+        private void NavigateToTemperaturesPage(string expectedPageTitle, string timeFrameValue)
         {
+            var date = "002024-10-08";
             var temperaturesLinkElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id("temperatures-link")));
             temperaturesLinkElem.Click();
 
-            var temperaturesPageLinkElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id(pageLinkID)));
-            temperaturesPageLinkElem.Click();
+            var formTitleElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("form-title")));
+            var dateLabelElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("date-label")));
+            var dateInputElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("date-input")));
+            var timeFrameLabelElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("time-frame-label")));
+            var timeFrameInputElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("time-frame-input")));
+            var generateBtnElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("generate-btn")));
+            Assert.IsTrue(formTitleElem.Displayed, "The form-title should exist.");
+            Assert.That(formTitleElem.Text, Is.EqualTo("Temperatures Form"), "Form page title should be 'Temperatures Form'");
+            Assert.IsTrue(dateLabelElem.Displayed, "The date-label should exist.");
+            Assert.IsTrue(dateInputElem.Displayed, "The date-input should exist.");
+            Assert.IsTrue(timeFrameLabelElem.Displayed, "The time-frame-label should exist.");
+            Assert.IsTrue(timeFrameInputElem.Displayed, "The time-frame-input should exist.");
+            Assert.IsTrue(generateBtnElem.Displayed, "The generate-btn should exist.");
+            dateInputElem.SendKeys(date);
+            var timeFrameSelector = new SelectElement(timeFrameInputElem);
+            timeFrameSelector.SelectByValue(timeFrameValue);
+            generateBtnElem.Click();
 
             var pageTitleElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector("h1")));
             var chartCanvasElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("chart")));

@@ -1,5 +1,6 @@
 ﻿import { getChartData } from './api.mjs';
 import { generateChart } from './chart.mjs';
+import { validateDate } from '../input-validator.mjs';
 
 
 /**
@@ -21,15 +22,22 @@ import { generateChart } from './chart.mjs';
  * handles loading and error messages in the UI.
  * 
  * @function loadTemperaturesForMonth
+ * @param {string} date - The date for which to load temperature data. 
+ *                        The expected format is 'YYYY-MM-DD'.
  * @returns {void} This function does not return a value. It updates the UI 
  * with loading and error messages as needed.
  * 
  * @example
- * Load temperatures for the month of October, 2024
+ * // Load temperatures for the month and year specified in date param
  * loadTemperaturesForMonth();
  */
-export function loadTemperaturesForMonth() {
-    const date = '2024-10-01';
+export function loadTemperaturesForMonth(date) {
+
+    if (!validateDate(date)) {
+        console.error("Invalid date provided");
+        return
+    }
+
     const timespan = 'month';
     const errorTextElement = document.getElementById("ErrorText");
     const loadingTextElement = document.getElementById("LoadingText");

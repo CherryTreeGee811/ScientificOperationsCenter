@@ -56,7 +56,7 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
             var response = _httpClient.GetAsync("/api/RadiationMeasurements/day?date=2024-10-08").Result;
             response.EnsureSuccessStatusCode();
 
-            NavigateToRadiationMeasurementsPage("radiation-measurements-day-link", "Radiation Measurements by Hour Of Day");
+            NavigateToRadiationMeasurementsPage("Radiation Measurements by Hour Of Day", "day");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);
 
@@ -72,10 +72,10 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         [Test]
         public void UserNavigatesToRadiationMeasurementsForMonthPage()
         {
-            var response = _httpClient.GetAsync("/api/RadiationMeasurements/month?date=2024-10-01").Result;
+            var response = _httpClient.GetAsync("/api/RadiationMeasurements/month?date=2024-10-08").Result;
             response.EnsureSuccessStatusCode();
 
-            NavigateToRadiationMeasurementsPage("radiation-measurements-month-link", "Radiation Measurements by Day Of Month");
+            NavigateToRadiationMeasurementsPage("Radiation Measurements by Day Of Month", "month");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);
 
@@ -91,10 +91,10 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         [Test]
         public void UserNavigatesToRadiationMeasurementsForYearPage()
         {
-            var response = _httpClient.GetAsync("/api/RadiationMeasurements/year?date=2024-01-01").Result;
+            var response = _httpClient.GetAsync("/api/RadiationMeasurements/year?date=2024-10-08").Result;
             response.EnsureSuccessStatusCode();
 
-            NavigateToRadiationMeasurementsPage("radiation-measurements-year-link", "Radiation Measurements by Month Of Year");
+            NavigateToRadiationMeasurementsPage("Radiation Measurements by Month Of Year", "year");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);
 
@@ -107,13 +107,29 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         }
 
 
-        private void NavigateToRadiationMeasurementsPage(string pageLinkID, string expectedPageTitle)
+        private void NavigateToRadiationMeasurementsPage(string expectedPageTitle, string timeFrameValue)
         {
+            var date = "002024-10-08";
             var radiationMeasurementsLinkElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id("radiation-measurements-link")));
             radiationMeasurementsLinkElem.Click();
 
-            var radiationMeasurementsPageLinkElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id(pageLinkID)));
-            radiationMeasurementsPageLinkElem.Click();
+            var formTitleElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("form-title")));
+            var dateLabelElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("date-label")));
+            var dateInputElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("date-input")));
+            var timeFrameLabelElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("time-frame-label")));
+            var timeFrameInputElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("time-frame-input")));
+            var generateBtnElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("generate-btn")));
+            Assert.IsTrue(formTitleElem.Displayed, "The form-title should exist.");
+            Assert.That(formTitleElem.Text, Is.EqualTo("Radiation Measurements Form"), "Form page title should be 'Radiation Measurements Form'");
+            Assert.IsTrue(dateLabelElem.Displayed, "The date-label should exist.");
+            Assert.IsTrue(dateInputElem.Displayed, "The date-input should exist.");
+            Assert.IsTrue(timeFrameLabelElem.Displayed, "The time-frame-label should exist.");
+            Assert.IsTrue(timeFrameInputElem.Displayed, "The time-frame-input should exist.");
+            Assert.IsTrue(generateBtnElem.Displayed, "The generate-btn should exist.");
+            dateInputElem.SendKeys(date);
+            var timeFrameSelector = new SelectElement(timeFrameInputElem);
+            timeFrameSelector.SelectByValue(timeFrameValue);
+            generateBtnElem.Click();
 
             var pageTitleElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector("h1")));
             var chartCanvasElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("chart")));

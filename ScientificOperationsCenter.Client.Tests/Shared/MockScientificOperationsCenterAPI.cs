@@ -88,7 +88,7 @@ namespace ScientificOperationsCenter.Client.Tests.Shared
             _server
             .Given(Request.Create()
               .WithPath("/api/RadiationMeasurements/month")
-              .WithParam("date", "2024-10-01")
+              .WithParam("date", "2024-10-08")
               .UsingGet())
               .RespondWith(Response.Create()
             .WithStatusCode(HttpStatusCode.OK)
@@ -110,7 +110,7 @@ namespace ScientificOperationsCenter.Client.Tests.Shared
             _server
             .Given(Request.Create()
               .WithPath("/api/RadiationMeasurements/year")
-              .WithParam("date", "2024-01-01")
+              .WithParam("date", "2024-10-08")
               .UsingGet())
             .RespondWith(Response.Create()
               .WithStatusCode(HttpStatusCode.OK)
@@ -186,7 +186,7 @@ namespace ScientificOperationsCenter.Client.Tests.Shared
             _server
             .Given(Request.Create()
               .WithPath("/api/Temperatures/month")
-              .WithParam("date", "2024-10-01")
+              .WithParam("date", "2024-10-08")
               .UsingGet())
               .RespondWith(Response.Create()
             .WithStatusCode(HttpStatusCode.OK)
@@ -208,7 +208,7 @@ namespace ScientificOperationsCenter.Client.Tests.Shared
             _server
             .Given(Request.Create()
               .WithPath("/api/Temperatures/year")
-              .WithParam("date", "2024-01-01")
+              .WithParam("date", "2024-10-08")
               .UsingGet())
             .RespondWith(Response.Create()
               .WithStatusCode(HttpStatusCode.OK)

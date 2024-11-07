@@ -193,6 +193,10 @@ h1 {
     }
 }
 
+#chart-form {
+    padding-left: 32%;
+}
+
 .footer {
     position: fixed;
     left: 0;
