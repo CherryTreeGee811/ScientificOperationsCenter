@@ -189,8 +189,18 @@ h1 {
     }
 
     #chart {
-        max-height: 650px;
+        max-height: 350px;
     }
+}
+
+@media (min-height: 800px) {
+    #chart {
+        max-height: 650px !important;
+    }
+}
+
+#chart-form {
+    padding-left: 32%;
 }
 
 .footer {

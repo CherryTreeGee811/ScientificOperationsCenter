@@ -1,4 +1,5 @@
-﻿import { loadTemperaturesForDay } from './day.mjs';
+﻿import { loadFormJS } from './form.mjs';
+import { loadTemperaturesForDay } from './day.mjs';
 import { loadTemperaturesForMonth } from './month.mjs';
 import { loadTemperaturesForYear } from './year.mjs';
 
@@ -72,27 +73,33 @@ export function initTemperaturesLinkListeners(contentDiv, routeHandler) {
  * handleTemperaturesRoutes('/temperatures/day', contentDiv);
  */
 export function handleTemperaturesRoutes(path, contentDiv) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const dateParam = urlParams.get('date');
     switch (path) {
         case '/temperatures':
-            loadTemplate("temperatures/index.html", contentDiv);
+            loadTemplate("temperatures/form.html", contentDiv).then(() => {
+                return loadFormJS()
+            }).catch((error) => {
+                console.error('Error loading form js:', error);
+            });
             break;
         case '/temperatures/day':
             loadTemplate("temperatures/day.html", contentDiv).then(() => {
-                return loadTemperaturesForDay()
+                return loadTemperaturesForDay(dateParam)
             }).catch((error) => {
                 console.error('Error loading temperatures for day:', error);
             });
             break;
         case '/temperatures/month':
             loadTemplate("temperatures/month.html", contentDiv).then(() => {
-                return loadTemperaturesForMonth()
+                return loadTemperaturesForMonth(dateParam)
             }).catch((error) => {
                 console.error('Error loading temperatures for month:', error);
             });
             break;
         case '/temperatures/year':
             loadTemplate("temperatures/year.html", contentDiv).then(() => {
-                return loadTemperaturesForYear()
+                return loadTemperaturesForYear(dateParam)
             }).catch((error) => {
                 console.error('Error loading temperatures for year:', error);
             });

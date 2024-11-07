@@ -1,4 +1,5 @@
-﻿import { loadRadiationMeasurementsForDay } from './day.mjs';
+﻿import { loadFormJS } from './form.mjs';
+import { loadRadiationMeasurementsForDay } from './day.mjs';
 import { loadRadiationMeasurementsForMonth } from './month.mjs';
 import { loadRadiationMeasurementsForYear } from './year.mjs';
 
@@ -71,27 +72,33 @@ export function initRadiationMeasurementsLinkListeners(contentDiv, routeHandler)
  * handleRadiationMeasurementsRoutes('/radiation-measurements/day', contentDiv);
  */
 export function handleRadiationMeasurementsRoutes(path, contentDiv) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const dateParam = urlParams.get('date');
     switch (path) {
         case '/radiation-measurements':
-            loadTemplate("radiation-measurements/index.html", contentDiv);
+            loadTemplate("radiation-measurements/form.html", contentDiv).then(() => {
+                return loadFormJS()
+            }).catch((error) => {
+                console.error('Error loading form js:', error);
+            });
             break;
         case '/radiation-measurements/day':
             loadTemplate("radiation-measurements/day.html", contentDiv).then(() => {
-                return loadRadiationMeasurementsForDay()
+                return loadRadiationMeasurementsForDay(dateParam)
             }).catch((error) => {
                 console.error('Error loading radiation measurements for day:', error);
             });
             break;
         case '/radiation-measurements/month':
             loadTemplate("radiation-measurements/month.html", contentDiv).then(() => {
-                return loadRadiationMeasurementsForMonth()
+                return loadRadiationMeasurementsForMonth(dateParam)
             }).catch((error) => {
                 console.error('Error loading radiation measurements for month:', error);;
             });
             break;
         case '/radiation-measurements/year':
             loadTemplate("radiation-measurements/year.html", contentDiv).then(() => {
-                return loadRadiationMeasurementsForYear()
+                return loadRadiationMeasurementsForYear(dateParam)
             }).catch((error) => {
                 console.error('Error loading radiation measurements for year:', error);
             });
