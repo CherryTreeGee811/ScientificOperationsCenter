@@ -109,7 +109,7 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
 
         private void NavigateToRadiationMeasurementsPage(string expectedPageTitle, string timeFrameValue)
         {
-            var date = "002024-10-08";
+            var date = "08102024";
             var radiationMeasurementsLinkElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id("radiation-measurements-link")));
             radiationMeasurementsLinkElem.Click();
 
