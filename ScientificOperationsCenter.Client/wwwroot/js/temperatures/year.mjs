@@ -46,7 +46,7 @@ export function loadTemperaturesForYear(date) {
     getChartData(date, timespan)
         .then(data => {
             if (data) {
-                generateChart(data);
+                generateChart(data, "Time Frame (Month)");
                 loadingTextElement.textContent = "";
             } else {
                 errorTextElement.textContent = "No temperature records found for the selected date.";

@@ -47,7 +47,7 @@ export function loadRadiationMeasurementsForMonth(date) {
     getChartData(date, timespan)
         .then(data => {
             if (data) {
-                generateChart(data);
+                generateChart(data, "Time Frame (Day)");
                 loadingTextElement.textContent = "";
             } else {
                 errorTextElement.textContent = "No radiation measurement records found for the selected date.";

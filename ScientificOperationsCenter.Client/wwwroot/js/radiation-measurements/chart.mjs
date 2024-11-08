@@ -12,6 +12,7 @@
  * @param {Array<Object>} list - An array of data objects, where each object contains:
  *   - {string} timeframe - The time period for the data point (e.g., '2024-10-08').
  *   - {number} totalRadiation - The total radiation measurement for the corresponding timeframe.
+ * @param {String} xAxisLabel - A string for the x-axis label.
  * @returns {void} This function does not return a value; it directly renders the chart on the canvas.
  * 
  * @example
@@ -22,7 +23,7 @@
  * ];
  * generateChart(data);
  */
-export function generateChart(list) {
+export function generateChart(list, xAxisLabel) {
     const context = document.getElementById('chart').getContext('2d');
     const datetimes = list.map(entry => entry.timeFrame);
     const totalRadiation = list.map(entry => entry.totalRadiation);
@@ -44,7 +45,7 @@ export function generateChart(list) {
                 x: {
                     title: {
                         display: true,
-                        text: 'Time Frame'
+                        text: xAxisLabel
                     }
                 },
                 y: {
