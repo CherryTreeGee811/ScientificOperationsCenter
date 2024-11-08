@@ -28,6 +28,7 @@ jobs:
             shell: bash
             run: |
               dotnet outdated -u ./ScientificOperationsCenter.Api/ScientificOperationsCenter.Api.csproj
+              dotnet outdated -u ./ScientificOperationsCenter.Auth/ScientificOperationsCenter.Auth.csproj
               dotnet outdated -u ./ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj
       
           - name: Build and Run App Containers
