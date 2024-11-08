@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientificOperationsCenter.Api", "ScientificOperationsCenter.Api\ScientificOperationsCenter.Api.csproj", "{9D3E190C-2239-4FDD-ADC2-C4879C9D5B89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientificOperationsCenter", "ScientificOperationsCenter\ScientificOperationsCenter.csproj", "{9D3E190C-2239-4FDD-ADC2-C4879C9D5B89}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientificOperationsCenter.Api.Tests", "ScientificOperationsCenter.Api.Tests\ScientificOperationsCenter.Api.Tests.csproj", "{6BFDCA60-E56C-4F02-8CD3-145A1FCE0C7B}"
 EndProject
