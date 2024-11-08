@@ -7,10 +7,6 @@ on:
        branches:
            - '*'
    workflow_dispatch:
-       inputs:
-           branch:
-               description: 'The branch to build'
-               required: true
 jobs:
    BuildAndTest:
       runs-on: ubuntu-latest
@@ -24,9 +20,11 @@ jobs:
           
           - name: Install Tools
             shell: bash
-            run: docker build --rm -t cherrytreegee811/scientificoperationscenter:dev ScientificOperationsCenter
+            run: |
+              dotnet tool install --global dotnet-outdated-tool
+              sudo apt install nikto
 
-          - name: Run App Container
+          - name: Update NuGet Packages
             shell: bash
             run: |
               dotnet outdated -u ./ScientificOperationsCenter.Api/ScientificOperationsCenter.Api.csproj

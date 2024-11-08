@@ -1,7 +1,7 @@
 ﻿using Moq;
-using ScientificOperationsCenter.BusinessLogic.Structs;
-using ScientificOperationsCenter.Mappers.Interfaces;
-using ScientificOperationsCenter.ViewModels;
+using ScientificOperationsCenter.Api.BusinessLogic.Structs;
+using ScientificOperationsCenter.Api.Mappers.Interfaces;
+using ScientificOperationsCenter.Api.ViewModels;
 
 
 namespace ScientificOperationsCenter.Tests.Mocks
@@ -49,15 +49,15 @@ namespace ScientificOperationsCenter.Tests.Mocks
             };
 
 
-            mock.Setup(m => m.GetRadiationMeasurementsForTheDay(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
+            mock.Setup(m => m.GetRadiationMeasurementsForTheDayAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 radiationMeasurementsSameDay.OrderBy(t => t.Time.Hour).Select(r =>
                     new RadiationMeasurementsViewModel { TimeFrame = r.Time.ToString(), TotalRadiation = r.TotalMilligrays }));
 
-            mock.Setup(m => m.GetRadiationMeasurementsForTheMonth(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
+            mock.Setup(m => m.GetRadiationMeasurementsForTheMonthAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 radiationMeasurementsSameMonth.OrderBy(t => t.Date.Day).Select(r =>
                     new RadiationMeasurementsViewModel { TimeFrame = r.Date.Day.ToString(), TotalRadiation = r.TotalMilligrays }));
 
-            mock.Setup(m => m.GetRadiationMeasurementsForTheYear(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
+            mock.Setup(m => m.GetRadiationMeasurementsForTheYearAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 radiationMeasurementsSameYear.OrderBy(t => t.Date.Month).Select(r =>
                     new RadiationMeasurementsViewModel { TimeFrame = r.Date.ToString("MMMM"), TotalRadiation = r.TotalMilligrays }));
 

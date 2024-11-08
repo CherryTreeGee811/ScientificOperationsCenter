@@ -1,7 +1,7 @@
 ﻿using Moq;
-using ScientificOperationsCenter.BusinessLogic.Interfaces;
-using ScientificOperationsCenter.BusinessLogic.Structs;
-using ScientificOperationsCenter.Models;
+using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
+using ScientificOperationsCenter.Api.BusinessLogic.Structs;
+using ScientificOperationsCenter.Api.Models;
 
 
 namespace ScientificOperationsCenter.Tests.Mocks
@@ -54,15 +54,15 @@ namespace ScientificOperationsCenter.Tests.Mocks
             };
 
 
-            mock.Setup(m => m.GetRadiationMeasurementsSumForTheDay(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
+            mock.Setup(m => m.GetRadiationMeasurementsSumForTheDayAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 radiationMeasurementsSameDay.GroupBy(t => t.Time.Hour).Select(r =>
                     new RadiationMeasurementsTimeSum { Time = new TimeOnly(r.Key, 00), TotalMilligrays = r.Sum(a => a.Milligrays) }));
             
-            mock.Setup(m => m.GetRadiationMeasurementsSumForTheMonth(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
+            mock.Setup(m => m.GetRadiationMeasurementsSumForTheMonthAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 radiationMeasurementsSameMonth.GroupBy(t => t.Date.Day).Select(r =>
                     new RadiationMeasurementsDateSum { Date = new DateOnly(date.Year, date.Month, r.Key), TotalMilligrays = r.Sum(a => a.Milligrays) }));
             
-            mock.Setup(m => m.GetRadiationMeasurementsSumForTheYear(It.IsAny<DateOnly>())).Returns((DateOnly date) =>
+            mock.Setup(m => m.GetRadiationMeasurementsSumForTheYearAsync(It.IsAny<DateOnly>())).ReturnsAsync((DateOnly date) =>
                 radiationMeasurementsSameYear.GroupBy(t => t.Date.Month).Select(r =>
                     new RadiationMeasurementsDateSum { Date = new DateOnly(date.Year, r.Key, 01), TotalMilligrays = r.Sum(a => a.Milligrays) }));
 

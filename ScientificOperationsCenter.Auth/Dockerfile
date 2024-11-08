@@ -8,40 +8,23 @@ EXPOSE 8060
 EXPOSE 8061
 
 
-
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-<<<<<<<< HEAD:ScientificOperationsCenter.Auth/Dockerfile
 COPY ["ScientificOperationsCenter.Auth/ScientificOperationsCenter.Auth.csproj", "ScientificOperationsCenter.Auth/"]
 RUN dotnet restore "./ScientificOperationsCenter.Auth/ScientificOperationsCenter.Auth.csproj"
 COPY . .
 WORKDIR "/src/ScientificOperationsCenter.Auth"
 RUN dotnet build "./ScientificOperationsCenter.Auth.csproj" -c $BUILD_CONFIGURATION -o /app/build
-========
-COPY ["ScientificOperationsCenter.csproj", "../"]
-RUN dotnet restore "../ScientificOperationsCenter.csproj"
-COPY . .
-WORKDIR "/src/ScientificOperationsCenter"
-RUN dotnet build "../ScientificOperationsCenter.csproj" -c $BUILD_CONFIGURATION -o /app/build
->>>>>>>> stable:ScientificOperationsCenter/Dockerfile
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-<<<<<<<< HEAD:ScientificOperationsCenter.Auth/Dockerfile
 RUN dotnet publish "./ScientificOperationsCenter.Auth.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
-========
-RUN dotnet publish "../ScientificOperationsCenter.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
->>>>>>>> stable:ScientificOperationsCenter/Dockerfile
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-<<<<<<<< HEAD:ScientificOperationsCenter.Auth/Dockerfile
 ENTRYPOINT ["dotnet", "ScientificOperationsCenter.Auth.dll"]
-========
-ENTRYPOINT ["dotnet", "ScientificOperationsCenter.dll"]
->>>>>>>> stable:ScientificOperationsCenter/Dockerfile
