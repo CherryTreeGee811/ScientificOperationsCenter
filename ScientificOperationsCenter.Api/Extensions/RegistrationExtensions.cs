@@ -19,6 +19,8 @@ namespace ScientificOperationsCenter.Api.Extensions
             services.AddScoped<IRadiationMeasurementsRepository, RadiationMeasurementsRepository>();
             services.AddScoped<IRadiationMeasurementsService, RadiationMeasurementsService>();
             services.AddScoped<IRadiationMeasurementsMapper, RadiationMeasurementsMapper>();
+            services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddHttpClient<ILoginRepository, LoginRepository>();
         }
     }
 }

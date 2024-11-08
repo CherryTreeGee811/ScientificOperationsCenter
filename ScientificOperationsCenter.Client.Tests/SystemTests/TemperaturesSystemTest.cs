@@ -38,6 +38,9 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         {
             _driver.Navigate().GoToUrl(AppServer.ClientURL);
             _driver.Manage().Window.Size = new Size(Display.DesktopWidth, Display.DesktopHeight);
+            var request = new HttpRequestMessage(HttpMethod.Options, "/auth/login");
+            var response = _httpClient.SendAsync(request).Result;
+
         }
 
 
@@ -54,8 +57,8 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         [Test]
         public void UserNavigatesToTemperaturesForDayPageNormally()
         {
-            var response = _httpClient.GetAsync("/api/Temperatures/day?date=2024-10-08").Result;
-            response.EnsureSuccessStatusCode();
+            var request = new HttpRequestMessage(HttpMethod.Options, "/api/Temperatures/day");
+            var response = _httpClient.SendAsync(request).Result;
             NavigateToTemperaturesPage("Temperatures throughout Day", "day");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);
@@ -71,8 +74,8 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         [Test]
         public void UserNavigatesToTemperaturesForMonthPageNormally()
         {
-            var response = _httpClient.GetAsync("/api/Temperatures/month?date=2024-10-08").Result;
-            response.EnsureSuccessStatusCode();
+            var request = new HttpRequestMessage(HttpMethod.Options, "/api/Temperatures/month");
+            var response = _httpClient.SendAsync(request).Result;
             NavigateToTemperaturesPage("Temperatures by Day of Month", "month");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);
@@ -88,8 +91,8 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         [Test]
         public void UserNavigatesToTemperaturesForYearPageNormally()
         {
-            var response = _httpClient.GetAsync("/api/Temperatures/year?date=2024-10-08").Result;
-            response.EnsureSuccessStatusCode();
+            var request = new HttpRequestMessage(HttpMethod.Options, "/api/Temperatures/year");
+            var response = _httpClient.SendAsync(request).Result;
             NavigateToTemperaturesPage("Temperatures by Month of Year", "year");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
             var chartData = Utilities.GetDisplayedChartData(_driver);

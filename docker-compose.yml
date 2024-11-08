@@ -9,8 +9,6 @@ services:
         - 9001:9001
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=9000
-      - ASPNETCORE_HTTPS_PORTS=9001
       - ASPNETCORE_URLS=http://+:9000
     build:
       context: .
@@ -27,35 +25,52 @@ services:
   scientificoperationscenter.api:
     image: ${DOCKER_REGISTRY-}scientificoperationscenterapi
     container_name: scientificoperationscenterapi
-    hostname: localhost
     ports:
       - "8000:8000"
       - "8001:8001"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8000
-      - ASPNETCORE_HTTPS_PORTS=8001
       - ASPNETCORE_URLS=http://+:8000
     networks:
-        - sciencedb-net
+        - science-net
     build:
       context: .
       dockerfile: ScientificOperationsCenter.Api/Dockerfile
     depends_on:
-        - database
+        - scientificoperationscenter.auth
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
    
+  scientificoperationscenter.auth:
+    image: ${DOCKER_REGISTRY-}scientificoperationscenterauth
+    container_name: scientificoperationscenterauth
+    ports:
+      - "8060:8060"
+      - "8061:8061"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8060
+    networks:
+        - science-net
+    build:
+      context: .
+      dockerfile: ScientificOperationsCenter.Auth/Dockerfile
+    depends_on:
+        - sqlpreview
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8060/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
       
-  database:
+  sqlpreview:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlpreview
-    hostname: localhost
     networks:
-        - sciencedb-net
+        - science-net
     ports:
         - 1433:1433
     environment:
@@ -63,5 +78,5 @@ services:
         MSSQL_SA_PASSWORD: SATestPassword10*
 
 networks:
-    sciencedb-net:
+    science-net:
         driver: bridge
