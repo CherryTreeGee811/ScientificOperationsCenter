@@ -3,6 +3,7 @@
 
 # User-specific files
 ScientificOperationsCenter.Api/*.user
+ScientificOperationsCenter.Auth/*.user
 ScientificOperationsCenter.Client/*.user
 ScientificOperationsCenter.Api.Tests/*.user
 ScientificOperationsCenter.Client.Tests/*.user
@@ -10,6 +11,9 @@ ScientificOperationsCenter.Client.Tests/*.user
 # Generated with debug and execute
 ScientificOperationsCenter.Api/bin
 ScientificOperationsCenter.Api/obj
+
+ScientificOperationsCenter.Auth/bin
+ScientificOperationsCenter.Auth/obj
 
 ScientificOperationsCenter.Client/bin
 ScientificOperationsCenter.Client/obj
