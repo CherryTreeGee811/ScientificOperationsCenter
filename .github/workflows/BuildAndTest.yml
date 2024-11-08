@@ -48,6 +48,11 @@ jobs:
             shell: bash
             run: |
               docker rm -f scientificoperationscenterapi
+
+          - name: Stop and Remove Auth Service Container
+            shell: bash
+            run: |
+              docker rm -f scientificoperationscenterauth
               
           - name: Stop and Remove Database Container
             shell: bash
@@ -70,11 +75,13 @@ jobs:
               docker stop scientificoperationscenterclient
 
           - name: Push Docker Images to DockerHub
-            if: ${{ github.ref == 'refs/heads/stable' }}
+            if: ${{ github.ref == 'refs/heads/stable' || github.ref == 'refs/heads/publish' }}
             shell: bash
             run: |
               docker tag scientificoperationscenterapi cherrytreegee811/scientificoperationscenterapi:latest
+              docker tag scientificoperationscenterauth cherrytreegee811/scientificoperationscenterauth:latest
               docker tag scientificoperationscenterclient cherrytreegee811/scientificoperationscenterclient:latest
               docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
               docker push cherrytreegee811/scientificoperationscenterapi:latest
+              docker push cherrytreegee811/scientificoperationscenterauth:latest
               docker push cherrytreegee811/scientificoperationscenterclient:latest
