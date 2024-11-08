@@ -1,19 +1,36 @@
-# Database Migrations
-ScientificOperationsCenter/Migrations
-
 # Visual Studio cache/options directory
 .vs/
 
 # User-specific files
-ScientificOperationsCenter/*.user
-ScientificOperationsCenter.Tests/*.user
+ScientificOperationsCenter.Api/*.user
+ScientificOperationsCenter.Auth/*.user
+ScientificOperationsCenter.Client/*.user
+ScientificOperationsCenter.Api.Tests/*.user
+ScientificOperationsCenter.Client.Tests/*.user
 
 # Generated with debug and execute
-ScientificOperationsCenter/bin
-ScientificOperationsCenter/obj
+ScientificOperationsCenter.Api/bin
+ScientificOperationsCenter.Api/obj
 
-ScientificOperationsCenter.Tests/bin
-ScientificOperationsCenter.Tests/obj
+ScientificOperationsCenter.Auth/bin
+ScientificOperationsCenter.Auth/obj
 
-# Appsettings.json
-/ScientificOperationsCenter/obj/Debug/net8.0/ScientificOperationsCenter.AssemblyInfoInputs.cache
+ScientificOperationsCenter.Client/bin
+ScientificOperationsCenter.Client/obj
+
+ScientificOperationsCenter.Api.Tests/bin
+ScientificOperationsCenter.Api.Tests/obj
+
+ScientificOperationsCenter.Client.Tests/bin
+ScientificOperationsCenter.Client.Tests/obj
+
+# logging
+ScientificOperationsCenter.Api/logs
+
+# documentation
+docs/*
+!docs/mainpage.md
+
+/ScientificOperationsCenter
+/bin
+/obj

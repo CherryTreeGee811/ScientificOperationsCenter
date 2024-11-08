@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+    <meta charset="ascii" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src-elem 'self'; style-src-elem 'self'; img-src 'self'; connect-src *;" />
+    <title>Home - Scientific Operations Center</title>
+    <link href="./images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="./css/site.css" />
+    <link rel="stylesheet" type="text/css" href="./css/loadingError.css" />
+</head>
+    <body>
+        <header class="header">
+            <a id="home-link" href="/"><img id="logo" src="./images/Science_Logo-64x64.png" type="image/png" width="64" height="64" alt="Scientific Operations Center Logo" /></a>
+            <input type="checkbox" id="mobile-menu-check" name="mobile-menu-check" />
+            <label id="mobile-menu-icon" for="mobile-menu-check"><span class="mobile-menu-icon-line"></span></label>
+            <nav id="main-nav">
+                <ul id="main-menu">
+                    <li class="main-menu-item">
+                        <a href="/temperatures" id="temperatures-link" class="main-menu-link">🌡️ Temperature</a>
+                    </li>
+                    <li class="main-menu-item">
+                        <a href="/radiation-measurements" id="radiation-measurements-link" class="main-menu-link">☢️ Radiation Measurements</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <div class="container">
+            <main role="main" class="pb-3">
+                <div id="content"></div>
+            </main>
+
+        </div>
+        <footer class="footer">
+            <div class="container">
+                &copy; 2024 - Scientific Operations Center
+            </div>
+        </footer>
+        <script src="./lib/chart-js/dist/chart.umd.js" type="text/javascript"></script>
+        <script src="./js/router.js" type="module" defer></script>
+    </body>
+</html>

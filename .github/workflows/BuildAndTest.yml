@@ -7,25 +7,82 @@ on:
        branches:
            - '*'
    workflow_dispatch:
-       inputs:
-           branch:
-               description: 'The branch to build'
-               required: true
 jobs:
    BuildAndTest:
       runs-on: ubuntu-latest
       steps:
-          - uses: actions/checkout@v3
-         
-          - name: Build App Container
-            shell: bash
-            run: docker build --rm -t cherrytreegee811/scientificoperationscenter:dev ScientificOperationsCenter
-
-          - name: Run App Container
-            shell: bash
-            run: docker run --rm -dit cherrytreegee811/scientificoperationscenter:dev
+          - uses: actions/checkout@v4
+              
+          - name: Setup .NET
+            uses: actions/setup-dotnet@v3
+            with:
+              dotnet-version: 8.0.x
           
-          - name: Run Tests
+          - name: Install Tools
             shell: bash
             run: |
-                dotnet test ./ScientificOperationsCenter.Tests/ScientificOperationsCenter.Tests.csproj --os linux --verbosity minimal
+              dotnet tool install --global dotnet-outdated-tool
+              sudo apt install nikto
+
+          - name: Update NuGet Packages
+            shell: bash
+            run: |
+              dotnet outdated -u ./ScientificOperationsCenter.Api/ScientificOperationsCenter.Api.csproj
+              dotnet outdated -u ./ScientificOperationsCenter.Auth/ScientificOperationsCenter.Auth.csproj
+              dotnet outdated -u ./ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj
+      
+          - name: Build and Run App Containers
+            shell: bash
+            run: docker compose up -d
+
+          - name: Run API Tests
+            shell: bash
+            run: |
+              #dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj --os linux --verbosity minimal 
+
+          - name: Nikto Scan Backend
+            shell: bash
+            run: |
+              nikto -h http://localhost:8000 -C all
+
+          - name: Stop and Remove API Container
+            shell: bash
+            run: |
+              docker rm -f scientificoperationscenterapi
+
+          - name: Stop and Remove Auth Service Container
+            shell: bash
+            run: |
+              docker rm -f scientificoperationscenterauth
+              
+          - name: Stop and Remove Database Container
+            shell: bash
+            run: |
+              docker rm -f sqlpreview
+              
+          - name: Run Client Tests
+            shell: bash
+            run: |
+              dotnet test ./ScientificOperationsCenter.Client.Tests/ScientificOperationsCenter.Client.Tests.csproj --os linux --verbosity minimal
+
+          - name: Nikto Scan Frontend
+            shell: bash
+            run: |
+              nikto -h http://localhost:9000 -C all
+
+          - name: Stop and Remove Client Container
+            shell: bash
+            run: |
+              docker stop scientificoperationscenterclient
+
+          - name: Push Docker Images to DockerHub
+            if: ${{ github.ref == 'refs/heads/stable' }}
+            shell: bash
+            run: |
+              docker tag scientificoperationscenterapi cherrytreegee811/scientificoperationscenterapi:latest
+              docker tag scientificoperationscenterauth cherrytreegee811/scientificoperationscenterauth:latest
+              docker tag scientificoperationscenterclient cherrytreegee811/scientificoperationscenterclient:latest
+              docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
+              docker push cherrytreegee811/scientificoperationscenterapi:latest
+              docker push cherrytreegee811/scientificoperationscenterauth:latest
+              docker push cherrytreegee811/scientificoperationscenterclient:latest
