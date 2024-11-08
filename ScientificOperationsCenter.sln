@@ -13,6 +13,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScientificOperationsCenter.Client.Tests", "ScientificOperationsCenter.Client.Tests\ScientificOperationsCenter.Client.Tests.csproj", "{17DA0C6E-29CB-42AD-AD83-8BE60A8B1234}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScientificOperationsCenter.Auth", "ScientificOperationsCenter.Auth\ScientificOperationsCenter.Auth.csproj", "{3FF333AE-EA17-411F-9456-EB31A77B63F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{17DA0C6E-29CB-42AD-AD83-8BE60A8B1234}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17DA0C6E-29CB-42AD-AD83-8BE60A8B1234}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17DA0C6E-29CB-42AD-AD83-8BE60A8B1234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FF333AE-EA17-411F-9456-EB31A77B63F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FF333AE-EA17-411F-9456-EB31A77B63F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FF333AE-EA17-411F-9456-EB31A77B63F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FF333AE-EA17-411F-9456-EB31A77B63F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
