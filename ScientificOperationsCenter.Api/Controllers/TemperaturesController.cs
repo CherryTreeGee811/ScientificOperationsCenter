@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ScientificOperationsCenter.Api.Mappers.Interfaces;
 using Serilog;
 using System.Globalization;
@@ -11,6 +12,7 @@ namespace ScientificOperationsCenter.Api.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public sealed class TemperaturesController : ControllerBase
     {
         private readonly ITemperaturesMapper _temperaturesMapper;

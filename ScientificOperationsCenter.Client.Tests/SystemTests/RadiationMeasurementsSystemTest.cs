@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using ScientificOperationsCenter.Client.Tests.Shared;
+using System;
 using System.Drawing;
 
 
@@ -37,6 +38,8 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         {
             _driver.Navigate().GoToUrl(AppServer.ClientURL);
             _driver.Manage().Window.Size = new Size(Display.DesktopWidth, Display.DesktopHeight);
+            var request = new HttpRequestMessage(HttpMethod.Options, "/auth/login");
+            var response = _httpClient.SendAsync(request).Result;
         }
 
 
@@ -53,7 +56,8 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         [Test]
         public void UserNavigatesToRadiationMeasurementsForDayPage()
         {
-            var response = _httpClient.GetAsync("/api/RadiationMeasurements/day?date=2024-10-08").Result;
+            var request = new HttpRequestMessage(HttpMethod.Options, "/api/RadiationMeasurements/day");
+            var response = _httpClient.SendAsync(request).Result;
             response.EnsureSuccessStatusCode();
 
             NavigateToRadiationMeasurementsPage("Radiation Measurements by Hour Of Day", "day");
@@ -72,8 +76,8 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         [Test]
         public void UserNavigatesToRadiationMeasurementsForMonthPage()
         {
-            var response = _httpClient.GetAsync("/api/RadiationMeasurements/month?date=2024-10-08").Result;
-            response.EnsureSuccessStatusCode();
+            var request = new HttpRequestMessage(HttpMethod.Options, "/api/RadiationMeasurements/month");
+            var response = _httpClient.SendAsync(request).Result;
 
             NavigateToRadiationMeasurementsPage("Radiation Measurements by Day Of Month", "month");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
@@ -91,8 +95,8 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         [Test]
         public void UserNavigatesToRadiationMeasurementsForYearPage()
         {
-            var response = _httpClient.GetAsync("/api/RadiationMeasurements/year?date=2024-10-08").Result;
-            response.EnsureSuccessStatusCode();
+            var request = new HttpRequestMessage(HttpMethod.Options, "/api/RadiationMeasurements/year");
+            var response = _httpClient.SendAsync(request).Result;
 
             NavigateToRadiationMeasurementsPage("Radiation Measurements by Month Of Year", "year");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);

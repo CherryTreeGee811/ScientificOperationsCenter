@@ -1,5 +1,6 @@
 ﻿import { handleTemperaturesRoutes, initTemperaturesLinkListeners } from './temperatures/router.mjs';
 import { handleRadiationMeasurementsRoutes, initRadiationMeasurementsLinkListeners } from './radiation-measurements/router.mjs';
+import { getToken } from './api.mjs';
 
 
 /**
@@ -14,6 +15,7 @@ import { handleRadiationMeasurementsRoutes, initRadiationMeasurementsLinkListene
  */
 document.addEventListener("DOMContentLoaded", () => {
     const contentDiv = document.getElementById("content");
+    getToken();
 
 
     /**

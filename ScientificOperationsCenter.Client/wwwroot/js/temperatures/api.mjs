@@ -1,4 +1,7 @@
-﻿/**
+﻿import { getAccessTokenFromCookie } from '../parser.mjs';
+
+
+/**
  * @module api
  * @description This module manages api requests for temperatures.
  * It provides functions to fetch temperature data from the server.
@@ -29,9 +32,12 @@ const base = "http://localhost:8000/api/Temperatures"
  */
 export function getChartData(date, timespan) {
     const url = `${base}/${timespan}?date=${date}`;
+    const accessToken = getAccessTokenFromCookie();
+
     return fetch(url, {
         mode: 'cors',
         headers: {
+            'Authorization': `Bearer ${accessToken}`,
             'Accept': 'application/json',
             'Accept-Language': 'en-US',
         }
