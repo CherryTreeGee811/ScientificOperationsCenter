@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace ScientificOperationsCenter.Api.Models
@@ -12,6 +13,7 @@ namespace ScientificOperationsCenter.Api.Models
         /// Gets or sets the unique identifier for the radiation measurement.
         /// </summary>
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
 
