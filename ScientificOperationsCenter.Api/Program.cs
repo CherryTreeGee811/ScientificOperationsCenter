@@ -20,7 +20,7 @@ builder.Services.AddCors(options =>
                           policy
                           .AllowAnyOrigin()
                           .WithMethods("GET", "POST")
-                          .WithHeaders(headers: new[] { "Accept", "Accept-Language", "Authorization" });
+                          .WithHeaders(headers: new[] { "Content-Type", "Accept", "Accept-Language", "Authorization" });
                       });
 });
 
