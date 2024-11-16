@@ -224,6 +224,7 @@ p {
 @media (min-height: 800px) {
     #chart {
         max-height: 650px !important;
+        background: rgba(255, 255, 255, 0.95);
     }
 }
 
