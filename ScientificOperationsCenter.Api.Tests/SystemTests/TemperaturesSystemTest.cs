@@ -27,7 +27,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             _temperaturesRepository = new TemperaturesRepository(_scientificOperationsContext);
             _temperaturesService = new TemperaturesService(_temperaturesRepository);
             _temperaturesMapper = new TemperaturesMapper(_temperaturesService);
-            _temperaturesController = new TemperaturesController(_temperaturesMapper);
+            _temperaturesController = new TemperaturesController(_temperaturesMapper, _temperaturesRepository);
         }
 
 

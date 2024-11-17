@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ScientificOperationsCenter.Api.DAL.Interfaces;
 using ScientificOperationsCenter.Api.Mappers.Interfaces;
+using ScientificOperationsCenter.Api.Models;
 using Serilog;
 using System.Globalization;
 
@@ -15,7 +17,10 @@ namespace ScientificOperationsCenter.Api.Controllers
     [Authorize]
     public sealed class TemperaturesController : ControllerBase
     {
+        // ToDo: Update comments + tests
+
         private readonly ITemperaturesMapper _temperaturesMapper;
+        private readonly ITemperaturesRepository _temperaturesRepository;
 
 
         /// <summary>
@@ -23,9 +28,10 @@ namespace ScientificOperationsCenter.Api.Controllers
         /// </summary>
         /// <param name="temperaturesMapper">Mapper for temperature data.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="temperaturesMapper"/> is null.</exception>
-        public TemperaturesController(ITemperaturesMapper temperaturesMapper)
+        public TemperaturesController(ITemperaturesMapper temperaturesMapper, ITemperaturesRepository temperaturesRepository)
         {
             _temperaturesMapper = temperaturesMapper ?? throw new ArgumentNullException(nameof(temperaturesMapper));
+            _temperaturesRepository = temperaturesRepository ?? throw new ArgumentNullException(nameof(temperaturesRepository));
         }
 
 
@@ -126,6 +132,34 @@ namespace ScientificOperationsCenter.Api.Controllers
             catch (Exception gEx)
             {
                 Log.Error(gEx, "TemperaturesController -> Year() -> Returned status code 500.");
+                return StatusCode(500);
+            }
+        }
+
+
+        [AllowAnonymous]
+        [HttpPost("Recieve")]
+        public async Task<IActionResult> Recieve([FromBody] Temperatures[] temperatures)
+        {
+            if (temperatures == null)
+            {
+                return BadRequest("Temperatures array is null");
+            }
+
+            try
+            {
+                // Ids are auto-assigned by the database, so make 0 for now
+                foreach (var temperature in temperatures)
+                {
+                    temperature.Id = 0;
+                }
+
+                await _temperaturesRepository.AddTemperatures(temperatures);
+                return Ok();
+            }
+            catch (Exception gEx)
+            {
+                Log.Error(gEx, "TemperaturesController -> Recieve() -> Returned status code 500.");
                 return StatusCode(500);
             }
         }
