@@ -26,7 +26,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             _radiationMeasurementsRepository = new RadiationMeasurementsRepository(_scientificOperationsContext);
             _radiationMeasurementsService = new RadiationMeasurementsService(_radiationMeasurementsRepository);
             _radiationMeasurementsMapper = new RadiationMeasurementsMapper(_radiationMeasurementsService);
-            _radiationMeasurementsController = new RadiationMeasurementsController(_radiationMeasurementsMapper);
+            _radiationMeasurementsController = new RadiationMeasurementsController(_radiationMeasurementsMapper, _radiationMeasurementsRepository);
         }
 
 

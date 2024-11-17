@@ -5,12 +5,16 @@ using ScientificOperationsCenter.Tests.Mocks;
 using ScientificOperationsCenter.Api.ViewModels;
 using ScientificOperationsCenter.Api.Mappers.Interfaces;
 using Moq;
+using ScientificOperationsCenter.Api.DAL;
+using ScientificOperationsCenter.Api.Tests.Mocks;
 
 
 namespace ScientificOperationsCenter.Tests.UnitTests
 {
     internal class RadiationMeasurementsControllerUnitTest
     {
+        private ScientificOperationsCenterContext _scientificOperationsContext;
+        private RadiationMeasurementsRepository _radiationMeasurementsRepository;
         private Mock<IRadiationMeasurementsMapper> _radiationMeasurementsMapper;
         private RadiationMeasurementsController _radiationMeasurementsController;
 
@@ -18,14 +22,18 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         [SetUp]
         public void SetUp()
         {
+            _scientificOperationsContext = MockScientificOperationsCenterContext.GetMock();
+            _radiationMeasurementsRepository = new RadiationMeasurementsRepository(_scientificOperationsContext);
             _radiationMeasurementsMapper = MockIRadiationMeasurementsMapper.GetMock();
-            _radiationMeasurementsController = new RadiationMeasurementsController(_radiationMeasurementsMapper.Object);
+            _radiationMeasurementsController = new RadiationMeasurementsController(_radiationMeasurementsMapper.Object, _radiationMeasurementsRepository);
         }
 
 
         [TearDown]
         public void TearDown()
         {
+            _scientificOperationsContext?.Database.EnsureDeleted();
+            _scientificOperationsContext?.Dispose();
         }
 
 

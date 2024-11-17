@@ -5,15 +5,16 @@ using ScientificOperationsCenter.Tests.Mocks;
 using ScientificOperationsCenter.Api.ViewModels;
 using ScientificOperationsCenter.Api.Mappers.Interfaces;
 using Moq;
-using ScientificOperationsCenter.Api.BusinessLogic;
-using ScientificOperationsCenter.Api.DAL.Interfaces;
-using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
+using ScientificOperationsCenter.Api.DAL;
+using ScientificOperationsCenter.Api.Tests.Mocks;
 
 
 namespace ScientificOperationsCenter.Tests.UnitTests
 {
     internal class TemperaturesControllerUnitTest
     {
+        private ScientificOperationsCenterContext _scientificOperationsContext;
+        private TemperaturesRepository _temperaturesRepository;
         private Mock<ITemperaturesMapper> _temperaturesMapperMock;
         private TemperaturesController _temperaturesController;
         private Random _random;
@@ -22,8 +23,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         [SetUp]
         public void SetUp()
         {
+            _scientificOperationsContext = MockScientificOperationsCenterContext.GetMock();
+            _temperaturesRepository = new TemperaturesRepository(_scientificOperationsContext);
             _temperaturesMapperMock = MockITemperaturesMapper.GetMock();
-            _temperaturesController = new TemperaturesController(_temperaturesMapperMock.Object);
+            _temperaturesController = new TemperaturesController(_temperaturesMapperMock.Object, _temperaturesRepository);
             _random = new Random();
         }
 
@@ -31,6 +34,8 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         [TearDown]
         public void TearDown()
         {
+            _scientificOperationsContext?.Database.EnsureDeleted();
+            _scientificOperationsContext?.Dispose();
         }
 
 
