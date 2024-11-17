@@ -1,4 +1,4 @@
-/*******************************************************************************/
+****************************************************************************/
 /***********************  General Styles ************************************/
 * {
     margin: 0;
@@ -7,7 +7,7 @@
 }
 
 html {
-    font-size: 14px;
+    font-size: 20px;
     position: relative;
     min-height: 100%;
 }
@@ -16,6 +16,8 @@ body {
     background-color: white;
     font-family: "Arial", sans-serif;
     margin-bottom: 60px;
+    background-image: url("../images/betteraideepfield.png");
+    background-size: cover;
 }
 
 @media (min-width: 768px) {
@@ -31,11 +33,12 @@ a {
 /*******************************************************************************/
 /***********************  Header Styles ************************************/
 .header {
-    background-color: black;
-    box-shadow: 1px 1px 5px 0px grey;
+    background: rgba(0, 0, 0, 0.65);
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.65);
     position: sticky;
     top: 0;
     width: 100%;
+    z-index: 2;
 }
 
 #home-link {
@@ -105,7 +108,7 @@ a {
     width: 100%;
     height: auto;
     position: fixed;
-    background-color: black;
+    background-color: rgb(0, 0, 0, 0.65);
     overflow: hidden;
     max-height: 0;
     transition: max-height .5s ease-out;
@@ -171,6 +174,31 @@ main {
 
 h1 {
     text-align: center;
+    text-shadow: 2px 2px black;
+    font-size: 32pt;
+    margin-bottom: 2%;
+}
+
+h2 {
+    text-shadow: 2px 2px black;
+    font-size: 26pt;
+    margin-bottom: 1%;
+}
+
+li {
+    text-shadow: 2px 2px black;
+}
+
+p {
+    text-shadow: 2px 2px black;
+}
+
+#title-head {
+    margin-bottom: 3%;
+}
+
+#subtitle-head {
+    margin-bottom: 3%;
 }
 
 #chart {
@@ -196,10 +224,13 @@ h1 {
 @media (min-height: 800px) {
     #chart {
         max-height: 650px !important;
+        background: rgba(255, 255, 255, 0.95);
     }
 }
 
-#chart-form {}
+#chart-form {
+    color: black;
+}
 
 select, input {
   width: 100%;
@@ -232,6 +263,19 @@ input[type=button]:hover {
   padding: 20px;
   margin-left: 10%;
   margin-right: 10%;
+  color: black;
+}
+
+.container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+  background-size: cover;
+}
+
+#content {
+    color: white;
 }
 
 .footer {
@@ -239,7 +283,7 @@ input[type=button]:hover {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: black;
+    background: rgba(0, 0, 0, 0.5);
     padding: 15px 0px;
     color: white;
     text-align: center;
