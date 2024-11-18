@@ -12,7 +12,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 {
     internal class TemperaturesSystemTest
     {
-
+        private MockGroundControlUplinkDownlink _mockGroundControlUplinkDownlink;
         private ScientificOperationsCenterContext _scientificOperationsContext;
         private TemperaturesRepository _temperaturesRepository;
         private TemperaturesService _temperaturesService;
@@ -21,13 +21,15 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
+            _mockGroundControlUplinkDownlink = new MockGroundControlUplinkDownlink();
             _scientificOperationsContext = MockScientificOperationsCenterContext.GetMock();
             _temperaturesRepository = new TemperaturesRepository(_scientificOperationsContext);
             _temperaturesService = new TemperaturesService(_temperaturesRepository);
             _temperaturesMapper = new TemperaturesMapper(_temperaturesService);
             _temperaturesController = new TemperaturesController(_temperaturesMapper, _temperaturesRepository);
+            await _temperaturesController.Recieve(_mockGroundControlUplinkDownlink.GetTemperatures());
         }
 
 
@@ -70,7 +72,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
         public async Task GivenAMockContext_WhenGettingAverageTemperaturesByDayOfMonth_ThenIf200OKCollectionOfTemperaturesJSONSortedByDayReturn()
         {
             // Setup
-            var date = "2024-10-01";
+            var date = "2020-10-01";
 
             // Action
             var controllerResult = await _temperaturesController.Month(date);
@@ -97,7 +99,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
         public async Task GivenAMockContext_WhenGettingAverageTemperaturesByMonthOfYear_ThenIf200OKCollectionOfTemperaturesJSONSortedByMonthReturn()
         {
             // Setup
-            var date = "2024-01-01";
+            var date = "2020-01-01";
 
             // Action
             var controllerResult = await _temperaturesController.Year(date);
