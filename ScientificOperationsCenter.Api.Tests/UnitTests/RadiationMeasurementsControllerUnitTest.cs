@@ -181,7 +181,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             IRadiationMeasurementsMapper radiationMeasurementsMapper = null;
 
             // Action
-            TestDelegate action = () => new RadiationMeasurementsController(radiationMeasurementsMapper);
+            TestDelegate action = () => new RadiationMeasurementsController(radiationMeasurementsMapper, _radiationMeasurementsRepository);
             
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(action);
@@ -196,7 +196,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
             radiationMeasurementsMapperMock.Setup(m => m.GetRadiationMeasurementsForTheDayAsync(It.IsAny<DateOnly>()))
                 .Throws(new Exception("Test exception handling for Api endpoint Day"));
-            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object);
+            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object, _radiationMeasurementsRepository);
             var date = "2025-10-01";
 
             // Action
@@ -217,7 +217,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
             radiationMeasurementsMapperMock.Setup(m => m.GetRadiationMeasurementsForTheMonthAsync(It.IsAny<DateOnly>()))
                 .Throws(new Exception("Test exception handling for Api endpoint Month"));
-            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object);
+            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object, _radiationMeasurementsRepository);
             var date = "2025-10-01";
 
             // Action
@@ -238,7 +238,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
             radiationMeasurementsMapperMock.Setup(m => m.GetRadiationMeasurementsForTheYearAsync(It.IsAny<DateOnly>()))
                 .Throws(new Exception("Test exception handling for Api endpoint Year"));
-            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object);
+            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object, _radiationMeasurementsRepository);
             var date = "2025-10-01";
 
             // Action

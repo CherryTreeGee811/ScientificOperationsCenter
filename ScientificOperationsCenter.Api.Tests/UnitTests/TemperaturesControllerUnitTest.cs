@@ -183,7 +183,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             ITemperaturesMapper temperaturesMapper = null;
 
             // Action
-            TestDelegate action = () => new TemperaturesController(temperaturesMapper);
+            TestDelegate action = () => new TemperaturesController(temperaturesMapper, _temperaturesRepository);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(action);
@@ -198,7 +198,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
             temperaturesMapperMock.Setup(m => m.GetTemperaturesForTheDayAsync(It.IsAny<DateOnly>()))
                 .Throws(new Exception("Test exception handling for Api endpoint Day"));
-            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
+            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object, _temperaturesRepository);
             var date = "2025-10-08";
 
             // Action
@@ -219,7 +219,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
             temperaturesMapperMock.Setup(m => m.GetTemperaturesForTheMonthAsync(It.IsAny<DateOnly>()))
                 .Throws(new Exception("Test exception handling for Api endpoint Month"));
-            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
+            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object, _temperaturesRepository);
             var date = new DateOnly(2024, 10, _random.Next(1, 30)).ToString();
 
             // Action
@@ -240,7 +240,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
             temperaturesMapperMock.Setup(m => m.GetTemperaturesForTheYearAsync(It.IsAny<DateOnly>()))
                 .Throws(new Exception("Test exception handling for Api endpoint Year"));
-            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
+            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object, _temperaturesRepository);
             var date = new DateOnly(2024, _random.Next(1, 12), _random.Next(1, 30)).ToString();
 
             // Action

@@ -12,6 +12,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 {
     internal class RadiationMeasurementSystemTest
     {
+        private MockGroundControlUplinkDownlink _mockGroundControlUplinkDownlink;
         private ScientificOperationsCenterContext _scientificOperationsContext;
         private RadiationMeasurementsRepository _radiationMeasurementsRepository;
         private RadiationMeasurementsService _radiationMeasurementsService;
@@ -20,13 +21,15 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
+            _mockGroundControlUplinkDownlink = new MockGroundControlUplinkDownlink();
             _scientificOperationsContext = MockScientificOperationsCenterContext.GetMock();
             _radiationMeasurementsRepository = new RadiationMeasurementsRepository(_scientificOperationsContext);
             _radiationMeasurementsService = new RadiationMeasurementsService(_radiationMeasurementsRepository);
             _radiationMeasurementsMapper = new RadiationMeasurementsMapper(_radiationMeasurementsService);
             _radiationMeasurementsController = new RadiationMeasurementsController(_radiationMeasurementsMapper, _radiationMeasurementsRepository);
+            await _radiationMeasurementsController.Recieve(_mockGroundControlUplinkDownlink.GetRadiationMeasurements());
         }
 
 
@@ -42,7 +45,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
         public async Task GivenAMockContext_WhenGettingTotalRadiationMeasurementsByHourOfDay_ThenIf200OKCollectionOfRadiationMeasurementsJSONSortedByHourReturn()
         {
             // Setup
-            var date = "2024-10-09";
+            var date = "2020-10-09";
 
             // Action
             var controllerResult = await _radiationMeasurementsController.Day(date);
@@ -69,7 +72,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
         public async Task GivenAMockContext_WhenGettingTotalRadiationMeasurementsByDayOfMonth_ThenIf200OKCollectionOfRadiationMeasurementsJSONSortedByDayReturn()
         {
             // Setup
-            var date = "2024-10-01";
+            var date = "2020-10-01";
 
             // Action
             var controllerResult = await _radiationMeasurementsController.Month(date);
@@ -96,7 +99,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
         public async Task GivenAMockContext_WhenGettingTotalRadiationMeasurementsByMonthOfYear_ThenIf200OKCollectionOfRadiationMeasurementsJSONSortedByMonthReturn()
         {
             // Setup
-            var date = "2024-01-01";
+            var date = "2020-01-01";
 
             // Action
             var controllerResult = await _radiationMeasurementsController.Year(date);
