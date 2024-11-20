@@ -79,6 +79,7 @@ jobs:
             shell: bash
             run: |
               doxygen Doxyfile
+              ls
 
           - name: Push Docker Images to DockerHub
             if: ${{ github.ref == 'refs/heads/stable' }}
