@@ -38,7 +38,7 @@ jobs:
           - name: Run API Tests
             shell: bash
             run: |
-              #dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj --os linux --verbosity minimal 
+              dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj --collect:"XPlat Code Coverage" --os linux --verbosity minimal 
 
           - name: Nikto Scan Backend
             shell: bash
@@ -63,7 +63,7 @@ jobs:
           - name: Run Client Tests
             shell: bash
             run: |
-              dotnet test ./ScientificOperationsCenter.Client.Tests/ScientificOperationsCenter.Client.Tests.csproj --os linux --verbosity minimal
+              dotnet test ./ScientificOperationsCenter.Client.Tests/ScientificOperationsCenter.Client.Tests.csproj --collect:"XPlat Code Coverage" --os linux --verbosity minimal 
 
           - name: Nikto Scan Frontend
             shell: bash
@@ -74,6 +74,11 @@ jobs:
             shell: bash
             run: |
               docker stop scientificoperationscenterclient
+          
+          - name: Generate Doxygen Documentation
+            shell: bash
+            run: |
+              doxygen Doxyfile
 
           - name: Push Docker Images to DockerHub
             if: ${{ github.ref == 'refs/heads/stable' }}
