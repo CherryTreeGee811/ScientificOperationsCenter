@@ -22,7 +22,7 @@ jobs:
             shell: bash
             run: |
               dotnet tool install --global dotnet-outdated-tool
-              sudo apt install nikto
+              sudo apt install -y nikto doxygen
 
           - name: Update NuGet Packages
             shell: bash
