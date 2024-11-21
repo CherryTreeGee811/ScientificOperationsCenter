@@ -22,7 +22,7 @@ jobs:
             shell: bash
             run: |
               dotnet tool install --global dotnet-outdated-tool
-              sudo apt install -y nikto doxygen
+              sudo apt install -y nikto doxygen libxml2-utils
 
           - name: Update NuGet Packages
             shell: bash
@@ -38,9 +38,21 @@ jobs:
           - name: Run API Tests
             shell: bash
             run: |
-              mkdir APITestResults
-              dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj --collect:"XPlat Code Coverage" --results-directory ./APITestResults --os linux --verbosity minimal
+              mkdir -p APITestResults
+              dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj \
+                --collect:"XPlat Code Coverage" \
+                --results-directory ./APITestResults \
+                --os linux \
+                --verbosity minimal
+              coverage_file=$(find ./APITestResults -name "coverage.cobertura.xml" -print -quit)
               grep "Lines:" APITestResults/coverage_report.txt | awk '{print $2}'
+              
+              if [ -f "$coverage_file" ]; then
+                coverage_percent=$(xmllint --xpath "string(//coverage/@line-rate)" "$coverage_file")
+                echo "Code Coverage: $coverage_percent"
+              else
+                echo "Coverage file not found."
+              fi
 
           - name: Nikto Scan Backend
             shell: bash
