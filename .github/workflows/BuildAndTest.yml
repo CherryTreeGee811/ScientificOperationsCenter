@@ -38,6 +38,7 @@ jobs:
           - name: Run API Tests
             shell: bash
             run: |
+              mkdir APITestResults
               dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj --collect:"XPlat Code Coverage" --results-directory ./APITestResults --os linux --verbosity minimal
               grep "Lines:" APITestResults/coverage_report.txt | awk '{print $2}'
 
@@ -64,6 +65,7 @@ jobs:
           - name: Run Client Tests
             shell: bash
             run: |
+              mkdir ClientTestResults
               dotnet test ./ScientificOperationsCenter.Client.Tests/ScientificOperationsCenter.Client.Tests.csproj --collect:"XPlat Code Coverage" --results-directory ./ClientTestResults --os linux --verbosity minimal
               grep "Lines:" ClientTestResults/coverage_report.txt | awk '{print $2}'
 
