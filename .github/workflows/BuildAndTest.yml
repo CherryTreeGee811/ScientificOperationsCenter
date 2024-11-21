@@ -22,7 +22,7 @@ jobs:
             shell: bash
             run: |
               dotnet tool install --global dotnet-outdated-tool
-              sudo apt install nikto
+              sudo apt install -y nikto doxygen libxml2-utils
 
           - name: Update NuGet Packages
             shell: bash
@@ -38,7 +38,22 @@ jobs:
           - name: Run API Tests
             shell: bash
             run: |
-              #dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj --os linux --verbosity minimal 
+              mkdir -p APITestResults
+              dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj \
+                --collect:"XPlat Code Coverage" \
+                --results-directory ./APITestResults \
+                --os linux \
+                --verbosity minimal
+              
+              coverage_file=$(find ./APITestResults -name "coverage.cobertura.xml" -print -quit)
+              
+              if [ -f "$coverage_file" ]; then
+                coverage_percent=$(xmllint --xpath "string(//coverage/@line-rate)" "$coverage_file")
+                coverage_percentage=$(echo "$coverage_percent * 100" | bc)
+                printf "API Code Coverage: %.1f%%\n" "$coverage_percentage"
+              else
+                echo "Coverage file not found."
+              fi
 
           - name: Nikto Scan Backend
             shell: bash
@@ -63,7 +78,18 @@ jobs:
           - name: Run Client Tests
             shell: bash
             run: |
-              dotnet test ./ScientificOperationsCenter.Client.Tests/ScientificOperationsCenter.Client.Tests.csproj --os linux --verbosity minimal
+              mkdir -p ClientTestResults
+              dotnet test ./ScientificOperationsCenter.Client.Tests/ScientificOperationsCenter.Client.Tests.csproj --collect:"XPlat Code Coverage" --results-directory ./ClientTestResults --os linux --verbosity minimal
+              
+              coverage_file=$(find ./ClientTestResults -name "coverage.cobertura.xml" -print -quit)
+              
+              if [ -f "$coverage_file" ]; then
+                coverage_percent=$(xmllint --xpath "string(//coverage/@line-rate)" "$coverage_file")
+                coverage_percentage=$(echo "$coverage_percent * 100" | bc)
+                printf "Client Code Coverage: %.1f%%\n" "$coverage_percentage"
+              else
+                echo "Coverage file not found."
+              fi
 
           - name: Nikto Scan Frontend
             shell: bash
@@ -74,6 +100,17 @@ jobs:
             shell: bash
             run: |
               docker stop scientificoperationscenterclient
+          
+          - name: Generate Doxygen Documentation
+            shell: bash
+            run: |
+              doxygen Doxyfile
+
+          - name: Upload Doxygen Documentation
+            uses: actions/upload-artifact@v4
+            with:
+              name: documentation
+              path: ./docs
 
           - name: Push Docker Images to DockerHub
             if: ${{ github.ref == 'refs/heads/stable' }}
