@@ -45,7 +45,6 @@ jobs:
                 --os linux \
                 --verbosity minimal
               coverage_file=$(find ./APITestResults -name "coverage.cobertura.xml" -print -quit)
-              grep "Lines:" APITestResults/coverage_report.txt | awk '{print $2}'
               
               if [ -f "$coverage_file" ]; then
                 coverage_percent=$(xmllint --xpath "string(//coverage/@line-rate)" "$coverage_file")
