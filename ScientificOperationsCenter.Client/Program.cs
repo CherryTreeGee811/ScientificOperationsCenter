@@ -8,9 +8,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 
-app.MapGet("/", async context =>
+async Task ServeIndexHtml(HttpContext context)
 {
     var filePath = Path.Combine("wwwroot", "index.html");
+
     if (File.Exists(filePath))
     {
         context.Response.ContentType = "text/html";
@@ -24,6 +25,18 @@ app.MapGet("/", async context =>
         context.Response.StatusCode = 404;
         await context.Response.WriteAsync("File not found");
     }
-});
+}
+
+
+app.MapGet("/", async context => await ServeIndexHtml(context));
+app.MapGet("/temperatures", async context => await ServeIndexHtml(context));
+app.MapGet("/temperatures/day", async context => await ServeIndexHtml(context));
+app.MapGet("/temperatures/month", async context => await ServeIndexHtml(context));
+app.MapGet("/temperatures/year", async context => await ServeIndexHtml(context));
+app.MapGet("/radiation-measurements", async context => await ServeIndexHtml(context));
+app.MapGet("/radiation-measurements/day", async context => await ServeIndexHtml(context));
+app.MapGet("/radiation-measurements/month", async context => await ServeIndexHtml(context));
+app.MapGet("/radiation-measurements/year", async context => await ServeIndexHtml(context));
+
 
 app.Run();
