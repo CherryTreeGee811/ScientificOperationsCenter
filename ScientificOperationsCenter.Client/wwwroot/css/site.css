@@ -16,7 +16,8 @@ body {
     background-color: white;
     font-family: "Arial", sans-serif;
     margin-bottom: 60px;
-    background-image: url("../images/betteraideepfield.png");
+    background-image: url("/images/betteraideepfield.png");
+    overflow: hidden;
     background-size: cover;
 }
 
@@ -204,6 +205,7 @@ p {
 #chart {
     width: 80%;
     height: 80%;
+    background-color: white;
 }
 
 @media (min-width: 768px) {

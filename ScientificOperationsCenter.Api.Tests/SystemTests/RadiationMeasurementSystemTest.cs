@@ -51,7 +51,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 
 
         [Test]
-        public async Task GivenAMockContext_WhenGettingTotalRadiationMeasurementsByHourOfDay_ThenIf200OKCollectionOfRadiationMeasurementsJSONSortedByHourReturn()
+        public async Task GivenAMockGroundControl_WhenGettingTotalRadiationMeasurementsByHourOfDay_ThenIf200OKCollectionOfRadiationMeasurementsJSONSortedByHourReturn()
         {
             // Setup
             var date = "2020-10-09";
@@ -78,7 +78,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 
 
         [Test]
-        public async Task GivenAMockContext_WhenGettingTotalRadiationMeasurementsByDayOfMonth_ThenIf200OKCollectionOfRadiationMeasurementsJSONSortedByDayReturn()
+        public async Task GivenAMockGroundControl_WhenGettingTotalRadiationMeasurementsByDayOfMonth_ThenIf200OKCollectionOfRadiationMeasurementsJSONSortedByDayReturn()
         {
             // Setup
             var date = "2020-10-01";
@@ -105,7 +105,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 
 
         [Test]
-        public async Task GivenAMockContext_WhenGettingTotalRadiationMeasurementsByMonthOfYear_ThenIf200OKCollectionOfRadiationMeasurementsJSONSortedByMonthReturn()
+        public async Task GivenAMockGroundControl_WhenGettingTotalRadiationMeasurementsByMonthOfYear_ThenIf200OKCollectionOfRadiationMeasurementsJSONSortedByMonthReturn()
         {
             // Setup
             var date = "2020-01-01";
@@ -132,7 +132,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 
 
         [Test]
-        public async Task GivenAMockContext_WhenGettingTotalRadiationMeasurementsByHourOfDay_ThenIf204NoContentEmptyCollectionReturn()
+        public async Task GivenAMockGroundControl_WhenGettingTotalRadiationMeasurementsByHourOfDay_ThenIf204NoContentEmptyCollectionReturn()
         {
             // Setup
             var date = "1900-01-01";
@@ -149,7 +149,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 
 
         [Test]
-        public async Task GivenAMockContext_WhenGettingTotalRadiationMeasurementsByDayOfMonth_ThenIf204NoContentEmptyCollectionReturn()
+        public async Task GivenAMockGroundControl_WhenGettingTotalRadiationMeasurementsByDayOfMonth_ThenIf204NoContentEmptyCollectionReturn()
         {
             // Setup
             var date = "1900-01-01";
@@ -166,7 +166,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 
 
         [Test]
-        public async Task GivenAMockContext_WhenGettingTotalRadiationMeasurementsByMonthOfYear_ThenIf204NoContentEmptyCollectionReturn()
+        public async Task GivenAMockGroundControl_WhenGettingTotalRadiationMeasurementsByMonthOfYear_ThenIf204NoContentEmptyCollectionReturn()
         {
             // Setup
             var date = "1900-01-01";
