@@ -54,15 +54,13 @@ export function loadTemperaturesForDay(date) {
         })
         .catch(error => {
             const chart = document.getElementById('chart');
-            chart.styles.display = "none";
+            chart.style.display = "none";
             chart.ariaHidden = true;
 
             if (error.message.includes("404")) {
                 errorTextElement.textContent = "Endpoint not found";
             } else if (error.message.includes("400")) {
                 errorTextElement.textContent = "Invalid date was passed";
-            } else if (error.message.includes("401")) {
-                errorTextElement.textContent = "Unauthorized";
             } else if (error.message.includes("500")) {
                 errorTextElement.textContent = "Internal server error";
             } else {

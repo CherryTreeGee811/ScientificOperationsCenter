@@ -25,6 +25,8 @@ export function getToken(username, password) {
                 } else {
                     return response.json();
                 }
+            } else if (response.status == 401) {
+                document.getElementById("login-link").click();
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

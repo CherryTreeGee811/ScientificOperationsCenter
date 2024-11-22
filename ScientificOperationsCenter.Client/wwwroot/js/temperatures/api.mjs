@@ -49,6 +49,11 @@ export function getChartData(date, timespan) {
                 } else {
                     return response.json();
                 }
+            } else if (response.status == 401) {
+                const loginLinkElem = document.getElementById("login-link");
+                loginLinkElem.style.display = "block";
+                loginLinkElem.ariaHidden = false;
+                loginLinkElem.click();
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

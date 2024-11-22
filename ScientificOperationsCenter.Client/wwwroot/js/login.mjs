@@ -18,10 +18,10 @@ function manageSubmission() {
 
     if (result) {
         const loginLinkElement = document.getElementById("login-link");
-        const homeLinkElement = document.getElementById("home-link");
         loginLinkElement.style.display = 'none';
         loginLinkElement.ariaHidden = true;
-        homeLinkElement.click();
+        const homeLinkElement = document.getElementById("home-link");
+        loginLinkElement.addEventListener("load", homeLinkElement.click());
     } else {
         console.error("You have provided invalid credentials, please try again.");
     }
