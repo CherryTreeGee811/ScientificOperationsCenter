@@ -220,13 +220,13 @@ p {
     }
 
     #chart {
-        max-height: 350px;
+        max-height: 340px;
     }
 }
 
 @media (min-height: 800px) {
     #chart {
-        max-height: 650px !important;
+        max-height: 630px !important;
         background: rgba(255, 255, 255, 0.95);
     }
 }
