@@ -28,7 +28,7 @@ namespace ScientificOperationsCenter.Api.Controllers
         [HttpPost("receive")]
         public async Task<IActionResult> Index([FromBody] SpacecraftPayload spacecraftPayload)
         {
-            // ToDo: Protect endpoint with auth, check for null
+            // ToDo: Protect endpoint with auth
             if (spacecraftPayload == null)
             {
                 return BadRequest("Payload values were not provided");
@@ -61,6 +61,7 @@ namespace ScientificOperationsCenter.Api.Controllers
                         TemperatureCelcius = data,
                     };
                     await _temperaturesRepository.AddTemperature(temperature);
+                    return Ok();
                 }
                 else if (spacecraftPayload.DataType.Trim().ToLower().Equals("radiationreading"))
                 {
@@ -73,9 +74,10 @@ namespace ScientificOperationsCenter.Api.Controllers
                     };
 
                     await _radiationMeasurementsRepository.AddRadiationMeasurement(radiationMeasurement);
+                    return Ok();
                 }
                 
-                return Ok();
+                return BadRequest("We are only receiving RadiationReading or TemperatureReading as dataType");
             }
             catch (Exception gEx)
             {
