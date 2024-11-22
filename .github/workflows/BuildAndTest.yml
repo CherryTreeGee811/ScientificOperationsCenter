@@ -21,16 +21,8 @@ jobs:
           - name: Install Tools
             shell: bash
             run: |
-              dotnet tool install --global dotnet-outdated-tool
               sudo apt install -y nikto doxygen libxml2-utils
 
-          - name: Update NuGet Packages
-            shell: bash
-            run: |
-              dotnet outdated -u ./ScientificOperationsCenter.Api/ScientificOperationsCenter.Api.csproj
-              dotnet outdated -u ./ScientificOperationsCenter.Auth/ScientificOperationsCenter.Auth.csproj
-              dotnet outdated -u ./ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj
-      
           - name: Build and Run App Containers
             shell: bash
             run: docker compose up -d
