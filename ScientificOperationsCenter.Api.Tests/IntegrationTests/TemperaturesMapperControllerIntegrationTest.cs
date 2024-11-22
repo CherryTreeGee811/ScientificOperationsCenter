@@ -14,8 +14,6 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 {
     internal class TemperaturesMapperControllerIntegrationTest
     {
-        private ScientificOperationsCenterContext _scientificOperationsContext;
-        private TemperaturesRepository _temperaturesRepository;
         private Mock<ITemperaturesService> _temperaturesServiceMock;
         private TemperaturesMapper _temperaturesMapper;
         private TemperaturesController _temperaturesController;
@@ -24,19 +22,15 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
         [SetUp]
         public void SetUp()
         {
-            _scientificOperationsContext = MockScientificOperationsCenterContext.GetMock();
-            _temperaturesRepository = new TemperaturesRepository(_scientificOperationsContext);
             _temperaturesServiceMock = MockITemperaturesService.GetMock();
             _temperaturesMapper = new TemperaturesMapper(_temperaturesServiceMock.Object);
-            _temperaturesController = new TemperaturesController(_temperaturesMapper, _temperaturesRepository);
+            _temperaturesController = new TemperaturesController(_temperaturesMapper);
         }
 
 
         [TearDown]
         public void TearDown()
         {
-            _scientificOperationsContext?.Database.EnsureDeleted();
-            _scientificOperationsContext?.Dispose();
         }
 
 

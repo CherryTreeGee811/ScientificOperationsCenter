@@ -5,16 +5,12 @@ using ScientificOperationsCenter.Tests.Mocks;
 using ScientificOperationsCenter.Api.ViewModels;
 using ScientificOperationsCenter.Api.Mappers.Interfaces;
 using Moq;
-using ScientificOperationsCenter.Api.DAL;
-using ScientificOperationsCenter.Api.Tests.Mocks;
 
 
 namespace ScientificOperationsCenter.Tests.UnitTests
 {
     internal class TemperaturesControllerUnitTest
     {
-        private ScientificOperationsCenterContext _scientificOperationsContext;
-        private TemperaturesRepository _temperaturesRepository;
         private Mock<ITemperaturesMapper> _temperaturesMapperMock;
         private TemperaturesController _temperaturesController;
         private Random _random;
@@ -23,10 +19,8 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         [SetUp]
         public void SetUp()
         {
-            _scientificOperationsContext = MockScientificOperationsCenterContext.GetMock();
-            _temperaturesRepository = new TemperaturesRepository(_scientificOperationsContext);
             _temperaturesMapperMock = MockITemperaturesMapper.GetMock();
-            _temperaturesController = new TemperaturesController(_temperaturesMapperMock.Object, _temperaturesRepository);
+            _temperaturesController = new TemperaturesController(_temperaturesMapperMock.Object);
             _random = new Random();
         }
 
@@ -34,8 +28,6 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         [TearDown]
         public void TearDown()
         {
-            _scientificOperationsContext?.Database.EnsureDeleted();
-            _scientificOperationsContext?.Dispose();
         }
 
 
@@ -183,7 +175,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             ITemperaturesMapper temperaturesMapper = null;
 
             // Action
-            TestDelegate action = () => new TemperaturesController(temperaturesMapper, _temperaturesRepository);
+            TestDelegate action = () => new TemperaturesController(temperaturesMapper);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(action);
@@ -198,7 +190,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
             temperaturesMapperMock.Setup(m => m.GetTemperaturesForTheDayAsync(It.IsAny<DateOnly>()))
                 .Throws(new Exception("Test exception handling for Api endpoint Day"));
-            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object, _temperaturesRepository);
+            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
             var date = "2025-10-08";
 
             // Action
@@ -219,7 +211,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
             temperaturesMapperMock.Setup(m => m.GetTemperaturesForTheMonthAsync(It.IsAny<DateOnly>()))
                 .Throws(new Exception("Test exception handling for Api endpoint Month"));
-            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object, _temperaturesRepository);
+            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
             var date = new DateOnly(2024, 10, _random.Next(1, 30)).ToString();
 
             // Action
@@ -240,7 +232,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var temperaturesMapperMock = MockITemperaturesMapper.GetMock();
             temperaturesMapperMock.Setup(m => m.GetTemperaturesForTheYearAsync(It.IsAny<DateOnly>()))
                 .Throws(new Exception("Test exception handling for Api endpoint Year"));
-            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object, _temperaturesRepository);
+            var temperaturesController = new TemperaturesController(temperaturesMapperMock.Object);
             var date = new DateOnly(2024, _random.Next(1, 12), _random.Next(1, 30)).ToString();
 
             // Action

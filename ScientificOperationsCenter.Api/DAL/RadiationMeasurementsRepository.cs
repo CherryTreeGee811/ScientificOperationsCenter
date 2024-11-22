@@ -146,26 +146,26 @@ namespace ScientificOperationsCenter.Api.DAL
         }
 
 
-        public async Task AddRadiationMeasurements(RadiationMeasurements[] radiationMeasurementsList)
+        public async Task AddRadiationMeasurement(RadiationMeasurements radiationMeasurements)
         {
             try
             {
-                _context.RadiationMeasurements.AddRange(radiationMeasurementsList);
+                _context.RadiationMeasurements.Add(radiationMeasurements);
                 await _context.SaveChangesAsync();
             }
             catch (SqlException dbEx)
             {
-                Log.Error(dbEx, "An SqlException was thrown in RadiationMeasurementsRepo -> AddRadiationMeasurements().");
+                Log.Error(dbEx, "An SqlException was thrown in RadiationMeasurementsRepo -> AddRadiationMeasurement().");
                 throw new DataAccessException("An error occurred while accessing the database.", dbEx);
             }
             catch (InvalidOperationException iEx)
             {
-                Log.Error(iEx, "An InvalidOperationException was thrown in RadiationMeasurementsRepo -> AddRadiationMeasurements().");
+                Log.Error(iEx, "An InvalidOperationException was thrown in RadiationMeasurementsRepo -> AddRadiationMeasurement().");
                 throw new DataAccessException("An error occurred while accessing the database.", iEx);
             }
             catch (Exception gEx)
             {
-                Log.Error(gEx, "An unexpected error occurred in RadiationMeasurementsRepo -> AddRadiationMeasurements().");
+                Log.Error(gEx, "An unexpected error occurred in RadiationMeasurementsRepo -> AddRadiationMeasurement().");
                 throw new DataAccessException("An unexpected error occurred.", gEx);
             }
         }

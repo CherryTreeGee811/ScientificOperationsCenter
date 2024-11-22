@@ -5,16 +5,12 @@ using ScientificOperationsCenter.Tests.Mocks;
 using ScientificOperationsCenter.Api.ViewModels;
 using ScientificOperationsCenter.Api.Mappers.Interfaces;
 using Moq;
-using ScientificOperationsCenter.Api.DAL;
-using ScientificOperationsCenter.Api.Tests.Mocks;
 
 
 namespace ScientificOperationsCenter.Tests.UnitTests
 {
     internal class RadiationMeasurementsControllerUnitTest
     {
-        private ScientificOperationsCenterContext _scientificOperationsContext;
-        private RadiationMeasurementsRepository _radiationMeasurementsRepository;
         private Mock<IRadiationMeasurementsMapper> _radiationMeasurementsMapper;
         private RadiationMeasurementsController _radiationMeasurementsController;
 
@@ -22,18 +18,14 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         [SetUp]
         public void SetUp()
         {
-            _scientificOperationsContext = MockScientificOperationsCenterContext.GetMock();
-            _radiationMeasurementsRepository = new RadiationMeasurementsRepository(_scientificOperationsContext);
             _radiationMeasurementsMapper = MockIRadiationMeasurementsMapper.GetMock();
-            _radiationMeasurementsController = new RadiationMeasurementsController(_radiationMeasurementsMapper.Object, _radiationMeasurementsRepository);
+            _radiationMeasurementsController = new RadiationMeasurementsController(_radiationMeasurementsMapper.Object);
         }
 
 
         [TearDown]
         public void TearDown()
         {
-            _scientificOperationsContext?.Database.EnsureDeleted();
-            _scientificOperationsContext?.Dispose();
         }
 
 
@@ -181,7 +173,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             IRadiationMeasurementsMapper radiationMeasurementsMapper = null;
 
             // Action
-            TestDelegate action = () => new RadiationMeasurementsController(radiationMeasurementsMapper, _radiationMeasurementsRepository);
+            TestDelegate action = () => new RadiationMeasurementsController(radiationMeasurementsMapper);
             
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(action);
@@ -196,7 +188,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
             radiationMeasurementsMapperMock.Setup(m => m.GetRadiationMeasurementsForTheDayAsync(It.IsAny<DateOnly>()))
                 .Throws(new Exception("Test exception handling for Api endpoint Day"));
-            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object, _radiationMeasurementsRepository);
+            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object);
             var date = "2025-10-01";
 
             // Action
@@ -217,7 +209,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
             radiationMeasurementsMapperMock.Setup(m => m.GetRadiationMeasurementsForTheMonthAsync(It.IsAny<DateOnly>()))
                 .Throws(new Exception("Test exception handling for Api endpoint Month"));
-            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object, _radiationMeasurementsRepository);
+            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object);
             var date = "2025-10-01";
 
             // Action
@@ -238,7 +230,7 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var radiationMeasurementsMapperMock = MockIRadiationMeasurementsMapper.GetMock();
             radiationMeasurementsMapperMock.Setup(m => m.GetRadiationMeasurementsForTheYearAsync(It.IsAny<DateOnly>()))
                 .Throws(new Exception("Test exception handling for Api endpoint Year"));
-            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object, _radiationMeasurementsRepository);
+            var radiationMeasurementsController = new RadiationMeasurementsController(radiationMeasurementsMapperMock.Object);
             var date = "2025-10-01";
 
             // Action

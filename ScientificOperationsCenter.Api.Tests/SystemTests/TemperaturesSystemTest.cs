@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ScientificOperationsCenter.Api.BusinessLogic;
 using ScientificOperationsCenter.Api.Controllers;
 using ScientificOperationsCenter.Api.DAL;
+using ScientificOperationsCenter.Api.DAL.Interfaces;
 using ScientificOperationsCenter.Api.Mappers;
 using ScientificOperationsCenter.Api.Tests.Mocks;
 using ScientificOperationsCenter.Api.ViewModels;
@@ -14,10 +15,13 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
     {
         private MockGroundControlUplinkDownlink _mockGroundControlUplinkDownlink;
         private ScientificOperationsCenterContext _scientificOperationsContext;
+        private RadiationMeasurementsRepository _radiationMeasurementsRepository;
         private TemperaturesRepository _temperaturesRepository;
         private TemperaturesService _temperaturesService;
         private TemperaturesMapper _temperaturesMapper;
         private TemperaturesController _temperaturesController;
+        private ReceiveController _receiveController;
+
 
 
         [SetUp]
@@ -25,11 +29,18 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
         {
             _mockGroundControlUplinkDownlink = new MockGroundControlUplinkDownlink();
             _scientificOperationsContext = MockScientificOperationsCenterContext.GetMock();
+            _radiationMeasurementsRepository = new RadiationMeasurementsRepository(_scientificOperationsContext);
             _temperaturesRepository = new TemperaturesRepository(_scientificOperationsContext);
             _temperaturesService = new TemperaturesService(_temperaturesRepository);
             _temperaturesMapper = new TemperaturesMapper(_temperaturesService);
-            _temperaturesController = new TemperaturesController(_temperaturesMapper, _temperaturesRepository);
-            await _temperaturesController.Recieve(_mockGroundControlUplinkDownlink.GetTemperatures());
+            _temperaturesController = new TemperaturesController(_temperaturesMapper);
+            _receiveController = new ReceiveController(_radiationMeasurementsRepository, _temperaturesRepository);
+
+            var temperaturePayloads = _mockGroundControlUplinkDownlink.GetTemperatures();
+            foreach (var temperature in temperaturePayloads)
+            {
+                await _receiveController.Index(temperature);
+            }
         }
 
 

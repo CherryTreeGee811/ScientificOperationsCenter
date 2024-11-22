@@ -56,6 +56,6 @@ namespace ScientificOperationsCenter.Api.DAL.Interfaces
         Task<IEnumerable<Temperatures>> GetByYearAsync(DateOnly date);
 
 
-        Task AddTemperatures(Temperatures[] temperatureList);
+        Task AddTemperature(Temperatures temperature);
     }
 }

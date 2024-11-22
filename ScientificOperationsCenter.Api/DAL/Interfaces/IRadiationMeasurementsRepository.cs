@@ -57,6 +57,6 @@ namespace ScientificOperationsCenter.Api.DAL.Interfaces
         Task<IEnumerable<RadiationMeasurements>> GetByYearAsync(DateOnly date);
 
 
-        Task AddRadiationMeasurements(RadiationMeasurements[] radiationMeasurementsList);
+        Task AddRadiationMeasurement(RadiationMeasurements radiationMeasurement);
     }
 }

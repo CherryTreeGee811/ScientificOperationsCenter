@@ -5,51 +5,51 @@ namespace ScientificOperationsCenter.Api.Tests.Mocks
 {
     internal class MockGroundControlUplinkDownlink
     {
-        private readonly Temperatures[] _temperaturesArray;
-        private readonly RadiationMeasurements[] _radiationMeasurementsArray;
+        private readonly SpacecraftPayload[] _temperaturesArray;
+        private readonly SpacecraftPayload[] _radiationMeasurementsArray;
 
 
         public MockGroundControlUplinkDownlink()
         {
-            var temperatures = new List<Temperatures>()
+            var temperatures = new List<SpacecraftPayload>()
             {
-                new Temperatures { Id = 1, Date = new DateOnly(2020, 09, 02), Time = new TimeOnly(16, 00), TemperatureCelcius = 20 },
-                new Temperatures { Id = 2, Date = new DateOnly(2020, 09, 05), Time = new TimeOnly(15, 00), TemperatureCelcius = 15 },
-                new Temperatures { Id = 3, Date = new DateOnly(2020, 09, 07), Time = new TimeOnly(12, 00), TemperatureCelcius = -10 },
-                new Temperatures { Id = 4, Date = new DateOnly(2020, 10, 08), Time = new TimeOnly(16, 00), TemperatureCelcius = -4 },
-                new Temperatures { Id = 5, Date = new DateOnly(2020, 10, 08), Time = new TimeOnly(19, 00), TemperatureCelcius = 12 },
-                new Temperatures { Id = 6, Date = new DateOnly(2020, 10, 08), Time = new TimeOnly(12, 00), TemperatureCelcius = 11 },
-                new Temperatures { Id = 7, Date = new DateOnly(2020, 10, 09), Time = new TimeOnly(21, 30), TemperatureCelcius = 12 },
-                new Temperatures { Id = 8, Date = new DateOnly(2020, 10, 09), Time = new TimeOnly(21, 00), TemperatureCelcius = 10 },
-                new Temperatures { Id = 9, Date = new DateOnly(2020, 10, 09), Time = new TimeOnly(06, 00), TemperatureCelcius = 9 },
-                new Temperatures { Id = 10, Date = new DateOnly(2020, 11, 02), Time = new TimeOnly(09, 10), TemperatureCelcius = -2 },
-                new Temperatures { Id = 11, Date = new DateOnly(2020, 11, 03), Time = new TimeOnly(04, 30), TemperatureCelcius = 5 },
-                new Temperatures { Id = 12, Date = new DateOnly(2020, 12, 21), Time = new TimeOnly(04, 50), TemperatureCelcius = 8 },
-                new Temperatures { Id = 13, Date = new DateOnly(2020, 12, 10), Time = new TimeOnly(04, 10), TemperatureCelcius = 1 },
-                new Temperatures { Id = 14, Date = new DateOnly(2020, 12, 08), Time = new TimeOnly(04, 30), TemperatureCelcius = 5 },
-                new Temperatures { Id = 15, Date = new DateOnly(2021, 01, 03), Time = new TimeOnly(05, 30), TemperatureCelcius = 15 },
-                new Temperatures { Id = 16, Date = new DateOnly(2021, 01, 05), Time = new TimeOnly(03, 30), TemperatureCelcius = 5 }
+                new SpacecraftPayload { DateTime = "2020-09-05 04:00:03 AM", DataType="TemperatureReading", Data="20", CRC="A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-09-05 03:15:00 PM", DataType="TemperatureReading", Data="15", CRC="A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-09-07 12:00:02 PM", DataType="TemperatureReading", Data="-10", CRC="A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-10-08 04:00:00 PM", DataType = "TemperatureReading", Data = "-4", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-10-08 07:00:09 PM", DataType = "TemperatureReading", Data = "12", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-10-08 12:00:40 PM", DataType = "TemperatureReading", Data = "11", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-10-09 09:30:30 PM", DataType = "TemperatureReading", Data = "12", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-10-09 09:00:20 PM", DataType = "TemperatureReading", Data = "10", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-10-09 06:00:10 AM", DataType = "TemperatureReading", Data = "9", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-11-02 09:10:11 AM", DataType = "TemperatureReading", Data = "-2", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-11-03 04:30:22 AM", DataType = "TemperatureReading", Data = "5", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-12-21 04:50:33 AM", DataType = "TemperatureReading", Data = "8", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-12-10 04:10:22 AM", DataType = "TemperatureReading", Data = "1", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-12-08 04:30:33 AM", DataType = "TemperatureReading", Data = "5", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2021-01-03 05:30:33 AM", DataType = "TemperatureReading", Data = "15", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2021-01-05 03:30:34 AM", DataType = "TemperatureReading", Data = "5", CRC = "A1B2C3D4" }
             };
 
 
-            var radiationMeasurements = new List<RadiationMeasurements>()
+            var radiationMeasurements = new List<SpacecraftPayload>()
             {
-                new RadiationMeasurements { Id = 1, Date = new DateOnly(2020, 09, 08), Time = new TimeOnly(16, 00), Milligrays = 100 },
-                new RadiationMeasurements { Id = 2, Date = new DateOnly(2020, 09, 08), Time = new TimeOnly(15, 00), Milligrays = 140 },
-                new RadiationMeasurements { Id = 3, Date = new DateOnly(2020, 09, 08), Time = new TimeOnly(12, 00), Milligrays = 162 },
-                new RadiationMeasurements { Id = 4, Date = new DateOnly(2020, 10, 08), Time = new TimeOnly(16, 00), Milligrays = 100 },
-                new RadiationMeasurements { Id = 5, Date = new DateOnly(2020, 10, 08), Time = new TimeOnly(19, 00), Milligrays = 120 },
-                new RadiationMeasurements { Id = 6, Date = new DateOnly(2020, 10, 08), Time = new TimeOnly(12, 00), Milligrays = 190 },
-                new RadiationMeasurements { Id = 7, Date = new DateOnly(2020, 10, 09), Time = new TimeOnly(21, 30), Milligrays = 120 },
-                new RadiationMeasurements { Id = 8, Date = new DateOnly(2020, 10, 09), Time = new TimeOnly(21, 00), Milligrays = 110 },
-                new RadiationMeasurements { Id = 9, Date = new DateOnly(2020, 10, 09), Time = new TimeOnly(06, 00), Milligrays = 160 },
-                new RadiationMeasurements { Id = 10, Date = new DateOnly(2020, 11, 02), Time = new TimeOnly(09, 10), Milligrays = 100 },
-                new RadiationMeasurements { Id = 11, Date = new DateOnly(2020, 11, 03), Time = new TimeOnly(02, 30), Milligrays = 200 },
-                new RadiationMeasurements { Id = 12, Date = new DateOnly(2020, 12, 01), Time = new TimeOnly(04, 20), Milligrays = 120 },
-                new RadiationMeasurements { Id = 13, Date = new DateOnly(2020, 12, 02), Time = new TimeOnly(04, 10), Milligrays = 132 },
-                new RadiationMeasurements { Id = 14, Date = new DateOnly(2020, 12, 05), Time = new TimeOnly(07, 30), Milligrays = 126 },
-                new RadiationMeasurements { Id = 15, Date = new DateOnly(2021, 01, 03), Time = new TimeOnly(04, 30), Milligrays = 200 },
-                new RadiationMeasurements { Id = 16, Date = new DateOnly(2021, 01, 05), Time = new TimeOnly(04, 30), Milligrays = 200 }
+                new SpacecraftPayload { DateTime = "2020-09-08 04:00:40 PM", DataType = "RadiationReading", Data = "100", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-09-08 03:00:23 PM", DataType = "RadiationReading", Data = "140", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-09-08 12:00:08 PM", DataType = "RadiationReading", Data = "162", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-10-08 04:00:12 PM", DataType = "RadiationReading", Data = "100", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-10-08 07:00:34 PM", DataType = "RadiationReading", Data = "120", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-10-08 12:00:42 PM", DataType = "RadiationReading", Data = "190", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-10-09 09:30:21 PM", DataType = "RadiationReading", Data = "120", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-10-09 09:00:21 PM", DataType = "RadiationReading", Data = "110", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-10-09 06:00:00 AM", DataType = "RadiationReading", Data = "160", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-11-02 09:10:52 AM", DataType = "RadiationReading", Data = "100", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-11-03 02:30:01 AM", DataType = "RadiationReading", Data = "200", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-12-01 04:20:32 AM", DataType = "RadiationReading", Data = "120", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-12-02 04:10:01 AM", DataType = "RadiationReading", Data = "132", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2020-12-05 07:30:02 AM", DataType = "RadiationReading", Data = "126", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2021-01-03 04:30:08 AM", DataType = "RadiationReading", Data = "200", CRC = "A1B2C3D4" },
+                new SpacecraftPayload { DateTime = "2021-01-05 04:30:02 AM", DataType = "RadiationReading", Data = "200", CRC = "A1B2C3D4" }
             };
 
             _temperaturesArray = temperatures.ToArray();
@@ -57,12 +57,12 @@ namespace ScientificOperationsCenter.Api.Tests.Mocks
         }
 
 
-        public Temperatures[] GetTemperatures()
+        public SpacecraftPayload[] GetTemperatures()
         {
             return _temperaturesArray;
         }
 
-        public RadiationMeasurements[] GetRadiationMeasurements()
+        public SpacecraftPayload[] GetRadiationMeasurements()
         {
             return _radiationMeasurementsArray;
         }

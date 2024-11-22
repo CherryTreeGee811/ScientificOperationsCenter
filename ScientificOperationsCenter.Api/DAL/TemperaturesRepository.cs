@@ -146,26 +146,26 @@ namespace ScientificOperationsCenter.Api.DAL
         }
 
 
-        public async Task AddTemperatures(Temperatures[] temperatureList)
+        public async Task AddTemperature(Temperatures temperature)
         {
             try
             {
-                _context.Temperatures.AddRange(temperatureList);
+                _context.Temperatures.Add(temperature);
                 await _context.SaveChangesAsync();
             }
             catch (SqlException dbEx)
             {
-                Log.Error(dbEx, "An SqlException was thrown in TemperaturesRepo -> AddTemperatures().");
+                Log.Error(dbEx, "An SqlException was thrown in TemperaturesRepo -> AddTemperature().");
                 throw new DataAccessException("An error occurred while accessing the database.", dbEx);
             }
             catch (InvalidOperationException iEx)
             {
-                Log.Error(iEx, "An InvalidOperationException was thrown in TemperaturesRepo -> AddTemperatures().");
+                Log.Error(iEx, "An InvalidOperationException was thrown in TemperaturesRepo -> AddTemperature().");
                 throw new DataAccessException("An error occurred while accessing the database.", iEx);
             }
             catch (Exception gEx)
             {
-                Log.Error(gEx, "An unexpected error occurred in TemperaturesRepo -> AddTemperatures().");
+                Log.Error(gEx, "An unexpected error occurred in TemperaturesRepo -> AddTemperature().");
                 throw new DataAccessException("An unexpected error occurred.", gEx);
             }
         }
