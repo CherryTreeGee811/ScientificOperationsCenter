@@ -83,6 +83,12 @@ document.addEventListener("DOMContentLoaded", () => {
 * loadTemplate("home.html", contentDiv);
 */
 export function loadTemplate(templateName, contentDiv) {
+    if (getAccessTokenFromCookie()) {
+        const loginLinkElement = document.getElementById("login-link");
+        loginLinkElement.style.display = 'none';
+        loginLinkElement.ariaHidden = true;
+    }
+
     return fetch(`/templates/${templateName}`)
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
