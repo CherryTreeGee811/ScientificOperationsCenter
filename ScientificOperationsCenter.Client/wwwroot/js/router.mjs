@@ -15,6 +15,13 @@ import { loadFormJS } from './login.mjs';
  * @returns {void} This function does not return a value.
  */
 document.addEventListener("DOMContentLoaded", () => {
+    // If refresh check if an existing token exists
+    if (getAccessTokenFromCookie()) {
+        const loginLinkElement = document.getElementById("login-link");
+        loginLinkElement.style.display = 'none';
+        loginLinkElement.ariaHidden = true;
+    }
+
     const contentDiv = document.getElementById("content");
 
     // Event listener for the home link
@@ -83,12 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
 * loadTemplate("home.html", contentDiv);
 */
 export function loadTemplate(templateName, contentDiv) {
-    if (getAccessTokenFromCookie()) {
-        const loginLinkElement = document.getElementById("login-link");
-        loginLinkElement.style.display = 'none';
-        loginLinkElement.ariaHidden = true;
-    }
-
     return fetch(`/templates/${templateName}`)
         .then(response => {
             if (!response.ok) throw new Error('Network response was not ok');
