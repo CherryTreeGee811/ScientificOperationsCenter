@@ -17,7 +17,8 @@ body {
     font-family: "Arial", sans-serif;
     margin-bottom: 60px;
     background-image: url("/images/betteraideepfield.png");
-    overflow: hidden;
+    overflow-x: hidden;
+    position: relative;
     background-size: cover;
 }
 
@@ -230,7 +231,7 @@ p {
     }
 }
 
-#chart-form {
+#chart-form, #login-form {
     color: black;
 }
 
