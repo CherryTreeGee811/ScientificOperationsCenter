@@ -58,5 +58,8 @@ namespace ScientificOperationsCenter.Api.DAL.Interfaces
 
 
         Task AddRadiationMeasurements(RadiationMeasurements[] radiationMeasurementsList);
+
+
+        Task AddRadiationMeasurement(RadiationMeasurements radiationMeasurement);
     }
 }

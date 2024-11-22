@@ -14,10 +14,12 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
     {
         private MockGroundControlUplinkDownlink _mockGroundControlUplinkDownlink;
         private ScientificOperationsCenterContext _scientificOperationsContext;
+        private TemperaturesRepository _temperaturesRepository;
         private RadiationMeasurementsRepository _radiationMeasurementsRepository;
         private RadiationMeasurementsService _radiationMeasurementsService;
         private RadiationMeasurementsMapper _radiationMeasurementsMapper;
         private RadiationMeasurementsController _radiationMeasurementsController;
+        private ReceiveController _receiveController;
 
 
         [SetUp]
@@ -25,11 +27,18 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
         {
             _mockGroundControlUplinkDownlink = new MockGroundControlUplinkDownlink();
             _scientificOperationsContext = MockScientificOperationsCenterContext.GetMock();
+            _temperaturesRepository = new TemperaturesRepository(_scientificOperationsContext);
             _radiationMeasurementsRepository = new RadiationMeasurementsRepository(_scientificOperationsContext);
             _radiationMeasurementsService = new RadiationMeasurementsService(_radiationMeasurementsRepository);
             _radiationMeasurementsMapper = new RadiationMeasurementsMapper(_radiationMeasurementsService);
-            _radiationMeasurementsController = new RadiationMeasurementsController(_radiationMeasurementsMapper, _radiationMeasurementsRepository);
-            await _radiationMeasurementsController.Recieve(_mockGroundControlUplinkDownlink.GetRadiationMeasurements());
+            _radiationMeasurementsController = new RadiationMeasurementsController(_radiationMeasurementsMapper);
+            _receiveController = new ReceiveController(_radiationMeasurementsRepository, _temperaturesRepository);
+
+            var radiationMeasurementPayloads = _mockGroundControlUplinkDownlink.GetRadiationMeasurements();
+            foreach (var radiationMeasurement in radiationMeasurementPayloads)
+            {
+                await _receiveController.Index(radiationMeasurement);
+            }
         }
 
 

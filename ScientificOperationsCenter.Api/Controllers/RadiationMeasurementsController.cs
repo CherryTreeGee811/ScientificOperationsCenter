@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ScientificOperationsCenter.Api.DAL;
-using ScientificOperationsCenter.Api.DAL.Interfaces;
 using ScientificOperationsCenter.Api.Mappers.Interfaces;
-using ScientificOperationsCenter.Api.Models;
 using Serilog;
 using System.Globalization;
 
@@ -18,10 +15,7 @@ namespace ScientificOperationsCenter.Api.Controllers
     [Authorize]
     public sealed class RadiationMeasurementsController : ControllerBase
     {
-        // ToDo: Update comments + tests
-
         private readonly IRadiationMeasurementsMapper _radiationMeasurementsMapper;
-        private readonly IRadiationMeasurementsRepository _radiationMeasurementsRepository;
 
 
         /// <summary>
@@ -29,10 +23,9 @@ namespace ScientificOperationsCenter.Api.Controllers
         /// </summary>
         /// <param name="radiationMeasurementsMapper">Mapper for radiation measurements data.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="radiationMeasurementsMapper"/> is null.</exception>
-        public RadiationMeasurementsController(IRadiationMeasurementsMapper radiationMeasurementsMapper, IRadiationMeasurementsRepository radiationMeasurementsRepository)
+        public RadiationMeasurementsController(IRadiationMeasurementsMapper radiationMeasurementsMapper)
         {
             _radiationMeasurementsMapper = radiationMeasurementsMapper ?? throw new ArgumentNullException(nameof(radiationMeasurementsMapper));
-            _radiationMeasurementsRepository = radiationMeasurementsRepository ?? throw new ArgumentNullException(nameof(radiationMeasurementsRepository));
         }
 
 
@@ -136,35 +129,5 @@ namespace ScientificOperationsCenter.Api.Controllers
                 return StatusCode(500);
             }
         }
-
-
-        [AllowAnonymous]
-        [HttpPost("Recieve")]
-        public async Task<IActionResult> Recieve([FromBody] RadiationMeasurements[] radiationMeasurements)
-        {
-            // ToDo: Protect endpoint with auth, check for null
-            if (radiationMeasurements == null)
-            {
-                return BadRequest("Radiation measurements array is null");
-            }
-
-            try
-            {
-                // Ids are auto-assigned by the database, so make 0 for now
-                foreach (var radiationMeasurement in radiationMeasurements)
-                {
-                    radiationMeasurement.Id = 0;
-                }
-
-                await _radiationMeasurementsRepository.AddRadiationMeasurements(radiationMeasurements);
-                return Ok();
-            }
-            catch (Exception gEx)
-            {
-                Log.Error(gEx, "RadiationMeasurementsController -> Recieve() -> Returned status code 500.");
-                return StatusCode(500);
-            }
-        }
-
     }
 }

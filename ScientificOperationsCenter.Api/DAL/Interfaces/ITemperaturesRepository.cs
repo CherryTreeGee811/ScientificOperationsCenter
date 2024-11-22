@@ -57,5 +57,8 @@ namespace ScientificOperationsCenter.Api.DAL.Interfaces
 
 
         Task AddTemperatures(Temperatures[] temperatureList);
+
+
+        Task AddTemperature(Temperatures temperature);
     }
 }
