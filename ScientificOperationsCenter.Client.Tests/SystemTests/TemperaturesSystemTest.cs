@@ -157,7 +157,7 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
             Assert.That(chartLabels.Count, Is.EqualTo(3), "The chart should have three labels exactly.");
             Assert.That(chartData.Count, Is.GreaterThan(1), "The chart should have more than one data point.");
             Assert.That(chartData.Count, Is.EqualTo(3), "The chart should have three data points exactly.");
-            Assert.False(chartDatasetLabel.IsNullOrEmpty(), "The chart should have a dataset label");
+            Assert.False(string.IsNullOrEmpty(chartDatasetLabel), "The chart should have a dataset label");
             Assert.That(chartDatasetLabel, Is.EqualTo("Average Temperature"), "The dataset label should be 'Average Temperature'");
         }
     }
