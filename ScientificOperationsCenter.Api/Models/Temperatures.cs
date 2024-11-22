@@ -16,7 +16,6 @@ namespace ScientificOperationsCenter.Api.Models
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [JsonProperty("id")]
         public int Id { get; set; }
 
 
@@ -24,7 +23,6 @@ namespace ScientificOperationsCenter.Api.Models
         /// Gets or sets the date when the temperature was recorded.
         /// </summary>
         [Required]
-        [JsonProperty("date")]
         public DateOnly Date { get; set; }
 
 
@@ -32,7 +30,6 @@ namespace ScientificOperationsCenter.Api.Models
         /// Gets or sets the time when the temperature was recorded.
         /// </summary>
         [Required]
-        [JsonProperty("time")]
         public TimeOnly Time { get; set; }
 
 
@@ -41,7 +38,6 @@ namespace ScientificOperationsCenter.Api.Models
         /// </summary>
         [Required]
         [Range(-10000, 10000)]
-        [JsonProperty("temperatureCelcius")]
         public int TemperatureCelcius { get; set; }
     }
 }
