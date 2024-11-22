@@ -29,6 +29,7 @@ async Task ServeIndexHtml(HttpContext context)
 
 
 app.MapGet("/", async context => await ServeIndexHtml(context));
+app.MapGet("/login", async context => await ServeIndexHtml(context));
 app.MapGet("/temperatures", async context => await ServeIndexHtml(context));
 app.MapGet("/temperatures/day", async context => await ServeIndexHtml(context));
 app.MapGet("/temperatures/month", async context => await ServeIndexHtml(context));
