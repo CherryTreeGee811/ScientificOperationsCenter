@@ -33,6 +33,9 @@ import { validateDate } from '../input-validator.mjs';
  * loadRadiationMeasurementsForDay();
  */
 export function loadRadiationMeasurementsForDay(date) {
+    const chart = document.getElementById('chart');
+    chart.style.display = "none";
+    chart.ariaHidden = true;
 
     if (!validateDate(date)) {
         console.error("Invalid date provided");
@@ -49,15 +52,13 @@ export function loadRadiationMeasurementsForDay(date) {
             if (data) {
                 generateChart(data, "Time Frame (Hour)");
                 loadingTextElement.textContent = "";
+                chart.style.display = "block";
+                chart.ariaHidden = false;
             } else {
                 errorTextElement.textContent = "No radiation measurement records found for the selected date.";
             }
         })
         .catch(error => {
-            const chart = document.getElementById('chart');
-            chart.style.display = "none";
-            chart.ariaHidden = true;
-
             if (error.message.includes("404")) {
                 errorTextElement.textContent = "Endpoint not found";
             } else if (error.message.includes("400")) {
