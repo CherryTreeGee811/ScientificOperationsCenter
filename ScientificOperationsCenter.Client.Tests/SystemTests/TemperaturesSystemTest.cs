@@ -137,8 +137,8 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
             Assert.IsTrue(timeFrameLabelElem.Displayed, "The time-frame-label should exist.");
             Assert.IsTrue(timeFrameInputElem.Displayed, "The time-frame-input should exist.");
             Assert.IsTrue(generateBtnElem.Displayed, "The generate-btn should exist.");
-            IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
-                js.ExecuteScript("arguments[0].value = '" + date + "';", dateInputElem);
+            IJavaScriptExecutor js = _driver;
+            js.ExecuteScript("arguments[0].value = '" + date + "';", dateInputElem);
             var timeFrameSelector = new SelectElement(timeFrameInputElem);
             timeFrameSelector.SelectByValue(timeFrameValue);
             generateBtnElem.Click();
