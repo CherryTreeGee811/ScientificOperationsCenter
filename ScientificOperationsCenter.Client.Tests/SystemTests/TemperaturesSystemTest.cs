@@ -137,8 +137,8 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
             Assert.IsTrue(timeFrameLabelElem.Displayed, "The time-frame-label should exist.");
             Assert.IsTrue(timeFrameInputElem.Displayed, "The time-frame-input should exist.");
             Assert.IsTrue(generateBtnElem.Displayed, "The generate-btn should exist.");
-            IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
-                js.ExecuteScript("arguments[0].value = '" + date + "';", dateInputElem);
+            IJavaScriptExecutor js = _driver;
+            js.ExecuteScript("arguments[0].value = '" + date + "';", dateInputElem);
             var timeFrameSelector = new SelectElement(timeFrameInputElem);
             timeFrameSelector.SelectByValue(timeFrameValue);
             generateBtnElem.Click();
@@ -157,7 +157,7 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
             Assert.That(chartLabels.Count, Is.EqualTo(3), "The chart should have three labels exactly.");
             Assert.That(chartData.Count, Is.GreaterThan(1), "The chart should have more than one data point.");
             Assert.That(chartData.Count, Is.EqualTo(3), "The chart should have three data points exactly.");
-            Assert.False(chartDatasetLabel.IsNullOrEmpty(), "The chart should have a dataset label");
+            Assert.False(string.IsNullOrEmpty(chartDatasetLabel), "The chart should have a dataset label");
             Assert.That(chartDatasetLabel, Is.EqualTo("Average Temperature"), "The dataset label should be 'Average Temperature'");
         }
     }
