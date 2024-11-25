@@ -30,16 +30,27 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
             options.AddArgument($"--window-size={Display.DesktopWidth},{Display.DesktopHeight}");
             _driver = new ChromeDriver(options);
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(15));
-            NavigateToBaseUrl();
+            NavigateToBaseUrlAndLogin();
         }
 
 
-        private void NavigateToBaseUrl()
+        private void NavigateToBaseUrlAndLogin()
         {
             _driver.Navigate().GoToUrl(AppServer.ClientURL);
             _driver.Manage().Window.Size = new Size(Display.DesktopWidth, Display.DesktopHeight);
             var request = new HttpRequestMessage(HttpMethod.Options, "/auth/login");
             var response = _httpClient.SendAsync(request).Result;
+            response.EnsureSuccessStatusCode();
+
+            var loginLinkElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id("login-link")));
+            loginLinkElem.Click();
+            var usernameInputElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("username-input")));
+            var passwordInputElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("password-input")));
+            var loginBtnElem = _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("login-btn")));
+
+            usernameInputElem.SendKeys("sciops_test");
+            passwordInputElem.SendKeys("Hello123*");
+            loginBtnElem.Click();
         }
 
 
@@ -78,6 +89,7 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         {
             var request = new HttpRequestMessage(HttpMethod.Options, "/api/RadiationMeasurements/month");
             var response = _httpClient.SendAsync(request).Result;
+            response.EnsureSuccessStatusCode();
 
             NavigateToRadiationMeasurementsPage("Radiation Measurements by Day Of Month", "month");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
@@ -97,6 +109,7 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
         {
             var request = new HttpRequestMessage(HttpMethod.Options, "/api/RadiationMeasurements/year");
             var response = _httpClient.SendAsync(request).Result;
+            response.EnsureSuccessStatusCode();
 
             NavigateToRadiationMeasurementsPage("Radiation Measurements by Month Of Year", "year");
             var chartLabels = Utilities.GetDisplayedChartLabels(_driver);
@@ -130,8 +143,8 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
             Assert.IsTrue(timeFrameLabelElem.Displayed, "The time-frame-label should exist.");
             Assert.IsTrue(timeFrameInputElem.Displayed, "The time-frame-input should exist.");
             Assert.IsTrue(generateBtnElem.Displayed, "The generate-btn should exist.");
-            IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
-                js.ExecuteScript("arguments[0].value = '" + date + "';", dateInputElem);
+            IJavaScriptExecutor js = _driver;
+            js.ExecuteScript("arguments[0].value = '" + date + "';", dateInputElem);
             var timeFrameSelector = new SelectElement(timeFrameInputElem);
             timeFrameSelector.SelectByValue(timeFrameValue);
             generateBtnElem.Click();
@@ -150,7 +163,7 @@ namespace ScientificOperationsCenter.Client.Tests.SystemTests
             Assert.That(chartLabels.Count, Is.EqualTo(3), "The chart should have three labels exactly.");
             Assert.That(chartData.Count, Is.GreaterThan(1), "The chart should have more than one data point.");
             Assert.That(chartData.Count, Is.EqualTo(3), "The chart should have three data points exactly.");
-            Assert.False(chartDatasetLabel.IsNullOrEmpty(), "The chart should have a dataset label");
+            Assert.False(string.IsNullOrEmpty(chartDatasetLabel), "The chart should have a dataset label");
             Assert.That(chartDatasetLabel, Is.EqualTo("Total Radiation"), "The dataset label should be 'Total Radiation'");
         }
     }

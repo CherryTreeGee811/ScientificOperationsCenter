@@ -15,10 +15,13 @@ namespace ScientificOperationsCenter.Api.DAL
     /// </summary>
     public sealed class TemperaturesRepository : ITemperaturesRepository
     {
+        // ToDo: Update comments + Tests
+
         /// <summary>
         /// Represents the Temperatures database table.
         /// </summary>
         private readonly DbSet<Temperatures> _dbSet;
+        private readonly ScientificOperationsCenterContext _context;
 
 
         /// <summary>
@@ -28,6 +31,7 @@ namespace ScientificOperationsCenter.Api.DAL
         public TemperaturesRepository(ScientificOperationsCenterContext context)
         {
             _dbSet = context.Set<Temperatures>();
+            _context = context;
         }
 
 
@@ -137,6 +141,31 @@ namespace ScientificOperationsCenter.Api.DAL
             catch (Exception gEx)
             {
                 Log.Error(gEx, "An unexpected error occurred in TemperaturesRepo -> GetByYearAsync().");
+                throw new DataAccessException("An unexpected error occurred.", gEx);
+            }
+        }
+
+
+        public async Task AddTemperature(Temperatures temperature)
+        {
+            try
+            {
+                _context.Temperatures.Add(temperature);
+                await _context.SaveChangesAsync();
+            }
+            catch (SqlException dbEx)
+            {
+                Log.Error(dbEx, "An SqlException was thrown in TemperaturesRepo -> AddTemperature().");
+                throw new DataAccessException("An error occurred while accessing the database.", dbEx);
+            }
+            catch (InvalidOperationException iEx)
+            {
+                Log.Error(iEx, "An InvalidOperationException was thrown in TemperaturesRepo -> AddTemperature().");
+                throw new DataAccessException("An error occurred while accessing the database.", iEx);
+            }
+            catch (Exception gEx)
+            {
+                Log.Error(gEx, "An unexpected error occurred in TemperaturesRepo -> AddTemperature().");
                 throw new DataAccessException("An unexpected error occurred.", gEx);
             }
         }

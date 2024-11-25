@@ -15,13 +15,13 @@ var config = builder.Configuration;
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy
-                          .AllowAnyOrigin()
-                          .WithMethods("GET", "POST")
-                          .WithHeaders(headers: new[] { "Accept", "Accept-Language", "Authorization" });
-                      });
+        policy =>
+        {
+            policy
+            .AllowAnyOrigin()
+            .WithMethods("GET", "POST", "OPTIONS")
+            .WithHeaders(headers: new[] { "Content-Type", "Accept", "Accept-Language", "Authorization" });
+        });
 });
 
 

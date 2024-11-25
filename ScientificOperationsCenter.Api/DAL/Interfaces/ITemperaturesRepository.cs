@@ -4,6 +4,8 @@ using ScientificOperationsCenter.Api.CustomExceptions;
 
 namespace ScientificOperationsCenter.Api.DAL.Interfaces
 {
+    // ToDo: Update comments
+
     /// <summary>
     /// Defines the contract for accessing temperature data.
     /// </summary>
@@ -52,5 +54,8 @@ namespace ScientificOperationsCenter.Api.DAL.Interfaces
         /// Thrown when there is a problem with data access.
         /// </exception>
         Task<IEnumerable<Temperatures>> GetByYearAsync(DateOnly date);
+
+
+        Task AddTemperature(Temperatures temperature);
     }
 }

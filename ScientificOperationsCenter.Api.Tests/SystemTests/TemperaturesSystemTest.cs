@@ -12,22 +12,34 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 {
     internal class TemperaturesSystemTest
     {
-
+        private MockGroundControlUplinkDownlink _mockGroundControlUplinkDownlink;
         private ScientificOperationsCenterContext _scientificOperationsContext;
+        private RadiationMeasurementsRepository _radiationMeasurementsRepository;
         private TemperaturesRepository _temperaturesRepository;
         private TemperaturesService _temperaturesService;
         private TemperaturesMapper _temperaturesMapper;
         private TemperaturesController _temperaturesController;
+        private ReceiveController _receiveController;
+
 
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
+            _mockGroundControlUplinkDownlink = new MockGroundControlUplinkDownlink();
             _scientificOperationsContext = MockScientificOperationsCenterContext.GetMock();
+            _radiationMeasurementsRepository = new RadiationMeasurementsRepository(_scientificOperationsContext);
             _temperaturesRepository = new TemperaturesRepository(_scientificOperationsContext);
             _temperaturesService = new TemperaturesService(_temperaturesRepository);
             _temperaturesMapper = new TemperaturesMapper(_temperaturesService);
             _temperaturesController = new TemperaturesController(_temperaturesMapper);
+            _receiveController = new ReceiveController(_radiationMeasurementsRepository, _temperaturesRepository);
+
+            var temperaturePayloads = _mockGroundControlUplinkDownlink.GetTemperatures();
+            foreach (var temperature in temperaturePayloads)
+            {
+                await _receiveController.Index(temperature);
+            }
         }
 
 
@@ -40,7 +52,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 
 
         [Test]
-        public async Task GivenAMockContext_WhenGettingAverageTemperaturesByHourOfDay_ThenIf200OKCollectionOfTemperaturesJSONSortedByHourReturn()
+        public async Task GivenAMockGroundControl_WhenGettingAverageTemperaturesByHourOfDay_ThenIf200OKCollectionOfTemperaturesJSONSortedByHourReturn()
         {
             // Setup
             var date = "2024-10-09";
@@ -67,10 +79,10 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 
 
         [Test]
-        public async Task GivenAMockContext_WhenGettingAverageTemperaturesByDayOfMonth_ThenIf200OKCollectionOfTemperaturesJSONSortedByDayReturn()
+        public async Task GivenAMockGroundControl_WhenGettingAverageTemperaturesByDayOfMonth_ThenIf200OKCollectionOfTemperaturesJSONSortedByDayReturn()
         {
             // Setup
-            var date = "2024-10-01";
+            var date = "2020-10-01";
 
             // Action
             var controllerResult = await _temperaturesController.Month(date);
@@ -94,10 +106,10 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 
 
         [Test]
-        public async Task GivenAMockContext_WhenGettingAverageTemperaturesByMonthOfYear_ThenIf200OKCollectionOfTemperaturesJSONSortedByMonthReturn()
+        public async Task GivenAMockGroundControl_WhenGettingAverageTemperaturesByMonthOfYear_ThenIf200OKCollectionOfTemperaturesJSONSortedByMonthReturn()
         {
             // Setup
-            var date = "2024-01-01";
+            var date = "2020-01-01";
 
             // Action
             var controllerResult = await _temperaturesController.Year(date);
@@ -121,7 +133,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 
 
         [Test]
-        public async Task GivenAMockContext_WhenGettingAverageTemperaturesByHourOfDay_ThenIf204NoContentEmptyCollectionReturn()
+        public async Task GivenAMockGroundControl_WhenGettingAverageTemperaturesByHourOfDay_ThenIf204NoContentEmptyCollectionReturn()
         {
             // Setup
             var date = "1900-01-01";
@@ -138,7 +150,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 
 
         [Test]
-        public async Task GivenAMockContext_WhenGettingAverageTemperaturesByDayOfMonth_ThenIf204NoContentEmptyCollectionReturn()
+        public async Task GivenAMockGroundControl_WhenGettingAverageTemperaturesByDayOfMonth_ThenIf204NoContentEmptyCollectionReturn()
         {
             // Setup
             var date = "1900-01-01";
@@ -155,7 +167,7 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
 
 
         [Test]
-        public async Task GivenAMockContext_WhenGettingAverageTemperaturesByMonthOfYear_ThenIf204NoContentEmptyCollectionReturn()
+        public async Task GivenAMockGroundControl_WhenGettingAverageTemperaturesByMonthOfYear_ThenIf204NoContentEmptyCollectionReturn()
         {
             // Setup
             var date = "1900-01-01";

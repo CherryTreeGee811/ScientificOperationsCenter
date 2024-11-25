@@ -1,4 +1,5 @@
-﻿import { loadFormJS } from './form.mjs';
+﻿import { loadTemplate } from '../router.mjs';
+import { loadFormJS } from './form.mjs';
 import { loadTemperaturesForDay } from './day.mjs';
 import { loadTemperaturesForMonth } from './month.mjs';
 import { loadTemperaturesForYear } from './year.mjs';
@@ -107,37 +108,4 @@ export function handleTemperaturesRoutes(path, contentDiv) {
         default:
             contentDiv.innerHTML = `<h1>404 Not Found</h1>`;
     }
-}
-
-
-/**
- * Loads an HTML template and updates the specified contentDiv with the fetched content.
- * 
- * This function fetches the specified template from the server and updates the 
- * inner HTML of the provided contentDiv. If the fetch operation fails, it displays 
- * an error message in the contentDiv.
- * 
- * @function loadTemplate
- * @param {string} templateName - The name of the template file to load.
- * @param {HTMLElement} contentDiv - The HTML element where the template will be loaded.
- * @returns {void} This function does not return a value.
- * 
- * @example
- * // Load a specific template into the contentDiv
- * loadTemplate("temperatures/day.html", contentDiv);
- */
-function loadTemplate(templateName, contentDiv) {
-    return fetch(`/templates/${templateName}`)
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.text();
-        })
-        .then(html => {
-            contentDiv.innerHTML = html;
-            return Promise.resolve();
-        })
-        .catch(error => {
-            contentDiv.innerHTML = `<h1>Error loading template</h1><p>${error.message}</p>`;
-            return Promise.reject(error);
-        });
 }

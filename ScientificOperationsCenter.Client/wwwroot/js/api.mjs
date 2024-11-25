@@ -2,10 +2,10 @@
 const base = "http://localhost:8000/auth/login";
 
 
-export function getToken() {
+export function getToken(username, password) {
     const body = JSON.stringify({
-        username: 'sciops_test',
-        password: 'Hello123*'
+        username: `${username}`,
+        password: `${password}`
     });
 
     return fetch(base, {
@@ -21,10 +21,12 @@ export function getToken() {
         .then(response => {
             if (response.ok) {
                 if (response.status === 204) {
-                    return null;
+                    return true;
                 } else {
                     return response.json();
                 }
+            } else if (response.status == 401) {
+                document.getElementById("login-link").click();
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

@@ -32,6 +32,9 @@ import { validateDate } from '../input-validator.mjs';
  * loadTemperaturesForDay();
  */
 export function loadTemperaturesForDay(date) {
+    const chart = document.getElementById('chart');
+    chart.style.display = "none";
+    chart.ariaHidden = true;
 
     if (!validateDate(date)) {
         console.error("Invalid date provided");
@@ -48,6 +51,9 @@ export function loadTemperaturesForDay(date) {
             if (data) {
                 generateChart(data, "Time Frame (Hour)");
                 loadingTextElement.textContent = "";
+                chart.style.display = "block";
+                chart.ariaHidden = false;
+
             } else {
                 errorTextElement.textContent = "No temperature records found for the selected date.";
             }

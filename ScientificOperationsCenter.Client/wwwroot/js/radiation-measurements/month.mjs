@@ -33,6 +33,9 @@ import { validateDate } from '../input-validator.mjs';
  * loadRadiationMeasurementsForMonth();
  */
 export function loadRadiationMeasurementsForMonth(date) {
+    const chart = document.getElementById('chart');
+    chart.style.display = "none";
+    chart.ariaHidden = true;
 
     if (!validateDate(date)) {
         console.error("Invalid date provided");
@@ -49,6 +52,8 @@ export function loadRadiationMeasurementsForMonth(date) {
             if (data) {
                 generateChart(data, "Time Frame (Day)");
                 loadingTextElement.textContent = "";
+                chart.style.display = "block";
+                chart.ariaHidden = false;
             } else {
                 errorTextElement.textContent = "No radiation measurement records found for the selected date.";
             }

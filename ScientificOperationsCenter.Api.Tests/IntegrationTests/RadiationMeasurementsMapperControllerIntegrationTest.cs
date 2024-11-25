@@ -12,7 +12,6 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
 {
     internal class RadiationMeasurementsMapperControllerIntegrationTest
     {
-
         private Mock<IRadiationMeasurementsService> _radiationMeasurementsServiceMock;
         private RadiationMeasurementsMapper _radiationMeasurementsMapper;
         private RadiationMeasurementsController _radiationMeasurementsController;

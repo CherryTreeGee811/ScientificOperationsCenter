@@ -5,9 +5,6 @@ using ScientificOperationsCenter.Tests.Mocks;
 using ScientificOperationsCenter.Api.ViewModels;
 using ScientificOperationsCenter.Api.Mappers.Interfaces;
 using Moq;
-using ScientificOperationsCenter.Api.BusinessLogic;
-using ScientificOperationsCenter.Api.DAL.Interfaces;
-using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
 
 
 namespace ScientificOperationsCenter.Tests.UnitTests

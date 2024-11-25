@@ -4,6 +4,9 @@ using ScientificOperationsCenter.Api.CustomExceptions;
 
 namespace ScientificOperationsCenter.Api.DAL.Interfaces
 {
+    // ToDo: Update comments
+
+
     /// <summary>
     /// Defines the contract for accessing radiation measurement data.
     /// </summary>
@@ -52,5 +55,8 @@ namespace ScientificOperationsCenter.Api.DAL.Interfaces
         /// Thrown when there is a problem with data access.
         /// </exception>
         Task<IEnumerable<RadiationMeasurements>> GetByYearAsync(DateOnly date);
+
+
+        Task AddRadiationMeasurement(RadiationMeasurements radiationMeasurement);
     }
 }

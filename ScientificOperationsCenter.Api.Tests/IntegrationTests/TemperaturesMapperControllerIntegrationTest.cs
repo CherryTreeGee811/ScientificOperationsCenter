@@ -6,6 +6,8 @@ using ScientificOperationsCenter.Tests.Mocks;
 using ScientificOperationsCenter.Api.ViewModels;
 using Moq;
 using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
+using ScientificOperationsCenter.Api.DAL;
+using ScientificOperationsCenter.Api.Tests.Mocks;
 
 
 namespace ScientificOperationsCenter.Tests.IntegrationTests
