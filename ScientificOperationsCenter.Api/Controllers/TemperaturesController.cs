@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ScientificOperationsCenter.Api.DAL.Interfaces;
 using ScientificOperationsCenter.Api.Mappers.Interfaces;
-using ScientificOperationsCenter.Api.Models;
 using Serilog;
 using System.Globalization;
 

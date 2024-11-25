@@ -9,6 +9,7 @@ namespace ScientificOperationsCenter.Api.Controllers
 {
     [Route("api/")]
     [ApiController]
+    [Authorize]
     public class ReceiveController : ControllerBase
     {
         // ToDo: Add Comments
@@ -24,7 +25,6 @@ namespace ScientificOperationsCenter.Api.Controllers
         }
 
 
-        [AllowAnonymous]
         [HttpPost("receive")]
         public async Task<IActionResult> Index([FromBody] SpacecraftPayload spacecraftPayload)
         {
