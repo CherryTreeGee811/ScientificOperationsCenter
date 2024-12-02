@@ -32,8 +32,6 @@ jobs:
             run: |
               mkdir -p APITestResults
               dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj \
-                --collect:"XPlat Code Coverage" \
-                --results-directory ./APITestResults \
                 --os linux \
                 --verbosity minimal
 
@@ -61,7 +59,7 @@ jobs:
             shell: bash
             run: |
               mkdir -p ClientTestResults
-              dotnet test ./ScientificOperationsCenter.Client.Tests/ScientificOperationsCenter.Client.Tests.csproj --collect:"XPlat Code Coverage" --results-directory ./ClientTestResults --os linux --verbosity minimal
+              dotnet test ./ScientificOperationsCenter.Client.Tests/ScientificOperationsCenter.Client.Tests.csproj --os linux --verbosity minimal
 
           - name: Nikto Scan Frontend
             shell: bash
