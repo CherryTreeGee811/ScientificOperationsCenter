@@ -36,16 +36,6 @@ jobs:
                 --results-directory ./APITestResults \
                 --os linux \
                 --verbosity minimal
-              
-              coverage_file=$(find ./APITestResults -name "coverage.cobertura.xml" -print -quit)
-              
-              if [ -f "$coverage_file" ]; then
-                coverage_percent=$(xmllint --xpath "string(//coverage/@line-rate)" "$coverage_file")
-                coverage_percentage=$(echo "$coverage_percent * 100" | bc)
-                printf "API Code Coverage: %.1f%%\n" "$coverage_percentage"
-              else
-                echo "Coverage file not found."
-              fi
 
           - name: Nikto Scan Backend
             shell: bash
@@ -72,16 +62,6 @@ jobs:
             run: |
               mkdir -p ClientTestResults
               dotnet test ./ScientificOperationsCenter.Client.Tests/ScientificOperationsCenter.Client.Tests.csproj --collect:"XPlat Code Coverage" --results-directory ./ClientTestResults --os linux --verbosity minimal
-              
-              coverage_file=$(find ./ClientTestResults -name "coverage.cobertura.xml" -print -quit)
-              
-              if [ -f "$coverage_file" ]; then
-                coverage_percent=$(xmllint --xpath "string(//coverage/@line-rate)" "$coverage_file")
-                coverage_percentage=$(echo "$coverage_percent * 100" | bc)
-                printf "Client Code Coverage: %.1f%%\n" "$coverage_percentage"
-              else
-                echo "Coverage file not found."
-              fi
 
           - name: Nikto Scan Frontend
             shell: bash
