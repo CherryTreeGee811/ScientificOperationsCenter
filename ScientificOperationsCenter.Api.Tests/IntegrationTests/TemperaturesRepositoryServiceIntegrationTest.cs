@@ -41,12 +41,15 @@ namespace ScientificOperationsCenter.Api.Tests.IntegrationTests
             var result = await _temperaturesService.GetAverageTemperaturesForTheDayAsync(date);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.First().Time, Is.EqualTo(new TimeOnly(21,00)));
-            Assert.That(result.First().AverageTemperature, Is.EqualTo(11));
-            Assert.That(result.Last().Time, Is.EqualTo(new TimeOnly(06, 00)));
-            Assert.That(result.Last().AverageTemperature, Is.EqualTo(9));
-            Assert.That(result.Count(), Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.First().Time, Is.EqualTo(new TimeOnly(21, 00)));
+                Assert.That(result.First().AverageTemperature, Is.EqualTo(11));
+                Assert.That(result.Last().Time, Is.EqualTo(new TimeOnly(06, 00)));
+                Assert.That(result.Last().AverageTemperature, Is.EqualTo(9));
+                Assert.That(result.Count(), Is.EqualTo(2));
+            });
         }
 
 
@@ -60,12 +63,15 @@ namespace ScientificOperationsCenter.Api.Tests.IntegrationTests
             var result = await _temperaturesService.GetAverageTemperaturesForTheMonthAsync(date);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.First().Date, Is.EqualTo(new DateOnly(2024, 10, 08)));
-            Assert.That(result.First().AverageTemperature, Is.EqualTo(6));
-            Assert.That(result.Last().Date, Is.EqualTo(new DateOnly(2024, 10, 09)));
-            Assert.That(result.Last().AverageTemperature, Is.EqualTo(10));
-            Assert.That(result.Count(), Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.First().Date, Is.EqualTo(new DateOnly(2024, 10, 08)));
+                Assert.That(result.First().AverageTemperature, Is.EqualTo(6));
+                Assert.That(result.Last().Date, Is.EqualTo(new DateOnly(2024, 10, 09)));
+                Assert.That(result.Last().AverageTemperature, Is.EqualTo(10));
+                Assert.That(result.Count(), Is.EqualTo(2));
+            });
         }
 
 
@@ -79,12 +85,15 @@ namespace ScientificOperationsCenter.Api.Tests.IntegrationTests
             var result = await _temperaturesService.GetAverageTemperaturesForTheYearAsync(date);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.First().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
-            Assert.That(result.First().AverageTemperature, Is.EqualTo(10));
-            Assert.That(result.Last().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
-            Assert.That(result.Last().AverageTemperature, Is.EqualTo(10));
-            Assert.That(result.Count(), Is.EqualTo(1));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.First().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
+                Assert.That(result.First().AverageTemperature, Is.EqualTo(10));
+                Assert.That(result.Last().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
+                Assert.That(result.Last().AverageTemperature, Is.EqualTo(10));
+                Assert.That(result.Count(), Is.EqualTo(1));
+            });
         }
     }
 }

@@ -8,7 +8,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 
-async Task ServeIndexHtml(HttpContext context)
+async static Task ServeIndexHtml(HttpContext context)
 {
     var filePath = Path.Combine("wwwroot", "index.html");
 

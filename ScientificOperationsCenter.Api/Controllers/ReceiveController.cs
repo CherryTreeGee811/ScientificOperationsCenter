@@ -10,19 +10,17 @@ namespace ScientificOperationsCenter.Api.Controllers
     [Route("api/")]
     [ApiController]
     [Authorize]
-    public class ReceiveController : ControllerBase
+    public class ReceiveController(
+            IRadiationMeasurementsRepository radiationMeasurementsRepository,
+            ITemperaturesRepository temperaturesRepository
+        ) : ControllerBase
     {
-        // ToDo: Add Comments
-
-        private readonly IRadiationMeasurementsRepository _radiationMeasurementsRepository;
-        private readonly ITemperaturesRepository _temperaturesRepository;
+        private readonly IRadiationMeasurementsRepository _radiationMeasurementsRepository = radiationMeasurementsRepository
+            ?? throw new ArgumentNullException(nameof(radiationMeasurementsRepository));
 
 
-        public ReceiveController(IRadiationMeasurementsRepository radiationMeasurementsRepository, ITemperaturesRepository temperaturesRepository)
-        {
-            _radiationMeasurementsRepository = radiationMeasurementsRepository ?? throw new ArgumentNullException(nameof(radiationMeasurementsRepository));
-            _temperaturesRepository = temperaturesRepository ?? throw new ArgumentNullException(nameof(temperaturesRepository));
-        }
+        private readonly ITemperaturesRepository _temperaturesRepository = temperaturesRepository
+            ?? throw new ArgumentNullException(nameof(temperaturesRepository));
 
 
         [HttpPost("receive")]
@@ -36,10 +34,7 @@ namespace ScientificOperationsCenter.Api.Controllers
 
             try
             {
-                DateTime dateTime;
-                int data;
-
-                var isDateTime = DateTime.TryParse(spacecraftPayload.DateTime, out dateTime);
+                var isDateTime = DateTime.TryParse(spacecraftPayload.DateTime, out DateTime dateTime);
                 if (!isDateTime) return BadRequest("Invalid DateTime Provided");
 
                 var date = DateOnly.FromDateTime(dateTime);
@@ -48,35 +43,37 @@ namespace ScientificOperationsCenter.Api.Controllers
                 var time = TimeOnly.FromDateTime(dateTime);
                 if (date == default) return BadRequest("Invalid Time Provided");
 
-                var isInteger = int.TryParse(spacecraftPayload.Data, out data);
+                var isInteger = int.TryParse(spacecraftPayload.Data, out int data);
                 if (!isInteger) return BadRequest("Invalid Data Provided");
-                
-                if (spacecraftPayload.DataType.Trim().ToLower().Equals("temperaturereading"))
+                if (!Equals(spacecraftPayload.DataType, null))
                 {
-                    var temperature = new Temperatures()
+                    if (spacecraftPayload.DataType.Trim().ToLower().Equals("temperaturereading"))
                     {
-                        Id = 0,
-                        Date = date,
-                        Time = time,
-                        TemperatureCelcius = data,
-                    };
-                    await _temperaturesRepository.AddTemperature(temperature);
-                    return Ok();
-                }
-                else if (spacecraftPayload.DataType.Trim().ToLower().Equals("radiationreading"))
-                {
-                    var radiationMeasurement = new RadiationMeasurements()
+                        var temperature = new Temperatures()
+                        {
+                            Id = 0,
+                            Date = date,
+                            Time = time,
+                            TemperatureCelcius = data,
+                        };
+                        await _temperaturesRepository.AddTemperature(temperature);
+                        return Ok();
+                    }
+                    else if (spacecraftPayload.DataType.Trim().ToLower().Equals("radiationreading"))
                     {
-                        Id = 0,
-                        Date = date,
-                        Time = time,
-                        Milligrays = data,
-                    };
+                        var radiationMeasurement = new RadiationMeasurements()
+                        {
+                            Id = 0,
+                            Date = date,
+                            Time = time,
+                            Milligrays = data,
+                        };
 
-                    await _radiationMeasurementsRepository.AddRadiationMeasurement(radiationMeasurement);
-                    return Ok();
+                        await _radiationMeasurementsRepository.AddRadiationMeasurement(radiationMeasurement);
+                        return Ok();
+                    }
                 }
-                
+               
                 return BadRequest("We are only receiving RadiationReading or TemperatureReading as dataType");
             }
             catch (Exception gEx)

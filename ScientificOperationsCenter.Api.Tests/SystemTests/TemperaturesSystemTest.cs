@@ -61,20 +61,23 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             var controllerResult = await _temperaturesController.Day(date);
 
             // Assert
-            Assert.NotNull(controllerResult);
-            Assert.IsInstanceOf<OkObjectResult>(controllerResult);
-            var okResult = controllerResult as OkObjectResult;
-            Assert.NotNull(okResult);
-            Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
-            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(okResult.Value);
-            var contents = okResult.Value as IEnumerable<TemperaturesViewModel>;
-            Assert.NotNull(contents);
-            Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().TimeFrame, Is.EqualTo((new TimeOnly(06, 00)).ToString()));
-            Assert.That(contents.First().AverageTemperature, Is.EqualTo(9));
-            Assert.That(contents.Last().TimeFrame, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
-            Assert.That(contents.Last().AverageTemperature, Is.EqualTo(11));
-            Assert.That(contents.Count, Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(controllerResult, Is.Not.Null);
+                Assert.That(controllerResult, Is.InstanceOf<OkObjectResult>());
+                var okResult = controllerResult as OkObjectResult;
+                Assert.That(okResult, Is.Not.Null);
+                Assert.That(okResult?.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
+                Assert.That(okResult?.Value, Is.InstanceOf<IEnumerable<TemperaturesViewModel>>());
+                var contents = okResult?.Value as IEnumerable<TemperaturesViewModel>;
+                Assert.That(contents, Is.Not.Null);
+                Assert.That(contents!.Count, Is.AtLeast(1));
+                Assert.That(contents!.First().TimeFrame, Is.EqualTo((new TimeOnly(06, 00)).ToString()));
+                Assert.That(contents!.First().AverageTemperature, Is.EqualTo(9));
+                Assert.That(contents!.Last().TimeFrame, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
+                Assert.That(contents!.Last().AverageTemperature, Is.EqualTo(11));
+                Assert.That(contents!.Count, Is.EqualTo(2));
+            });
         }
 
 
@@ -88,20 +91,23 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             var controllerResult = await _temperaturesController.Month(date);
 
             // Assert
-            Assert.NotNull(controllerResult);
-            Assert.IsInstanceOf<OkObjectResult>(controllerResult);
-            var okResult = controllerResult as OkObjectResult;
-            Assert.NotNull(okResult);
-            Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
-            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(okResult.Value);
-            var contents = okResult.Value as IEnumerable<TemperaturesViewModel>;
-            Assert.NotNull(contents);
-            Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().TimeFrame, Is.EqualTo("8"));
-            Assert.That(contents.First().AverageTemperature, Is.EqualTo(6));
-            Assert.That(contents.Last().TimeFrame, Is.EqualTo("9"));
-            Assert.That(contents.Last().AverageTemperature, Is.EqualTo(10));
-            Assert.That(contents.Count, Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(controllerResult, Is.Not.Null);
+                Assert.That(controllerResult, Is.InstanceOf<OkObjectResult>());
+                var okResult = controllerResult as OkObjectResult;
+                Assert.That(okResult, Is.Not.Null);
+                Assert.That(okResult?.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
+                Assert.That(okResult?.Value, Is.InstanceOf<IEnumerable<TemperaturesViewModel>>());
+                var contents = okResult?.Value as IEnumerable<TemperaturesViewModel>;
+                Assert.That(contents, Is.Not.Null);
+                Assert.That(contents!.Count, Is.AtLeast(1));
+                Assert.That(contents!.First().TimeFrame, Is.EqualTo("8"));
+                Assert.That(contents!.First().AverageTemperature, Is.EqualTo(6));
+                Assert.That(contents!.Last().TimeFrame, Is.EqualTo("9"));
+                Assert.That(contents!.Last().AverageTemperature, Is.EqualTo(10));
+                Assert.That(contents!.Count, Is.EqualTo(2));
+            });
         }
 
 
@@ -115,20 +121,23 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             var controllerResult = await _temperaturesController.Year(date);
 
             // Assert
-            Assert.NotNull(controllerResult);
-            Assert.IsInstanceOf<OkObjectResult>(controllerResult);
-            var okResult = controllerResult as OkObjectResult;
-            Assert.NotNull(okResult);
-            Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
-            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(okResult.Value);
-            var contents = okResult.Value as IEnumerable<TemperaturesViewModel>;
-            Assert.NotNull(contents);
-            Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().TimeFrame, Is.EqualTo("September"));
-            Assert.That(contents.First().AverageTemperature, Is.EqualTo(8));
-            Assert.That(contents.Last().TimeFrame, Is.EqualTo("December"));
-            Assert.That(contents.Last().AverageTemperature, Is.EqualTo(5));
-            Assert.That(contents.Count, Is.EqualTo(4));
+            Assert.Multiple(() =>
+            {
+                Assert.That(controllerResult, Is.Not.Null);
+                Assert.That(controllerResult, Is.InstanceOf<OkObjectResult>());
+                var okResult = controllerResult as OkObjectResult;
+                Assert.That(okResult, Is.Not.Null);
+                Assert.That(okResult?.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
+                Assert.That(okResult?.Value, Is.InstanceOf<IEnumerable<TemperaturesViewModel>>());
+                var contents = okResult?.Value as IEnumerable<TemperaturesViewModel>;
+                Assert.That(contents, Is.Not.Null);
+                Assert.That(contents!.Count, Is.AtLeast(1));
+                Assert.That(contents!.First().TimeFrame, Is.EqualTo("September"));
+                Assert.That(contents!.First().AverageTemperature, Is.EqualTo(8));
+                Assert.That(contents!.Last().TimeFrame, Is.EqualTo("December"));
+                Assert.That(contents!.Last().AverageTemperature, Is.EqualTo(5));
+                Assert.That(contents!.Count, Is.EqualTo(4));
+            });
         }
 
 
@@ -142,10 +151,13 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             var controllerResult = await _temperaturesController.Day(date);
 
             // Assert
-            Assert.NotNull(controllerResult);
-            Assert.IsInstanceOf<NoContentResult>(controllerResult);
-            var noContentResult = controllerResult as NoContentResult;
-            Assert.That(noContentResult.StatusCode, Is.EqualTo(StatusCodes.Status204NoContent));
+            Assert.Multiple(() =>
+            {
+                Assert.That(controllerResult, Is.Not.Null);
+                Assert.That(controllerResult, Is.InstanceOf<NoContentResult>());
+                var noContentResult = controllerResult as NoContentResult;
+                Assert.That(noContentResult?.StatusCode, Is.EqualTo(StatusCodes.Status204NoContent));
+            });
         }
 
 
@@ -159,10 +171,13 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             var controllerResult = await _temperaturesController.Month(date);
 
             // Assert
-            Assert.NotNull(controllerResult);
-            Assert.IsInstanceOf<NoContentResult>(controllerResult);
-            var noContentResult = controllerResult as NoContentResult;
-            Assert.That(noContentResult.StatusCode, Is.EqualTo(StatusCodes.Status204NoContent));
+            Assert.Multiple(() =>
+            {
+                Assert.That(controllerResult, Is.Not.Null);
+                Assert.That(controllerResult, Is.InstanceOf<NoContentResult>());
+                var noContentResult = controllerResult as NoContentResult;
+                Assert.That(noContentResult?.StatusCode, Is.EqualTo(StatusCodes.Status204NoContent));
+            });
         }
 
 
@@ -176,10 +191,13 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             var controllerResult = await _temperaturesController.Year(date);
 
             // Assert
-            Assert.NotNull(controllerResult);
-            Assert.IsInstanceOf<NoContentResult>(controllerResult);
-            var noContentResult = controllerResult as NoContentResult;
-            Assert.That(noContentResult.StatusCode, Is.EqualTo(StatusCodes.Status204NoContent));
+            Assert.Multiple(() =>
+            {
+                Assert.That(controllerResult, Is.Not.Null);
+                Assert.That(controllerResult, Is.InstanceOf<NoContentResult>());
+                var noContentResult = controllerResult as NoContentResult;
+                Assert.That(noContentResult?.StatusCode, Is.EqualTo(StatusCodes.Status204NoContent));
+            });
         }
     }
 }

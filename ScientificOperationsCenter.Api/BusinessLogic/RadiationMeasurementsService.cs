@@ -13,23 +13,17 @@ namespace ScientificOperationsCenter.Api.BusinessLogic
     /// grouping them by hour for daily data, by day for monthly data,
     /// and calculating total milligrays for specified time periods.
     /// </summary>
-    public sealed class RadiationMeasurementsService : IRadiationMeasurementsService
+    /// <param name="radiationMeasurementsRepository">The repository used to access radiation measurement data. This parameter cannot be null.</param>
+    public sealed class RadiationMeasurementsService(
+            IRadiationMeasurementsRepository radiationMeasurementsRepository
+        ) : IRadiationMeasurementsService
     {
         /// <summary>
         /// Provides access to functions in the RadiationMeasurementsRepository.
         /// </summary>
-        private readonly IRadiationMeasurementsRepository _radiationMeasurementsRepository;
-
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RadiationMeasurementsService"/> class.
-        /// </summary>
-        /// <param name="radiationMeasurementsRepository">The repository used to access radiation measurement data. This parameter cannot be null.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="radiationMeasurementsRepository"/> is null.</exception>
-        public RadiationMeasurementsService(IRadiationMeasurementsRepository radiationMeasurementsRepository)
-        {
-            _radiationMeasurementsRepository = radiationMeasurementsRepository ?? throw new ArgumentNullException(nameof(radiationMeasurementsRepository));
-        }
+        private readonly IRadiationMeasurementsRepository _radiationMeasurementsRepository = radiationMeasurementsRepository
+            ?? throw new ArgumentNullException(nameof(radiationMeasurementsRepository));
 
 
         /// <summary>
@@ -49,7 +43,7 @@ namespace ScientificOperationsCenter.Api.BusinessLogic
             var radiationMeasurements = await _radiationMeasurementsRepository.GetByDayAsync(date);
             if (!radiationMeasurements.Any())
             {
-                return Enumerable.Empty<RadiationMeasurementsTimeSum>();
+                return [];
             }
             try
             {
@@ -88,7 +82,7 @@ namespace ScientificOperationsCenter.Api.BusinessLogic
             var radiationMeasurements = await _radiationMeasurementsRepository.GetByMonthAsync(date);
             if (!radiationMeasurements.Any())
             {
-                return Enumerable.Empty<RadiationMeasurementsDateSum>();
+                return [];
             }
             try
             {
@@ -127,7 +121,7 @@ namespace ScientificOperationsCenter.Api.BusinessLogic
             var radiationMeasurements = await _radiationMeasurementsRepository.GetByYearAsync(date);
             if (!radiationMeasurements.Any())
             {
-                return Enumerable.Empty<RadiationMeasurementsDateSum>();
+                return [];
             }
             try
             {

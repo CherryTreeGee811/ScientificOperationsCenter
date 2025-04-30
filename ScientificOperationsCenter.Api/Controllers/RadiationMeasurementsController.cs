@@ -8,25 +8,18 @@ using System.Globalization;
 namespace ScientificOperationsCenter.Api.Controllers
 {
     /// <summary>
-    /// Controller for handling radiation measurements API requests.
+    /// Controller for handling radiation measurement API requests.
     /// </summary>
+    /// <param name="radiationMeasurementsMapper">Mapper for radiation measurements data.</param>
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public sealed class RadiationMeasurementsController : ControllerBase
+    public sealed class RadiationMeasurementsController(
+            IRadiationMeasurementsMapper radiationMeasurementsMapper
+        ) : ControllerBase
     {
-        private readonly IRadiationMeasurementsMapper _radiationMeasurementsMapper;
-
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RadiationMeasurementsController"/> class.
-        /// </summary>
-        /// <param name="radiationMeasurementsMapper">Mapper for radiation measurements data.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="radiationMeasurementsMapper"/> is null.</exception>
-        public RadiationMeasurementsController(IRadiationMeasurementsMapper radiationMeasurementsMapper)
-        {
-            _radiationMeasurementsMapper = radiationMeasurementsMapper ?? throw new ArgumentNullException(nameof(radiationMeasurementsMapper));
-        }
+        private readonly IRadiationMeasurementsMapper _radiationMeasurementsMapper = radiationMeasurementsMapper
+            ?? throw new ArgumentNullException(nameof(radiationMeasurementsMapper));
 
 
         /// <summary>

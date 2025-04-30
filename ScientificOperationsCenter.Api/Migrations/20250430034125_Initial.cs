@@ -1,9 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-#nullable disable
-
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ScientificOperationsCenter.Api.Migrations
 {
@@ -45,7 +40,7 @@ namespace ScientificOperationsCenter.Api.Migrations
 
             migrationBuilder.InsertData(
                 table: "RadiationMeasurements",
-                columns: new[] { "Id", "Date", "Milligrays", "Time" },
+                columns: ["Id", "Date", "Milligrays", "Time"],
                 values: new object[,]
                 {
                     { 1, new DateOnly(2024, 9, 8), 100, new TimeOnly(16, 0, 0) },
@@ -68,7 +63,7 @@ namespace ScientificOperationsCenter.Api.Migrations
 
             migrationBuilder.InsertData(
                 table: "Temperatures",
-                columns: new[] { "Id", "Date", "TemperatureCelcius", "Time" },
+                columns: ["Id", "Date", "TemperatureCelcius", "Time"],
                 values: new object[,]
                 {
                     { 1, new DateOnly(2024, 9, 2), 20, new TimeOnly(16, 0, 0) },

@@ -1,4 +1,5 @@
-﻿using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
+﻿using ScientificOperationsCenter.Api.BusinessLogic;
+using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
 using ScientificOperationsCenter.Api.Mappers.Interfaces;
 using ScientificOperationsCenter.Api.ViewModels;
 
@@ -10,24 +11,18 @@ namespace ScientificOperationsCenter.Api.Mappers
     /// This class is responsible for transforming and organizing data retrieved from the service layer
     /// into view models that can be used by the presentation layer.
     /// </summary>
-    public sealed class TemperaturesMapper : ITemperaturesMapper
+    /// <param name="temperaturesService">The service used to retrieve temperature data.</param>
+    public sealed class TemperaturesMapper(
+            ITemperaturesService temperaturesService
+        ) : ITemperaturesMapper
     {
         /// <summary>
         /// Dependency on the temperatures service to fetch data.
         /// This service provides methods to retrieve average temperature data for specific time periods.
         /// </summary>
-        private readonly ITemperaturesService _temperaturesService;
-
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TemperaturesMapper"/> class.
-        /// </summary>
-        /// <param name="temperaturesService">The service used to retrieve temperature data.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="temperaturesService"/> is null.</exception>
-        public TemperaturesMapper(ITemperaturesService temperaturesService)
-        {
-            _temperaturesService = temperaturesService ?? throw new ArgumentNullException(nameof(temperaturesService));
-        }
+        private readonly ITemperaturesService _temperaturesService = temperaturesService
+            ?? throw new ArgumentNullException(nameof(temperaturesService));
 
 
         /// <summary>
@@ -50,7 +45,7 @@ namespace ScientificOperationsCenter.Api.Mappers
                     new TemperaturesViewModel { TimeFrame = t.Time.ToString(), AverageTemperature = t.AverageTemperature });
                 return values;
             }
-            return Enumerable.Empty<TemperaturesViewModel>();
+            return [];
         }
 
 
@@ -74,7 +69,7 @@ namespace ScientificOperationsCenter.Api.Mappers
                     new TemperaturesViewModel { TimeFrame = t.Date.Day.ToString(), AverageTemperature = t.AverageTemperature });
                 return values;
             }
-            return Enumerable.Empty<TemperaturesViewModel>();
+            return [];
         }
 
 
@@ -98,7 +93,7 @@ namespace ScientificOperationsCenter.Api.Mappers
                     new TemperaturesViewModel { TimeFrame = t.Date.ToString("MMMM"), AverageTemperature = t.AverageTemperature });
                 return values;
             }
-            return Enumerable.Empty<TemperaturesViewModel>();
+            return [];
         }
     }
 }

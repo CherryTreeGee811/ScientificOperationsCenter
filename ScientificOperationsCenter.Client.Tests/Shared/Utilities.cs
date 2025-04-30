@@ -5,12 +5,12 @@ namespace ScientificOperationsCenter.Client.Tests.Shared
 {
     public static class Utilities
     {
-        public static string GetDisplayedChartDataSetLabel(IWebDriver driver)
+        public static string? GetDisplayedChartDataSetLabel(IWebDriver Driver)
         {
             try
             {
                 // Execute JavaScript to get the chart dataset label
-                return (string)((IJavaScriptExecutor)driver).ExecuteScript(@"
+                return (string?)((IJavaScriptExecutor)Driver).ExecuteScript(@"
                     const chart = Chart.instances[0];
                     return chart ? chart.data.datasets[0].label : '';
                 ");
@@ -23,44 +23,56 @@ namespace ScientificOperationsCenter.Client.Tests.Shared
         }
 
 
-        public static List<string?> GetDisplayedChartLabels(IWebDriver driver)
+        public static IList<string?> GetDisplayedChartLabels(IWebDriver Driver)
         {
             try
             {
                 // Execute JavaScript to get the chart labels
-                var data = (IList<object>)((IJavaScriptExecutor)driver).ExecuteScript(@"
+                if (((IJavaScriptExecutor)Driver).ExecuteScript(@"
                     const chart = Chart.instances[0];
                     return chart ? chart.data.labels : [];
-                ");
-
-                // Convert the IList<object> to a List<string?>
-                return data.Select(l => Convert.ToString(l)).ToList();
+                    ") is IList<object> data)
+                {
+                    // Convert the IList<object> to a List<string?>
+                    return [.. data.Select(l => Convert.ToString(l))];
+                }
+                else
+                {
+                    Console.WriteLine("Error: Chart labels data is null.");
+                    return [];
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error retrieving chart label: {ex.Message}");
-                return new List<string?>();
+                return [];
             }
         }
 
 
-        public static List<double> GetDisplayedChartData(IWebDriver driver)
+        public static IList<double> GetDisplayedChartData(IWebDriver Driver)
         {
             try
             {
                 // Execute JavaScript to get the chart data
-                var data = (IList<object>)((IJavaScriptExecutor)driver).ExecuteScript(@"
+                if (((IJavaScriptExecutor)Driver).ExecuteScript(@"
                     const chart = Chart.instances[0];
                     return chart ? chart.data.datasets[0].data : [];
-                ");
-
-                // Convert the IList<object> to a List<double>
-                return data.Select(d => Convert.ToDouble(d)).ToList();
+                    ") is IList<object> data)
+                {
+                    // Convert the IList<object> to a List<double>
+                    return [.. data.Select(Convert.ToDouble)];
+                }
+                else
+                {
+                    Console.WriteLine("Error: Chart data is null.");
+                    return [];
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error retrieving chart data: {ex.Message}");
-                return new List<double>();
+                return [];
             }
         }
     }

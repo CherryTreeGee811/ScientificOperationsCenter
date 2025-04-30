@@ -6,7 +6,6 @@ services:
     hostname: localhost
     ports:
         - 9000:9000
-        - 9001:9001
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:9000
@@ -27,7 +26,6 @@ services:
     container_name: scientificoperationscenterapi
     ports:
       - "8000:8000"
-      - "8001:8001"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8000
@@ -49,7 +47,6 @@ services:
     container_name: scientificoperationscenterauth
     ports:
       - "8060:8060"
-      - "8061:8061"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8060

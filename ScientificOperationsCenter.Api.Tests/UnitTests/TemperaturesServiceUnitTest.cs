@@ -3,10 +3,10 @@ using ScientificOperationsCenter.Api.BusinessLogic;
 using ScientificOperationsCenter.Api.BusinessLogic.Structs;
 using ScientificOperationsCenter.Api.CustomExceptions;
 using ScientificOperationsCenter.Api.DAL.Interfaces;
-using ScientificOperationsCenter.Tests.Mocks;
+using ScientificOperationsCenter.Api.Tests.Mocks;
 
 
-namespace ScientificOperationsCenter.Tests.UnitTests
+namespace ScientificOperationsCenter.Api.Tests.UnitTests
 {
     public class TemperaturesServiceUnitTest
     {
@@ -40,12 +40,15 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var result = await _temperaturesService.GetAverageTemperaturesForTheDayAsync(date);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.First().Time, Is.EqualTo(new TimeOnly(21, 00)));
-            Assert.That(result.First().AverageTemperature, Is.EqualTo(10));
-            Assert.That(result.Last().Time, Is.EqualTo(new TimeOnly(21, 00)));
-            Assert.That(result.Last().AverageTemperature, Is.EqualTo(10));
-            Assert.That(result.Count(), Is.EqualTo(1));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.First().Time, Is.EqualTo(new TimeOnly(21, 00)));
+                Assert.That(result.First().AverageTemperature, Is.EqualTo(10));
+                Assert.That(result.Last().Time, Is.EqualTo(new TimeOnly(21, 00)));
+                Assert.That(result.Last().AverageTemperature, Is.EqualTo(10));
+                Assert.That(result.Count(), Is.EqualTo(1));
+            });
         }
 
 
@@ -59,12 +62,15 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var result = await _temperaturesService.GetAverageTemperaturesForTheMonthAsync(date);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.First().Date, Is.EqualTo(new DateOnly(2024, 10, 08)));
-            Assert.That(result.First().AverageTemperature, Is.EqualTo(10));
-            Assert.That(result.Last().Date, Is.EqualTo(new DateOnly(2024, 10, 09)));
-            Assert.That(result.Last().AverageTemperature, Is.EqualTo(10));
-            Assert.That(result.Count(), Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.First().Date, Is.EqualTo(new DateOnly(2024, 10, 08)));
+                Assert.That(result.First().AverageTemperature, Is.EqualTo(10));
+                Assert.That(result.Last().Date, Is.EqualTo(new DateOnly(2024, 10, 09)));
+                Assert.That(result.Last().AverageTemperature, Is.EqualTo(10));
+                Assert.That(result.Count(), Is.EqualTo(2));
+            });
         }
 
 
@@ -78,12 +84,15 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var result = await _temperaturesService.GetAverageTemperaturesForTheYearAsync(date);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.First().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
-            Assert.That(result.First().AverageTemperature, Is.EqualTo(10));
-            Assert.That(result.Last().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
-            Assert.That(result.Last().AverageTemperature, Is.EqualTo(10));
-            Assert.That(result.Count(), Is.EqualTo(1));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.First().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
+                Assert.That(result.First().AverageTemperature, Is.EqualTo(10));
+                Assert.That(result.Last().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
+                Assert.That(result.Last().AverageTemperature, Is.EqualTo(10));
+                Assert.That(result.Count(), Is.EqualTo(1));
+            });
         }
 
 
@@ -97,8 +106,12 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var result = await _temperaturesService.GetAverageTemperaturesForTheDayAsync(date);
 
             // Assert
-            Assert.That(result.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<TemperaturesTimeAverage>>(result, "The returned element is not of IEnumerable<TemperaturesTimeAverage> type.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Any(), Is.False);
+                Assert.That(result, Is.InstanceOf<IEnumerable<TemperaturesTimeAverage>>(),
+                    "The returned element is not of IEnumerable<TemperaturesTimeAverage> type.");
+            });
         }
 
 
@@ -112,8 +125,12 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var result = await _temperaturesService.GetAverageTemperaturesForTheMonthAsync(date);
 
             // Assert
-            Assert.That(result.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<TemperaturesDateAverage>>(result, "The returned element is not of IEnumerable<TemperaturesDateAverage> type.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Any(), Is.False);
+                Assert.That(result, Is.InstanceOf<IEnumerable<TemperaturesDateAverage>>(),
+                    "The returned element is not of IEnumerable<TemperaturesDateAverage> type.");
+            });
         }
 
 
@@ -127,8 +144,12 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var result = await _temperaturesService.GetAverageTemperaturesForTheYearAsync(date);
 
             // Assert
-            Assert.That(result.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<TemperaturesDateAverage>>(result, "The returned element is not of IEnumerable<TemperaturesDateAverage> type.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Any(), Is.False);
+                Assert.That(result, Is.InstanceOf<IEnumerable<TemperaturesDateAverage>>(),
+                    "The returned element is not of IEnumerable<TemperaturesDateAverage> type.");
+            });
         }
 
 
@@ -136,13 +157,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public void Constructor_WhenTemperaturesRepositoryIsNull_ThrowsArgumentNullException()
         {
             // Arrange
-            ITemperaturesRepository temperaturesRepository = null;
+            ITemperaturesRepository? temperaturesRepository = null;
 
-            // Action
-            TestDelegate action = () => new TemperaturesService(temperaturesRepository);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(action);
+            // Action & Assert
+            var exception = Assert.Throws<ArgumentNullException>(() => _ = new TemperaturesService(temperaturesRepository!));
             Assert.That(exception.ParamName, Is.EqualTo("temperaturesRepository"));
         }
 
@@ -166,10 +184,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             catch (Exception gEx)
             {
                 // Assert
-                Assert.NotNull(gEx);
-                Assert.IsInstanceOf<DataAccessException>(gEx);
+                Assert.That(gEx, Is.Not.Null);
+                Assert.That(gEx, Is.InstanceOf<DataAccessException>());
                 var dataAccessExceptionResult = gEx as DataAccessException;
-                Assert.That(dataAccessExceptionResult.Message,
+                Assert.That(dataAccessExceptionResult?.Message,
                     Is.EqualTo("Verfiy DataAccessException is passed from mapper"));
             }
         }
@@ -194,15 +212,16 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             catch (Exception gEx)
             {
                 // Assert
-                Assert.NotNull(gEx);
-                Assert.IsInstanceOf<DataAccessException>(gEx);
+                Assert.That(gEx, Is.Not.Null);
+                Assert.That(gEx, Is.InstanceOf<DataAccessException>());
                 var dataAccessExceptionResult = gEx as DataAccessException;
-                Assert.That(dataAccessExceptionResult.Message,
+                Assert.That(dataAccessExceptionResult?.Message,
                     Is.EqualTo("Verfiy DataAccessException is passed from mapper"));
             }
         }
 
 
+        [Test]
         public async Task GivenATemperaturesRepository_GetAverageTemperaturesForTheYearAsync_ThenIfBusinessLogicExceptionReturn()
         {
             // Setup
@@ -221,10 +240,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             catch (Exception gEx)
             {
                 // Assert
-                Assert.NotNull(gEx);
-                Assert.IsInstanceOf<DataAccessException>(gEx);
+                Assert.That(gEx, Is.Not.Null);
+                Assert.That(gEx, Is.InstanceOf<DataAccessException>());
                 var dataAccessExceptionResult = gEx as DataAccessException;
-                Assert.That(dataAccessExceptionResult.Message,
+                Assert.That(dataAccessExceptionResult?.Message,
                     Is.EqualTo("Verfiy DataAccessException is passed from mapper"));
             }
         }

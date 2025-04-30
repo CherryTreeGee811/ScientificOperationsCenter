@@ -8,31 +8,21 @@ using Serilog;
 
 namespace ScientificOperationsCenter.Api.DAL
 {
-    // ToDo: Update comments + tests
-
     /// <summary>
     /// Manages initial data access for radiation measurements.
     /// Filters data to meet the requirements of the ScientificOperationsCenter application.
     /// Represents data retrieved from the database using the RadiationMeasurements data model.
     /// </summary>
-    public sealed class RadiationMeasurementsRepository : IRadiationMeasurementsRepository
+    /// <param name="context">The database context used to access the Radiation Measurements database table.</param>
+    public sealed class RadiationMeasurementsRepository(
+            ScientificOperationsCenterContext context
+        ) : IRadiationMeasurementsRepository
     {
         /// <summary>
         /// Represents the Radiation Measurement database table.
         /// </summary>
-        private readonly DbSet<RadiationMeasurements> _dbSet;
-        private readonly ScientificOperationsCenterContext _context;
-
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RadiationMeasurementsRepository"/> class.
-        /// </summary>
-        /// <param name="context">The database context used to access the Radiation Measurements database table.</param>
-        public RadiationMeasurementsRepository(ScientificOperationsCenterContext context)
-        {
-            _dbSet = context.Set<RadiationMeasurements>();
-            _context = context;
-        }
+        private readonly DbSet<RadiationMeasurements> _dbSet = context.Set<RadiationMeasurements>();
+        private readonly ScientificOperationsCenterContext _context = context;
 
 
         /// <summary>
