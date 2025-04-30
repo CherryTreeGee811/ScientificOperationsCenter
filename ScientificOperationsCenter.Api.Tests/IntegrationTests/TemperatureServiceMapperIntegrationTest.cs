@@ -1,12 +1,12 @@
 ﻿using ScientificOperationsCenter.Api.BusinessLogic;
 using ScientificOperationsCenter.Api.Mappers;
-using ScientificOperationsCenter.Tests.Mocks;
+using ScientificOperationsCenter.Api.Tests.Mocks;
 using ScientificOperationsCenter.Api.ViewModels;
 using ScientificOperationsCenter.Api.DAL.Interfaces;
 using Moq;
 
 
-namespace ScientificOperationsCenter.Tests.IntegrationTests
+namespace ScientificOperationsCenter.Api.Tests.IntegrationTests
 {
     internal class TemperatureServiceMapperIntegrationTest
     {
@@ -42,12 +42,15 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             var mapperResult = await _temperaturesMapper.GetTemperaturesForTheDayAsync(date);
 
             // Assert
-            Assert.NotNull(mapperResult);
-            Assert.That(mapperResult.First().TimeFrame, Is.EqualTo((new TimeOnly(12, 00)).ToString()));
-            Assert.That(mapperResult.First().AverageTemperature, Is.EqualTo(9));
-            Assert.That(mapperResult.Last().TimeFrame, Is.EqualTo((new TimeOnly(19, 00)).ToString()));
-            Assert.That(mapperResult.Last().AverageTemperature, Is.EqualTo(17));
-            Assert.That(mapperResult.Count(), Is.EqualTo(3));
+            Assert.Multiple(() =>
+            {
+                Assert.That(mapperResult, Is.Not.Null);
+                Assert.That(mapperResult.First().TimeFrame, Is.EqualTo((new TimeOnly(12, 00)).ToString()));
+                Assert.That(mapperResult.First().AverageTemperature, Is.EqualTo(9));
+                Assert.That(mapperResult.Last().TimeFrame, Is.EqualTo((new TimeOnly(19, 00)).ToString()));
+                Assert.That(mapperResult.Last().AverageTemperature, Is.EqualTo(17));
+                Assert.That(mapperResult.Count(), Is.EqualTo(3));
+            });
         }
 
 
@@ -61,12 +64,15 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             var mapperResult = await _temperaturesMapper.GetTemperaturesForTheMonthAsync(date);
 
             // Assert
-            Assert.NotNull(mapperResult);
-            Assert.That(mapperResult.First().TimeFrame, Is.EqualTo("8"));
-            Assert.That(mapperResult.First().AverageTemperature, Is.EqualTo(10));
-            Assert.That(mapperResult.Last().TimeFrame, Is.EqualTo("9"));
-            Assert.That(mapperResult.Last().AverageTemperature, Is.EqualTo(10));
-            Assert.That(mapperResult.Count(), Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(mapperResult, Is.Not.Null);
+                Assert.That(mapperResult.First().TimeFrame, Is.EqualTo("8"));
+                Assert.That(mapperResult.First().AverageTemperature, Is.EqualTo(10));
+                Assert.That(mapperResult.Last().TimeFrame, Is.EqualTo("9"));
+                Assert.That(mapperResult.Last().AverageTemperature, Is.EqualTo(10));
+                Assert.That(mapperResult.Count(), Is.EqualTo(2));
+            });
         }
 
 
@@ -80,12 +86,15 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             var mapperResult = await _temperaturesMapper.GetTemperaturesForTheYearAsync(date);
 
             // Assert
-            Assert.NotNull(mapperResult);
-            Assert.That(mapperResult.First().TimeFrame, Is.EqualTo("October"));
-            Assert.That(mapperResult.First().AverageTemperature, Is.EqualTo(10));
-            Assert.That(mapperResult.Last().TimeFrame, Is.EqualTo("November"));
-            Assert.That(mapperResult.Last().AverageTemperature, Is.EqualTo(2));
-            Assert.That(mapperResult.Count(), Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(mapperResult, Is.Not.Null);
+                Assert.That(mapperResult.First().TimeFrame, Is.EqualTo("October"));
+                Assert.That(mapperResult.First().AverageTemperature, Is.EqualTo(10));
+                Assert.That(mapperResult.Last().TimeFrame, Is.EqualTo("November"));
+                Assert.That(mapperResult.Last().AverageTemperature, Is.EqualTo(2));
+                Assert.That(mapperResult.Count(), Is.EqualTo(2));
+            });
         }
 
 
@@ -99,8 +108,12 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             var mapperResult = await _temperaturesMapper.GetTemperaturesForTheDayAsync(date);
 
             // Assert
-            Assert.That(mapperResult.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(mapperResult, "The returned element is not of IEnumerable<TemperaturesViewModel> type.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(mapperResult.Any(), Is.False);
+                Assert.That(mapperResult, Is.InstanceOf<IEnumerable<TemperaturesViewModel>>(),
+                    "The returned element is not of IEnumerable<TemperaturesViewModel> type.");
+            });
         }
 
 
@@ -114,8 +127,12 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             var mapperResult = await _temperaturesMapper.GetTemperaturesForTheMonthAsync(date);
 
             // Assert
-            Assert.That(mapperResult.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(mapperResult, "The returned element is not of IEnumerable<TemperaturesViewModel> type.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(mapperResult.Any(), Is.False);
+                Assert.That(mapperResult, Is.InstanceOf<IEnumerable<TemperaturesViewModel>>(),
+                    "The returned element is not of IEnumerable<TemperaturesViewModel> type.");
+            });
         }
 
 
@@ -129,8 +146,12 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             var mapperResult = await _temperaturesMapper.GetTemperaturesForTheYearAsync(date);
 
             // Assert
-            Assert.That(mapperResult.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(mapperResult, "The returned element is not of IEnumerable<TemperaturesViewModel> type.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(mapperResult.Any(), Is.False);
+                Assert.That(mapperResult, Is.InstanceOf<IEnumerable<TemperaturesViewModel>>(),
+                    "The returned element is not of IEnumerable<TemperaturesViewModel> type.");
+            });
         }
     }
 }

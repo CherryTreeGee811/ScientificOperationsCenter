@@ -14,7 +14,7 @@ namespace ScientificOperationsCenter.Api.ViewModels
         /// </summary>
         [Required]
         [JsonProperty("timeFrame")]
-        public string TimeFrame { get; set; }
+        public string? TimeFrame { get; set; }
 
 
         /// <summary>

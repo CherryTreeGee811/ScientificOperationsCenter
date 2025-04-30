@@ -10,24 +10,18 @@ namespace ScientificOperationsCenter.Api.Mappers
     /// This class is responsible for transforming and organizing data retrieved from the service layer
     /// into view models that can be used by the presentation layer.
     /// </summary>
-    public sealed class RadiationMeasurementsMapper : IRadiationMeasurementsMapper
+    /// <param name="radiationMeasurementsService">The service used to retrieve radiation measurement data.</param>
+    public sealed class RadiationMeasurementsMapper(
+            IRadiationMeasurementsService radiationMeasurementsService
+        ) : IRadiationMeasurementsMapper
     {
         /// <summary>
         /// Dependency on the radiation measurements service to fetch data.
         /// This service provides methods to retrieve total radiation measurement data for specific time periods.
         /// </summary>
-        private readonly IRadiationMeasurementsService _radiationMeasurementsService;
-
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RadiationMeasurementsMapper"/> class.
-        /// </summary>
-        /// <param name="radiationMeasurementsService">The service used to retrieve radiation measurement data.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="radiationMeasurementsService"/> is null.</exception>
-        public RadiationMeasurementsMapper(IRadiationMeasurementsService radiationMeasurementsService)
-        {
-            _radiationMeasurementsService = radiationMeasurementsService ?? throw new ArgumentNullException(nameof(radiationMeasurementsService));
-        }
+        private readonly IRadiationMeasurementsService _radiationMeasurementsService = radiationMeasurementsService
+            ?? throw new ArgumentNullException(nameof(radiationMeasurementsService));
 
 
         /// <summary>
@@ -50,7 +44,7 @@ namespace ScientificOperationsCenter.Api.Mappers
                     new RadiationMeasurementsViewModel { TimeFrame = r.Time.ToString(), TotalRadiation = r.TotalMilligrays });
                 return values;
             }
-            return Enumerable.Empty<RadiationMeasurementsViewModel>();
+            return [];
         }
 
 
@@ -74,7 +68,7 @@ namespace ScientificOperationsCenter.Api.Mappers
                     new RadiationMeasurementsViewModel { TimeFrame = r.Date.Day.ToString(), TotalRadiation = r.TotalMilligrays });
                 return values;
             }
-            return Enumerable.Empty<RadiationMeasurementsViewModel>();
+            return [];
         }
 
 
@@ -98,7 +92,7 @@ namespace ScientificOperationsCenter.Api.Mappers
                     new RadiationMeasurementsViewModel { TimeFrame = r.Date.ToString("MMMM"), TotalRadiation = r.TotalMilligrays });
                 return values;
             }
-            return Enumerable.Empty<RadiationMeasurementsViewModel>();
+            return [];
         }
     }
 }

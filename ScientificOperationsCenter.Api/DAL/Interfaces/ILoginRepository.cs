@@ -1,4 +1,5 @@
-﻿using AuthorizationServer.Models;
+﻿using ScientificOperationsCenter.Api.Models;
+
 
 namespace ScientificOperationsCenter.Api.DAL.Interfaces
 {

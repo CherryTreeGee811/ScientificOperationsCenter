@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 

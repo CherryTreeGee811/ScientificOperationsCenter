@@ -13,26 +13,16 @@ namespace ScientificOperationsCenter.Api.DAL
     /// Filters data to meet the requirements of the ScientificOperationsCenter application.
     /// Represents data retrieved from the database using the Temperatures data model.
     /// </summary>
-    public sealed class TemperaturesRepository : ITemperaturesRepository
+    /// <param name="context">The database context used to access the Temperatures database table.</param>
+    public sealed class TemperaturesRepository(
+            ScientificOperationsCenterContext context
+        ) : ITemperaturesRepository
     {
-        // ToDo: Update comments + Tests
-
         /// <summary>
         /// Represents the Temperatures database table.
         /// </summary>
-        private readonly DbSet<Temperatures> _dbSet;
-        private readonly ScientificOperationsCenterContext _context;
-
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TemperaturesRepository"/> class.
-        /// </summary>
-        /// <param name="context">The database context used to access the Temperatures database table.</param>
-        public TemperaturesRepository(ScientificOperationsCenterContext context)
-        {
-            _dbSet = context.Set<Temperatures>();
-            _context = context;
-        }
+        private readonly DbSet<Temperatures> _dbSet = context.Set<Temperatures>();
+        private readonly ScientificOperationsCenterContext _context = context;
 
 
         /// <summary>

@@ -2,15 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using ScientificOperationsCenter.Api.Controllers;
 using ScientificOperationsCenter.Api.Mappers;
-using ScientificOperationsCenter.Tests.Mocks;
+using ScientificOperationsCenter.Api.Tests.Mocks;
 using ScientificOperationsCenter.Api.ViewModels;
 using Moq;
 using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
-using ScientificOperationsCenter.Api.DAL;
-using ScientificOperationsCenter.Api.Tests.Mocks;
 
 
-namespace ScientificOperationsCenter.Tests.IntegrationTests
+namespace ScientificOperationsCenter.Api.Tests.IntegrationTests
 {
     internal class TemperaturesMapperControllerIntegrationTest
     {
@@ -45,19 +43,22 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             var okResult = controllerResult as ObjectResult;
 
             // Assert
-            Assert.NotNull(okResult);
-            Assert.IsInstanceOf<OkObjectResult>(okResult);
-            Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
-            Assert.NotNull(okResult.Value);
-            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(okResult.Value);
-            var contents = okResult.Value as IEnumerable<TemperaturesViewModel>;
-            Assert.NotNull(contents);
-            Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().TimeFrame, Is.EqualTo((new TimeOnly(1, 00)).ToString()));
-            Assert.That(contents.First().AverageTemperature, Is.EqualTo(-1));
-            Assert.That(contents.Last().TimeFrame, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
-            Assert.That(contents.Last().AverageTemperature, Is.EqualTo(30));
-            Assert.That(contents.Count, Is.EqualTo(6));
+            Assert.Multiple(() =>
+            {
+                Assert.That(okResult, Is.Not.Null);
+                Assert.That(okResult, Is.InstanceOf<OkObjectResult>());
+                Assert.That(okResult?.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
+                Assert.That(okResult?.Value, Is.Not.Null);
+                Assert.That(okResult?.Value, Is.InstanceOf<IEnumerable<TemperaturesViewModel>>());
+                var contents = okResult?.Value as IEnumerable<TemperaturesViewModel>;
+                Assert.That(contents, Is.Not.Null);
+                Assert.That(contents!.Count, Is.AtLeast(1));
+                Assert.That(contents!.First().TimeFrame, Is.EqualTo((new TimeOnly(1, 00)).ToString()));
+                Assert.That(contents!.First().AverageTemperature, Is.EqualTo(-1));
+                Assert.That(contents!.Last().TimeFrame, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
+                Assert.That(contents!.Last().AverageTemperature, Is.EqualTo(30));
+                Assert.That(contents!.Count, Is.EqualTo(6));
+            });
         }
 
 
@@ -72,19 +73,22 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             var okResult = controllerResult as ObjectResult;
 
             // Assert
-            Assert.NotNull(okResult);
-            Assert.IsInstanceOf<OkObjectResult>(okResult);
-            Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
-            Assert.NotNull(okResult.Value);
-            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(okResult.Value);
-            var contents = okResult.Value as IEnumerable<TemperaturesViewModel>;
-            Assert.NotNull(contents);
-            Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().TimeFrame, Is.EqualTo("1"));
-            Assert.That(contents.First().AverageTemperature, Is.EqualTo(27));
-            Assert.That(contents.Last().TimeFrame, Is.EqualTo("21"));
-            Assert.That(contents.Last().AverageTemperature, Is.EqualTo(15));
-            Assert.That(contents.Count, Is.EqualTo(7));
+            Assert.Multiple(() =>
+            {
+                Assert.That(okResult, Is.Not.Null);
+                Assert.That(okResult, Is.InstanceOf<OkObjectResult>());
+                Assert.That(okResult?.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
+                Assert.That(okResult?.Value, Is.Not.Null);
+                Assert.That(okResult?.Value, Is.InstanceOf<IEnumerable<TemperaturesViewModel>>());
+                var contents = okResult?.Value as IEnumerable<TemperaturesViewModel>;
+                Assert.That(contents, Is.Not.Null);
+                Assert.That(contents!.Count, Is.AtLeast(1));
+                Assert.That(contents!.First().TimeFrame, Is.EqualTo("1"));
+                Assert.That(contents!.First().AverageTemperature, Is.EqualTo(27));
+                Assert.That(contents!.Last().TimeFrame, Is.EqualTo("21"));
+                Assert.That(contents!.Last().AverageTemperature, Is.EqualTo(15));
+                Assert.That(contents!.Count, Is.EqualTo(7));
+            });
         }
 
 
@@ -100,19 +104,22 @@ namespace ScientificOperationsCenter.Tests.IntegrationTests
             var okResult = controllerResult as ObjectResult;
 
             // Assert
-            Assert.NotNull(okResult);
-            Assert.IsInstanceOf<OkObjectResult>(okResult);
-            Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
-            Assert.NotNull(okResult.Value);
-            Assert.IsInstanceOf<IEnumerable<TemperaturesViewModel>>(okResult.Value);
-            var contents = okResult.Value as IEnumerable<TemperaturesViewModel>;
-            Assert.NotNull(contents);
-            Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().TimeFrame, Is.EqualTo("May"));
-            Assert.That(contents.First().AverageTemperature, Is.EqualTo(-3));
-            Assert.That(contents.Last().TimeFrame, Is.EqualTo("December"));
-            Assert.That(contents.Last().AverageTemperature, Is.EqualTo(27));
-            Assert.That(contents.Count, Is.EqualTo(8));
+            Assert.Multiple(() =>
+            {
+                Assert.That(okResult, Is.Not.Null);
+                Assert.That(okResult, Is.InstanceOf<OkObjectResult>());
+                Assert.That(okResult?.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
+                Assert.That(okResult?.Value, Is.Not.Null);
+                Assert.That(okResult?.Value, Is.InstanceOf<IEnumerable<TemperaturesViewModel>>());
+                var contents = okResult?.Value as IEnumerable<TemperaturesViewModel>;
+                Assert.That(contents, Is.Not.Null);
+                Assert.That(contents!.Count, Is.AtLeast(1));
+                Assert.That(contents!.First().TimeFrame, Is.EqualTo("May"));
+                Assert.That(contents!.First().AverageTemperature, Is.EqualTo(-3));
+                Assert.That(contents!.Last().TimeFrame, Is.EqualTo("December"));
+                Assert.That(contents!.Last().AverageTemperature, Is.EqualTo(27));
+                Assert.That(contents!.Count, Is.EqualTo(8));
+            });
         }
     }
 }

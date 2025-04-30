@@ -2,10 +2,10 @@
 using ScientificOperationsCenter.Api.BusinessLogic.Interfaces;
 using ScientificOperationsCenter.Api.CustomExceptions;
 using ScientificOperationsCenter.Api.Mappers;
-using ScientificOperationsCenter.Tests.Mocks;
+using ScientificOperationsCenter.Api.Tests.Mocks;
 
 
-namespace ScientificOperationsCenter.Tests.UnitTests
+namespace ScientificOperationsCenter.Api.Tests.UnitTests
 {
     internal class RadiationMeasurementsMapperUnitTest
     {
@@ -39,12 +39,15 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var result = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDayAsync(date);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.First().TimeFrame, Is.EqualTo((new TimeOnly(1, 00)).ToString()));
-            Assert.That(result.First().TotalRadiation, Is.EqualTo(430));
-            Assert.That(result.Last().TimeFrame, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
-            Assert.That(result.Last().TotalRadiation, Is.EqualTo(110));
-            Assert.That(result.Count(), Is.EqualTo(6));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.First().TimeFrame, Is.EqualTo((new TimeOnly(1, 00)).ToString()));
+                Assert.That(result.First().TotalRadiation, Is.EqualTo(430));
+                Assert.That(result.Last().TimeFrame, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
+                Assert.That(result.Last().TotalRadiation, Is.EqualTo(110));
+                Assert.That(result.Count(), Is.EqualTo(6));
+            });
         }
 
 
@@ -58,12 +61,15 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var result = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonthAsync(date);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.First().TimeFrame, Is.EqualTo("1"));
-            Assert.That(result.First().TotalRadiation, Is.EqualTo(120));
-            Assert.That(result.Last().TimeFrame, Is.EqualTo("21"));
-            Assert.That(result.Last().TotalRadiation, Is.EqualTo(110));
-            Assert.That(result.Count(), Is.EqualTo(7));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.First().TimeFrame, Is.EqualTo("1"));
+                Assert.That(result.First().TotalRadiation, Is.EqualTo(120));
+                Assert.That(result.Last().TimeFrame, Is.EqualTo("21"));
+                Assert.That(result.Last().TotalRadiation, Is.EqualTo(110));
+                Assert.That(result.Count(), Is.EqualTo(7));
+            });
         }
 
 
@@ -77,12 +83,15 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var result = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYearAsync(date);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.First().TimeFrame, Is.EqualTo("May"));
-            Assert.That(result.First().TotalRadiation, Is.EqualTo(120));
-            Assert.That(result.Last().TimeFrame, Is.EqualTo("December"));
-            Assert.That(result.Last().TotalRadiation, Is.EqualTo(150));
-            Assert.That(result.Count(), Is.EqualTo(8));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.First().TimeFrame, Is.EqualTo("May"));
+                Assert.That(result.First().TotalRadiation, Is.EqualTo(120));
+                Assert.That(result.Last().TimeFrame, Is.EqualTo("December"));
+                Assert.That(result.Last().TotalRadiation, Is.EqualTo(150));
+                Assert.That(result.Count(), Is.EqualTo(8));
+            });
         }
 
 
@@ -90,13 +99,11 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public void Constructor_WhenRadiationMeasurementsServiceIsNull_ThrowsArgumentNullException()
         {
             // Arrange
-            IRadiationMeasurementsService radiationMeasurementsService = null;
+            IRadiationMeasurementsService? radiationMeasurementsService = null;
 
-            // Action
-            TestDelegate action = () => new RadiationMeasurementsMapper(radiationMeasurementsService);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(action);
+            // Action & Assert
+            var exception = Assert.Throws<ArgumentNullException>(() =>
+                _ = new RadiationMeasurementsMapper(radiationMeasurementsService!));
             Assert.That(exception.ParamName, Is.EqualTo("radiationMeasurementsService"));
         }
 
@@ -120,10 +127,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             catch (Exception gEx)
             {
                 // Assert
-                Assert.NotNull(gEx);
-                Assert.IsInstanceOf<BusinessLogicException>(gEx);
+                Assert.That(gEx, Is.Not.Null);
+                Assert.That(gEx, Is.InstanceOf<BusinessLogicException>());
                 var businessLogicExceptionResult = gEx as BusinessLogicException;
-                Assert.That(businessLogicExceptionResult.Message,
+                Assert.That(businessLogicExceptionResult?.Message,
                     Is.EqualTo("Verfiy BusinessLogicException is passed from mapper"));
             }
         }
@@ -148,10 +155,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             catch (Exception gEx)
             {
                 // Assert
-                Assert.NotNull(gEx);
-                Assert.IsInstanceOf<BusinessLogicException>(gEx);
+                Assert.That(gEx, Is.Not.Null);
+                Assert.That(gEx, Is.InstanceOf<BusinessLogicException>());
                 var businessLogicExceptionResult = gEx as BusinessLogicException;
-                Assert.That(businessLogicExceptionResult.Message,
+                Assert.That(businessLogicExceptionResult?.Message,
                     Is.EqualTo("Verfiy BusinessLogicException is passed from mapper"));
             }
         }
@@ -176,10 +183,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             catch (Exception gEx)
             {
                 // Assert
-                Assert.NotNull(gEx);
-                Assert.IsInstanceOf<BusinessLogicException>(gEx);
+                Assert.That(gEx, Is.Not.Null);
+                Assert.That(gEx, Is.InstanceOf<BusinessLogicException>());
                 var businessLogicExceptionResult = gEx as BusinessLogicException;
-                Assert.That(businessLogicExceptionResult.Message,
+                Assert.That(businessLogicExceptionResult?.Message,
                     Is.EqualTo("Verfiy BusinessLogicException is passed from mapper"));
             }
         }

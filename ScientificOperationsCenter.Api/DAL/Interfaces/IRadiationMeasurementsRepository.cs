@@ -4,9 +4,6 @@ using ScientificOperationsCenter.Api.CustomExceptions;
 
 namespace ScientificOperationsCenter.Api.DAL.Interfaces
 {
-    // ToDo: Update comments
-
-
     /// <summary>
     /// Defines the contract for accessing radiation measurement data.
     /// </summary>

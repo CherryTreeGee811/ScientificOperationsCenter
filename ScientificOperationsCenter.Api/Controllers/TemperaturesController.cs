@@ -10,23 +10,16 @@ namespace ScientificOperationsCenter.Api.Controllers
     /// <summary>
     /// Controller for handling temperature API requests.
     /// </summary>
+    /// <param name="temperaturesMapper">Mapper for temperature data.</param>
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public sealed class TemperaturesController : ControllerBase
+    public sealed class TemperaturesController(
+            ITemperaturesMapper temperaturesMapper
+        ) : ControllerBase
     {
-        private readonly ITemperaturesMapper _temperaturesMapper;
-
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TemperaturesController"/> class.
-        /// </summary>
-        /// <param name="temperaturesMapper">Mapper for temperature data.</param>
-        /// <exception cref="ArgumentNullException">Thrown if <paramref name="temperaturesMapper"/> is null.</exception>
-        public TemperaturesController(ITemperaturesMapper temperaturesMapper)
-        {
-            _temperaturesMapper = temperaturesMapper ?? throw new ArgumentNullException(nameof(temperaturesMapper));
-        }
+        private readonly ITemperaturesMapper _temperaturesMapper = temperaturesMapper
+            ?? throw new ArgumentNullException(nameof(temperaturesMapper));
 
 
         /// <summary>

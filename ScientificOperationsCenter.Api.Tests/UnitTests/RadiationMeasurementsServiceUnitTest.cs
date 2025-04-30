@@ -3,10 +3,10 @@ using ScientificOperationsCenter.Api.BusinessLogic;
 using ScientificOperationsCenter.Api.BusinessLogic.Structs;
 using ScientificOperationsCenter.Api.CustomExceptions;
 using ScientificOperationsCenter.Api.DAL.Interfaces;
-using ScientificOperationsCenter.Tests.Mocks;
+using ScientificOperationsCenter.Api.Tests.Mocks;
 
 
-namespace ScientificOperationsCenter.Tests.UnitTests
+namespace ScientificOperationsCenter.Api.Tests.UnitTests
 {
     public class RadiationMeasurementsServiceUnitTest
     {
@@ -40,12 +40,15 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var result = await _radiationMeasurementsService.GetRadiationMeasurementsSumForTheDayAsync(date);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.First().Time, Is.EqualTo(new TimeOnly(21, 00)));
-            Assert.That(result.First().TotalMilligrays, Is.EqualTo(230));
-            Assert.That(result.Last().Time, Is.EqualTo(new TimeOnly(06, 00)));
-            Assert.That(result.Last().TotalMilligrays, Is.EqualTo(280));
-            Assert.That(result.Count(), Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.First().Time, Is.EqualTo(new TimeOnly(21, 00)));
+                Assert.That(result.First().TotalMilligrays, Is.EqualTo(230));
+                Assert.That(result.Last().Time, Is.EqualTo(new TimeOnly(06, 00)));
+                Assert.That(result.Last().TotalMilligrays, Is.EqualTo(280));
+                Assert.That(result.Count(), Is.EqualTo(2));
+            });
         }
 
 
@@ -59,12 +62,15 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var result = await _radiationMeasurementsService.GetRadiationMeasurementsSumForTheMonthAsync(date);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.First().Date, Is.EqualTo(new DateOnly(2024, 10, 08)));
-            Assert.That(result.First().TotalMilligrays, Is.EqualTo(410));
-            Assert.That(result.Last().Date, Is.EqualTo(new DateOnly(2024, 10, 09)));
-            Assert.That(result.Last().TotalMilligrays, Is.EqualTo(510));
-            Assert.That(result.Count(), Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.First().Date, Is.EqualTo(new DateOnly(2024, 10, 08)));
+                Assert.That(result.First().TotalMilligrays, Is.EqualTo(410));
+                Assert.That(result.Last().Date, Is.EqualTo(new DateOnly(2024, 10, 09)));
+                Assert.That(result.Last().TotalMilligrays, Is.EqualTo(510));
+                Assert.That(result.Count(), Is.EqualTo(2));
+            });
         }
 
 
@@ -78,12 +84,15 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var result = await _radiationMeasurementsService.GetRadiationMeasurementsSumForTheYearAsync(date);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.First().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
-            Assert.That(result.First().TotalMilligrays, Is.EqualTo(400));
-            Assert.That(result.Last().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
-            Assert.That(result.Last().TotalMilligrays, Is.EqualTo(400));
-            Assert.That(result.Count(), Is.EqualTo(1));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.First().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
+                Assert.That(result.First().TotalMilligrays, Is.EqualTo(400));
+                Assert.That(result.Last().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
+                Assert.That(result.Last().TotalMilligrays, Is.EqualTo(400));
+                Assert.That(result.Count(), Is.EqualTo(1));
+            });
         }
 
 
@@ -97,8 +106,12 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var result = await _radiationMeasurementsService.GetRadiationMeasurementsSumForTheDayAsync(date);
 
             // Assert
-            Assert.That(result.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsTimeSum>>(result, "The returned element is not of IEnumerable<RadiationMeasurementsTimeSum> type.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Any(), Is.False);
+                Assert.That(result, Is.InstanceOf<IEnumerable<RadiationMeasurementsTimeSum>>(),
+                    "The returned element is not of IEnumerable<RadiationMeasurementsTimeSum> type.");
+            });
         }
 
 
@@ -112,12 +125,16 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var result = await _radiationMeasurementsService.GetRadiationMeasurementsSumForTheMonthAsync(date);
 
             // Assert
-            Assert.That(result.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsDateSum>>(result, "The returned element is not of IEnumerable<RadiationMeasurementsDateSum> type.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Any(), Is.False);
+                Assert.That(result, Is.InstanceOf<IEnumerable<RadiationMeasurementsDateSum>>(),
+                    "The returned element is not of IEnumerable<RadiationMeasurementsDateSum> type.");
+            });
         }
 
 
-        [Test]
+            [Test]
         public async Task GivenARepositoryOfRadiationMeasurements_WhenGettingRadiationMeasurementsByYear_ThenIfEmptyEmptyIEnumerableReturn()
         {
             // Setup
@@ -127,8 +144,12 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             var result = await _radiationMeasurementsService.GetRadiationMeasurementsSumForTheYearAsync(date);
 
             // Assert
-            Assert.That(result.Any(), Is.EqualTo(false));
-            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsDateSum>>(result, "The returned element is not of IEnumerable<RadiationMeasurementsDateSum> type.");
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Any(), Is.False);
+                Assert.That(result, Is.InstanceOf<IEnumerable<RadiationMeasurementsDateSum>>(),
+                    "The returned element is not of IEnumerable<RadiationMeasurementsDateSum> type.");
+            });
         }
 
 
@@ -136,13 +157,11 @@ namespace ScientificOperationsCenter.Tests.UnitTests
         public void Constructor_WhenRadiationMeasurementsRepositoryIsNull_ThrowsArgumentNullException()
         {
             // Arrange
-            IRadiationMeasurementsRepository radiationMeasurementsRepository = null;
+            IRadiationMeasurementsRepository? radiationMeasurementsRepository = null;
 
-            // Action
-            TestDelegate action = () => new RadiationMeasurementsService(radiationMeasurementsRepository);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(action);
+            // Action & Assert
+            var exception = Assert.Throws<ArgumentNullException>(() =>
+                _ = new RadiationMeasurementsService(radiationMeasurementsRepository!));
             Assert.That(exception.ParamName, Is.EqualTo("radiationMeasurementsRepository"));
         }
 
@@ -166,10 +185,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             catch (Exception gEx)
             {
                 // Assert
-                Assert.NotNull(gEx);
-                Assert.IsInstanceOf<DataAccessException>(gEx);
+                Assert.That(gEx, Is.Not.Null);
+                Assert.That(gEx, Is.InstanceOf<DataAccessException>());
                 var dataAccessExceptionResult = gEx as DataAccessException;
-                Assert.That(dataAccessExceptionResult.Message,
+                Assert.That(dataAccessExceptionResult?.Message,
                     Is.EqualTo("Verfiy DataAccessException is passed from service"));
             }
         }
@@ -194,10 +213,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             catch (Exception gEx)
             {
                 // Assert
-                Assert.NotNull(gEx);
-                Assert.IsInstanceOf<DataAccessException>(gEx);
+                Assert.That(gEx, Is.Not.Null);
+                Assert.That(gEx, Is.InstanceOf<DataAccessException>());
                 var dataAccessExceptionResult = gEx as DataAccessException;
-                Assert.That(dataAccessExceptionResult.Message,
+                Assert.That(dataAccessExceptionResult?.Message,
                     Is.EqualTo("Verfiy DataAccessException is passed from service"));
             }
         }
@@ -222,10 +241,10 @@ namespace ScientificOperationsCenter.Tests.UnitTests
             catch (Exception gEx)
             {
                 // Assert
-                Assert.NotNull(gEx);
-                Assert.IsInstanceOf<DataAccessException>(gEx);
+                Assert.That(gEx, Is.Not.Null);
+                Assert.That(gEx, Is.InstanceOf<DataAccessException>());
                 var dataAccessExceptionResult = gEx as DataAccessException;
-                Assert.That(dataAccessExceptionResult.Message,
+                Assert.That(dataAccessExceptionResult?.Message,
                     Is.EqualTo("Verfiy DataAccessException is passed from service"));
             }
         }

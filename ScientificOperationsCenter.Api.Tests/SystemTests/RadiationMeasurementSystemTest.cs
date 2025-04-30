@@ -60,20 +60,23 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             var controllerResult = await _radiationMeasurementsController.Day(date);
 
             // Assert
-            Assert.NotNull(controllerResult);
-            Assert.IsInstanceOf<OkObjectResult>(controllerResult);
-            var okResult = controllerResult as OkObjectResult;
-            Assert.NotNull(okResult);
-            Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
-            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsViewModel>>(okResult.Value);
-            var contents = okResult.Value as IEnumerable<RadiationMeasurementsViewModel>;
-            Assert.NotNull(contents);
-            Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().TimeFrame, Is.EqualTo((new TimeOnly(06, 00)).ToString()));
-            Assert.That(contents.First().TotalRadiation, Is.EqualTo(160));
-            Assert.That(contents.Last().TimeFrame, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
-            Assert.That(contents.Last().TotalRadiation, Is.EqualTo(230));
-            Assert.That(contents.Count, Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(controllerResult, Is.Not.Null);
+                Assert.That(controllerResult, Is.InstanceOf<OkObjectResult>());
+                var okResult = controllerResult as OkObjectResult;
+                Assert.That(okResult, Is.Not.Null);
+                Assert.That(okResult?.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
+                Assert.That(okResult?.Value, Is.InstanceOf<IEnumerable<RadiationMeasurementsViewModel>>());
+                var contents = okResult?.Value as IEnumerable<RadiationMeasurementsViewModel>;
+                Assert.That(contents, Is.Not.Null);
+                Assert.That(contents!.Count, Is.AtLeast(1));
+                Assert.That(contents!.First().TimeFrame, Is.EqualTo((new TimeOnly(06, 00)).ToString()));
+                Assert.That(contents!.First().TotalRadiation, Is.EqualTo(160));
+                Assert.That(contents!.Last().TimeFrame, Is.EqualTo((new TimeOnly(21, 00)).ToString()));
+                Assert.That(contents!.Last().TotalRadiation, Is.EqualTo(230));
+                Assert.That(contents!.Count, Is.EqualTo(2));
+            });
         }
 
 
@@ -87,20 +90,23 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             var controllerResult = await _radiationMeasurementsController.Month(date);
 
             // Assert
-            Assert.NotNull(controllerResult);
-            Assert.IsInstanceOf<OkObjectResult>(controllerResult);
-            var okResult = controllerResult as OkObjectResult;
-            Assert.NotNull(okResult);
-            Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
-            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsViewModel>>(okResult.Value);
-            var contents = okResult.Value as IEnumerable<RadiationMeasurementsViewModel>;
-            Assert.NotNull(contents);
-            Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().TimeFrame, Is.EqualTo("8"));
-            Assert.That(contents.First().TotalRadiation, Is.EqualTo(410));
-            Assert.That(contents.Last().TimeFrame, Is.EqualTo("9"));
-            Assert.That(contents.Last().TotalRadiation, Is.EqualTo(390));
-            Assert.That(contents.Count, Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(controllerResult, Is.Not.Null);
+                Assert.That(controllerResult, Is.InstanceOf<OkObjectResult>());
+                var okResult = controllerResult as OkObjectResult;
+                Assert.That(okResult, Is.Not.Null);
+                Assert.That(okResult?.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
+                Assert.That(okResult?.Value, Is.InstanceOf<IEnumerable<RadiationMeasurementsViewModel>>());
+                var contents = okResult?.Value as IEnumerable<RadiationMeasurementsViewModel>;
+                Assert.That(contents, Is.Not.Null);
+                Assert.That(contents!.Count, Is.AtLeast(1));
+                Assert.That(contents!.First().TimeFrame, Is.EqualTo("8"));
+                Assert.That(contents!.First().TotalRadiation, Is.EqualTo(410));
+                Assert.That(contents!.Last().TimeFrame, Is.EqualTo("9"));
+                Assert.That(contents!.Last().TotalRadiation, Is.EqualTo(390));
+                Assert.That(contents!.Count, Is.EqualTo(2));
+            });
         }
 
 
@@ -114,20 +120,23 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             var controllerResult = await _radiationMeasurementsController.Year(date);
 
             // Assert
-            Assert.NotNull(controllerResult);
-            Assert.IsInstanceOf<OkObjectResult>(controllerResult);
-            var okResult = controllerResult as OkObjectResult;
-            Assert.NotNull(okResult);
-            Assert.That(okResult.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
-            Assert.IsInstanceOf<IEnumerable<RadiationMeasurementsViewModel>>(okResult.Value);
-            var contents = okResult.Value as IEnumerable<RadiationMeasurementsViewModel>;
-            Assert.NotNull(contents);
-            Assert.That(contents.Count, Is.AtLeast(1));
-            Assert.That(contents.First().TimeFrame, Is.EqualTo("September"));
-            Assert.That(contents.First().TotalRadiation, Is.EqualTo(402));
-            Assert.That(contents.Last().TimeFrame, Is.EqualTo("December"));
-            Assert.That(contents.Last().TotalRadiation, Is.EqualTo(378));
-            Assert.That(contents.Count, Is.EqualTo(4));
+            Assert.Multiple(() =>
+            {
+                Assert.That(controllerResult, Is.Not.Null);
+                Assert.That(controllerResult, Is.InstanceOf<OkObjectResult>());
+                var okResult = controllerResult as OkObjectResult;
+                Assert.That(okResult, Is.Not.Null);
+                Assert.That(okResult?.StatusCode, Is.EqualTo(StatusCodes.Status200OK));
+                Assert.That(okResult?.Value, Is.InstanceOf<IEnumerable<RadiationMeasurementsViewModel>>());
+                var contents = okResult?.Value as IEnumerable<RadiationMeasurementsViewModel>;
+                Assert.That(contents, Is.Not.Null);
+                Assert.That(contents!.Count, Is.AtLeast(1));
+                Assert.That(contents!.First().TimeFrame, Is.EqualTo("September"));
+                Assert.That(contents!.First().TotalRadiation, Is.EqualTo(402));
+                Assert.That(contents!.Last().TimeFrame, Is.EqualTo("December"));
+                Assert.That(contents!.Last().TotalRadiation, Is.EqualTo(378));
+                Assert.That(contents!.Count, Is.EqualTo(4));
+            });
         }
 
 
@@ -141,10 +150,13 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             var controllerResult = await _radiationMeasurementsController.Day(date);
 
             // Assert
-            Assert.NotNull(controllerResult);
-            Assert.IsInstanceOf<NoContentResult>(controllerResult);
-            var noContentResult = controllerResult as NoContentResult;
-            Assert.That(noContentResult.StatusCode, Is.EqualTo(StatusCodes.Status204NoContent));
+            Assert.Multiple(() =>
+            {
+                Assert.That(controllerResult, Is.Not.Null);
+                Assert.That(controllerResult, Is.InstanceOf<NoContentResult>());
+                var noContentResult = controllerResult as NoContentResult;
+                Assert.That(noContentResult?.StatusCode, Is.EqualTo(StatusCodes.Status204NoContent));
+            });
         }
 
 
@@ -158,10 +170,13 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             var controllerResult = await _radiationMeasurementsController.Month(date);
 
             // Assert
-            Assert.NotNull(controllerResult);
-            Assert.IsInstanceOf<NoContentResult>(controllerResult);
-            var noContentResult = controllerResult as NoContentResult;
-            Assert.That(noContentResult.StatusCode, Is.EqualTo(StatusCodes.Status204NoContent));
+            Assert.Multiple(() =>
+            {
+                Assert.That(controllerResult, Is.Not.Null);
+                Assert.That(controllerResult, Is.InstanceOf<NoContentResult>());
+                var noContentResult = controllerResult as NoContentResult;
+                Assert.That(noContentResult?.StatusCode, Is.EqualTo(StatusCodes.Status204NoContent));
+            });
         }
 
 
@@ -175,10 +190,13 @@ namespace ScientificOperationsCenter.Api.Tests.SystemTests
             var controllerResult = await _radiationMeasurementsController.Year(date);
 
             // Assert
-            Assert.NotNull(controllerResult);
-            Assert.IsInstanceOf<NoContentResult>(controllerResult);
-            var noContentResult = controllerResult as NoContentResult;
-            Assert.That(noContentResult.StatusCode, Is.EqualTo(StatusCodes.Status204NoContent));
+            Assert.Multiple(() =>
+            {
+                Assert.That(controllerResult, Is.Not.Null);
+                Assert.That(controllerResult, Is.InstanceOf<NoContentResult>());
+                var noContentResult = controllerResult as NoContentResult;
+                Assert.That(noContentResult?.StatusCode, Is.EqualTo(StatusCodes.Status204NoContent));
+            });
         }
     }
 }

@@ -3,15 +3,11 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace AuthorizationServer.DAL
+namespace ScientificOperationsCenter.Auth.DAL
 {
-    public class AuthorizationDbContext : IdentityDbContext<IdentityUser>
+    public class AuthorizationDbContext(DbContextOptions<AuthorizationDbContext> options)
+        : IdentityDbContext<IdentityUser>(options)
     {
-        public AuthorizationDbContext(DbContextOptions<AuthorizationDbContext> options) :
-        base(options)
-        { }
-
-
         public async Task SeedData(UserManager<IdentityUser> userManager)
         {
             var soTestUser = await userManager.FindByNameAsync("sciops_test");
@@ -32,7 +28,7 @@ namespace AuthorizationServer.DAL
             var gcTestUser = await userManager.FindByNameAsync("ground_control_sa");
             if (gcTestUser == null)
             {
-                var newGCServiceAccountUser = new IdentityUser
+                var newGCServiceAccountUser = new IdentityUser()
                 {
                     UserName = "ground_control_sa",
                     Email = "groundcontrolsa@gmail.com",
@@ -46,6 +42,6 @@ namespace AuthorizationServer.DAL
         }
 
 
-        public DbSet<IdentityUser> Users { get; set; }
+        public new DbSet<IdentityUser> Users { get; set; }
     }
 }

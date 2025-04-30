@@ -12,7 +12,7 @@ using ScientificOperationsCenter.Api.DAL;
 namespace ScientificOperationsCenter.Api.Migrations
 {
     [DbContext(typeof(ScientificOperationsCenterContext))]
-    [Migration("20241027235602_Initial")]
+    [Migration("20250430034125_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace ScientificOperationsCenter.Api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("ProductVersion", "9.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);

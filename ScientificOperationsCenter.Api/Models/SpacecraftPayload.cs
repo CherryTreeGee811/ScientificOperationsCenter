@@ -10,7 +10,7 @@ namespace ScientificOperationsCenter.Api.Models
         /// Gets or sets the unique identifier for the radiation measurement.
         /// </summary>
         [JsonProperty("dateTime")]
-        public string DateTime { get; set; }
+        public string? DateTime { get; set; }
 
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace ScientificOperationsCenter.Api.Models
         /// </summary>
         [Required]
         [JsonProperty("dataType")]
-        public string DataType { get; set; }
+        public string? DataType { get; set; }
 
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace ScientificOperationsCenter.Api.Models
         /// </summary>
         [Required]
         [JsonProperty("data")]
-        public string Data { get; set; }
+        public string? Data { get; set; }
 
 
         /// <summary>

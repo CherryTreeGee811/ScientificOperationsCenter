@@ -41,12 +41,15 @@ namespace ScientificOperationsCenter.Api.Tests.IntegrationTests
             var serviceResult = await _radiationMeasurementsService.GetRadiationMeasurementsSumForTheDayAsync(date);
 
             // Assert
-            Assert.NotNull(serviceResult);
-            Assert.That(serviceResult.First().Time, Is.EqualTo(new TimeOnly(21, 00)));
-            Assert.That(serviceResult.First().TotalMilligrays, Is.EqualTo(230));
-            Assert.That(serviceResult.Last().Time, Is.EqualTo(new TimeOnly(06, 00)));
-            Assert.That(serviceResult.Last().TotalMilligrays, Is.EqualTo(160));
-            Assert.That(serviceResult.Count(), Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(serviceResult, Is.Not.Null);
+                Assert.That(serviceResult.First().Time, Is.EqualTo(new TimeOnly(21, 00)));
+                Assert.That(serviceResult.First().TotalMilligrays, Is.EqualTo(230));
+                Assert.That(serviceResult.Last().Time, Is.EqualTo(new TimeOnly(06, 00)));
+                Assert.That(serviceResult.Last().TotalMilligrays, Is.EqualTo(160));
+                Assert.That(serviceResult.Count(), Is.EqualTo(2));
+            });
         }
 
 
@@ -60,12 +63,15 @@ namespace ScientificOperationsCenter.Api.Tests.IntegrationTests
             var serviceResult = await _radiationMeasurementsService.GetRadiationMeasurementsSumForTheMonthAsync(date);
 
             // Assert
-            Assert.NotNull(serviceResult);
-            Assert.That(serviceResult.First().Date, Is.EqualTo(new DateOnly(2024, 10, 08)));
-            Assert.That(serviceResult.First().TotalMilligrays, Is.EqualTo(410));
-            Assert.That(serviceResult.Last().Date, Is.EqualTo(new DateOnly(2024, 10, 09)));
-            Assert.That(serviceResult.Last().TotalMilligrays, Is.EqualTo(390));
-            Assert.That(serviceResult.Count(), Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(serviceResult, Is.Not.Null);
+                Assert.That(serviceResult.First().Date, Is.EqualTo(new DateOnly(2024, 10, 08)));
+                Assert.That(serviceResult.First().TotalMilligrays, Is.EqualTo(410));
+                Assert.That(serviceResult.Last().Date, Is.EqualTo(new DateOnly(2024, 10, 09)));
+                Assert.That(serviceResult.Last().TotalMilligrays, Is.EqualTo(390));
+                Assert.That(serviceResult.Count(), Is.EqualTo(2));
+            });
         }
 
 
@@ -79,12 +85,15 @@ namespace ScientificOperationsCenter.Api.Tests.IntegrationTests
             var serviceResult = await _radiationMeasurementsService.GetRadiationMeasurementsSumForTheYearAsync(date);
 
             // Assert
-            Assert.NotNull(serviceResult);
-            Assert.That(serviceResult.First().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
-            Assert.That(serviceResult.First().TotalMilligrays, Is.EqualTo(400));
-            Assert.That(serviceResult.Last().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
-            Assert.That(serviceResult.Last().TotalMilligrays, Is.EqualTo(400));
-            Assert.That(serviceResult.Count(), Is.EqualTo(1));
+            Assert.Multiple(() =>
+            {
+                Assert.That(serviceResult, Is.Not.Null);
+                Assert.That(serviceResult.First().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
+                Assert.That(serviceResult.First().TotalMilligrays, Is.EqualTo(400));
+                Assert.That(serviceResult.Last().Date, Is.EqualTo(new DateOnly(2025, 01, 01)));
+                Assert.That(serviceResult.Last().TotalMilligrays, Is.EqualTo(400));
+                Assert.That(serviceResult.Count(), Is.EqualTo(1));
+            });
         }
     }
 }

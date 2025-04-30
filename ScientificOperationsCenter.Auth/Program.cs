@@ -1,5 +1,4 @@
-using AuthorizationServer.DAL;
-using AuthorizationServer.Models;
+using ScientificOperationsCenter.Auth.DAL;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -45,12 +44,10 @@ if (app.Environment.IsDevelopment())
         c.RoutePrefix = string.Empty;
     });
 
-    using (var scope = app.Services.CreateScope())
-    {
-        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-        var context = scope.ServiceProvider.GetRequiredService<AuthorizationDbContext>();
-        await context.SeedData(userManager);
-    }
+    using var scope = app.Services.CreateScope();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var context = scope.ServiceProvider.GetRequiredService<AuthorizationDbContext>();
+    await context.SeedData(userManager);
 }
 
 app.UseCors(MyAllowSpecificOrigins);

@@ -12,6 +12,8 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
+var AllowedHeaders = new[] { "Content-Type", "Accept", "Accept-Language", "Authorization" };
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
@@ -20,7 +22,7 @@ builder.Services.AddCors(options =>
             policy
             .AllowAnyOrigin()
             .WithMethods("GET", "POST", "OPTIONS")
-            .WithHeaders(headers: new[] { "Content-Type", "Accept", "Accept-Language", "Authorization" });
+            .WithHeaders(AllowedHeaders);
         });
 });
 
@@ -75,7 +77,7 @@ builder.Services.AddSwaggerGen(c =>
                     Id = "Bearer"
                 }
             },
-            new string[] { }
+            Array.Empty<string>()
         }
     });
 });

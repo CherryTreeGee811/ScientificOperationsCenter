@@ -13,23 +13,17 @@ namespace ScientificOperationsCenter.Api.BusinessLogic
     /// grouping them by hour for daily data, by day for monthly data,
     /// and calculating average degrees Celsius for specified time periods.
     /// </summary>
-    public sealed class TemperaturesService : ITemperaturesService
+    /// <param name="temperaturesRepository">The repository used to access temperature data. This parameter cannot be null.</param>
+    public sealed class TemperaturesService(
+            ITemperaturesRepository temperaturesRepository
+        ) : ITemperaturesService
     {
         /// <summary>
         /// Provides access to functions in the TemperaturesRepository.
         /// </summary>
-        private readonly ITemperaturesRepository _temperaturesRepository;
-
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TemperaturesService"/> class.
-        /// </summary>
-        /// <param name="temperaturesRepository">The repository used to access temperature data. This parameter cannot be null.</param>
         /// <exception cref="ArgumentNullException">Thrown if <paramref name="temperaturesRepository"/> is null.</exception>
-        public TemperaturesService(ITemperaturesRepository temperaturesRepository)
-        {
-            _temperaturesRepository = temperaturesRepository ?? throw new ArgumentNullException(nameof(temperaturesRepository));
-        }
+        private readonly ITemperaturesRepository _temperaturesRepository = temperaturesRepository
+            ?? throw new ArgumentNullException(nameof(temperaturesRepository));
 
 
         /// <summary>
@@ -49,7 +43,7 @@ namespace ScientificOperationsCenter.Api.BusinessLogic
             var temperatures = await _temperaturesRepository.GetByDayAsync(date);
             if (!temperatures.Any())
             {
-                return Enumerable.Empty<TemperaturesTimeAverage>();
+                return [];
             }
             try
             {
@@ -87,7 +81,7 @@ namespace ScientificOperationsCenter.Api.BusinessLogic
             var temperatures = await _temperaturesRepository.GetByMonthAsync(date);
             if (!temperatures.Any())
             {
-                return Enumerable.Empty<TemperaturesDateAverage>();
+                return [];
             }
             try
             {
@@ -125,7 +119,7 @@ namespace ScientificOperationsCenter.Api.BusinessLogic
             var temperatures = await _temperaturesRepository.GetByYearAsync(date);
             if (!temperatures.Any())
             {
-                return Enumerable.Empty<TemperaturesDateAverage>();
+                return [];
             }
             try
             {
