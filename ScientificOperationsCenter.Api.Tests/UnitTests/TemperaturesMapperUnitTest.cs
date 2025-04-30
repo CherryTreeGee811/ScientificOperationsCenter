@@ -176,7 +176,7 @@ namespace ScientificOperationsCenter.Api.Tests.UnitTests
             try
             {
                 // Action
-                var result = await temperaturesMapper.GetTemperaturesForTheMonthAsync(date);
+                var result = await temperaturesMapper.GetTemperaturesForTheYearAsync(date);
                 Assert.Fail();
             }
             catch (Exception gEx)
