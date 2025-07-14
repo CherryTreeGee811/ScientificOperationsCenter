@@ -6,9 +6,6 @@ services:
     hostname: localhost
     ports:
         - 9000:9000
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:9000
     build:
       context: .
       dockerfile: ScientificOperationsCenter.Client/Dockerfile
