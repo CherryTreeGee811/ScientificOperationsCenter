@@ -2,7 +2,7 @@
 FROM nginx:stable-alpine 
 
 # Copy static files
-#COPY ScientificOperationsCenter.Client/wwwroot /usr/share/nginx/html
+COPY ScientificOperationsCenter.Client/wwwroot /usr/share/nginx/html
 
 # Copy custom Nginx configuration
 #COPY ScientificOperationsCenter.Client/nginx.conf /etc/nginx/conf.d/default.conf
