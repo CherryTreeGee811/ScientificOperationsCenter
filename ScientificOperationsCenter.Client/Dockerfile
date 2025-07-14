@@ -5,7 +5,7 @@ FROM nginx:stable-alpine
 COPY ScientificOperationsCenter.Client/wwwroot /usr/share/nginx/html
 
 # Copy custom Nginx configuration
-COPY ScientificOperationsCenter.Client/nginx.conf /etc/nginx/conf.d/default
+COPY ScientificOperationsCenter.Client/nginx.conf /etc/nginx/nginx.conf
 
 # Expose the port Nginx will run on
 EXPOSE 80/tcp
