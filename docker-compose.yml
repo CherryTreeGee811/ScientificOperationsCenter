@@ -5,7 +5,7 @@ services:
     container_name: scientificoperationscenterclient
     hostname: localhost
     ports:
-        - 9000:9000
+        - 80:80
     build:
       context: .
       dockerfile: ScientificOperationsCenter.Client/Dockerfile
