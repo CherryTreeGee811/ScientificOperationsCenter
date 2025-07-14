@@ -44,7 +44,7 @@ namespace ScientificOperationsCenter.Client.Tests.Shared
                 .UsingPost()
                 .WithHeader("Content-Type", "application/json")
                 .WithHeader("Accept", "application/json")
-                .WithHeader("Accept-Language", "en-US")
+                .WithHeader("Accept-Language", "en-CA")
                 .WithBodyAsJson(new {
                     username = "sciops_test",
                     password = "Hello123*" 
