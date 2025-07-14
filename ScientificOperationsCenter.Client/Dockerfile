@@ -4,8 +4,8 @@ FROM nginx:stable-alpine
 # Copy static files
 COPY ScientificOperationsCenter.Client/wwwroot /usr/share/nginx/html
 
-# Copy custom Nginx configuration
-COPY ScientificOperationsCenter.Client/nginx.conf /etc/nginx/nginx.conf
+# Configure needed mime types
+COPY ScientificOperationsCenter.Client/mime.types /etc/nginx/mime.types
 
 # Expose the port Nginx will run on
 EXPOSE 80/tcp
