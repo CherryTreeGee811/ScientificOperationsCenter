@@ -1,6 +1,7 @@
 # Use Nginx as the base image
 FROM nginx:alpine AS base
 COPY ./wwwroot /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/conf.d/
 
 # Expose the port Nginx will run on
 EXPOSE 9000
