@@ -36,7 +36,7 @@ namespace ScientificOperationsCenter.Api.Controllers
             }
             try
             {
-                if (DateOnly.TryParse(date, new CultureInfo("en-US"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
+                if (DateOnly.TryParse(date, new CultureInfo("en-CA"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
                 {
                     var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheDayAsync(dateOnly);
                     if (radiationMeasurements.Any())
@@ -70,7 +70,7 @@ namespace ScientificOperationsCenter.Api.Controllers
             }
             try
             {
-                if (DateOnly.TryParse(date, new CultureInfo("en-US"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
+                if (DateOnly.TryParse(date, new CultureInfo("en-CA"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
                 {
                     var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheMonthAsync(dateOnly);
                     if (radiationMeasurements.Any())
@@ -104,7 +104,7 @@ namespace ScientificOperationsCenter.Api.Controllers
             }
             try
             {
-                if (DateOnly.TryParse(date, new CultureInfo("en-US"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
+                if (DateOnly.TryParse(date, new CultureInfo("en-CA"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
                 {
                     var radiationMeasurements = await _radiationMeasurementsMapper.GetRadiationMeasurementsForTheYearAsync(dateOnly);
                     if (radiationMeasurements.Any())
