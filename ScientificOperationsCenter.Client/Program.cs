@@ -16,7 +16,7 @@ async static Task ServeIndexHtml(HttpContext context)
     {
         context.Response.ContentType = "text/html";
         context.Response.Headers.ContentSecurityPolicy = "default-src 'none'; script-src-elem 'self'; style-src-elem 'self'; img-src 'self'; connect-src *;";
-        context.Response.Headers.ContentLanguage = "en-US";
+        context.Response.Headers.ContentLanguage = "en-CA";
         context.Response.Headers.Append("Permissions-Policy", "camera=(), microphone=(), geolocation=(), bluetooth=(), payment=(), idle-detection=(), accelerometer=(),");
         await context.Response.SendFileAsync(filePath);
     }
