@@ -36,7 +36,7 @@ namespace ScientificOperationsCenter.Api.Controllers
             }
             try
             {
-                if (DateOnly.TryParse(date, new CultureInfo("en-US"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
+                if (DateOnly.TryParse(date, new CultureInfo("en-CA"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
                 {
                     var temperatures = await _temperaturesMapper.GetTemperaturesForTheDayAsync(dateOnly);
                     if (temperatures.Any())
@@ -70,7 +70,7 @@ namespace ScientificOperationsCenter.Api.Controllers
             }
             try
             {
-                if (DateOnly.TryParse(date, new CultureInfo("en-US"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
+                if (DateOnly.TryParse(date, new CultureInfo("en-CA"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
                 {
                     var temperatures = await _temperaturesMapper.GetTemperaturesForTheMonthAsync(dateOnly);
                     if (temperatures.Any())
@@ -104,7 +104,7 @@ namespace ScientificOperationsCenter.Api.Controllers
             }
             try
             {
-                if (DateOnly.TryParse(date, new CultureInfo("en-US"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
+                if (DateOnly.TryParse(date, new CultureInfo("en-CA"), out DateOnly dateOnly) && dateOnly != DateOnly.MinValue)
                 {
                     var temperatures = await _temperaturesMapper.GetTemperaturesForTheYearAsync(dateOnly);
                     if (temperatures.Any())
