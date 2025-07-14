@@ -14,7 +14,7 @@ COPY ScientificOperationsCenter.Client/nginx.conf /etc/nginx/conf.d/default.conf
 RUN chown -R nginx:nginx /usr/share/nginx/html
 
 # Expose the port Nginx will run on
-EXPOSE 9000
+EXPOSE 80
 
 # No need for a build stage since we're serving static files
 # The final stage is just the base Nginx image
