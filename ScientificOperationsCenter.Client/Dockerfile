@@ -1,7 +1,17 @@
 # Use Nginx as the base image
 FROM nginx:alpine AS base
+
+# Remove default Nginx configuration
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy static files
 COPY ./wwwroot /usr/share/nginx/html
-COPY ./nginx.conf /etc/nginx/conf.d/
+
+# Copy custom Nginx configuration
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+
+# Set permissions
+RUN chown -R nginx:nginx /usr/share/nginx/html
 
 # Expose the port Nginx will run on
 EXPOSE 9000
@@ -9,3 +19,9 @@ EXPOSE 9000
 # No need for a build stage since we're serving static files
 # The final stage is just the base Nginx image
 FROM base AS final
+
+# Use nginx user
+USER nginx
+
+# Run nginx
+CMD ["nginx", "-g", "daemon off;"]
