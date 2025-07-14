@@ -61,7 +61,7 @@ jobs:
           - name: Run Client Curl Requests
             shell: bash
             run: |
-              curl http://localhost:80/
+              curl http://localhost:9000/
               
           - name: Run Client Tests
             shell: bash
