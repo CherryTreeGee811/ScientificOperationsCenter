@@ -1,5 +1,5 @@
 # Use Nginx as the base image
-FROM nginx:alpine AS base
+FROM nginx:stable-alpine AS base
 
 # Remove default Nginx configuration
 RUN rm /etc/nginx/conf.d/default.conf
