@@ -1,0 +1,157 @@
+﻿using ScientificOperationsCentre.Api.BusinessLogic;
+using ScientificOperationsCentre.Api.Mappers;
+using ScientificOperationsCentre.Api.Tests.Mocks;
+using ScientificOperationsCentre.Api.ViewModels;
+using ScientificOperationsCentre.Api.DAL.Interfaces;
+using Moq;
+
+
+namespace ScientificOperationsCentre.Api.Tests.IntegrationTests
+{
+    internal class TemperatureServiceMapperIntegrationTest
+    {
+        private Mock<ITemperaturesRepository> _temperaturesRepository;
+        private TemperaturesService _temperaturesService;
+        private TemperaturesMapper _temperaturesMapper;
+        private Random _random;
+
+
+        [SetUp]
+        public void SetUp()
+        {
+            _temperaturesRepository = MockITemperaturesRepository.GetMock();
+            _temperaturesService = new TemperaturesService(_temperaturesRepository.Object);
+            _temperaturesMapper = new TemperaturesMapper(_temperaturesService);
+            _random = new Random();
+        }
+
+
+        [TearDown]
+        public void TearDown()
+        {
+        }
+
+
+        [Test]
+        public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByDay_ThenIfSameDayAverageHourTemperaturesTimeViewModelReturn()
+        {
+            // Setup
+            var date = new DateOnly(2024, 10, 08);
+
+            // Action
+            var mapperResult = await _temperaturesMapper.GetTemperaturesForTheDayAsync(date);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(mapperResult, Is.Not.Null);
+                Assert.That(mapperResult.First().TimeFrame, Is.EqualTo((new TimeOnly(12, 00)).ToString()));
+                Assert.That(mapperResult.First().AverageTemperature, Is.EqualTo(9));
+                Assert.That(mapperResult.Last().TimeFrame, Is.EqualTo((new TimeOnly(19, 00)).ToString()));
+                Assert.That(mapperResult.Last().AverageTemperature, Is.EqualTo(17));
+                Assert.That(mapperResult.Count(), Is.EqualTo(3));
+            });
+        }
+
+
+        [Test]
+        public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByMonth_ThenIfSameMonthAverageDayOfMonthTemperaturesDateViewModelReturn()
+        {
+            // Setup
+            var date = new DateOnly(2024, 10, _random.Next(1, 30));
+
+            // Action
+            var mapperResult = await _temperaturesMapper.GetTemperaturesForTheMonthAsync(date);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(mapperResult, Is.Not.Null);
+                Assert.That(mapperResult.First().TimeFrame, Is.EqualTo("8"));
+                Assert.That(mapperResult.First().AverageTemperature, Is.EqualTo(10));
+                Assert.That(mapperResult.Last().TimeFrame, Is.EqualTo("9"));
+                Assert.That(mapperResult.Last().AverageTemperature, Is.EqualTo(10));
+                Assert.That(mapperResult.Count(), Is.EqualTo(2));
+            });
+        }
+
+
+        [Test]
+        public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByYear_ThenIfSameYearAverageMonthOfYearTemperaturesDateViewModelReturn()
+        {
+            // Setup
+            var date = new DateOnly(2024, _random.Next(1, 12), _random.Next(1, 30));
+
+            // Action
+            var mapperResult = await _temperaturesMapper.GetTemperaturesForTheYearAsync(date);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(mapperResult, Is.Not.Null);
+                Assert.That(mapperResult.First().TimeFrame, Is.EqualTo("October"));
+                Assert.That(mapperResult.First().AverageTemperature, Is.EqualTo(10));
+                Assert.That(mapperResult.Last().TimeFrame, Is.EqualTo("November"));
+                Assert.That(mapperResult.Last().AverageTemperature, Is.EqualTo(2));
+                Assert.That(mapperResult.Count(), Is.EqualTo(2));
+            });
+        }
+
+
+        [Test]
+        public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByDay_ThenIfEmptyEmptyIEnumerableReturn()
+        {
+            // Setup
+            var date = new DateOnly(2025, 10, 30);
+
+            // Action
+            var mapperResult = await _temperaturesMapper.GetTemperaturesForTheDayAsync(date);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(mapperResult.Any(), Is.False);
+                Assert.That(mapperResult, Is.InstanceOf<IEnumerable<TemperaturesViewModel>>(),
+                    "The returned element is not of IEnumerable<TemperaturesViewModel> type.");
+            });
+        }
+
+
+        [Test]
+        public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByMonth_ThenIfEmptyEmptyIEnumerableReturn()
+        {
+            // Setup
+            var date = new DateOnly(2025, 09, _random.Next(1, 30));
+
+            // Action
+            var mapperResult = await _temperaturesMapper.GetTemperaturesForTheMonthAsync(date);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(mapperResult.Any(), Is.False);
+                Assert.That(mapperResult, Is.InstanceOf<IEnumerable<TemperaturesViewModel>>(),
+                    "The returned element is not of IEnumerable<TemperaturesViewModel> type.");
+            });
+        }
+
+
+        [Test]
+        public async Task GivenARepositoryOfTemperatures_WhenGettingTemperaturesByYear_ThenIfEmptyEmptyIEnumerableReturn()
+        {
+            // Setup
+            var date = new DateOnly(2026, _random.Next(1, 12), _random.Next(1, 30));
+
+            // Action
+            var mapperResult = await _temperaturesMapper.GetTemperaturesForTheYearAsync(date);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(mapperResult.Any(), Is.False);
+                Assert.That(mapperResult, Is.InstanceOf<IEnumerable<TemperaturesViewModel>>(),
+                    "The returned element is not of IEnumerable<TemperaturesViewModel> type.");
+            });
+        }
+    }
+}
