@@ -9,7 +9,7 @@
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
   </PropertyGroup>
   <PropertyGroup>
-    <DockerServiceName>scientificoperationscenter.api</DockerServiceName>
+    <DockerServiceName>scientificoperationscentre.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.yml" />

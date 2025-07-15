@@ -2,35 +2,35 @@
 .vs/
 
 # User-specific files
-ScientificOperationsCenter.Api/*.user
-ScientificOperationsCenter.Auth/*.user
-ScientificOperationsCenter.Client/*.user
-ScientificOperationsCenter.Api.Tests/*.user
-ScientificOperationsCenter.Client.Tests/*.user
+ScientificOperationsCentre.Api/*.user
+ScientificOperationsCentre.Auth/*.user
+ScientificOperationsCentre.Client/*.user
+ScientificOperationsCentre.Api.Tests/*.user
+ScientificOperationsCentre.Client.Tests/*.user
 
 # Generated with debug and execute
-ScientificOperationsCenter.Api/bin
-ScientificOperationsCenter.Api/obj
+ScientificOperationsCentre.Api/bin
+ScientificOperationsCentre.Api/obj
 
-ScientificOperationsCenter.Auth/bin
-ScientificOperationsCenter.Auth/obj
+ScientificOperationsCentre.Auth/bin
+ScientificOperationsCentre.Auth/obj
 
-ScientificOperationsCenter.Client/bin
-ScientificOperationsCenter.Client/obj
+ScientificOperationsCentre.Client/bin
+ScientificOperationsCentre.Client/obj
 
-ScientificOperationsCenter.Api.Tests/bin
-ScientificOperationsCenter.Api.Tests/obj
+ScientificOperationsCentre.Api.Tests/bin
+ScientificOperationsCentre.Api.Tests/obj
 
-ScientificOperationsCenter.Client.Tests/bin
-ScientificOperationsCenter.Client.Tests/obj
+ScientificOperationsCentre.Client.Tests/bin
+ScientificOperationsCentre.Client.Tests/obj
 
 # logging
-ScientificOperationsCenter.Api/logs
+ScientificOperationsCentre.Api/logs
 
 # documentation
 docs/*
 !docs/mainpage.md
 
-/ScientificOperationsCenter
+/ScientificOperationsCentre
 /bin
 /obj

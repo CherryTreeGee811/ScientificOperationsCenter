@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en-ca" dir="ltr">
+<head>
+    <meta charset="ascii" />
+    <meta name="description" content="Scientific Operations Centre Client">
+    <meta name="keywords" content="Scientific Operations Centre, Project V, Advanced Software, CSCN73030">
+    <meta name="author" content="Jonathan Taylor, Isaiah Andrews, Aleix Bossa Gonzalez, Salah Salame, Dante Palalas-Mouradian">
+    <meta name="viewport" content="width=device-width" />
+    <title>Home - Scientific Operations Centre</title>
+    <link href="/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/css/site.css" />
+    <link rel="stylesheet" type="text/css" href="/css/loadingError.css" />
+</head>
+    <body>
+        <header class="header">
+            <a id="home-link" href="/"><img id="logo" src="/images/Science_Logo-64x64.png" type="image/png" width="64" height="64" alt="Scientific Operations Centre Logo" /></a>
+            <input type="checkbox" id="mobile-menu-check" name="mobile-menu-check" />
+            <label id="mobile-menu-icon" for="mobile-menu-check"><span class="mobile-menu-icon-line"></span></label>
+            <nav id="main-nav">
+                <ul id="main-menu">
+                    <li class="main-menu-item">
+                        <a href="/temperatures" id="temperatures-link" class="main-menu-link">🌡️ Temperature</a>
+                    </li>
+                    <li class="main-menu-item">
+                        <a href="/radiation-measurements" id="radiation-measurements-link" class="main-menu-link">☢️ Radiation Measurements</a>
+                    </li>
+                    <li class="main-menu-item">
+                        <a href="/login" id="login-link" class="main-menu-link">Login</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <div class="container" id="">
+            <main role="main" class="pb-3">
+                <div id="content"></div>
+            </main>
+
+        </div>
+        <footer class="footer">
+            <div>
+                &copy; 2024 - Scientific Operations Centre
+            </div>
+        </footer>
+        <script src="/lib/chart-js/dist/chart.umd.js" type="text/javascript"></script>
+        <script src="/js/router.mjs" type="module" defer></script>
+    </body>
+</html>
