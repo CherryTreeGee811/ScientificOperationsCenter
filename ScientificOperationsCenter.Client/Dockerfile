@@ -1,33 +1,17 @@
-# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+# Use Nginx as the base image
+FROM nginx:stable-alpine 
 
-# This stage is used when running from VS in fast mode (Default for Debug configuration)
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
-USER app
-WORKDIR /app
-EXPOSE 9000
+# Copy static files
+COPY ScientificOperationsCenter.Client/wwwroot /usr/share/nginx/html
 
+# Configure needed mime types
+COPY ScientificOperationsCenter.Client/mime.types /etc/nginx/mime.types
 
-# This stage is used to build the service project
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
-COPY ["ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj", "ScientificOperationsCenter.Client/"]
-RUN dotnet restore "./ScientificOperationsCenter.Client/ScientificOperationsCenter.Client.csproj"
-COPY . .
-WORKDIR "/src/ScientificOperationsCenter.Client"
-RUN dotnet build "./ScientificOperationsCenter.Client.csproj" \
-  -c "$BUILD_CONFIGURATION" \
-  -o /app/build
+# Copy default configuration
+COPY ScientificOperationsCenter.Client/default.conf /etc/nginx/conf.d/default.conf
 
-# This stage is used to publish the service project to be copied to the final stage
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./ScientificOperationsCenter.Client.csproj" \
-  -c "$BUILD_CONFIGURATION" \
-  -o /app/publish /p:UseAppHost=false
+# Expose the port Nginx will run on
+EXPOSE 9000/tcp
 
-# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "ScientificOperationsCenter.Client.dll"]
+# Run nginx
+CMD ["nginx", "-g", "daemon off;"]
