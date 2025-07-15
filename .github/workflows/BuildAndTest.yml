@@ -18,30 +18,30 @@ jobs:
             with:
               dotnet-version: 9.0.x
           
-          # - name: Install Tools
-          #   shell: bash
-          #   run: |
-          #     sudo apt update -y
-          #     sudo apt install -y nikto doxygen libxml2-utils
+          - name: Install Tools
+            shell: bash
+            run: |
+              sudo apt update -y
+              sudo apt install -y nikto doxygen libxml2-utils
           
           - name: Build and Run App Containers
             shell: bash
             run: docker compose up -d
 
-          # - name: Run API Tests
-          #   shell: bash
-          #   run: |
-          #     mkdir -p APITestResults
-          #     dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj \
-          #       --collect:"XPlat Code Coverage" \
-          #       --results-directory ./APITestResults \
-          #       --os linux \
-          #       --verbosity minimal
+          - name: Run API Tests
+            shell: bash
+            run: |
+              mkdir -p APITestResults
+              dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj \
+                --collect:"XPlat Code Coverage" \
+                --results-directory ./APITestResults \
+                --os linux \
+                --verbosity minimal
 
-          # - name: Nikto Scan Backend
-          #   shell: bash
-          #   run: |
-          #     nikto -h http://localhost:8000 -C all
+          - name: Nikto Scan Backend
+            shell: bash
+            run: |
+              nikto -h http://localhost:8000 -C all
 
           - name: Stop and Remove API Container
             shell: bash
@@ -57,11 +57,6 @@ jobs:
             shell: bash
             run: |
               docker rm -f sqlpreview
-
-          - name: Run Client Curl Requests
-            shell: bash
-            run: |
-              curl http://localhost:9000/
               
           - name: Run Client Tests
             shell: bash
@@ -69,35 +64,35 @@ jobs:
               mkdir -p ClientTestResults
               dotnet test ./ScientificOperationsCenter.Client.Tests/ScientificOperationsCenter.Client.Tests.csproj --collect:"XPlat Code Coverage" --results-directory ./ClientTestResults --os linux --verbosity minimal
 
-          # - name: Nikto Scan Frontend
-          #   shell: bash
-          #   run: |
-          #     nikto -h http://localhost:9000 -C all
+          - name: Nikto Scan Frontend
+            shell: bash
+            run: |
+              nikto -h http://localhost:9000 -C all
 
-          # - name: Stop and Remove Client Container
-          #   shell: bash
-          #   run: |
-          #     docker stop scientificoperationscenterclient
+          - name: Stop and Remove Client Container
+            shell: bash
+            run: |
+              docker stop scientificoperationscenterclient
           
-          # - name: Generate Doxygen Documentation
-          #   shell: bash
-          #   run: |
-          #     doxygen Doxyfile
+          - name: Generate Doxygen Documentation
+            shell: bash
+            run: |
+              doxygen Doxyfile
 
-          # - name: Upload Doxygen Documentation
-          #   uses: actions/upload-artifact@v4
-          #   with:
-          #     name: documentation
-          #     path: ./docs
+          - name: Upload Doxygen Documentation
+            uses: actions/upload-artifact@v4
+            with:
+              name: documentation
+              path: ./docs
 
-          # - name: Push Docker Images to DockerHub
-          #   if: ${{ github.ref == 'refs/heads/stable' }}
-          #   shell: bash
-          #   run: |
-          #     docker tag scientificoperationscenterapi cherrytreegee811/scientificoperationscenterapi:latest
-          #     docker tag scientificoperationscenterauth cherrytreegee811/scientificoperationscenterauth:latest
-          #     docker tag scientificoperationscenterclient cherrytreegee811/scientificoperationscenterclient:latest
-              # docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
-              # docker push cherrytreegee811/scientificoperationscenterapi:latest
-              # docker push cherrytreegee811/scientificoperationscenterauth:latest
-              # docker push cherrytreegee811/scientificoperationscenterclient:latest
+          - name: Push Docker Images to DockerHub
+            if: ${{ github.ref == 'refs/heads/stable' }}
+            shell: bash
+            run: |
+              docker tag scientificoperationscenterapi cherrytreegee811/scientificoperationscenterapi:latest
+              docker tag scientificoperationscenterauth cherrytreegee811/scientificoperationscenterauth:latest
+              docker tag scientificoperationscenterclient cherrytreegee811/scientificoperationscenterclient:latest
+              docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
+              docker push cherrytreegee811/scientificoperationscenterapi:latest
+              docker push cherrytreegee811/scientificoperationscenterauth:latest
+              docker push cherrytreegee811/scientificoperationscenterclient:latest
