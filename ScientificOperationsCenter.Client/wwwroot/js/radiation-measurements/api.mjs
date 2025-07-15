@@ -39,7 +39,7 @@ export function getChartData(date, timespan) {
         headers: {
             'Authorization': `Bearer ${accessToken}`,
             'Accept': 'application/json',
-            'Accept-Language': 'en-US',
+            'Accept-Language': 'en-CA',
         }
     })
         .then(response => {

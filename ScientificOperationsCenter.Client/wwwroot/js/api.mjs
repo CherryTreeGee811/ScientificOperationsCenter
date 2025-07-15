@@ -14,7 +14,7 @@ export function getToken(username, password) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Accept-Language': 'en-US',
+            'Accept-Language': 'en-CA',
         },
         body: body,
     })
