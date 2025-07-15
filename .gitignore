@@ -4,6 +4,7 @@
 # User-specific files
 ScientificOperationsCentre.Api/*.user
 ScientificOperationsCentre.Auth/*.user
+ScientificOperationsCentre_Auth/target
 ScientificOperationsCentre.Client/*.user
 ScientificOperationsCentre.Api.Tests/*.user
 ScientificOperationsCentre.Client.Tests/*.user
