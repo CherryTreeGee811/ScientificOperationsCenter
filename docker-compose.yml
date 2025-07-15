@@ -1,16 +1,16 @@
 version: '3.4'
 services:
-  scientificoperationscenter.client:
-    image: ${DOCKER_REGISTRY-}scientificoperationscenterclient
-    container_name: scientificoperationscenterclient
+  scientificoperationscentre.client:
+    image: ${DOCKER_REGISTRY-}scientificoperationscentreclient
+    container_name: scientificoperationscentreclient
     hostname: localhost
     ports:
         - 9000:9000
     build:
       context: .
-      dockerfile: ScientificOperationsCenter.Client/Dockerfile
+      dockerfile: ScientificOperationsCentre.Client/Dockerfile
     depends_on:
-        - scientificoperationscenter.api
+        - scientificoperationscentre.api
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:9000/health || exit 1"]
       interval: 30s
@@ -18,9 +18,9 @@ services:
       retries: 3
   
 
-  scientificoperationscenter.api:
-    image: ${DOCKER_REGISTRY-}scientificoperationscenterapi
-    container_name: scientificoperationscenterapi
+  scientificoperationscentre.api:
+    image: ${DOCKER_REGISTRY-}scientificoperationscentreapi
+    container_name: scientificoperationscentreapi
     ports:
       - "8000:8000"
     environment:
@@ -30,18 +30,18 @@ services:
         - science-net
     build:
       context: .
-      dockerfile: ScientificOperationsCenter.Api/Dockerfile
+      dockerfile: ScientificOperationsCentre.Api/Dockerfile
     depends_on:
-        - scientificoperationscenter.auth
+        - scientificoperationscentre.auth
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
    
-  scientificoperationscenter.auth:
-    image: ${DOCKER_REGISTRY-}scientificoperationscenterauth
-    container_name: scientificoperationscenterauth
+  scientificoperationscentre.auth:
+    image: ${DOCKER_REGISTRY-}scientificoperationscentreauth
+    container_name: scientificoperationscentreauth
     ports:
       - "8060:8060"
     environment:
@@ -51,7 +51,7 @@ services:
         - science-net
     build:
       context: .
-      dockerfile: ScientificOperationsCenter.Auth/Dockerfile
+      dockerfile: ScientificOperationsCentre.Auth/Dockerfile
     depends_on:
         - sqlpreview
     healthcheck:
