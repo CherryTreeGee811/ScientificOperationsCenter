@@ -1,4 +1,4 @@
-name: ScientificOperationsCenter
+name: ScientificOperationsCentre
 on:
    push:
        branches:
@@ -32,7 +32,7 @@ jobs:
             shell: bash
             run: |
               mkdir -p APITestResults
-              dotnet test ./ScientificOperationsCenter.Api.Tests/ScientificOperationsCenter.Api.Tests.csproj \
+              dotnet test ./ScientificOperationsCentre.Api.Tests/ScientificOperationsCentre.Api.Tests.csproj \
                 --collect:"XPlat Code Coverage" \
                 --results-directory ./APITestResults \
                 --os linux \
@@ -46,12 +46,12 @@ jobs:
           - name: Stop and Remove API Container
             shell: bash
             run: |
-              docker rm -f scientificoperationscenterapi
+              docker rm -f scientificoperationscentreapi
 
           - name: Stop and Remove Auth Service Container
             shell: bash
             run: |
-              docker rm -f scientificoperationscenterauth
+              docker rm -f scientificoperationscentreauth
               
           - name: Stop and Remove Database Container
             shell: bash
@@ -62,7 +62,7 @@ jobs:
             shell: bash
             run: |
               mkdir -p ClientTestResults
-              dotnet test ./ScientificOperationsCenter.Client.Tests/ScientificOperationsCenter.Client.Tests.csproj --collect:"XPlat Code Coverage" --results-directory ./ClientTestResults --os linux --verbosity minimal
+              dotnet test ./ScientificOperationsCentre.Client.Tests/ScientificOperationsCentre.Client.Tests.csproj --collect:"XPlat Code Coverage" --results-directory ./ClientTestResults --os linux --verbosity minimal
 
           - name: Nikto Scan Frontend
             shell: bash
@@ -72,7 +72,7 @@ jobs:
           - name: Stop and Remove Client Container
             shell: bash
             run: |
-              docker stop scientificoperationscenterclient
+              docker stop scientificoperationscentreclient
           
           - name: Generate Doxygen Documentation
             shell: bash
@@ -89,10 +89,10 @@ jobs:
             if: ${{ github.ref == 'refs/heads/stable' }}
             shell: bash
             run: |
-              docker tag scientificoperationscenterapi cherrytreegee811/scientificoperationscenterapi:latest
-              docker tag scientificoperationscenterauth cherrytreegee811/scientificoperationscenterauth:latest
-              docker tag scientificoperationscenterclient cherrytreegee811/scientificoperationscenterclient:latest
+              docker tag scientificoperationscentreapi cherrytreegee811/scientificoperationscentreapi:latest
+              docker tag scientificoperationscentreauth cherrytreegee811/scientificoperationscentreauth:latest
+              docker tag scientificoperationscentreclient cherrytreegee811/scientificoperationscentreclient:latest
               docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
-              docker push cherrytreegee811/scientificoperationscenterapi:latest
-              docker push cherrytreegee811/scientificoperationscenterauth:latest
-              docker push cherrytreegee811/scientificoperationscenterclient:latest
+              docker push cherrytreegee811/scientificoperationscentreapi:latest
+              docker push cherrytreegee811/scientificoperationscentreauth:latest
+              docker push cherrytreegee811/scientificoperationscentreclient:latest
