@@ -33,8 +33,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         sqlx::query(
             "INSERT OR IGNORE INTO users (username, password_hash) VALUES (?, ?)"
         )
-        .bind(username)
-        .bind(password_hash)
+        .bind(&username)
+        .bind(&password_hash)
         .execute(&pool)
         .await?;
         println!("Seeded user: {}", username);
