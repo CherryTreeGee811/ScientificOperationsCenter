@@ -28,6 +28,8 @@ jobs:
             shell: bash
             env:
               JWT_KEY: ${{ secrets.JWT_KEY }}
+              APP_ENV: "production"
+              GROUND_CONTROL_PASS: ${{ secrets.GROUND_CONTROL_PASS }}
             run: docker compose up -d
 
           - name: Run API Tests

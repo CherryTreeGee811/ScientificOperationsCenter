@@ -12,20 +12,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .connect(&db_url)
         .await?;
 
-    // Create users table if it doesn't exist
-    sqlx::query(
-        "CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT NOT NULL UNIQUE,
-            password_hash TEXT NOT NULL
-        );"
-    ).execute(&pool).await?;
+    let app_env = std::env::var("APP_ENV").unwrap_or_else(|_| "development".to_string());
+    let mut users = Vec::new();
 
-    // Users to insert
-    let users = vec![
-        ("sciops_test", "Hello123*"),
-        ("ground_control_sa", "ExploreSpace223*"),
-    ];
+    if app_env == "production" {
+        let ground_control_pass = std::env::var("GROUND_CONTROL_PASS")
+            .expect("GROUND_CONTROL_PASS must be set in production");
+        users.push(("ground_control_sa", ground_control_pass));
+    } else if app_env == "development" {
+        users.push(("sciops_test", "Hello123*"));
+    }
+
     let argon2 = Argon2::default();
     for (username, password) in users {
         let salt = SaltString::generate(&mut OsRng);
