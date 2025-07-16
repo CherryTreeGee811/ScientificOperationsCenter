@@ -48,8 +48,8 @@ services:
     networks:
       - science-net
     build:
-      context: .
-      dockerfile: ScientificOperationsCentre_Auth/Dockerfile
+      context: ./ScientificOperationsCentre_Auth
+      dockerfile: Dockerfile
     depends_on:
       - sqlpreview
     healthcheck:
