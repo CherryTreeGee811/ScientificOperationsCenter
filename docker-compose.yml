@@ -46,7 +46,7 @@ services:
     environment:
       - JWT_KEY=${JWT_KEY:-my-secret-key-for-development-only}
       - APP_ENV=${APP_ENV:-development}
-      - GROUND_CONTROL_PASS=${GROUND_CONTROL_PASS:-default-password}
+      - GROUND_CONTROL_PASS=${GROUND_CONTROL_PASS:-GroundCtrl02!}
     networks:
       - science-net
     build:
