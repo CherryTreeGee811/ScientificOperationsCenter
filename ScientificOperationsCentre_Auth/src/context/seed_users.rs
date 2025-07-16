@@ -18,9 +18,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     if app_env == "production" {
         let ground_control_pass = std::env::var("GROUND_CONTROL_PASS")
             .expect("GROUND_CONTROL_PASS must be set in production");
-        users.push(("ground_control_sa", ground_control_pass));
+        users.push(("ground_control_sa".to_string(), ground_control_pass.to_string()));
     } else if app_env == "development" {
-        users.push(("sciops_test", "Hello123*"));
+        users.push(("sciops_test".to_string(), "Hello123*".to_string()));
     }
 
     let argon2 = Argon2::default();
