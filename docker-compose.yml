@@ -24,6 +24,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8000
+      - JwtSettings__Key=${JWT_KEY:-my-secret-key-for-development-only}
     networks:
         - science-net
     build:
@@ -43,7 +44,7 @@ services:
     ports:
       - "8060:8060"
     environment:
-      - JWT_KEY=my-secret-key-for-development-only
+      - JWT_KEY=${JWT_KEY:-my-secret-key-for-development-only}
     networks:
       - science-net
     build:

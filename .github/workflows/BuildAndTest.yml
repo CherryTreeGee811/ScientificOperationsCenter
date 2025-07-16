@@ -26,6 +26,8 @@ jobs:
           
           - name: Build and Run App Containers
             shell: bash
+            env:
+              JWT_KEY: ${{ secrets.JWT_KEY }}
             run: docker compose up -d
 
           - name: Run API Tests
