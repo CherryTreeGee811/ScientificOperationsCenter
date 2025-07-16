@@ -47,6 +47,7 @@ namespace ScientificOperationsCentre.Client.Tests.SystemTests
             var passwordInputElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("password-input")));
             var loginBtnElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("login-btn")));
 
+            // WireMock API - Test User
             usernameInputElem.SendKeys("sciops_test");
             passwordInputElem.SendKeys("Hello123*");
             loginBtnElem.Click();

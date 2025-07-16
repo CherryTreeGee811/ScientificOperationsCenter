@@ -1,4 +1,3 @@
-version: '3.4'
 services:
   scientificoperationscentre.client:
     image: ${DOCKER_REGISTRY-}scientificoperationscentreclient
@@ -17,7 +16,6 @@ services:
       timeout: 10s
       retries: 3
   
-
   scientificoperationscentre.api:
     image: ${DOCKER_REGISTRY-}scientificoperationscentreapi
     container_name: scientificoperationscentreapi
@@ -26,6 +24,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8000
+      - JwtSettings__Key=${JWT_KEY:-my-secret-key-for-development-only}
     networks:
         - science-net
     build:
@@ -45,15 +44,16 @@ services:
     ports:
       - "8060:8060"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:8060
+      - JWT_KEY=${JWT_KEY:-my-secret-key-for-development-only}
+      - APP_ENV=${APP_ENV:-development}
+      - GROUND_CONTROL_PASS=${GROUND_CONTROL_PASS:-GroundCtrl02!}
     networks:
-        - science-net
+      - science-net
     build:
-      context: .
-      dockerfile: ScientificOperationsCentre.Auth/Dockerfile
+      context: ./ScientificOperationsCentre_Auth
+      dockerfile: Dockerfile
     depends_on:
-        - sqlpreview
+      - sqlpreview
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8060/health || exit 1"]
       interval: 30s

@@ -1,5 +1,5 @@
 # Use Nginx as the base image
-FROM nginx:stable-alpine 
+FROM nginx:stable-alpine-slim
 
 # Copy static files
 COPY ScientificOperationsCentre.Client/wwwroot /usr/share/nginx/html
