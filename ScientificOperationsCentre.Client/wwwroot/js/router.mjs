@@ -1,6 +1,5 @@
 ﻿import { handleTemperaturesRoutes, initTemperaturesLinkListeners } from './temperatures/router.mjs';
 import { handleRadiationMeasurementsRoutes, initRadiationMeasurementsLinkListeners } from './radiation-measurements/router.mjs';
-import { getAccessTokenFromCookie } from './parser.mjs';
 import { loadLoginForm } from './login.mjs';
 import { loadNavTemplate } from './navigation/router.mjs';
 
@@ -16,13 +15,6 @@ import { loadNavTemplate } from './navigation/router.mjs';
  * @returns {void} This function does not return a value.
  */
 document.addEventListener("DOMContentLoaded", () => {
-    // If refresh check if an existing token exists
-    if (getAccessTokenFromCookie()) {
-        const loginLinkElement = document.getElementById("login-link");
-        loginLinkElement.style.display = 'none';
-        loginLinkElement.ariaHidden = true;
-    }
-
     const contentDiv = document.getElementById("content");
     const navContentDiv = document.getElementById("main-menu");
 

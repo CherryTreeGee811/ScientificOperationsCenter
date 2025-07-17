@@ -2,16 +2,16 @@ import { handleRadiationMeasurementsRoutes } from './router.mjs';
 import { validateDate, validateTimeFrame } from '../input-validator.mjs';
 
 
-export function loadForm(contentDiv) {
+export function loadForm(navContentDiv, contentDiv) {
     const generateBtn = document.getElementById("generate-btn");
 
     generateBtn.addEventListener("click", function () {
-        manageSubmission(contentDiv);
+        manageSubmission(navContentDiv, contentDiv);
     });
 }
 
 
-function manageSubmission(contentDiv) {
+function manageSubmission(navContentDiv, contentDiv) {
     const dateElement = document.getElementById("date-input");
     const timeFrameElement = document.getElementById("time-frame-input");
     const url = new URL(window.location);
@@ -31,7 +31,7 @@ function manageSubmission(contentDiv) {
 
         url.searchParams.set('date', dateElement.value);
         window.history.pushState({}, '', url);
-        handleRadiationMeasurementsRoutes(url.pathname, contentDiv);
+        handleRadiationMeasurementsRoutes(url.pathname, navContentDiv, contentDiv);
     }
     else {
         console.error("You have provided invalid form inputs, please try again.");

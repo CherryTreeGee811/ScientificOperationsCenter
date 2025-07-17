@@ -72,13 +72,13 @@ export function initRadiationMeasurementsLinkListeners(navContentDiv, contentDiv
  * // Handle routing for radiation-measurements
  * handleRadiationMeasurementsRoutes('/radiation-measurements/day', contentDiv);
  */
-export function handleRadiationMeasurementsRoutes(path, contentDiv) {
+export function handleRadiationMeasurementsRoutes(path, navContentDiv, contentDiv) {
     const urlParams = new URLSearchParams(window.location.search);
     const dateParam = urlParams.get('date');
     switch (path) {
         case '/radiation-measurements':
             loadTemplate("radiation-measurements/form.html", contentDiv).then(() => {
-                return loadForm(contentDiv)
+                return loadForm(navContentDiv, contentDiv)
             }).catch((error) => {
                 console.error('Error loading form js:', error);
             });

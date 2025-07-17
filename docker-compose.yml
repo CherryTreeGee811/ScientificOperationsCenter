@@ -4,7 +4,7 @@ services:
     container_name: scientificoperationscentreclient
     hostname: localhost
     ports:
-        - 9000:9000
+        - "9000:9000"
     build:
       context: .
       dockerfile: ScientificOperationsCentre.Client/Dockerfile

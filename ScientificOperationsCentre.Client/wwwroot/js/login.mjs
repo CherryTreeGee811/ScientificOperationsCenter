@@ -12,7 +12,7 @@ export function loadLoginForm(navContentDiv, contentDiv) {
 }
 
 
-function manageSubmission() {
+function manageSubmission(navContentDiv, contentDiv) {
     const usernameElement = document.getElementById("username-input");
     const passwordElement = document.getElementById("password-input");
 
