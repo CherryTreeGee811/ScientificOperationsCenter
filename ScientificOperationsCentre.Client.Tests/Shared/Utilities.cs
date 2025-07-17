@@ -11,15 +11,24 @@ namespace ScientificOperationsCentre.Client.Tests.Shared
             {
                 try
                 {
-                    var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(driver, TimeSpan.FromSeconds(10));
-                    return wait.Until(OpenQA.Selenium.Support.UI.ExpectedConditions.ElementIsVisible(by));
+                    var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+                    return wait.Until(drv =>
+                    {
+                        var elem = drv.FindElement(by);
+                        return elem.Displayed ? elem : null;
+                    });
                 }
                 catch (StaleElementReferenceException)
                 {
                     if (attempt == retries - 1) throw;
                 }
+                catch (NoSuchElementException)
+                {
+                    if (attempt == retries - 1) throw;
+                }
             }
             throw new NoSuchElementException($"Element not found after {retries} attempts: {by}");
+        }
         }
         public static string? GetDisplayedChartDataSetLabel(IWebDriver Driver)
         {
