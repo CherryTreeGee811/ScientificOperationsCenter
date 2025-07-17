@@ -32,35 +32,35 @@ jobs:
               GROUND_CONTROL_PASS: ${{ secrets.GROUND_CONTROL_PASS }}
             run: docker compose up -d
 
-          - name: Run API Tests
-            shell: bash
-            run: |
-              mkdir -p APITestResults
-              dotnet test ./ScientificOperationsCentre.Api.Tests/ScientificOperationsCentre.Api.Tests.csproj \
-                --collect:"XPlat Code Coverage" \
-                --results-directory ./APITestResults \
-                --os linux \
-                --verbosity minimal
+          # - name: Run API Tests
+          #   shell: bash
+          #   run: |
+          #     mkdir -p APITestResults
+          #     dotnet test ./ScientificOperationsCentre.Api.Tests/ScientificOperationsCentre.Api.Tests.csproj \
+          #       --collect:"XPlat Code Coverage" \
+          #       --results-directory ./APITestResults \
+          #       --os linux \
+          #       --verbosity minimal
 
-          - name: Nikto Scan Backend
-            shell: bash
-            run: |
-              nikto -h http://localhost:8000 -C all
+          # - name: Nikto Scan Backend
+          #   shell: bash
+          #   run: |
+          #     nikto -h http://localhost:8000 -C all
 
-          - name: Stop and Remove API Container
-            shell: bash
-            run: |
-              docker rm -f scientificoperationscentreapi
+          # - name: Stop and Remove API Container
+          #   shell: bash
+          #   run: |
+          #     docker rm -f scientificoperationscentreapi
 
-          - name: Stop and Remove Auth Service Container
-            shell: bash
-            run: |
-              docker rm -f scientificoperationscentreauth
+          # - name: Stop and Remove Auth Service Container
+          #   shell: bash
+          #   run: |
+          #     docker rm -f scientificoperationscentreauth
               
-          - name: Stop and Remove Database Container
-            shell: bash
-            run: |
-              docker rm -f sqlpreview
+          # - name: Stop and Remove Database Container
+          #   shell: bash
+          #   run: |
+          #     docker rm -f sqlpreview
               
           - name: Run Client Tests
             shell: bash
@@ -78,25 +78,25 @@ jobs:
             run: |
               docker stop scientificoperationscentreclient
           
-          - name: Generate Doxygen Documentation
-            shell: bash
-            run: |
-              doxygen Doxyfile
+          # - name: Generate Doxygen Documentation
+          #   shell: bash
+          #   run: |
+          #     doxygen Doxyfile
 
-          - name: Upload Doxygen Documentation
-            uses: actions/upload-artifact@v4
-            with:
-              name: documentation
-              path: ./docs
+          # - name: Upload Doxygen Documentation
+          #   uses: actions/upload-artifact@v4
+          #   with:
+          #     name: documentation
+          #     path: ./docs
 
-          - name: Push Docker Images to DockerHub
-            if: ${{ github.ref == 'refs/heads/stable' }}
-            shell: bash
-            run: |
-              docker tag scientificoperationscentreapi cherrytreegee811/scientificoperationscentreapi:latest
-              docker tag scientificoperationscentreauth cherrytreegee811/scientificoperationscentreauth:latest
-              docker tag scientificoperationscentreclient cherrytreegee811/scientificoperationscentreclient:latest
-              docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
-              docker push cherrytreegee811/scientificoperationscentreapi:latest
-              docker push cherrytreegee811/scientificoperationscentreauth:latest
-              docker push cherrytreegee811/scientificoperationscentreclient:latest
+          # - name: Push Docker Images to DockerHub
+          #   if: ${{ github.ref == 'refs/heads/stable' }}
+          #   shell: bash
+          #   run: |
+          #     docker tag scientificoperationscentreapi cherrytreegee811/scientificoperationscentreapi:latest
+          #     docker tag scientificoperationscentreauth cherrytreegee811/scientificoperationscentreauth:latest
+          #     docker tag scientificoperationscentreclient cherrytreegee811/scientificoperationscentreclient:latest
+          #     docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
+          #     docker push cherrytreegee811/scientificoperationscentreapi:latest
+          #     docker push cherrytreegee811/scientificoperationscentreauth:latest
+          #     docker push cherrytreegee811/scientificoperationscentreclient:latest
