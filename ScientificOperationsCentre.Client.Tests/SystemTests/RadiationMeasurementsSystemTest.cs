@@ -126,15 +126,15 @@ namespace ScientificOperationsCentre.Client.Tests.SystemTests
         private void NavigateToRadiationMeasurementsPage(string expectedPageTitle, string timeFrameValue)
         {
             var date = "2024-10-08";
-            var radiationMeasurementsLinkElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id("radiation-measurements-link")));
+            var radiationMeasurementsLinkElem = Utilities.FindElementWithRetry(By.Id("radiation-measurements-link"), Driver);
             radiationMeasurementsLinkElem.Click();
 
-            var formTitleElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("form-title")));
-            var dateLabelElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("date-label")));
-            var dateInputElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("date-input")));
-            var timeFrameLabelElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("time-frame-label")));
-            var timeFrameInputElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("time-frame-input")));
-            var generateBtnElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("generate-btn")));
+            var formTitleElem = Utilities.FindElementWithRetry(By.Id("form-title"), Driver);
+            var dateLabelElem = Utilities.FindElementWithRetry(By.Id("date-label"), Driver);
+            var dateInputElem = Utilities.FindElementWithRetry(By.Id("date-input"), Driver);
+            var timeFrameLabelElem = Utilities.FindElementWithRetry(By.Id("time-frame-label"), Driver);
+            var timeFrameInputElem = Utilities.FindElementWithRetry(By.Id("time-frame-input"), Driver);
+            var generateBtnElem = Utilities.FindElementWithRetry(By.Id("generate-btn"), Driver);
             Assert.That(formTitleElem.Displayed, Is.True, "The form-title should exist.");
             Assert.That(formTitleElem.Text, Is.EqualTo("Radiation Measurements Form"), "Form page title should be 'Radiation Measurements Form'");
             Assert.That(dateLabelElem.Displayed, Is.True, "The date-label should exist.");
@@ -146,13 +146,9 @@ namespace ScientificOperationsCentre.Client.Tests.SystemTests
             var timeFrameSelector = new SelectElement(timeFrameInputElem);
             timeFrameSelector.SelectByValue(timeFrameValue);
             generateBtnElem.Click();
-            var pageTitleElem = Wait.Until(driver =>
-            {
-                var elem = driver.FindElement(By.CssSelector("h1"));
-                return elem.Displayed ? elem : null;
-            });
+            var pageTitleElem = Utilities.FindElementWithRetry(By.CssSelector("h1"), Driver);
             Assert.That(pageTitleElem.Text, Is.EqualTo(expectedPageTitle), $"h1 should display {expectedPageTitle}");
-            var chartCanvasElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("chart")));
+            var chartCanvasElem = Utilities.FindElementWithRetry(By.Id("chart"), Driver);
             Wait.Until(Driver => Utilities.GetDisplayedChartLabels(Driver).Count == 3);
             Wait.Until(Driver => Utilities.GetDisplayedChartData(Driver).Count == 3);
             var chartDatasetLabel = Utilities.GetDisplayedChartDataSetLabel(Driver);
