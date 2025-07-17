@@ -121,15 +121,15 @@ namespace ScientificOperationsCentre.Client.Tests.SystemTests
         private void NavigateToTemperaturesPage(string expectedPageTitle, string timeFrameValue)
         {
             var date = "2024-10-08";
-            var temperaturesLinkElem = FindElementWithRetry(By.Id("temperatures-link"), Driver);
+            var temperaturesLinkElem = Utilities.FindElementWithRetry(By.Id("temperatures-link"), Driver);
             temperaturesLinkElem.Click();
 
-            var formTitleElem = FindElementWithRetry(By.Id("form-title"), Driver);
-            var dateLabelElem = FindElementWithRetry(By.Id("date-label"), Driver);
-            var dateInputElem = FindElementWithRetry(By.Id("date-input"), Driver);
-            var timeFrameLabelElem = FindElementWithRetry(By.Id("time-frame-label"), Driver);
-            var timeFrameInputElem = FindElementWithRetry(By.Id("time-frame-input"), Driver);
-            var generateBtnElem = FindElementWithRetry(By.Id("generate-btn"), Driver);
+            var formTitleElem = Utilities.FindElementWithRetry(By.Id("form-title"), Driver);
+            var dateLabelElem = Utilities.FindElementWithRetry(By.Id("date-label"), Driver);
+            var dateInputElem = Utilities.FindElementWithRetry(By.Id("date-input"), Driver);
+            var timeFrameLabelElem = Utilities.FindElementWithRetry(By.Id("time-frame-label"), Driver);
+            var timeFrameInputElem = Utilities.FindElementWithRetry(By.Id("time-frame-input"), Driver);
+            var generateBtnElem = Utilities.FindElementWithRetry(By.Id("generate-btn"), Driver);
             Assert.That(formTitleElem.Displayed, Is.True, "The form-title should exist.");
             Assert.That(formTitleElem.Text, Is.EqualTo("Temperatures Form"), "Form page title should be 'Temperatures Form'");
             Assert.That(dateLabelElem.Displayed, Is.True, "The date-label should exist.");
@@ -141,9 +141,9 @@ namespace ScientificOperationsCentre.Client.Tests.SystemTests
             var timeFrameSelector = new SelectElement(timeFrameInputElem);
             timeFrameSelector.SelectByValue(timeFrameValue);
             generateBtnElem.Click();
-            var pageTitleElem = FindElementWithRetry(By.CssSelector("h1"), Driver);
+            var pageTitleElem = Utilities.FindElementWithRetry(By.CssSelector("h1"), Driver);
             Assert.That(pageTitleElem.Text, Is.EqualTo(expectedPageTitle), $"h1 should display {expectedPageTitle}");
-            var chartCanvasElem = FindElementWithRetry(By.Id("chart"), Driver);
+            var chartCanvasElem = Utilities.FindElementWithRetry(By.Id("chart"), Driver);
             Wait.Until(Driver => Utilities.GetDisplayedChartLabels(Driver).Count == 3);
             Wait.Until(Driver => Utilities.GetDisplayedChartData(Driver).Count == 3);
             var chartDatasetLabel = Utilities.GetDisplayedChartDataSetLabel(Driver);
