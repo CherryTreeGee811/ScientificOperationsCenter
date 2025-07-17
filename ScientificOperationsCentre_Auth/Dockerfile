@@ -3,11 +3,6 @@ WORKDIR /app
 RUN apk add --no-cache musl-dev sqlite curl
 RUN rustup target add x86_64-unknown-linux-musl
 
-# Copy dependency files first and precompile dependencies
-COPY Cargo.toml Cargo.lock ./
-RUN mkdir src && echo "fn main() {}" > src/main.rs
-RUN cargo build --release --target x86_64-unknown-linux-musl || true
-
 # Copy the rest of the application code
 COPY . .
 
