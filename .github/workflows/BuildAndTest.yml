@@ -93,10 +93,10 @@ jobs:
             if: ${{ github.ref == 'refs/heads/stable' }}
             shell: bash
             run: |
-              docker tag scientificoperationscentreapi cherrytreegee811/scientificoperationscentreapi:latest
-              docker tag scientificoperationscentreauth cherrytreegee811/scientificoperationscentreauth:latest
-              docker tag scientificoperationscentreclient cherrytreegee811/scientificoperationscentreclient:latest
+              docker tag scientificoperationscentreapi cherrytree811/scientificoperationscentreapi:latest
+              docker tag scientificoperationscentreauth cherrytree811/scientificoperationscentreauth:latest
+              docker tag scientificoperationscentreclient cherrytree811/scientificoperationscentreclient:latest
               docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
-              docker push cherrytreegee811/scientificoperationscentreapi:latest
-              docker push cherrytreegee811/scientificoperationscentreauth:latest
-              docker push cherrytreegee811/scientificoperationscentreclient:latest
+              docker push cherrytree811/scientificoperationscentreapi:latest
+              docker push cherrytree811/scientificoperationscentreauth:latest
+              docker push cherrytree811/scientificoperationscentreclient:latest
