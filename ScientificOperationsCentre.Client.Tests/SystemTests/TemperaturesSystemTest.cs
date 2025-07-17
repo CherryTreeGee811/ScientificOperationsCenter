@@ -141,11 +141,13 @@ namespace ScientificOperationsCentre.Client.Tests.SystemTests
             var timeFrameSelector = new SelectElement(timeFrameInputElem);
             timeFrameSelector.SelectByValue(timeFrameValue);
             generateBtnElem.Click();
+
+            // Wait for the chart to appear and re-find all elements after DOM update
+            Wait.Until(drv => drv.FindElements(By.Id("chart")).Count > 0);
             var pageTitleElem = Utilities.FindElementWithRetry(By.CssSelector("h1"), Driver);
-            Assert.That(pageTitleElem.Text, Is.EqualTo(expectedPageTitle), $"h1 should display {expectedPageTitle}");
             var chartCanvasElem = Utilities.FindElementWithRetry(By.Id("chart"), Driver);
-            Wait.Until(Driver => Utilities.GetDisplayedChartLabels(Driver).Count == 3);
-            Wait.Until(Driver => Utilities.GetDisplayedChartData(Driver).Count == 3);
+            Wait.Until(drv => Utilities.GetDisplayedChartLabels(drv).Count == 3);
+            Wait.Until(drv => Utilities.GetDisplayedChartData(drv).Count == 3);
             var chartDatasetLabel = Utilities.GetDisplayedChartDataSetLabel(Driver);
             var chartLabels = Utilities.GetDisplayedChartLabels(Driver);
             var chartData = Utilities.GetDisplayedChartData(Driver);

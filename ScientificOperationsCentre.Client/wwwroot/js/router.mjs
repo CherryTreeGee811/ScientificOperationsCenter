@@ -1,7 +1,7 @@
 ﻿import { handleTemperaturesRoutes, initTemperaturesLinkListeners } from './temperatures/router.mjs';
 import { handleRadiationMeasurementsRoutes, initRadiationMeasurementsLinkListeners } from './radiation-measurements/router.mjs';
-import { getAccessTokenFromCookie } from './parser.mjs';
-import { loadFormJS } from './login.mjs';
+import { loadLoginForm } from './login.mjs';
+import { loadNavTemplate } from './navigation/router.mjs';
 
 
 /**
@@ -15,53 +15,16 @@ import { loadFormJS } from './login.mjs';
  * @returns {void} This function does not return a value.
  */
 document.addEventListener("DOMContentLoaded", () => {
-    // If refresh check if an existing token exists
-    if (getAccessTokenFromCookie()) {
-        const loginLinkElement = document.getElementById("login-link");
-        loginLinkElement.style.display = 'none';
-        loginLinkElement.ariaHidden = true;
-    }
-
     const contentDiv = document.getElementById("content");
+    const navContentDiv = document.getElementById("main-menu");
 
-    // Event listener for the home link
-    document.getElementById("home-link").addEventListener("click", (e) => {
-        e.preventDefault();
-        window.history.pushState({}, '', '/');
-        routeHandler(contentDiv);
-    });
-
-
-    // Event listener for the login link
-    document.getElementById("login-link").addEventListener("click", (e) => {
-        e.preventDefault();
-        window.history.pushState({}, '', '/login');
-        routeHandler(contentDiv);
-    });
-
-
-    // Event listener for the temperatures link
-    document.getElementById("temperatures-link").addEventListener("click", (e) => {
-        e.preventDefault();
-        window.history.pushState({}, '', '/temperatures');
-        routeHandler(contentDiv);
-    });
-
-
+    
     // Initialize link listeners for temperature measurements
-    initTemperaturesLinkListeners(contentDiv, routeHandler);
-
-
-    // Event listener for the radiation measurements link
-    document.getElementById("radiation-measurements-link").addEventListener("click", (e) => {
-        e.preventDefault();
-        window.history.pushState({}, '', '/radiation-measurements');
-        routeHandler(contentDiv);
-    });
+    initTemperaturesLinkListeners(navContentDiv, contentDiv);
 
 
     // Initialize link listeners for radiation measurements
-    initRadiationMeasurementsLinkListeners(contentDiv, routeHandler);
+    initRadiationMeasurementsLinkListeners(navContentDiv, contentDiv);
 
 
     // Handle browser back/forward navigation
@@ -69,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // Initial route handling
-    routeHandler(contentDiv);
+    routeHandler(navContentDiv, contentDiv);
 });
 
 
@@ -116,21 +79,22 @@ export function loadTemplate(templateName, contentDiv) {
 * @function routeHandler
 * @returns {void} This function does not return a value.
 */
-export function routeHandler(contentDiv) {
+export function routeHandler(navContentDiv, contentDiv) {
     const path = window.location.pathname;
+    loadNavTemplate(navContentDiv, contentDiv);
     switch (true) {
         case path == '/':
             loadTemplate("home.html", contentDiv);
             break;
         case path.startsWith('/radiation-measurements'):
-            handleRadiationMeasurementsRoutes(path, contentDiv);
+            handleRadiationMeasurementsRoutes(path, navContentDiv, contentDiv);
             break
         case path.startsWith('/temperatures'):
-            handleTemperaturesRoutes(path, contentDiv);
+            handleTemperaturesRoutes(path, navContentDiv, contentDiv);
             break;
         case path == '/login':
             loadTemplate("login.html", contentDiv).then(() => {
-                return loadFormJS()
+                return loadLoginForm(navContentDiv, contentDiv);
             }).catch((error) => {
                 console.error('Error loading login form js:', error);
             });

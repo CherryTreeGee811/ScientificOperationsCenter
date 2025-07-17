@@ -2,16 +2,16 @@ import { handleTemperaturesRoutes } from './router.mjs';
 import { validateDate, validateTimeFrame } from '../input-validator.mjs';
 
 
-export function loadFormJS() {
+export function loadForm(navContentDiv, contentDiv) {
     const generateBtn = document.getElementById("generate-btn");
 
     generateBtn.addEventListener("click", function () {
-        manageSubmission();
+        manageSubmission(navContentDiv, contentDiv);
     });
 }
 
 
-function manageSubmission() {
+function manageSubmission(navContentDiv, contentDiv) {
     const dateElement = document.getElementById("date-input");
     const timeFrameElement = document.getElementById("time-frame-input");
     const url = new URL(window.location);
@@ -31,8 +31,7 @@ function manageSubmission() {
 
         url.searchParams.set('date', dateElement.value);
         window.history.pushState({}, '', url);
-        const contentDiv = document.getElementById("content");
-        handleTemperaturesRoutes(url.pathname, contentDiv);
+        handleTemperaturesRoutes(url.pathname, navContentDiv, contentDiv);
     }
     else {
         console.error("You have provided invalid form inputs, please try again.");
