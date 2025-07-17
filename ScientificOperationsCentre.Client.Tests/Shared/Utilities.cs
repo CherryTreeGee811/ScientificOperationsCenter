@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 
 namespace ScientificOperationsCentre.Client.Tests.Shared
@@ -29,6 +30,7 @@ namespace ScientificOperationsCentre.Client.Tests.Shared
             }
             throw new NoSuchElementException($"Element not found after {retries} attempts: {by}");
         }
+        
 
         
         public static string? GetDisplayedChartDataSetLabel(IWebDriver Driver)
