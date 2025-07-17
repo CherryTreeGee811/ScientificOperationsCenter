@@ -2,16 +2,16 @@ import { handleRadiationMeasurementsRoutes } from './router.mjs';
 import { validateDate, validateTimeFrame } from '../input-validator.mjs';
 
 
-export function loadFormJS() {
+export function loadForm(contentDiv) {
     const generateBtn = document.getElementById("generate-btn");
 
     generateBtn.addEventListener("click", function () {
-        manageSubmission();
+        manageSubmission(contentDiv);
     });
 }
 
 
-function manageSubmission() {
+function manageSubmission(contentDiv) {
     const dateElement = document.getElementById("date-input");
     const timeFrameElement = document.getElementById("time-frame-input");
     const url = new URL(window.location);
@@ -31,7 +31,6 @@ function manageSubmission() {
 
         url.searchParams.set('date', dateElement.value);
         window.history.pushState({}, '', url);
-        const contentDiv = document.getElementById("content");
         handleRadiationMeasurementsRoutes(url.pathname, contentDiv);
     }
     else {
