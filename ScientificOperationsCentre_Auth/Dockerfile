@@ -14,7 +14,6 @@ COPY . .
 # Create the database
 ENV DATABASE_URL=sqlite:///app/users.db
 RUN cargo install sqlx-cli --no-default-features --features sqlite
-RUN cargo install cargo-machete && cargo machete
 RUN sqlite3 /app/users.db ""
 RUN sqlx migrate run --database-url sqlite:///app/users.db
 RUN cargo sqlx prepare --database-url sqlite:///app/users.db
