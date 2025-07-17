@@ -4,6 +4,7 @@
 namespace ScientificOperationsCentre.Client.Tests.Shared
 {
     public static class Utilities
+    {
         public static IWebElement FindElementWithRetry(By by, IWebDriver driver, int retries = 3)
         {
             for (int attempt = 0; attempt < retries; attempt++)
@@ -20,7 +21,6 @@ namespace ScientificOperationsCentre.Client.Tests.Shared
             }
             throw new NoSuchElementException($"Element not found after {retries} attempts: {by}");
         }
-    {
         public static string? GetDisplayedChartDataSetLabel(IWebDriver Driver)
         {
             try
