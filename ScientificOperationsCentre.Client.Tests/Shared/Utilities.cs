@@ -32,7 +32,6 @@ namespace ScientificOperationsCentre.Client.Tests.Shared
         }
         
 
-        
         public static string? GetDisplayedChartDataSetLabel(IWebDriver Driver)
         {
             try
