@@ -121,15 +121,15 @@ namespace ScientificOperationsCentre.Client.Tests.SystemTests
         private void NavigateToTemperaturesPage(string expectedPageTitle, string timeFrameValue)
         {
             var date = "2024-10-08";
-            var temperaturesLinkElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(By.Id("temperatures-link")));
+            var temperaturesLinkElem = FindElementWithRetry(By.Id("temperatures-link"), Driver);
             temperaturesLinkElem.Click();
 
-            var formTitleElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("form-title")));
-            var dateLabelElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("date-label")));
-            var dateInputElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("date-input")));
-            var timeFrameLabelElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("time-frame-label")));
-            var timeFrameInputElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("time-frame-input")));
-            var generateBtnElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.Id("generate-btn")));
+            var formTitleElem = FindElementWithRetry(By.Id("form-title"), Driver);
+            var dateLabelElem = FindElementWithRetry(By.Id("date-label"), Driver);
+            var dateInputElem = FindElementWithRetry(By.Id("date-input"), Driver);
+            var timeFrameLabelElem = FindElementWithRetry(By.Id("time-frame-label"), Driver);
+            var timeFrameInputElem = FindElementWithRetry(By.Id("time-frame-input"), Driver);
+            var generateBtnElem = FindElementWithRetry(By.Id("generate-btn"), Driver);
             Assert.That(formTitleElem.Displayed, Is.True, "The form-title should exist.");
             Assert.That(formTitleElem.Text, Is.EqualTo("Temperatures Form"), "Form page title should be 'Temperatures Form'");
             Assert.That(dateLabelElem.Displayed, Is.True, "The date-label should exist.");
@@ -141,13 +141,9 @@ namespace ScientificOperationsCentre.Client.Tests.SystemTests
             var timeFrameSelector = new SelectElement(timeFrameInputElem);
             timeFrameSelector.SelectByValue(timeFrameValue);
             generateBtnElem.Click();
-            var pageTitleElem = Wait.Until(driver =>
-            {
-                var elem = driver.FindElement(By.CssSelector("h1"));
-                return elem.Displayed ? elem : null;
-            });
+            var pageTitleElem = FindElementWithRetry(By.CssSelector("h1"), Driver);
             Assert.That(pageTitleElem.Text, Is.EqualTo(expectedPageTitle), $"h1 should display {expectedPageTitle}");
-            var chartCanvasElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("chart")));
+            var chartCanvasElem = FindElementWithRetry(By.Id("chart"), Driver);
             Wait.Until(Driver => Utilities.GetDisplayedChartLabels(Driver).Count == 3);
             Wait.Until(Driver => Utilities.GetDisplayedChartData(Driver).Count == 3);
             var chartDatasetLabel = Utilities.GetDisplayedChartDataSetLabel(Driver);
