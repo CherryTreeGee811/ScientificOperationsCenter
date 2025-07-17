@@ -141,8 +141,12 @@ namespace ScientificOperationsCentre.Client.Tests.SystemTests
             var timeFrameSelector = new SelectElement(timeFrameInputElem);
             timeFrameSelector.SelectByValue(timeFrameValue);
             generateBtnElem.Click();
-
-            var pageTitleElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector("h1")));
+            var pageTitleElem = Wait.Until(driver =>
+            {
+                var elem = driver.FindElement(By.CssSelector("h1"));
+                return elem.Displayed ? elem : null;
+            });
+            Assert.That(pageTitleElem.Text, Is.EqualTo(expectedPageTitle), $"h1 should display {expectedPageTitle}");
             var chartCanvasElem = Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("chart")));
             Wait.Until(Driver => Utilities.GetDisplayedChartLabels(Driver).Count == 3);
             Wait.Until(Driver => Utilities.GetDisplayedChartData(Driver).Count == 3);
