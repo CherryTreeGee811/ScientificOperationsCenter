@@ -29,7 +29,8 @@ namespace ScientificOperationsCentre.Client.Tests.Shared
             }
             throw new NoSuchElementException($"Element not found after {retries} attempts: {by}");
         }
-        }
+
+        
         public static string? GetDisplayedChartDataSetLabel(IWebDriver Driver)
         {
             try
