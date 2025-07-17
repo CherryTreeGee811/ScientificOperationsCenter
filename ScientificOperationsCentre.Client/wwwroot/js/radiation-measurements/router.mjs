@@ -1,5 +1,5 @@
-﻿import { loadTemplate } from '../router.mjs';
-import { loadFormJS } from './form.mjs';
+﻿import { loadTemplate, routeHandler } from '../router.mjs';
+import { loadForm } from './form.mjs';
 import { loadRadiationMeasurementsForDay } from './day.mjs';
 import { loadRadiationMeasurementsForMonth } from './month.mjs';
 import { loadRadiationMeasurementsForYear } from './year.mjs';
@@ -28,28 +28,28 @@ import { loadRadiationMeasurementsForYear } from './year.mjs';
  * history state, and calls the provided route handler to update the view.
  * 
  * @function initRadiationMeasurementsLinkListeners
+ * @param {HTMLElement} navContentDiv - The HTML element for the navigation menu.
  * @param {HTMLElement} contentDiv - The HTML element where the links are located.
- * @param {function} routeHandler - The function to call to handle routing.
  * @returns {void} This function does not return a value.
  * 
  * @example
  * // Initialize link listeners for radiation-measurements
  * initRadiationMeasurementsLinkListeners(contentDiv, () => handleRadiationMeasurementsRoutes(window.location.pathname, contentDiv));
  */
-export function initRadiationMeasurementsLinkListeners(contentDiv, routeHandler) {
+export function initRadiationMeasurementsLinkListeners(navContentDiv, contentDiv) {
     contentDiv.addEventListener("click", (e) => {
         if (e.target.matches("#radiation-measurements-day-link")) {
             e.preventDefault();
             window.history.pushState({}, '', '/radiation-measurements/day');
-            routeHandler();
+            routeHandler(navContentDiv, contentDiv);
         } else if (e.target.matches("#radiation-measurements-month-link")) {
             e.preventDefault();
             window.history.pushState({}, '', '/radiation-measurements/month');
-            routeHandler();
+            routeHandler(navContentDiv, contentDiv);
         } else if (e.target.matches("#radiation-measurements-year-link")) {
             e.preventDefault();
             window.history.pushState({}, '', '/radiation-measurements/year');
-            routeHandler();
+            routeHandler(navContentDiv, contentDiv);
         }
     });
 }
@@ -72,13 +72,13 @@ export function initRadiationMeasurementsLinkListeners(contentDiv, routeHandler)
  * // Handle routing for radiation-measurements
  * handleRadiationMeasurementsRoutes('/radiation-measurements/day', contentDiv);
  */
-export function handleRadiationMeasurementsRoutes(path, contentDiv) {
+export function handleRadiationMeasurementsRoutes(path, navContentDiv, contentDiv) {
     const urlParams = new URLSearchParams(window.location.search);
     const dateParam = urlParams.get('date');
     switch (path) {
         case '/radiation-measurements':
             loadTemplate("radiation-measurements/form.html", contentDiv).then(() => {
-                return loadFormJS()
+                return loadForm(navContentDiv, contentDiv)
             }).catch((error) => {
                 console.error('Error loading form js:', error);
             });

@@ -1,5 +1,5 @@
-﻿import { loadTemplate } from '../router.mjs';
-import { loadFormJS } from './form.mjs';
+﻿import { loadTemplate, routeHandler } from '../router.mjs';
+import { loadForm } from './form.mjs';
 import { loadTemperaturesForDay } from './day.mjs';
 import { loadTemperaturesForMonth } from './month.mjs';
 import { loadTemperaturesForYear } from './year.mjs';
@@ -29,28 +29,28 @@ import { loadTemperaturesForYear } from './year.mjs';
  * history state, and calls the provided route handler to update the view.
  * 
  * @function initTemperaturesLinkListeners
+ * @param {HTMLElement} navContentDiv - The HTML element for the navigation menu.
  * @param {HTMLElement} contentDiv - The HTML element where the links are located.
- * @param {function} routeHandler - The function to call to handle routing.
  * @returns {void} This function does not return a value.
  * 
  * @example
  * // Initialize link listeners for temperatures
  * initTemperaturesLinkListeners(contentDiv, () => handleRadiationMeasurementsRoutes(window.location.pathname, contentDiv));
  */
-export function initTemperaturesLinkListeners(contentDiv, routeHandler) {
+export function initTemperaturesLinkListeners(navContentDiv, contentDiv) {
     contentDiv.addEventListener("click", (e) => {
         if (e.target.matches("#temperatures-day-link")) {
             e.preventDefault();
             window.history.pushState({}, '', '/temperatures/day');
-            routeHandler();
+            routeHandler(navContentDiv, contentDiv);
         } else if (e.target.matches("#temperatures-month-link")) {
             e.preventDefault();
             window.history.pushState({}, '', '/temperatures/month');
-            routeHandler();
+            routeHandler(navContentDiv, contentDiv);
         } else if (e.target.matches("#temperatures-year-link")) {
             e.preventDefault();
             window.history.pushState({}, '', '/temperatures/year');
-            routeHandler();
+            routeHandler(navContentDiv, contentDiv);
         }
     });
 }
@@ -66,6 +66,7 @@ export function initTemperaturesLinkListeners(contentDiv, routeHandler) {
  * 
  * @function handleTemperaturesRoutes
  * @param {string} path - The URL path to determine which template to load.
+ * @param {HTMLElement} navContentDiv - The HTML element for the navigation menu.
  * @param {HTMLElement} contentDiv - The HTML element where the template will be loaded.
  * @returns {void} This function does not return a value.
  * 
@@ -73,13 +74,13 @@ export function initTemperaturesLinkListeners(contentDiv, routeHandler) {
  * // Handle routing for temperatures
  * handleTemperaturesRoutes('/temperatures/day', contentDiv);
  */
-export function handleTemperaturesRoutes(path, contentDiv) {
+export function handleTemperaturesRoutes(path, navContentDiv, contentDiv) {
     const urlParams = new URLSearchParams(window.location.search);
     const dateParam = urlParams.get('date');
     switch (path) {
         case '/temperatures':
             loadTemplate("temperatures/form.html", contentDiv).then(() => {
-                return loadFormJS()
+                return loadForm(navContentDiv, contentDiv);
             }).catch((error) => {
                 console.error('Error loading form js:', error);
             });
