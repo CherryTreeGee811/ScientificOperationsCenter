@@ -8,68 +8,68 @@ services:
     build:
       context: .
       dockerfile: ScientificOperationsCentre.Client/Dockerfile
-    depends_on:
-        - scientificoperationscentre.api
+    # depends_on:
+    #     - scientificoperationscentre.api
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:9000/health || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
   
-  scientificoperationscentre.api:
-    image: ${DOCKER_REGISTRY-}scientificoperationscentreapi
-    container_name: scientificoperationscentreapi
-    ports:
-      - "8000:8000"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:8000
-      - JwtSettings__Key=${JWT_KEY:-my-secret-key-for-development-only}
-    networks:
-        - science-net
-    build:
-      context: .
-      dockerfile: ScientificOperationsCentre.Api/Dockerfile
-    depends_on:
-        - scientificoperationscentre.auth
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+  # scientificoperationscentre.api:
+  #   image: ${DOCKER_REGISTRY-}scientificoperationscentreapi
+  #   container_name: scientificoperationscentreapi
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_URLS=http://+:8000
+  #     - JwtSettings__Key=${JWT_KEY:-my-secret-key-for-development-only}
+  #   networks:
+  #       - science-net
+  #   build:
+  #     context: .
+  #     dockerfile: ScientificOperationsCentre.Api/Dockerfile
+  #   depends_on:
+  #       - scientificoperationscentre.auth
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
    
-  scientificoperationscentre.auth:
-    image: ${DOCKER_REGISTRY-}scientificoperationscentreauth
-    container_name: scientificoperationscentreauth
-    ports:
-      - "8060:8060"
-    environment:
-      - JWT_KEY=${JWT_KEY:-my-secret-key-for-development-only}
-      - APP_ENV=${APP_ENV:-development}
-      - GROUND_CONTROL_PASS=${GROUND_CONTROL_PASS:-GroundCtrl02!}
-    networks:
-      - science-net
-    build:
-      context: ./ScientificOperationsCentre_Auth
-      dockerfile: Dockerfile
-    depends_on:
-      - sqlpreview
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8060/health || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+  # scientificoperationscentre.auth:
+  #   image: ${DOCKER_REGISTRY-}scientificoperationscentreauth
+  #   container_name: scientificoperationscentreauth
+  #   ports:
+  #     - "8060:8060"
+  #   environment:
+  #     - JWT_KEY=${JWT_KEY:-my-secret-key-for-development-only}
+  #     - APP_ENV=${APP_ENV:-development}
+  #     - GROUND_CONTROL_PASS=${GROUND_CONTROL_PASS:-GroundCtrl02!}
+  #   networks:
+  #     - science-net
+  #   build:
+  #     context: ./ScientificOperationsCentre_Auth
+  #     dockerfile: Dockerfile
+  #   depends_on:
+  #     - sqlpreview
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "curl -f http://localhost:8060/health || exit 1"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
       
-  sqlpreview:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlpreview
-    networks:
-        - science-net
-    ports:
-        - 1433:1433
-    environment:
-        ACCEPT_EULA: Y
-        MSSQL_SA_PASSWORD: SATestPassword10*
+  # sqlpreview:
+  #   image: mcr.microsoft.com/mssql/server:2022-latest
+  #   container_name: sqlpreview
+  #   networks:
+  #       - science-net
+  #   ports:
+  #       - 1433:1433
+  #   environment:
+  #       ACCEPT_EULA: Y
+  #       MSSQL_SA_PASSWORD: SATestPassword10*
 
 networks:
     science-net:
