@@ -26,6 +26,8 @@ ScientificOperationsCentre.Api/cert.pem
 ScientificOperationsCentre.Api/key.pem
 ScientificOperationsCentre.Client/cert.pem
 ScientificOperationsCentre.Client/key.pem
+ScientificOperationsCentre.Client.Tests/cert.pem
+ScientificOperationsCentre.Client.Tests/key.pem
 
 # logging
 ScientificOperationsCentre.Api/logs

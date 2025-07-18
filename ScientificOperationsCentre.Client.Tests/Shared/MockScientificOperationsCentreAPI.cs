@@ -14,9 +14,16 @@ namespace ScientificOperationsCentre.Client.Tests.Shared
 
         public WireMockServer Start()
         {
+            // Start WireMock on HTTPS (self-signed cert by default)
             _server = WireMockServer.Start(new WireMock.Settings.WireMockServerSettings
             {
-                Urls = ["https://localhost:8000"]
+                Urls = new[] { "https://localhost:8000" },
+                CertificateSettings = new WireMock.Settings.WireMockCertificateSettings
+                {
+                    X509Certificate2ThumbprintOrSubjectName = null,
+                    CertificateFilePath = "cert.pem",
+                    CertificatePrivateKeyPath = "key.pem"
+                }
             });
 
             SetupMappingsForRadiationMeasurements();
