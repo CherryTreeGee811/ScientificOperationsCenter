@@ -4,7 +4,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 8000
+EXPOSE 8000/tcp
 
 
 # This stage is used to build the service project
@@ -30,4 +30,11 @@ RUN dotnet publish "./ScientificOperationsCentre.Api.csproj" \
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+# Copy SSL certificate and key into the image
+COPY ScientificOperationsCentre.Api/cert.pem /app/cert.pem
+COPY ScientificOperationsCentre.Api/key.pem /app/key.pem
+USER root
+RUN chown app:app /app/cert.pem /app/key.pem
+RUN chmod 600 /app/cert.pem /app/key.pem
+USER app
 ENTRYPOINT ["dotnet", "ScientificOperationsCentre.Api.dll"]
