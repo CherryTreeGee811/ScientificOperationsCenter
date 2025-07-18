@@ -63,7 +63,7 @@ jobs:
           - name: Nikto Scan Backend
             shell: bash
             run: |
-              nikto -h http://localhost:8000 -C all
+              nikto -h https://localhost:8000 -C all
 
           - name: Stop and Remove API Container
             shell: bash
@@ -89,7 +89,7 @@ jobs:
           - name: Nikto Scan Frontend
             shell: bash
             run: |
-              nikto -h http://localhost:9000 -C all
+              nikto -h https://localhost:9000 -C all
 
           - name: Stop and Remove Client Container
             shell: bash
@@ -114,7 +114,7 @@ jobs:
               docker tag scientificoperationscentreapi cherrytree811/scientificoperationscentreapi:latest
               docker tag scientificoperationscentreauth cherrytree811/scientificoperationscentreauth:latest
               docker tag scientificoperationscentreclient cherrytree811/scientificoperationscentreclient:latest
-              docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
+              docker login -u cherrytree811 -p ${{ secrets.DOCKER_CRED }}
               docker push cherrytree811/scientificoperationscentreapi:latest
               docker push cherrytree811/scientificoperationscentreauth:latest
               docker push cherrytree811/scientificoperationscentreclient:latest
