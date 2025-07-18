@@ -5,21 +5,10 @@ use argon2::{Argon2,PasswordVerifier};
 use argon2::PasswordHash as PH;
 use jsonwebtoken::{encode, EncodingKey, Header};
 mod models;
-use utoipa::OpenApi;
-use utoipa_swagger_ui::SwaggerUi;
 use std::env;
 use models::{UserLogin, TokenResponse};
 
 
-#[utoipa::path(
-    post,
-    path = "/auth/login",
-    request_body = UserLogin,
-    responses(
-        (status = 200, description = "JWT Token", body = TokenResponse),
-        (status = 401, description = "Unauthorized")
-    )
-)]
 #[post("/auth/login")]
 async fn login(
     user: web::Json<UserLogin>,
@@ -53,9 +42,6 @@ async fn login(
 }
 
 
-#[derive(OpenApi)]
-#[openapi(paths(login), components(schemas(UserLogin, TokenResponse)))]
-struct ApiDoc;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -71,8 +57,6 @@ async fn main() -> std::io::Result<()> {
             .app_data(web::Data::new(pool.clone()))
             .wrap(cors)
             .service(login)
-            .service(SwaggerUi::new("/swagger-ui/{_:.*}").url("/api-doc/openapi.json", ApiDoc::openapi()))
-            .route("/", web::get().to(|| async { HttpResponse::Found().append_header(("Location", "/swagger-ui/")).finish() }))
     })
     .bind(("0.0.0.0", 8060))?
     .run()
