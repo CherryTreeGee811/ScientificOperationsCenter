@@ -9,7 +9,7 @@
 
 
 // API base URL for radiation measurements.
-const base = "http://localhost:8000/api/RadiationMeasurements"
+const base = "https://localhost:8000/api/RadiationMeasurements"
 
 
 /**

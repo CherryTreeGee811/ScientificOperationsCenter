@@ -9,7 +9,7 @@
 
 
 // API base URL for temperatures.
-const base = "http://localhost:8000/api/Temperatures"
+const base = "https://localhost:8000/api/Temperatures"
 
 
 /**

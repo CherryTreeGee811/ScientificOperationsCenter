@@ -30,4 +30,11 @@ RUN dotnet publish "./ScientificOperationsCentre.Api.csproj" \
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+# Copy SSL certificate and key into the image
+COPY ScientificOperationsCentre.Api/cert.pem ./
+COPY ScientificOperationsCentre.Api/key.pem ./
+USER root
+# Set permissions so the 'app' user can read the cert and key
+RUN chmod 644 cert.pem key.pem
+USER app
 ENTRYPOINT ["dotnet", "ScientificOperationsCentre.Api.dll"]

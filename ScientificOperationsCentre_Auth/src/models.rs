@@ -1,15 +1,14 @@
 use serde::{Deserialize, Serialize};
-use utoipa::ToSchema;
 
 
-#[derive(Deserialize, Serialize, ToSchema)]
+#[derive(Deserialize, Serialize)]
 pub struct UserLogin {
     pub username: String,
     pub password: String,
 }
 
 
-#[derive(Serialize, ToSchema)]
+#[derive(Serialize)]
 pub struct TokenResponse {
     pub token: String,
 }
