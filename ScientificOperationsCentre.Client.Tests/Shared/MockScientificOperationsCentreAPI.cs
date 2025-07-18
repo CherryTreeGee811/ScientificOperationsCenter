@@ -1,4 +1,5 @@
 ﻿using ScientificOperationsCentre.Api.ViewModels;
+using ScientificOperationsCentre.Client.Tests.Shared;
 using System.Net;
 using WireMock.Server;
 using WireMock.RequestBuilders;
@@ -17,7 +18,7 @@ namespace ScientificOperationsCentre.Client.Tests.Shared
             // Start WireMock on HTTPS (self-signed cert by default)
             _server = WireMockServer.Start(new WireMock.Settings.WireMockServerSettings
             {
-                Urls = new[] { "https://localhost:8000" },
+                Urls = new[] { AppServer.API_URL },
                 CertificateSettings = new WireMock.Settings.WireMockCertificateSettings
                 {
                     X509CertificateFilePath = "combined.pem"

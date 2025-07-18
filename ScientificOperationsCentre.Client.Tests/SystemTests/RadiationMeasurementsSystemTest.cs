@@ -20,8 +20,13 @@ namespace ScientificOperationsCentre.Client.Tests.SystemTests
         {
             MockAPI = new MockScientificOperationsCentreAPI();
             MockAPI.Start();
-            HttpClient = new HttpClient { BaseAddress = new Uri("https://localhost:8000") };
 
+            // Ignore SSL certificate errors for self-signed certs in test
+            var handler = new HttpClientHandler {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
+
+            HttpClient = new HttpClient(handler) { BaseAddress = new Uri(AppServer.API_URL) };
             var options = new ChromeOptions { AcceptInsecureCertificates = true };
             options.AddArgument("--ignore-certificate-errors");
             options.AddArgument("--headless=new");
@@ -35,7 +40,7 @@ namespace ScientificOperationsCentre.Client.Tests.SystemTests
 
         private void NavigateToBaseUrlAndLogin()
         {
-            Driver.Navigate().GoToUrl(AppServer.ClientURL);
+            Driver.Navigate().GoToUrl(AppServer.CLIENT_URL);
             Driver.Manage().Window.Size = new Size(Display.DesktopWidth, Display.DesktopHeight);
             var request = new HttpRequestMessage(HttpMethod.Options, "/auth/login");
             var response = HttpClient.SendAsync(request).Result;
