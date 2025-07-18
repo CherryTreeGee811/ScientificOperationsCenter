@@ -24,6 +24,24 @@ jobs:
               sudo apt update -y
               sudo apt install -y nikto doxygen libxml2-utils
           
+          - name: Generate SSL cert & key for the SPA client
+            shell: bash
+            run: |
+              openssl req -x509 -newkey rsa:4096 -keyout ScientificOperationsCentre.Client/key.pem -out ScientificOperationsCentre.Client/cert.pem -days 365 -nodes -subj "/CN=localhost"
+
+          - name: Generate SSL cert & key for the SPA client tests
+            shell: bash
+            run: |
+              openssl req -x509 -newkey rsa:4096 -keyout ScientificOperationsCentre.Client.Tests/key.pem -out ScientificOperationsCentre.Client.Tests/cert.pem -days 365 -nodes -subj "/CN=localhost"
+              cd ScientificOperationsCentre.Client.Tests
+              cat key.pem cert.pem > combined.pem
+              rm key.pem cert.pem
+            
+          - name: Generate SSL cert & key for the REST API
+            shell: bash
+            run: |
+              openssl req -x509 -newkey rsa:4096 -keyout ScientificOperationsCentre.Api/key.pem -out ScientificOperationsCentre.Api/cert.pem -days 365 -nodes -subj "/CN=localhost"
+
           - name: Build and Run App Containers
             shell: bash
             env:
@@ -96,7 +114,7 @@ jobs:
               docker tag scientificoperationscentreapi cherrytree811/scientificoperationscentreapi:latest
               docker tag scientificoperationscentreauth cherrytree811/scientificoperationscentreauth:latest
               docker tag scientificoperationscentreclient cherrytree811/scientificoperationscentreclient:latest
-              docker login -u cherrytree811 -p ${{ secrets.DOCKER_CRED }}
+              docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
               docker push cherrytree811/scientificoperationscentreapi:latest
               docker push cherrytree811/scientificoperationscentreauth:latest
               docker push cherrytree811/scientificoperationscentreclient:latest

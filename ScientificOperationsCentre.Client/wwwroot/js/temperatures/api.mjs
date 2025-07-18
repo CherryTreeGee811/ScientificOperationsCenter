@@ -1,4 +1,5 @@
-﻿import { getAccessTokenFromCookie } from '../parser.mjs';
+﻿import { api_url } from '../api.mjs';
+import { getAccessTokenFromCookie } from '../parser.mjs';
 
 
 /**
@@ -9,7 +10,7 @@
 
 
 // API base URL for temperatures.
-const base = "http://localhost:8000/api/Temperatures"
+const base = `${api_url}/api/Temperatures`;
 
 
 /**
