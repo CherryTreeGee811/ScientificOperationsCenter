@@ -21,7 +21,13 @@ namespace ScientificOperationsCentre.Client.Tests.SystemTests
         {
             MockAPI = new MockScientificOperationsCentreAPI();
             MockAPI.Start();
-            HttpClient = new HttpClient { BaseAddress = new Uri("https://localhost:8000") };
+
+            // Ignore SSL certificate errors for self-signed certs in test
+            var handler = new HttpClientHandler {
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+            };
+            
+            HttpClient = new HttpClient(handler) { BaseAddress = new Uri("https://localhost:8000") };
 
             var options = new ChromeOptions { AcceptInsecureCertificates = true };
             options.AddArgument("--ignore-certificate-errors");
