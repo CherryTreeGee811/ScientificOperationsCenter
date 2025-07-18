@@ -4,7 +4,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 8000
+EXPOSE 8000/tcp
 
 
 # This stage is used to build the service project

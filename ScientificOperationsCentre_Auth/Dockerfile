@@ -21,5 +21,5 @@ FROM alpine:latest
 WORKDIR /app
 COPY --from=builder /app/target/x86_64-unknown-linux-musl/release/ScientificOperationsCentre_Auth /app/
 COPY --from=builder /app/users.db /app/
-EXPOSE 8060
+EXPOSE 8060/tcp
 ENTRYPOINT ["/app/ScientificOperationsCentre_Auth"]

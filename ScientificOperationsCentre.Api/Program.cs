@@ -5,14 +5,25 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using System.Security.Cryptography.X509Certificates;
 
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
-
 var AllowedHeaders = new[] { "Content-Type", "Accept", "Accept-Language", "Authorization" };
+
+
+// Configure Kestrel to use SSL with PEM files
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(8000, listenOptions =>
+    {
+        var cert = X509Certificate2.CreateFromPemFile("cert.pem", "key.pem");
+        listenOptions.UseHttps(cert);
+    });
+});
+
 
 builder.Services.AddCors(options =>
 {
