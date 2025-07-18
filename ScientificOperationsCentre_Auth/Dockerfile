@@ -3,7 +3,7 @@ WORKDIR /app
 RUN apk add --no-cache musl-dev sqlite curl
 RUN rustup target add x86_64-unknown-linux-musl
 
-# Copy the application code
+# Copy the rest of the application code
 COPY . .
 
 # Create the database
