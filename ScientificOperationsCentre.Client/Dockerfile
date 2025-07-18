@@ -7,6 +7,10 @@ COPY ScientificOperationsCentre.Client/wwwroot /usr/share/nginx/html
 # Configure needed mime types
 COPY ScientificOperationsCentre.Client/mime.types /etc/nginx/mime.types
 
+# Configure key and certificate for SSL
+COPY ScientificOperationsCentre.Client/cert.pem /etc/nginx/cert.pem
+COPY ScientificOperationsCentre.Client/key.pem /etc/nginx/key.pem
+
 # Copy default configuration
 COPY ScientificOperationsCentre.Client/default.conf /etc/nginx/conf.d/default.conf
 
