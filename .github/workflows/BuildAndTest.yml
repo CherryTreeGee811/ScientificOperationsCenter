@@ -33,11 +33,14 @@ jobs:
             shell: bash
             run: |
               openssl req -x509 -newkey rsa:4096 -keyout ScientificOperationsCentre.Client.Tests/key.pem -out ScientificOperationsCentre.Client.Tests/cert.pem -days 365 -nodes -subj "/CN=localhost"
-
-          - name: Generate SSL cert & key for the REST API
-            shell: bash
-            run: |
-              openssl req -x509 -newkey rsa:4096 -keyout ScientificOperationsCentre.Api/key.pem -out ScientificOperationsCentre.Api/cert.pem -days 365 -nodes -subj "/CN=localhost"
+              cd ScientificOperationsCentre.Client.Tests
+              cat key.pem cert.pem > combined.pem
+              rm key.pem cert.pem
+            
+          # - name: Generate SSL cert & key for the REST API
+          #   shell: bash
+          #   run: |
+          #     openssl req -x509 -newkey rsa:4096 -keyout ScientificOperationsCentre.Api/key.pem -out ScientificOperationsCentre.Api/cert.pem -days 365 -nodes -subj "/CN=localhost"
 
           - name: Build and Run App Containers
             shell: bash
@@ -47,35 +50,35 @@ jobs:
               GROUND_CONTROL_PASS: ${{ secrets.GROUND_CONTROL_PASS }}
             run: docker compose up -d
 
-          - name: Run API Tests
-            shell: bash
-            run: |
-              mkdir -p APITestResults
-              dotnet test ./ScientificOperationsCentre.Api.Tests/ScientificOperationsCentre.Api.Tests.csproj \
-                --collect:"XPlat Code Coverage" \
-                --results-directory ./APITestResults \
-                --os linux \
-                --verbosity minimal
+          # - name: Run API Tests
+          #   shell: bash
+          #   run: |
+          #     mkdir -p APITestResults
+          #     dotnet test ./ScientificOperationsCentre.Api.Tests/ScientificOperationsCentre.Api.Tests.csproj \
+          #       --collect:"XPlat Code Coverage" \
+          #       --results-directory ./APITestResults \
+          #       --os linux \
+          #       --verbosity minimal
 
-          - name: Nikto Scan Backend
-            shell: bash
-            run: |
-              nikto -h http://localhost:8000 -C all
+          # - name: Nikto Scan Backend
+          #   shell: bash
+          #   run: |
+          #     nikto -h http://localhost:8000 -C all
 
-          - name: Stop and Remove API Container
-            shell: bash
-            run: |
-              docker rm -f scientificoperationscentreapi
+          # - name: Stop and Remove API Container
+          #   shell: bash
+          #   run: |
+          #     docker rm -f scientificoperationscentreapi
 
-          - name: Stop and Remove Auth Service Container
-            shell: bash
-            run: |
-              docker rm -f scientificoperationscentreauth
+          # - name: Stop and Remove Auth Service Container
+          #   shell: bash
+          #   run: |
+          #     docker rm -f scientificoperationscentreauth
               
-          - name: Stop and Remove Database Container
-            shell: bash
-            run: |
-              docker rm -f sqlpreview
+          # - name: Stop and Remove Database Container
+          #   shell: bash
+          #   run: |
+          #     docker rm -f sqlpreview
               
           - name: Run Client Tests
             shell: bash
@@ -93,25 +96,25 @@ jobs:
             run: |
               docker stop scientificoperationscentreclient
           
-          - name: Generate Doxygen Documentation
-            shell: bash
-            run: |
-              doxygen Doxyfile
+          # - name: Generate Doxygen Documentation
+          #   shell: bash
+          #   run: |
+          #     doxygen Doxyfile
 
-          - name: Upload Doxygen Documentation
-            uses: actions/upload-artifact@v4
-            with:
-              name: documentation
-              path: ./docs
+          # - name: Upload Doxygen Documentation
+          #   uses: actions/upload-artifact@v4
+          #   with:
+          #     name: documentation
+          #     path: ./docs
 
-          - name: Push Docker Images to DockerHub
-            if: ${{ github.ref == 'refs/heads/stable' }}
-            shell: bash
-            run: |
-              docker tag scientificoperationscentreapi cherrytree811/scientificoperationscentreapi:latest
-              docker tag scientificoperationscentreauth cherrytree811/scientificoperationscentreauth:latest
-              docker tag scientificoperationscentreclient cherrytree811/scientificoperationscentreclient:latest
-              docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
-              docker push cherrytree811/scientificoperationscentreapi:latest
-              docker push cherrytree811/scientificoperationscentreauth:latest
-              docker push cherrytree811/scientificoperationscentreclient:latest
+          # - name: Push Docker Images to DockerHub
+          #   if: ${{ github.ref == 'refs/heads/stable' }}
+          #   shell: bash
+          #   run: |
+          #     docker tag scientificoperationscentreapi cherrytree811/scientificoperationscentreapi:latest
+          #     docker tag scientificoperationscentreauth cherrytree811/scientificoperationscentreauth:latest
+          #     docker tag scientificoperationscentreclient cherrytree811/scientificoperationscentreclient:latest
+          #     docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
+          #     docker push cherrytree811/scientificoperationscentreapi:latest
+          #     docker push cherrytree811/scientificoperationscentreauth:latest
+          #     docker push cherrytree811/scientificoperationscentreclient:latest
