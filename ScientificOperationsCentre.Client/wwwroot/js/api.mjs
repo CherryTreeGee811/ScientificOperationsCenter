@@ -1,5 +1,5 @@
 ﻿// API base URL for login.
-const base = "https://localhost:8000/auth/login";
+const base = "http://localhost:8000/auth/login";
 
 
 export function getToken(username, password) {

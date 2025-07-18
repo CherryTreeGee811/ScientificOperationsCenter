@@ -24,18 +24,6 @@ jobs:
               sudo apt update -y
               sudo apt install -y nikto doxygen libxml2-utils
           
-          - name: Generate SSL cert & key for the SPA client
-            shell: bash
-            run: |
-              cd ScientificOperationsCentre.Client
-              openssl req -x509 -newkey rsa:4096 -keyout ScientificOperationsCentre.Client/key.pem -out ScientificOperationsCentre.Client/cert.pem -days 365 -nodes -subj "/CN=localhost"
-
-          - name: Generate SSL cert & key for the REST API
-            shell: bash
-            run: |
-              cd ScientificOperationsCentre.Api
-              openssl req -x509 -newkey rsa:4096 -keyout ScientificOperationsCentre.Api/key.pem -out ScientificOperationsCentre.Api/cert.pem -days 365 -nodes -subj "/CN=localhost"
-
           - name: Build and Run App Containers
             shell: bash
             env:
@@ -57,7 +45,7 @@ jobs:
           - name: Nikto Scan Backend
             shell: bash
             run: |
-              nikto -h https://localhost:8000 -C all
+              nikto -h http://localhost:8000 -C all
 
           - name: Stop and Remove API Container
             shell: bash
@@ -83,7 +71,7 @@ jobs:
           - name: Nikto Scan Frontend
             shell: bash
             run: |
-              nikto -h https://localhost:9000 -C all
+              nikto -h http://localhost:9000 -C all
 
           - name: Stop and Remove Client Container
             shell: bash
@@ -108,7 +96,7 @@ jobs:
               docker tag scientificoperationscentreapi cherrytree811/scientificoperationscentreapi:latest
               docker tag scientificoperationscentreauth cherrytree811/scientificoperationscentreauth:latest
               docker tag scientificoperationscentreclient cherrytree811/scientificoperationscentreclient:latest
-              docker login -u cherrytree811 -p ${{ secrets.DOCKER_CRED }}
+              docker login -u cherrytreegee811 -p ${{ secrets.DOCKER_CRED }}
               docker push cherrytree811/scientificoperationscentreapi:latest
               docker push cherrytree811/scientificoperationscentreauth:latest
               docker push cherrytree811/scientificoperationscentreclient:latest

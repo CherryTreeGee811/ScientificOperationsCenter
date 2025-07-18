@@ -1,10 +1,26 @@
 
 types {
-    text/html                                        html;
+    text/html                                        html htm shtml;
     text/css                                         css;
-    application/javascript                           mjs;
+    image/jpeg                                       jpeg jpg;
+    application/javascript                           js mjs;
+
+    image/png                                        png;
+    image/svg+xml                                    svg svgz;
     image/webp                                       webp;
     image/x-icon                                     ico;
+
+    font/woff                                        woff;
+    font/woff2                                       woff2;
+
     application/json                                 json;
-    application/x-x509-ca-cert                       pem;
+    application/pdf                                  pdf;
+    application/vnd.ms-fontobject                    eot;
+    application/x-7z-compressed                      7z;
+    application/x-rar-compressed                     rar;
+    application/x-tcl                                tcl tk;
+    application/x-x509-ca-cert                       der pem crt;
+    application/x-xpinstall                          xpi;
+    application/xhtml+xml                            xhtml;
+    application/zip                                  zip;
 }
