@@ -2,7 +2,7 @@
 types {
     text/html                                        html;
     text/css                                         css;
-    application/javascript                           mjs;
+    application/javascript                           js mjs;
     image/webp                                       webp;
     image/x-icon                                     ico;
     application/json                                 json;

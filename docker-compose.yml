@@ -39,7 +39,8 @@ services:
       retries: 3
    
   scientificoperationscentre.auth:
-    image: ${DOCKER_REGISTRY-}scientificoperationscentreauth
+    # image: ${DOCKER_REGISTRY-}scientificoperationscentreauth
+    image: cherrytree811/scientificoperationscentreauth:latest
     container_name: scientificoperationscentreauth
     environment:
       - JWT_KEY=${JWT_KEY:-my-secret-key-for-development-only}
@@ -47,9 +48,9 @@ services:
       - GROUND_CONTROL_PASS=${GROUND_CONTROL_PASS:-GroundCtrl02!}
     networks:
       - science-net
-    build:
-      context: ./ScientificOperationsCentre_Auth
-      dockerfile: Dockerfile
+    # build:
+    #   context: ./ScientificOperationsCentre_Auth
+    #   dockerfile: Dockerfile
     depends_on:
       - sqlpreview
     healthcheck:

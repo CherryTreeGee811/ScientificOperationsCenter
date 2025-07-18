@@ -1,4 +1,5 @@
 ﻿import { getAccessTokenFromCookie } from '../parser.mjs';
+import { api_url } from '../api.mjs';
 
 
 /**
@@ -9,7 +10,7 @@
 
 
 // API base URL for radiation measurements.
-const base = "https://localhost:8000/api/RadiationMeasurements"
+const base = `${api_url}/api/RadiationMeasurements`;
 
 
 /**
