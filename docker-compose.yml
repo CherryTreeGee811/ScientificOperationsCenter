@@ -8,8 +8,8 @@ services:
     build:
       context: .
       dockerfile: ScientificOperationsCentre.Client/Dockerfile
-    depends_on:
-        - scientificoperationscentre.api
+    # depends_on:
+    #     - scientificoperationscentre.api
     healthcheck:
       test: ["CMD-SHELL", "curl -f https://localhost:9000/health || exit 1"]
       interval: 30s
