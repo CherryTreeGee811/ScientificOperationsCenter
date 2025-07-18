@@ -29,6 +29,11 @@ jobs:
             run: |
               openssl req -x509 -newkey rsa:4096 -keyout ScientificOperationsCentre.Client/key.pem -out ScientificOperationsCentre.Client/cert.pem -days 365 -nodes -subj "/CN=localhost"
 
+          - name: Generate SSL cert & key for the SPA client tests
+            shell: bash
+            run: |
+              openssl req -x509 -newkey rsa:4096 -keyout ScientificOperationsCentre.Client.Tests/key.pem -out ScientificOperationsCentre.Client.Tests/cert.pem -days 365 -nodes -subj "/CN=localhost"
+
           - name: Generate SSL cert & key for the REST API
             shell: bash
             run: |
