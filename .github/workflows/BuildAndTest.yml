@@ -27,13 +27,11 @@ jobs:
           - name: Generate SSL cert & key for the SPA client
             shell: bash
             run: |
-              cd ScientificOperationsCentre.Client
               openssl req -x509 -newkey rsa:4096 -keyout ScientificOperationsCentre.Client/key.pem -out ScientificOperationsCentre.Client/cert.pem -days 365 -nodes -subj "/CN=localhost"
 
           - name: Generate SSL cert & key for the REST API
             shell: bash
             run: |
-              cd ScientificOperationsCentre.Api
               openssl req -x509 -newkey rsa:4096 -keyout ScientificOperationsCentre.Api/key.pem -out ScientificOperationsCentre.Api/cert.pem -days 365 -nodes -subj "/CN=localhost"
 
           - name: Build and Run App Containers
