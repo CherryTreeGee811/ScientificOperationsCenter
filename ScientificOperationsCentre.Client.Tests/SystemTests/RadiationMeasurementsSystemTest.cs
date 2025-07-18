@@ -20,9 +20,10 @@ namespace ScientificOperationsCentre.Client.Tests.SystemTests
         {
             MockAPI = new MockScientificOperationsCentreAPI();
             MockAPI.Start();
-            HttpClient = new HttpClient { BaseAddress = new Uri("http://localhost:8000") };
+            HttpClient = new HttpClient { BaseAddress = new Uri("https://localhost:8000") };
 
             var options = new ChromeOptions { AcceptInsecureCertificates = true };
+            options.AddArgument("--ignore-certificate-errors");
             options.AddArgument("--headless=new");
             options.AddArgument("--disable-gpu");
             options.AddArgument($"--window-size={Display.DesktopWidth},{Display.DesktopHeight}");

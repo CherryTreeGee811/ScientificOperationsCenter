@@ -16,7 +16,7 @@ namespace ScientificOperationsCentre.Client.Tests.Shared
         {
             _server = WireMockServer.Start(new WireMock.Settings.WireMockServerSettings
             {
-                Urls = ["http://localhost:8000"]
+                Urls = ["https://localhost:8000"]
             });
 
             SetupMappingsForRadiationMeasurements();
